@@ -26,7 +26,7 @@
 
 ---
 
-## 2. Infrastructure Layer (`src/infra`)
+## 2. Infrastructure Layer (`infra`)
 
 - [ ] **Database Core Setup with Neon & Drizzle ORM**
 - **Status:** ⏳ Pending (Target: 2026-07-10)
