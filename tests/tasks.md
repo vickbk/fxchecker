@@ -20,18 +20,32 @@
 
 ## 2. End-to-End Integration Testing (Playwright)
 
-- [ ] **Playwright Core Framework Initialization**
-- Status: ⏳ Pending (Target: 2026-07-06)
+- [x] **Playwright Core Framework Initialization**
+- Status: ✅ Completed (Target: 2026-07-03)
 - Description: Scaffolding the Playwright infrastructure tailored to intercept and validate complete Next.js user flows.
-- [ ] Install the core test runner: `pnpm add -D @playwright/test`.
-- [ ] Execute the official driver installer to get necessary browser binaries: `pnpm exec playwright install --with-deps`.
-- [ ] Create a root-level `playwright.config.ts` file.
+- [x] Install the core test runner: `pnpm add -D @playwright/test`.
+- [x] Execute the official driver installer to get necessary browser binaries: `pnpm exec playwright install --with-deps`.
+- [x] Create a root-level `playwright.config.ts` file.
 
-- [ ] **Playwright Next.js Lifecycle Configuration & Isolation**
-- Status: ⏳ Pending (Target: 2026-07-06)
+- [x] **Playwright Next.js Lifecycle Configuration & Isolation**
+- Status: ✅ Done (Target: 2026-07-03)
 - Description: Tweak Playwright timeouts, base URLs, and local server initialization scripts to smoothly test build outputs.
-- [ ] Configure `webServer` within `playwright.config.ts` to automatically trigger a production build preview (`pnpm build && pnpm start`) on port `3000` before running assertions.
-- [ ] Set up the baseline `baseURL` to target `http://localhost:3000`.
-- [ ] Configure a dedicated storage output folder (`tests-output/`) inside `.gitignore` to isolate trace logs and screenshot artifacts.
-- [ ] Create a baseline E2E check file `e2e/home.spec.ts` at the root level to test layout stability across desktop and mobile viewports.
-- [ ] Update `package.json` to include scripts for execution: `"test:e2e": "playwright test"`.
+- [x] Configure `webServer` within `playwright.config.ts` to automatically trigger a production build preview (`pnpm build && pnpm start`) on port `3000` before running assertions.
+- [x] Set up the baseline `baseURL` to target `http://localhost:3000`.
+- [x] Configure a dedicated storage output folder (`tests-output/`) inside `.gitignore` to isolate trace logs and screenshot artifacts.
+- [x] Create a baseline E2E check file `e2e/home.spec.ts` at the root level to test layout stability across desktop and mobile viewports.
+- [x] Update `package.json` to include scripts for execution: `"test:e2e": "playwright test"`.
+
+## 3. Add CI tests scripts
+
+- [x] **Vitest workflow config**
+  - Status: ✅ Done (Target: 2026-07-03)
+  - Description: Configue workflow for checking init and integration tests on push and merge
+  - [x] Create `vitest.yml` workflow file
+  - [x] Add configs for running the vitest tests
+
+- [x] **Playwright workflow config**
+  - Status: ✅ Done (Target: 2026 -07-03)
+  - Description: Verify that the generated playwright config meet expectation
+  - [x] Check that `playwright.yml` exists in the workflows folder
+  - [x] Verify the current config meet the expectations for end to end testing
