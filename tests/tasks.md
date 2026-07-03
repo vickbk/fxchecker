@@ -3,18 +3,18 @@
 ## 1. Unit Testing Environment (Vitest)
 
 - [x] **Vitest Installation & Package Setup**
-- Status: ⏳ Pending (Target: 2026-07-05)
+- Status: ✅ Done (Target: 2026-07-03)
 - Description: Install the Vitest test runner alongside React Testing Library dependencies optimized for the Next.js runtime.
 - [x] Install dependencies: `pnpm add -D vitest @vitejs/plugin-react jsdom @testing-library/react @testing-library/jest-dom @testing-library/user-event`
 - [x] Configure the `vitest.config.ts` file at the root level.
 - [x] Map Next.js path aliases (`infra/*`, `features/*`, `shared/*`) inside the Vite configuration using `vite-tsconfig-paths` or manual alias blocks.
 - [x] Create a `test/setup.ts` file at the root to import `@testing-library/jest-dom` matchers globally.
 
-- [ ] **Vitest Scripts & Smoke Test Verification**
-- Status: ⏳ Pending (Target: 2026-07-05)
+- [x] **Vitest Scripts & Smoke Test Verification**
+- Status: ✅ Done (Target: 2026-07-03)
 - Description: Add test execution commands to the package manifest and verify runtime configuration with a dummy component test.
-- [ ] Add testing scripts to `package.json`: `"test": "vitest"`, `"test:run": "vitest run"`, and `"test:ui": "vitest --ui"`.
-- [ ] Create a validation test file inside a feature block (e.g., `features/converter/components/Button.test.tsx`) to verify JSDOM and React element rendering functions correctly.
+- [x] Add testing scripts to `package.json`: `"test": "vitest"`, `"test:run": "vitest run"`, and `"test:ui": "vitest --ui"`.
+- [x] Create a validation test file inside a feature block (e.g., `features/converter/components/Button.test.tsx`) to verify JSDOM and React element rendering functions correctly.
 
 ---
 

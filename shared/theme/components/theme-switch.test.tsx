@@ -45,7 +45,7 @@ describe("ThemeSwitch Integration", () => {
       isLight: true,
       theme: "light",
       changeTheme: vi.fn(),
-    } as any);
+    });
 
     render(<ThemeSwitch />);
     const button = screen.getByRole("button");
@@ -66,7 +66,7 @@ describe("ThemeSwitch Integration", () => {
       isLight: false,
       theme: "dark",
       changeTheme: vi.fn(),
-    } as any);
+    });
 
     rerender(<ThemeSwitch />);
     await expect(screen.getByText(SWITCH_TO_LIGHT)).toBeInTheDocument();
@@ -85,7 +85,7 @@ describe("ThemeSwitch with Dark Mode", () => {
       isLight: false,
       theme: "dark",
       changeTheme: vi.fn(),
-    } as any);
+    });
 
     render(<ThemeSwitch />);
 
