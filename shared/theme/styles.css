@@ -1,0 +1,15 @@
+@theme {
+  --color-neutral-900: hsl(0, 0%, 4%);
+  --color-neutral-700: hsl(240, 4%, 9%);
+  --color-neutral-600: hsl(240, 3%, 13%);
+  --color-neutral-500: hsl(0, 0%, 18%);
+  --color-neutral-400: hsl(0, 0%, 24%);
+  --color-neutral-300: hsl(240, 1%, 27%);
+  --color-neutral-200: hsl(0, 0%, 62%);
+  --color-neutral-100: hsl(0, 0%, 78%);
+  --color-neutral-50: hsl(0, 0, 100%);
+  --color-lime-500: hsl(71, 92%, 60%);
+  --color-lime-800: hsl(73, 100%, 10%);
+  --color-green-500: hsl(104, 96%, 47%);
+  --color-red-500: hsl(0, 100%, 63%);
+}
