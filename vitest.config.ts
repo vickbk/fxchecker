@@ -1,0 +1,23 @@
+import react from "@vitejs/plugin-react";
+import path from "path";
+import { defineConfig } from "vitest/config";
+
+export default defineConfig({
+  plugins: [react()],
+  test: {
+    environment: "happy-dom",
+    setupFiles: ["./tests/vitest/setup.ts"],
+    globals: true,
+    alias: {
+      "@": path.resolve(__dirname, "./"),
+      "@features": path.resolve(__dirname, "./features"),
+      "@shared": path.resolve(__dirname, "./shared"),
+      "#tests": path.resolve(__dirname, "./tests"),
+    },
+    exclude: [
+      "**/node_modules/**",
+      "**/__tests__/**", // Playwright E2E specs live here
+      "**/dist/**",
+    ],
+  },
+});

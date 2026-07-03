@@ -10,10 +10,10 @@
 - [x] Initialize a Next.js App Router application using TypeScript in the root directory.
 
 - [ ] **Modular Directory Architecture Scaffolding**
-- **Status:** ⏳ Pending (Target: 2026-07-06)
+- **Status:** ⏳ In Progress (Target: 2026-07-03)
 - **Description:** Scaffold the clean, feature-driven directory layout to completely decouple your domain logic from Next.js routing patterns.
 - [ ] Build the `/infra` directory for global shared subsystems (database, auth engine, API clients).
-- [ ] Build the `/shared` directory for cross-cutting layout primitives, design tokens, UI components, and basic utils.
+- [x] Build the `/shared` directory for cross-cutting layout primitives, design tokens, UI components, and basic utils.
 - [ ] Build the `/features` directory to house domain isolation folders (`converter`, `market`, `favorites`, `log`).
 - [ ] Clean out `/app` to serve purely as the routing configuration shell that imports view containers from the features layer.
 
