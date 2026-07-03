@@ -10,9 +10,6 @@ export default defineConfig({
     globals: true,
     alias: {
       "@": path.resolve(__dirname, "./"),
-      "@features": path.resolve(__dirname, "./features"),
-      "@shared": path.resolve(__dirname, "./shared"),
-      "#tests": path.resolve(__dirname, "./tests"),
     },
     exclude: [
       "**/node_modules/**",
