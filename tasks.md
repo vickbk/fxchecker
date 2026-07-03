@@ -9,13 +9,13 @@
 - [x] Configure `package.json` with strict engine enforcement for Node.js and pnpm v11.
 - [x] Initialize a Next.js App Router application using TypeScript in the root directory.
 
-- [ ] **Modular Directory Architecture Scaffolding**
-- **Status:** ⏳ In Progress (Target: 2026-07-03)
+- [x] **Modular Directory Architecture Scaffolding**
+- **Status:** ✅ Completed (Target: 2026-07-03)
 - **Description:** Scaffold the clean, feature-driven directory layout to completely decouple your domain logic from Next.js routing patterns.
-- [ ] Build the `/infra` directory for global shared subsystems (database, auth engine, API clients).
+- [x] Build the `/infra` directory for global shared subsystems (database, auth engine, API clients).
 - [x] Build the `/shared` directory for cross-cutting layout primitives, design tokens, UI components, and basic utils.
-- [ ] Build the `/features` directory to house domain isolation folders (`converter`, `market`, `favorites`, `log`).
-- [ ] Clean out `/app` to serve purely as the routing configuration shell that imports view containers from the features layer.
+- [x] Build the `/features` directory to house domain isolation folders (`converter`, `market`, `favorites`, `log`).
+- [x] Clean out `/app` to serve purely as the routing configuration shell that imports view containers from the features layer.
 
 - [ ] **Styling, Theme System, & Test Harness Configuration**
 - **Status:** ⏳ Pending (Target: 2026-07-07)
