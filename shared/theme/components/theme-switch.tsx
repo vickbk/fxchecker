@@ -1,5 +1,4 @@
-import { Icon } from "@/shared/helpers/components/bi-icon";
-import { SROnly } from "@/shared/helpers/components/SROnly";
+"use client";
 import { useTheme } from "../hooks";
 
 export const ThemeSwitch = () => {
@@ -8,8 +7,12 @@ export const ThemeSwitch = () => {
   return (
     <div className="ml-auto">
       <button type="button" onClick={toggleTheme}>
-        <SROnly>Switch to {isDark ? "light" : "dark"} theme</SROnly>
-        <Icon name={isDark ? "sun-fill c-yellow-400" : "moon-fill"} />
+        <span className="sr-only">
+          Switch to {isDark ? "light" : "dark"} theme
+        </span>
+        <i
+          className={isDark ? "bi bi-sun-fill c-yellow-400" : "bi bi-moon-fill"}
+        />
       </button>
     </div>
   );

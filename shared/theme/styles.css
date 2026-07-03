@@ -1,4 +1,8 @@
-@theme {
+:root {
+  --background: hsl(0, 0, 100%);
+  --foreground: hsl(0, 0%, 4%);
+}
+@theme inline {
   --color-neutral-900: hsl(0, 0%, 4%);
   --color-neutral-700: hsl(240, 4%, 9%);
   --color-neutral-600: hsl(240, 3%, 13%);
@@ -12,4 +16,26 @@
   --color-lime-800: hsl(73, 100%, 10%);
   --color-green-500: hsl(104, 96%, 47%);
   --color-red-500: hsl(0, 100%, 63%);
+
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+}
+
+:root {
+  @media (prefers-color-scheme: dark) {
+    --background: var(--color-neutral-900);
+    --foreground: var(--color-neutral-50);
+  }
+
+  &[theme="dark"],
+  *[theme="dark"] {
+    --background: var(--color-neutral-900);
+    --foreground: var(--color-neutral-50);
+  }
+
+  &[theme="light"],
+  *[theme="light"] {
+    --background: var(--color-neutral-50);
+    --foreground: var(--color-neutral-900);
+  }
 }

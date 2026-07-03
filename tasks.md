@@ -20,9 +20,9 @@
 - [ ] **Styling, Theme System, & Test Harness Configuration**
 - **Status:** ⏳ In progress (Target: 2026-07-03)
 - **Description:** Establish Tailwind CSS dark-first theme systems and seed runtime validation frameworks.
-- [ ] Set up Tailwind CSS configuration supporting utility classes and dark mode toggling.
-- [ ] Install and configure Vitest for structural unit tests and Playwright for core end-to-end integration flows.
+- [x] Set up Tailwind CSS configuration supporting utility classes and dark mode toggling.
 - [ ] Wire up global typography scales and basic CSS variables inside `shared/styles`.
+- [ ] Install and configure Vitest for structural unit tests and Playwright for core end-to-end integration flows.
 
 ---
 
