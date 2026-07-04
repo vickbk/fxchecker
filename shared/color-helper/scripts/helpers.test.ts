@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import {
   generateSassOutput,
   generateTailwindOutput,
@@ -164,7 +165,7 @@ describe("generateTailwindOutput", () => {
       { name: "neutral-900", value: "0 0% 7%" },
     ]);
     expect(result).toBe(`@theme {
-  --color-neutral-900: 0 0% 7%;
+  --color-neutral-900: hsl(0 0% 7%);
 }`);
   });
 
@@ -175,9 +176,9 @@ describe("generateTailwindOutput", () => {
       { name: "blue-600", value: "214 100% 55%" },
     ]);
     expect(result).toBe(`@theme {
-  --color-neutral-900: 0 0% 7%;
-  --color-neutral-800: 0 0% 15%;
-  --color-blue-600: 214 100% 55%;
+  --color-neutral-900: hsl(0 0% 7%);
+  --color-neutral-800: hsl(0 0% 15%);
+  --color-blue-600: hsl(214 100% 55%);
 }`);
   });
 
@@ -186,7 +187,7 @@ describe("generateTailwindOutput", () => {
       { name: "yellow-400", value: "49 85% 70%" },
     ]);
     expect(result).toBe(`@theme {
-  --color-yellow-400: 49 85% 70%;
+  --color-yellow-400: hsl(49 85% 70%);
 }`);
   });
 

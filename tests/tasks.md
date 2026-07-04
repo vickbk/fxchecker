@@ -49,3 +49,22 @@
   - Description: Verify that the generated playwright config meet expectation
   - [x] Check that `playwright.yml` exists in the workflows folder
   - [x] Verify the current config meet the expectations for end to end testing
+
+Here is the optimized task structure. It fixes the typos, eliminates redundant descriptions, and converts the manual instructions into a clean, high-velocity loop optimized for Vitest’s interactive watch mode.
+
+---
+
+## 4. Fix Broken Tests
+
+- [x] **Execute Iterative Test Resolution Loop**
+  - **Status:** ✅ Done (Target: 2026-07-04)
+  - **Description:** Run the test engine in targeted isolation to systematically eliminate component failures in a tight loop without pipeline overhead.
+  - [x] Run `pnpm test` to inventory the exact list of failing suites.
+  - [x] **The Resolution Loop:** Select a single failing component file and isolate it using `pnpm test -- path/to/file.test.tsx`.
+    - [x] Apply the localized component fix or mock correction.
+    - [x] Observe the immediate watch mode pass/fail feedback loop.
+    - [x] Confirm the total failure count drops and commit the atomic patch.
+    - [x] Repeat this cycle for the next targeted failure.
+
+  - [x] Remove all temporary test isolation markers and execute a final global run via `pnpm test`.
+  - [x] Execute `pnpm build` to verify that the test fixes introduced no production bundle or type compilation regressions.

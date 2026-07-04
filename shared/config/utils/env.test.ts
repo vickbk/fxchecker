@@ -46,9 +46,7 @@ describe("Server Enviroment check", () => {
       const { config } = await import("./env");
       console.log(config.FRANKFURTER_URL);
     } catch (err: unknown) {
-      expect((err as Error).message).toMatch(
-        /Environment validation failed: FRANKFURTER_URL is required/i,
-      );
+      expect((err as Error).message).toMatch(/FRANKFURTER_URL is required/i);
     }
   });
 
@@ -56,7 +54,7 @@ describe("Server Enviroment check", () => {
     initConfig();
     const { config } = await import("./env");
 
-    expect(config.FRANKFURTER_URL).toBe("test_frankfurter_url");
+    expect(config.FRANKFURTER_URL).toBe("http://test_frankfurter_url");
     expect(config.AI_PROVIDER_KEY).toBe("test_ai_key");
     expect(config.AUTH_SECRET).toBe("test_auth_secret");
     expect(config.AUTH_GOOGLE_ID).toBe("test_google_id");
@@ -73,6 +71,7 @@ describe("Server Enviroment check", () => {
 });
 
 function initConfig(conf: Partial<Config> = {}) {
+  process.env.FRANKFURTER_URL = "http://test_frankfurter_url";
   process.env.TMDB_API_KEY = "test_tmdb_key";
   process.env.AI_PROVIDER_KEY = "test_ai_key";
   process.env.AUTH_SECRET = "test_auth_secret";

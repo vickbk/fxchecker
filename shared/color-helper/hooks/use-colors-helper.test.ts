@@ -1,4 +1,5 @@
 import { act, renderHook, waitFor } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useColorsHelper } from "./use-colors-helper";
 
 describe("useColorsHelper", () => {
@@ -92,7 +93,7 @@ Blue 600: hsl(214, 100%, 55%)`);
 
       await waitFor(() => {
         expect(result.current.tailwindOutput).toBe(`@theme {
-  --color-neutral-900: 0 0% 7%;
+  --color-neutral-900: hsl(0 0% 7%);
 }`);
       });
     });

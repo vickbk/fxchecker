@@ -1,10 +1,12 @@
 import { act, renderHook } from "@testing-library/react";
+import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useTheme } from "./use-theme";
 
 // Mock the theme scripts
 vi.mock("../scripts", () => ({
   applyTheme: vi.fn(),
   getSavedTheme: vi.fn(() => "light"),
+  saveTheme: vi.fn(),
 }));
 
 // Mock memorization
@@ -70,7 +72,7 @@ describe("use Theme", () => {
     expect(result.current.theme).toBe("light");
   });
 
-  it("should have correct flags for each theme", () => {
+  it("should have correct flags for each theme", async () => {
     const { result } = renderHook(() => useTheme());
 
     expect(result.current.isLight).toBe(true);

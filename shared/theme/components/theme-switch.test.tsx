@@ -1,9 +1,11 @@
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
-import { SWITCH_TO_DARK, SWITCH_TO_LIGHT } from "@tests/shared";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useTheme } from "../hooks";
 import { ThemeSwitch } from "./theme-switch";
+
+const SWITCH_TO_DARK = /switch to dark theme/i;
+const SWITCH_TO_LIGHT = /switch to light theme/i;
 
 // Mock the useTheme hook
 vi.mock("../hooks", () => ({

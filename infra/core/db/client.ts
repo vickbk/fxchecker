@@ -9,7 +9,7 @@
  * points under `infrastructure/core/auth` (see README.md for details).
  */
 
-import { config } from "@shared/config";
+import { config } from "@/shared/config";
 import { drizzle } from "drizzle-orm/node-postgres";
 import { Pool } from "pg";
 import { DBSignature } from "./types";

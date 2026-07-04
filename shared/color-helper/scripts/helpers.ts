@@ -13,7 +13,10 @@ export function parseColors(input: string): ParsedColor[] {
     .filter((line) => line.trim())
     .map((line) => {
       // Remove *, -, and clean hsl() format
-      const cleaned = line.replaceAll(/[-*]/g, "").replaceAll(/hsl\(|\)/g, "");
+      const cleaned = line
+        .replaceAll(/[-*]/g, "")
+        .replaceAll(/hsl\(|\)/g, "")
+        .replaceAll(/,\s/g, " ");
       const parts = cleaned.split(":");
       if (parts.length < 2) return null;
 
