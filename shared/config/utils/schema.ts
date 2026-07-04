@@ -5,8 +5,7 @@ export const clientSchema = z.object({
   NEXT_PUBLIC_CHATBOT_STORAGE_KEY: z.string().default(""),
 });
 export const configSchema = z.object({
-  FRANKFURTER_URL: z.string().default("https://api.frankfurter.app/v2/"),
-
+  FRANKFURTER_URL: z.url({ message: "FRANKFURTER_URL is required" }),
   AUTH_SECRET: z
     .string({
       message: "AUTH_SECRET is required",
