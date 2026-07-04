@@ -5,7 +5,7 @@
  * other Edge runtime entry points. Keep this file pure and configuration-only.
  */
 
-import { config } from "@shared/config";
+import { config } from "@/shared/config";
 import type { NextAuthConfig } from "next-auth";
 import Google from "next-auth/providers/google";
 
