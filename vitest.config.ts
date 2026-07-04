@@ -15,6 +15,7 @@ export default defineConfig({
       "**/node_modules/**",
       "**/__tests__/**", // Playwright E2E specs live here
       "**/dist/**",
+      "**/*.spec.ts",
     ],
   },
 });
