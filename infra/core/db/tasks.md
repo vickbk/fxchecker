@@ -1,0 +1,34 @@
+## Infrastructure Layer: Database Core Implementation
+
+- [ ] **Dependency Provisioning & Environment Setup**
+- **Status:** ⏳ Pending (Target: 2026-07-05)
+- **Description:** Install the Drizzle core ecosystem packages and configure connection tokens for localized development.
+- [x] Run `pnpm add drizzle-orm postgres` to install the runtime ORM engine and the high-performance PostgreSQL driver client.
+- [x] Run `pnpm add -D drizzle-kit @types/postgres` to install the migration CLI utility and type definitions.
+- [ ] Add the `DATABASE_URL` connection string to your localized environment files (`.env` or `.env.local`).
+- [ ] Create a structural schema entry-point file at `infra/core/db/schema.ts` to host unified schema exports.
+
+- [ ] **Database Client Initialization & Connection Pooling**
+- **Status:** ⏳ Pending (Target: 2026-07-06)
+- **Description:** Instantiate the connection pooling manager and export a strictly typed Drizzle client instance tailored to prevent socket leakage across serverless/Netlify functions.
+- [ ] Create `infra/core/db/index.ts`.
+- [ ] Implement connection pooling using `postgres(process.env.DATABASE_URL, { max: 10 })` to properly reuse connections across execution threads.
+- [ ] Guard global context initialization against hot-reloads in development to ensure multiple driver instances are not spawned during active coding blocks.
+- [ ] Initialize and export the core `db` instance: `export const db = drizzle(client, { schema })`.
+
+- [ ] **Configure Drizzle Migration Control Suite**
+- **Status:** ⏳ Pending (Target: 2026-07-06)
+- **Description:** Create the top-level Drizzle CLI configuration to map schema origins, migration outputs, and runtime execution criteria.
+- [ ] Create a modern `drizzle.config.ts` file at the root of your project workspace.
+- [ ] Configure the options payload targeting the PostgreSQL dialect, mapping schema to `infra/core/db/schema.ts` and output targets to `infra/core/db/migrations`.
+- [ ] Append execution scripts to your root `package.json` manifest:
+- `"db:generate": "drizzle-kit generate"` (to compile schema updates into SQL files)
+- `"db:migrate": "drizzle-kit migrate"` (to execute local migration scripts against the target DB)
+- `"db:studio": "drizzle-kit studio"` (to launch the administrative UI visualization dashboard)
+
+- [ ] **Verification, Compilation, & Architecture Boundary Sweeps**
+- **Status:** ⏳ Pending (Target: 2026-07-07)
+- **Description:** Assert that the initialization compiles properly, runs without type leaks, and respects our newly established layer isolation rules.
+- [ ] Create a basic test record model inside `schema.ts` to run a dry-run migration file generation via `pnpm db:generate`.
+- [ ] Run `pnpm lint` to verify our boundary configurations block any leakage from the foundation layers outward.
+- [ ] Execute `pnpm build` to confirm that the complete Drizzle compilation sequence integrates seamlessly into the Next.js production build engine without emitting type warnings.
