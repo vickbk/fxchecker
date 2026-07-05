@@ -80,6 +80,12 @@ const eslintConfig = defineConfig([
             },
             {
               from: { type: "shared" },
+              disallow: { to: { type: "shared" } },
+              message:
+                'Cross-shared contamination: "{{from.captured.moduleName}}" cannot import from "{{to.captured.moduleName}}".',
+            },
+            {
+              from: { type: "shared" },
               disallow: [
                 { to: { type: "feature" } },
                 { to: { type: "infra" } },
