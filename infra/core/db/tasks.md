@@ -1,12 +1,11 @@
 ## Infrastructure Layer: Database Core Implementation
 
-- [ ] **Dependency Provisioning & Environment Setup**
-- **Status:** ⏳ Pending (Target: 2026-07-05)
+- [x] **Dependency Provisioning & Environment Setup**
+- **Status:** ✅ Done (Target: 2026-07-05)
 - **Description:** Install the Drizzle core ecosystem packages and configure connection tokens for localized development.
 - [x] Run `pnpm add drizzle-orm postgres` to install the runtime ORM engine and the high-performance PostgreSQL driver client.
 - [x] Run `pnpm add -D drizzle-kit @types/postgres` to install the migration CLI utility and type definitions.
-- [ ] Add the `DATABASE_URL` connection string to your localized environment files (`.env` or `.env.local`).
-- [ ] Create a structural schema entry-point file at `infra/core/db/schema.ts` to host unified schema exports.
+- [x] Add the `DATABASE_URL` connection string to your localized environment files (`.env` or `.env.local`).
 
 - [ ] **Database Client Initialization & Connection Pooling**
 - **Status:** ⏳ Pending (Target: 2026-07-06)
