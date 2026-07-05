@@ -99,3 +99,36 @@
 - [ ] Add global hotkey hooks (e.g., `cmd+k` / `ctrl+k` to trigger currency search focus, `cmd+e` to swap pairs, numbers `1-5` for chart scope manipulation).
 - [ ] Ensure full screen-reader compliance with appropriate ARIA attributes for live currency changes.
 - [ ] Conduct final quality assurance tests across multiple viewport profiles, checking that no layout regressions occur across desktop or mobile breakpoints.
+
+## 5. Architectural Boundary Enforcement
+
+- [x] **Dependency Setup & Environment Verification**
+- **Status:** ✅ Done (Target: 2026-07-05)
+- **Description:** Install the boundary evaluation plugin and verify your current ESLint environment can parse absolute path aliases.
+- [x] Run `pnpm add -D eslint-plugin-boundaries` to add the core analyzer engine.
+- [x] Verify that your `eslint.config.js` includes a TypeScript parser setup capable of expanding path mappings (`@/*` or absolute paths like `features/`).
+- [x] Audit the `package.json` configurations to ensure standard lint shortcuts (`pnpm lint`) map correctly to the active configuration root.
+
+- [ ] **Configure Project Elements & Dynamic Capturing Groups**
+- **Status:** ⏳ Pending (Target: 2026-07-06)
+- **Description:** Map out the directory boundaries in your central configuration so the engine can categorize components by architectural layer.
+- [ ] Update `eslint.config.js` to initialize the boundaries plugin engine.
+- [ ] Add the `settings["boundaries/elements"]` array to your flat config workspace.
+- [ ] Define the `feature` capture zone with `mode: "folder"` and `capture: ["featureName"]` targeting the `features/*` pattern.
+- [ ] Map structural bounds for the foundational folders: `shared/*` (capturing `moduleName`), `infra/*`, and `app/*`.
+
+- [ ] **Establish Boundary Restrictions & Custom Assertions**
+- **Status:** ⏳ Pending (Target: 2026-07-07)
+- **Description:** Define strict dependency constraints to lock down feature coupling and protect your codebase's core architecture.
+- [ ] Activate the `boundaries/dependencies` validation rule inside the configurations array set to throw a baseline `"error"`.
+- [ ] Configure the rule block to disallow any element categorized as a `feature` from importing components or hooks from neighboring `feature` folders.
+- [ ] Attach strict foundational guards: restrict `shared/` elements from pointing upward into `infra/`, `features/`, or `app/`.
+- [ ] Formulate readable custom error logs (e.g., using `"${from.captured.featureName}"`) to output clear debugging steps upon violation.
+
+- [ ] **Execute Sandbox Testing & Codebase Sweeps**
+- **Status:** ⏳ Pending (Target: 2026-07-07)
+- **Description:** Validate the reliability of the new linter rules by running an intentional boundary failure sweep.
+- [ ] Run a standard baseline sweep (`pnpm lint`) to guarantee that your current project layout contains zero pre-existing boundary violations.
+- [ ] Open a file within an active feature workspace (e.g., `features/converter/`) and inject an intentional cross-feature link to a neighboring folder.
+- [ ] Execute `pnpm lint` and confirm the parser rejects the build while printing your custom cross-contamination error token.
+- [ ] Revert the structural code test to return your workspace to a fully compliant status.
