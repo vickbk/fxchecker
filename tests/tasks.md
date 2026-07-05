@@ -68,3 +68,36 @@ Here is the optimized task structure. It fixes the typos, eliminates redundant d
 
   - [x] Remove all temporary test isolation markers and execute a final global run via `pnpm test`.
   - [x] Execute `pnpm build` to verify that the test fixes introduced no production bundle or type compilation regressions.
+
+## 5. E2E Architecture & Co-location Implementation
+
+- [x] **Global Playwright Workspace & Config Setup**
+- **Status:** ✅ Done (Target: 2026-07-05)
+- **Description:** Scaffold the main E2E infrastructure at the root and configure Playwright to bridge the root directories and the feature-specific test modules.
+- [x] Structure the root testing workspace:
+- `playwright/utils/` (for global network intercepts, auth state bypasses).
+- `playwright/e2e/` (for behavioral groupings like `conversion-flows/`).
+
+- [x] Modify `playwright.config.ts` to set `testDir: './playwright/e2e'`.
+- [-] Add the `features/` directory to the Playwright watcher configuration so edits to local feature helpers automatically trigger test reruns.
+
+- [ ] **Develop Global Utilities (`playwright/utils/`)**
+- **Status:** ⏳ Pending (Target: 2026-07-06)
+- **Description:** Build the shared plumbing that feature-specific test modules will consume to manipulate the browser environment.
+- [ ] Create `playwright/utils/network.ts` to provide reusable Frankfurter API mock payloads.
+- [ ] Create `playwright/utils/auth.ts` to inject mocked Google OAuth session cookies, bypassing live login screens during execution.
+
+- [ ] **Scaffold Feature-Level Test Modules (`features/*/__testing__/`)**
+- **Status:** ⏳ Pending (Target: 2026-07-07)
+- **Description:** Build the Page Object Models (POMs) and action helpers directly inside their respective feature domains.
+- [ ] Create `features/converter/__testing__/converter.pom.ts` containing the locators and actions for amount inputs, currency selection, and swap triggers.
+- [ ] Create `features/favorites/__testing__/favorites.pom.ts` for interacting with the saved currency grid and local storage state.
+- [ ] Create `features/market/__testing__/market.pom.ts` for querying chart renderings and historical rate tables.
+- [ ] Ensure these files import environmental helpers cleanly from `@playwright-utils/` without circular dependencies.
+
+- [ ] **Compose Behavioral Stories (`playwright/e2e/`)**
+- **Status:** ⏳ Pending (Target: 2026-07-08)
+- **Description:** Wire together the localized feature helpers into complete user journeys, organized by app behaviors.
+- [ ] Create `playwright/e2e/core-conversion/stories.spec.ts` to orchestrate `converter.pom.ts` and `market.pom.ts` to test a full conversion and chart update flow.
+- [ ] Create `playwright/e2e/user-persistence/stories.spec.ts` to test saving favorites and verifying history logs across a simulated session reload.
+- [ ] Run `pnpm exec playwright test` to verify the orchestration paths resolve perfectly and the boundaries work as intended.
