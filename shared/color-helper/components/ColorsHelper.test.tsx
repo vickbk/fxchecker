@@ -1,8 +1,8 @@
-import { shouldNotSee, shouldSee } from "@/tests/vitest/utils/dsl";
 import { render, screen } from "@testing-library/react";
 
 import userEvent from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import { shouldNotSee, shouldSee } from "../__testing__/heplers";
 import { ColorsHelper } from "./ColorsHelper";
 
 const user = userEvent.setup();
