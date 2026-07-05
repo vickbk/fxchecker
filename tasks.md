@@ -125,10 +125,10 @@
 - [x] Attach strict foundational guards: restrict `shared/` elements from pointing upward into `infra/`, `features/`, or `app/`.
 - [x] Formulate readable custom error logs (e.g., using `"{{from.captured.featureName}}"`) to output clear debugging steps upon violation.
 
-- [ ] **Execute Sandbox Testing & Codebase Sweeps**
-- **Status:** ⏳ Pending (Target: 2026-07-07)
+- [x] **Execute Sandbox Testing & Codebase Sweeps**
+- **Status:** ✅ Done (Target: 2026-07-05)
 - **Description:** Validate the reliability of the new linter rules by running an intentional boundary failure sweep.
-- [ ] Run a standard baseline sweep (`pnpm lint`) to guarantee that your current project layout contains zero pre-existing boundary violations.
-- [ ] Open a file within an active feature workspace (e.g., `features/converter/`) and inject an intentional cross-feature link to a neighboring folder.
-- [ ] Execute `pnpm lint` and confirm the parser rejects the build while printing your custom cross-contamination error token.
-- [ ] Revert the structural code test to return your workspace to a fully compliant status.
+- [x] Run a standard baseline sweep (`pnpm lint`) to guarantee that your current project layout contains zero pre-existing boundary violations.
+- [x] Open a file within an active feature workspace (e.g., `features/converter/`) and inject an intentional cross-feature link to a neighboring folder.
+- [x] Execute `pnpm lint` and confirm the parser rejects the build while printing your custom cross-contamination error token.
+- [x] Revert the structural code test to return your workspace to a fully compliant status.

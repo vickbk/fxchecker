@@ -76,7 +76,7 @@ const eslintConfig = defineConfig([
               disallow: { to: { type: "feature" } },
 
               message:
-                'Cross-feature contamination: "{{from.captured.featureName}}" cannot import from "${to.captured.featureName}".',
+                'Cross-feature contamination: "{{from.captured.featureName}}" cannot import from "{{to.captured.featureName}}".',
             },
             {
               from: { type: "shared" },
