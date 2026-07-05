@@ -109,21 +109,21 @@
 - [x] Verify that your `eslint.config.js` includes a TypeScript parser setup capable of expanding path mappings (`@/*` or absolute paths like `features/`).
 - [x] Audit the `package.json` configurations to ensure standard lint shortcuts (`pnpm lint`) map correctly to the active configuration root.
 
-- [ ] **Configure Project Elements & Dynamic Capturing Groups**
-- **Status:** ⏳ Pending (Target: 2026-07-06)
+- [x] **Configure Project Elements & Dynamic Capturing Groups**
+- **Status:** ✅ Done (Target: 2026-07-05)
 - **Description:** Map out the directory boundaries in your central configuration so the engine can categorize components by architectural layer.
-- [ ] Update `eslint.config.js` to initialize the boundaries plugin engine.
-- [ ] Add the `settings["boundaries/elements"]` array to your flat config workspace.
-- [ ] Define the `feature` capture zone with `mode: "folder"` and `capture: ["featureName"]` targeting the `features/*` pattern.
-- [ ] Map structural bounds for the foundational folders: `shared/*` (capturing `moduleName`), `infra/*`, and `app/*`.
+- [x] Update `eslint.config.js` to initialize the boundaries plugin engine.
+- [x] Add the `settings["boundaries/elements"]` array to your flat config workspace.
+- [x] Define the `feature` capture zone with `mode: "folder"` and `capture: ["featureName"]` targeting the `features/*` pattern.
+- [x] Map structural bounds for the foundational folders: `shared/*` (capturing `moduleName`), `infra/*`, and `app/*`.
 
-- [ ] **Establish Boundary Restrictions & Custom Assertions**
-- **Status:** ⏳ Pending (Target: 2026-07-07)
+- [x] **Establish Boundary Restrictions & Custom Assertions**
+- **Status:** ✅ Done (Target: 2026-07-05)
 - **Description:** Define strict dependency constraints to lock down feature coupling and protect your codebase's core architecture.
-- [ ] Activate the `boundaries/dependencies` validation rule inside the configurations array set to throw a baseline `"error"`.
-- [ ] Configure the rule block to disallow any element categorized as a `feature` from importing components or hooks from neighboring `feature` folders.
-- [ ] Attach strict foundational guards: restrict `shared/` elements from pointing upward into `infra/`, `features/`, or `app/`.
-- [ ] Formulate readable custom error logs (e.g., using `"${from.captured.featureName}"`) to output clear debugging steps upon violation.
+- [x] Activate the `boundaries/dependencies` validation rule inside the configurations array set to throw a baseline `"error"`.
+- [x] Configure the rule block to disallow any element categorized as a `feature` from importing components or hooks from neighboring `feature` folders.
+- [x] Attach strict foundational guards: restrict `shared/` elements from pointing upward into `infra/`, `features/`, or `app/`.
+- [x] Formulate readable custom error logs (e.g., using `"{{from.captured.featureName}}"`) to output clear debugging steps upon violation.
 
 - [ ] **Execute Sandbox Testing & Codebase Sweeps**
 - **Status:** ⏳ Pending (Target: 2026-07-07)
