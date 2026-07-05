@@ -68,3 +68,19 @@ Here is the optimized task structure. It fixes the typos, eliminates redundant d
 
   - [x] Remove all temporary test isolation markers and execute a final global run via `pnpm test`.
   - [x] Execute `pnpm build` to verify that the test fixes introduced no production bundle or type compilation regressions.
+
+## 5. E2E Architecture & Co-location Implementation
+
+- [x] **Global Playwright Workspace & Config Setup**
+- **Status:** ✅ Done (Target: 2026-07-05)
+- **Description:** Scaffold the main E2E infrastructure at the root and configure Playwright to bridge the root directories and the feature-specific test modules.
+- [x] Structure the root testing workspace:
+- `playwright/utils/` (for global network intercepts, auth state bypasses).
+- `playwright/e2e/` (for behavioral groupings like `conversion-flows/`).
+- [x] Modify `playwright.config.ts` to set `testDir: './playwright/e2e'`.
+
+- [x] **Compose Behavioral Stories (`playwright/e2e/`)**
+- **Status:** ✅ Done (Target: 2026-07-05)
+- **Description:** Wire together the localized feature helpers into complete user journeys, organized by app behaviors.
+- [x] Create `playwright/e2e/stories.spec.ts` to initiate tests.
+- [x] Run `pnpm exec playwright test` to verify the orchestration paths resolve perfectly and the boundaries work as intended.
