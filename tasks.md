@@ -32,8 +32,8 @@
 - **Status:** ⏳ Pending (Target: 2026-07-10)
 - **Description:** Establish data persistence schemas for user synchronization, favorites tracking, and logging with migration validation.
 - [ ] Provision the Neon serverless Postgres database instance.
-- [ ] Create `infra/db/schema.ts` defining user profiles, `pinned_pairs`, and `conversion_history` tables.
-- [ ] Set up Drizzle config scripts and configure automated migration pipelines for runtime synchronization.
+- [x] Create `infra/db/schema.ts` defining user profiles, `pinned_pairs`, and `conversion_history` tables.
+- [x] Set up Drizzle config scripts and configure automated migration pipelines for runtime synchronization.
 
 - [ ] **Authentication Engine with Auth.js & Google OAuth**
 - **Status:** ⏳ Pending (Target: 2026-07-12)
@@ -42,12 +42,12 @@
 - [ ] Register Google OAuth credentials and secure environment variables.
 - [ ] Construct custom React hooks within `infra/auth/hooks` to safely resolve global session status across the architecture layers.
 
-- [ ] **Resilient Frankfurter API Client Suite**
-- **Status:** ⏳ Pending (Target: 2026-07-14)
+- [x] **Resilient Frankfurter API Client Suite**
+- **Status:** ✅ Done (Target: 2026-07-06)
 - **Description:** Develop a type-safe, performant client interface interacting with the Frankfurter API endpoints.
-- [ ] Build the HTTP fetch wrapper inside `infra/api/frankfurter.ts` with strict TypeScript definition maps for live, historical, and time-series payloads.
-- [ ] Incorporate an internal stale-while-revalidate or client-cache engine to protect against rate limits and server drops.
-- [ ] Add explicit error handling structures to catch connection failures, preparing for offline fallback handling.
+- [x] Build the HTTP fetch wrapper inside `infra/api/frankfurter/` with strict TypeScript definition maps for live, historical, and time-series payloads.
+- [x] Incorporate an internal stale-while-revalidate or client-cache engine to protect against rate limits and server drops.
+- [x] Add explicit error handling structures to catch connection failures, preparing for offline fallback handling.
 
 ---
 
