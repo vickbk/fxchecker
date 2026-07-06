@@ -91,4 +91,85 @@ describe("infra/api/frankfurter/service", () => {
     expect(thrownError).toBeInstanceOf(FrankfurterOfflineError);
     expect(thrownError).toBeInstanceOf(FrankfurterError);
   });
+
+  describe("SWR Caching Layer", () => {
+    beforeEach(() => {
+      vi.useFakeTimers();
+      vi.clearAllMocks();
+    });
+
+    afterEach(() => {
+      vi.useRealTimers();
+    });
+
+    it("deduplicates requests and retrieves from cache", async () => {
+      const mockPayload = {
+        amount: 1,
+        base: "EUR",
+        date: "2026-07-06",
+        rates: { USD: 1.09, GBP: 0.85 },
+      };
+
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => mockPayload,
+      } as Response);
+
+      const [res1, res2] = await Promise.all([
+        fetchLatestRates(),
+        fetchLatestRates(),
+      ]);
+
+      expect(res1).toEqual(mockPayload);
+      expect(res2).toEqual(mockPayload);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+    });
+
+    it("performs asynchronous refresh when stale (SWR)", async () => {
+      const stalePayload = {
+        amount: 1,
+        base: "EUR",
+        date: "2026-07-06",
+        rates: { USD: 1.09, GBP: 0.85 },
+      };
+
+      const freshPayload = {
+        amount: 1,
+        base: "EUR",
+        date: "2026-07-06",
+        rates: { USD: 1.1, GBP: 0.86 },
+      };
+
+      // Seed the cache with stale data
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => stalePayload,
+      } as Response);
+
+      const firstRes = await fetchLatestRates();
+      expect(firstRes).toEqual(stalePayload);
+      expect(fetchMock).toHaveBeenCalledTimes(1);
+
+      // Advance time past the TTL (4 minutes = 240,000 ms)
+      vi.advanceTimersByTime(240000);
+
+      // Secondary mock return value representing "Fresh Data"
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => freshPayload,
+      } as Response);
+
+      // Trigger a new call
+      const secondRes = await fetchLatestRates();
+
+      // Assert it resolves immediately with the stale data
+      expect(secondRes).toEqual(stalePayload);
+
+      // Assert that the global fetch mock has been called exactly 2 times (seed + background refresh)
+      expect(fetchMock).toHaveBeenCalledTimes(2);
+    });
+  });
 });

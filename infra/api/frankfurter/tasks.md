@@ -25,11 +25,11 @@
 
 ### Phase 2: High-Performance SWR Caching Layer (Red-Green-Refactor)
 
-- [ ] **Write Failing Tests for the Cache Execution Lifecycle (RED)**
-- **Status:** ⏳ Pending (Target: 2026-07-08)
+- [x] **Write Failing Tests for the Cache Execution Lifecycle (RED)**
+- **Status:** ✅ Done (Target: 2026-07-06)
 - **Description:** Establish explicit timing assertions inside `infra/api/frankfurter/service.test.ts` to enforce rate-limit shielding and stale-while-revalidate functionality.
-- [ ] Write a test asserting that calling `fetchLatestRates()` back-to-back executes a single network request while resolving the second call immediately from the local module cache.
-- [ ] Write an asynchronous SWR test case using Vitest's fake timers (`vi.useFakeTimers()`): when data is past its TTL (Time-To-Live), the client must immediately resolve with the _stale_ cached data while silently spawning a background network fetch to refresh the internal state storage.
+- [x] Write a test asserting that calling `fetchLatestRates()` back-to-back executes a single network request while resolving the second call immediately from the local module cache.
+- [x] Write an asynchronous SWR test case using Vitest's fake timers (`vi.useFakeTimers()`): when data is past its TTL (Time-To-Live), the client must immediately resolve with the _stale_ cached data while silently spawning a background network fetch to refresh the internal state storage.
 
 - [ ] **Implement Zero-Allocation In-Memory SWR Engine (GREEN)**
 - **Status:** ⏳ Pending (Target: 2026-07-08)
