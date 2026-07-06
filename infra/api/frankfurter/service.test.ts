@@ -5,7 +5,7 @@ import {
   FrankfurterRateLimitError,
   FrankfurterValidationError,
 } from "./errors";
-import { fetchLatestRates, _clearCache } from "./service";
+import { fetchLatestRates, frankfurterCache } from "./service";
 
 const fetchMock = vi.fn();
 vi.mock("@/shared/config", () => ({
@@ -17,7 +17,7 @@ vi.mock("@/shared/config", () => ({
 describe("infra/api/frankfurter/service", () => {
   beforeEach(() => {
     vi.stubGlobal("fetch", fetchMock);
-    _clearCache();
+    frankfurterCache.clear();
   });
 
   afterEach(() => {

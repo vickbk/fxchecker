@@ -1,0 +1,85 @@
+import { SWREngine } from "@/shared/cache";
+import { beforeEach, describe, expect, it, vi } from "vitest";
+
+describe("shared/cache/SWREngine", () => {
+  beforeEach(() => {
+    vi.restoreAllMocks();
+  });
+
+  it("deduplicates concurrent fetches (cold start)", async () => {
+    const engine = new SWREngine({ ttlMs: 5 * 60 * 1000 });
+
+    const mockData = { hello: "world" };
+
+    let resolveFetch: (val: unknown) => void;
+    const fetchFn = vi.fn(
+      () =>
+        new Promise((res) => {
+          resolveFetch = res;
+        }),
+    );
+
+    const p1 = engine.execute(
+      "key",
+      fetchFn as unknown as () => Promise<typeof mockData>,
+    );
+    const p2 = engine.execute(
+      "key",
+      fetchFn as unknown as () => Promise<typeof mockData>,
+    );
+
+    expect(fetchFn).toHaveBeenCalledTimes(1);
+
+    // Resolve the underlying fetch
+    resolveFetch!(mockData);
+
+    const [r1, r2] = await Promise.all([p1, p2]);
+    expect(r1).toEqual(mockData);
+    expect(r2).toEqual(mockData);
+  });
+
+  it("returns stale value immediately and revalidates in background (SWR)", async () => {
+    vi.useFakeTimers();
+    const ttl = 240000; // 4 minutes
+    const engine = new SWREngine({ ttlMs: ttl });
+
+    const stale = { v: 1 };
+    const fresh = { v: 2 };
+
+    // Seed cache with initial value
+    await engine.execute("k", () => Promise.resolve(stale));
+
+    // Advance past TTL so the entry becomes stale
+    vi.advanceTimersByTime(ttl + 1);
+
+    const fetchFn = vi.fn(() => Promise.resolve(fresh));
+
+    const res = await engine.execute("k", fetchFn);
+    expect(res).toEqual(stale);
+    expect(fetchFn).toHaveBeenCalledTimes(1);
+
+    // Allow microtasks to flush so background update completes
+    await Promise.resolve();
+
+    const after = await engine.execute("k", () => Promise.resolve({}));
+    expect(after).toEqual(fresh);
+
+    vi.useRealTimers();
+  });
+
+  it("clear() resets cache and in-flight maps", async () => {
+    const engine = new SWREngine({ ttlMs: 1000 });
+    const first = { a: 1 };
+    await engine.execute("x", () => Promise.resolve(first));
+
+    engine.clear();
+
+    const fetchFn = vi.fn(() => Promise.resolve({ a: 2 }));
+    const res = await engine.execute(
+      "x",
+      fetchFn as unknown as () => Promise<{ a: number }>,
+    );
+    expect(res).toEqual({ a: 2 });
+    expect(fetchFn).toHaveBeenCalledTimes(1);
+  });
+});
