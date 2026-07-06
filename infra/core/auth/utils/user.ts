@@ -16,12 +16,11 @@ import { auth } from "./init";
  */
 export async function getUserByEmail(email: string) {
   try {
-    const [user] = await db
-      .select()
-      .from(users)
-      .where(eq(users.email, email))
-      .limit(1);
-    return user;
+    return (
+      (await db.query.users.findFirst({
+        where: eq(users.email, email),
+      })) ?? null
+    );
   } catch (error) {
     console.error("Failed to get user by email", error);
     return null;
