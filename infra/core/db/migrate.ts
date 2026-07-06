@@ -18,16 +18,25 @@ export async function runMigrations() {
   console.log("Migration completed");
 }
 
+export let migrationPromise: Promise<void> | null = null;
+
 // Only execute immediately if this specific file is run directly via node/tsx
 if (require.main === module || process.argv[1]?.endsWith("migrate.ts")) {
-  runMigrations()
-    .catch((error) => {
+  migrationPromise = (async () => {
+    let exitCode = 0;
+    try {
+      await runMigrations();
+    } catch (error) {
       console.error("Migration failed. Error:", error);
-      process.exit(1);
-    })
-    .finally(() => {
-      db.$client.end().catch((error) => {
-        console.error("Failed to close database connection. Error:", error);
+      exitCode = 1;
+    } finally {
+      await db.$client.end().catch((err) => {
+        console.error("Failed to close database connection. Error:", err);
       });
-    });
+      if (exitCode !== 0) {
+        process.exit(exitCode);
+      }
+    }
+  })();
 }
+

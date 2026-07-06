@@ -1,8 +1,16 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 
-vi.mock("./client", () => ({
-  getDB: vi.fn(() => ({ $client: { end: vi.fn(async () => undefined) } })),
-}));
+vi.mock("./client", () => {
+  const mockEnd = vi.fn(async () => undefined);
+  const mockDB = {
+    $client: {
+      end: mockEnd,
+    },
+  };
+  return {
+    getDB: vi.fn(() => mockDB),
+  };
+});
 
 vi.mock("drizzle-orm/node-postgres/migrator", () => ({
   migrate: vi.fn(async () => undefined),
@@ -16,6 +24,12 @@ const getDBMock = vi.mocked(getDB, true);
 const migrateMock = vi.mocked(migrate, true);
 
 describe("infrastructure/core/db/migrate", () => {
+  beforeEach(() => {
+    migrateMock.mockClear();
+    getDBMock.mockClear();
+    vi.mocked(getDB().$client.end).mockClear();
+  });
+
   it("runs migrations against the core database with the correct folder", async () => {
     await runMigrations();
 
@@ -23,7 +37,7 @@ describe("infrastructure/core/db/migrate", () => {
     expect(migrateMock).toHaveBeenCalledTimes(1);
 
     const [receivedDb, options] = migrateMock.mock.calls[0];
-    expect(receivedDb).toHaveProperty("$client");
+    expect(receivedDb).toBe(getDB());
     expect(options).toBeDefined();
     expect(options.migrationsFolder).toEqual(expect.any(String));
     expect(options.migrationsFolder).toContain("migrations");
@@ -57,6 +71,7 @@ describe("infrastructure/core/db/migrate — CLI Script Execution & process.exit
     // Reset standard migration mocks from previous tests
     migrateMock.mockClear();
     getDBMock.mockClear();
+    vi.mocked(getDB().$client.end).mockClear();
 
     // Force Vitest to drop the module cache for 'migrate.ts'
     // so it re-evaluates top-level code fresh on every single test
@@ -69,20 +84,32 @@ describe("infrastructure/core/db/migrate — CLI Script Execution & process.exit
     vi.restoreAllMocks();
   });
 
-  it("should capture errors, print diagnostics, and invoke process.exit(1) when a migration fails via CLI", async () => {
-    // Arrange: Stub argv to satisfy your alternative check condition
-    process.argv[1] = "/usr/src/app/src/infrastructure/core/db/migrate.ts";
+  it("should complete successfully without executing process.exit when a migration passes via CLI", async () => {
+    // Arrange
+    process.argv[1] = "migrate.ts";
+    migrateMock.mockResolvedValueOnce(undefined);
 
-    const operationalError = new Error(
-      "Database network connection pool rejected.",
-    );
+    // Act
+    const { migrationPromise } = await import("./migrate");
+    await migrationPromise;
+
+    // Assert
+    expect(consoleLogSpy).toHaveBeenCalledWith("Migration starting...");
+    expect(consoleLogSpy).toHaveBeenCalledWith("Migration completed");
+    expect(migrateMock).toHaveBeenCalledTimes(1);
+    expect(vi.mocked(getDB().$client.end)).toHaveBeenCalledTimes(1);
+    expect(exitSpy).not.toHaveBeenCalled();
+  });
+
+  it("should capture errors, print diagnostics, invoke process.exit(1), and close the connection pool when a migration fails via CLI", async () => {
+    // Arrange
+    process.argv[1] = "migrate.ts";
+    const operationalError = new Error("Database network connection pool rejected.");
     migrateMock.mockRejectedValueOnce(operationalError);
 
-    // Act: Dynamically import the module to trigger the immediate execution block
-    await import("./migrate");
-
-    // Wait: Allow the unawaited dangling promise chain (.catch) to flush through the event loop
-    await new Promise((resolve) => setImmediate(resolve));
+    // Act
+    const { migrationPromise } = await import("./migrate");
+    await migrationPromise;
 
     // Assert: Verify the boundary catch statement was invoked
     expect(consoleLogSpy).toHaveBeenCalledWith("Migration starting...");
@@ -92,20 +119,6 @@ describe("infrastructure/core/db/migrate — CLI Script Execution & process.exit
     );
     expect(exitSpy).toHaveBeenCalledTimes(1);
     expect(exitSpy).toHaveBeenCalledWith(1);
-  });
-
-  it("should complete successfully without executing process.exit when a migration passes via CLI", async () => {
-    // Arrange
-    process.argv[1] = "/usr/src/app/src/infrastructure/core/db/migrate.ts";
-    migrateMock.mockResolvedValueOnce(undefined);
-
-    // Act
-    await import("./migrate");
-    await new Promise((resolve) => setImmediate(resolve));
-
-    // Assert
-    expect(consoleLogSpy).toHaveBeenCalledWith("Migration starting...");
-    expect(consoleLogSpy).toHaveBeenCalledWith("Migration completed");
-    expect(exitSpy).not.toHaveBeenCalled();
+    expect(vi.mocked(getDB().$client.end)).toHaveBeenCalledTimes(1);
   });
 });
