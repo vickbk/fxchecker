@@ -1,13 +1,18 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { fetchLatestRates } from "./service";
 import {
   FrankfurterError,
+  FrankfurterOfflineError,
   FrankfurterRateLimitError,
   FrankfurterValidationError,
-  FrankfurterOfflineError,
 } from "./errors";
+import { fetchLatestRates } from "./service";
 
 const fetchMock = vi.fn();
+vi.mock("@/shared/config", () => ({
+  config: {
+    FRANKFURTER_URL: "https://frankfurtur.mock",
+  },
+}));
 
 describe("infra/api/frankfurter/service", () => {
   beforeEach(() => {

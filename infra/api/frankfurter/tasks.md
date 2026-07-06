@@ -13,13 +13,13 @@
 - `FrankfurterValidationError` on HTTP `422` (invalid currency code).
 - `FrankfurterOfflineError` when a network request completely fails to connect.
 
-- [ ] **Implement Core Client Fetch Logic to Pass Tests (GREEN)**
-- **Status:** ⏳ Pending (Target: 2026-07-07)
+- [x] **Implement Core Client Fetch Logic to Pass Tests (GREEN)**
+- **Status:** ✅ Done (Target: 2026-07-07)
 - **Description:** Implement minimal functional code within the decoupled layout to satisfy the basic fetch and error handling tests.
-- [ ] Build rigid TypeScript interface mappings inside `infra/api/frankfurter/types.ts` for `/latest`, `/{date}` (historical), and `/timeseries` endpoints to lock down the provider surface contract.
-- [ ] Implement custom error structures inside `infra/api/frankfurter/errors.ts` establishing the domain boundary.
-- [ ] Implement the base fetch operations using a clean `globalThis.fetch` mechanism inside `infra/api/frankfurter/service.ts`, explicitly processing incoming status codes to throw corresponding custom exceptions.
-- [ ] Wire public interfaces through `infra/api/frankfurter/index.ts` to form a clean module boundary wrapper.
+- [x] Build rigid TypeScript interface mappings inside `infra/api/frankfurter/types.ts` for `/latest`, `/{date}` (historical), and `/timeseries` endpoints to lock down the provider surface contract.
+- [x] Implement custom error structures inside `infra/api/frankfurter/errors.ts` establishing the domain boundary.
+- [x] Implement the base fetch operations using a clean `globalThis.fetch` mechanism inside `infra/api/frankfurter/service.ts`, explicitly processing incoming status codes to throw corresponding custom exceptions.
+- [x] Wire public interfaces through `infra/api/frankfurter/index.ts` to form a clean module boundary wrapper.
 
 ---
 
