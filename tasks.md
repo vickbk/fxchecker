@@ -54,7 +54,7 @@
 ## 3. Feature Architecture (`src/features`)
 
 - [ ] **Converter Feature Subsystem**
-- **Status:** ⏳ Pending (Target: 2026-07-18)
+- **Status:** ⏳ In Progress (Target: 2026-07-18)
 - **Description:** Deliver real-time conversions, searchable pickers, and live URL state mapping.
 - [ ] Build the primary conversion interface inside `features/converter/components`.
 - [ ] Create an accessible, searchable combo-box dropdown component to filter currencies.
