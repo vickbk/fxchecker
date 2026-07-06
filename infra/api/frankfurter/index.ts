@@ -1,7 +1,7 @@
 export * from "./service";
-export * from "./errors";
 export type {
-  FrankfurterLatestResponse,
   FrankfurterHistoricalResponse,
+  FrankfurterLatestResponse,
   FrankfurterTimeSeriesResponse,
 } from "./types";
+export * from "./utils/errors";

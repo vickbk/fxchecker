@@ -1,11 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
+import { fetchLatestRates, frankfurterCache } from "./service";
 import {
   FrankfurterError,
   FrankfurterOfflineError,
   FrankfurterRateLimitError,
   FrankfurterValidationError,
-} from "./errors";
-import { fetchLatestRates, frankfurterCache } from "./service";
+} from "./utils/errors";
 
 const fetchMock = vi.fn();
 vi.mock("@/shared/config", () => ({

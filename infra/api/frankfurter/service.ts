@@ -1,21 +1,19 @@
 import { SWREngine } from "@/shared/cache";
 import { config } from "@/shared/config";
-import {
-  FrankfurterError,
-  FrankfurterOfflineError,
-  FrankfurterRateLimitError,
-  FrankfurterValidationError,
-} from "./errors";
 import type {
   FrankfurterHistoricalResponse,
   FrankfurterLatestResponse,
   FrankfurterTimeSeriesResponse,
 } from "./types";
 import {
+  FrankfurterError,
+  FrankfurterOfflineError,
+  FrankfurterRateLimitError,
+  FrankfurterValidationError,
   getHistoricalCacheKey,
   getLatestCacheKey,
   getTimeSeriesCacheKey,
-} from "./utils";
+} from "./utils/";
 
 export const frankfurterCache = new SWREngine({ ttlMs: 3 * 60 * 1000 });
 

@@ -1,9 +1,9 @@
 import { describe, expect, it } from "vitest";
 import {
-  getLatestCacheKey,
   getHistoricalCacheKey,
+  getLatestCacheKey,
   getTimeSeriesCacheKey,
-} from "./utils";
+} from "./helpers";
 
 describe("infra/api/frankfurter/utils", () => {
   it("normalizes latest cache keys with different sorting and defaults", () => {
@@ -22,7 +22,9 @@ describe("infra/api/frankfurter/utils", () => {
   });
 
   it("formats timeseries cache keys correctly", () => {
-    const key = getTimeSeriesCacheKey("2026-07-01", "2026-07-06", undefined, ["USD"]);
+    const key = getTimeSeriesCacheKey("2026-07-01", "2026-07-06", undefined, [
+      "USD",
+    ]);
     expect(key).toBe("timeseries:2026-07-01:2026-07-06::USD");
   });
 });
