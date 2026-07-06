@@ -1,4 +1,4 @@
-name: Vitest Tests
+name: Vitest Tests & Linting
 on:
   push:
     branches: [main, master]
@@ -17,6 +17,8 @@ jobs:
         run: npm install -g pnpm && pnpm install
       - name: Run Vitest tests
         run: pnpm test:run
+      - name: Run linting
+        run: pnpm lint
       - uses: actions/upload-artifact@v4
         if: ${{ !cancelled() }}
         with:
