@@ -1,4 +1,3 @@
-import { config } from "@/shared/config";
 import {
   FrankfurterError,
   FrankfurterOfflineError,
@@ -6,16 +5,33 @@ import {
   FrankfurterValidationError,
 } from "./errors";
 import type {
+  CacheEntry,
   FrankfurterHistoricalResponse,
   FrankfurterLatestResponse,
   FrankfurterTimeSeriesResponse,
 } from "./types";
+import {
+  getHistoricalCacheKey,
+  getLatestCacheKey,
+  getTimeSeriesCacheKey,
+} from "./utils";
+
+const cache = new Map<string, CacheEntry>();
+const inFlightPromises = new Map<string, Promise<unknown>>();
+const CACHE_TTL = 3 * 60 * 1000; // 3 minutes
+
+export function _clearCache(): void {
+  cache.clear();
+  inFlightPromises.clear();
+}
+
+const BASE_URL = "https://api.frankfurter.app";
 
 async function request<T>(
   path: string,
   queryParams: { from?: string; to?: string[] },
 ): Promise<T> {
-  const url = new URL(path, config.FRANKFURTER_URL);
+  const url = new URL(path, BASE_URL);
 
   if (queryParams.from) {
     url.searchParams.set("from", queryParams.from);
@@ -26,7 +42,7 @@ async function request<T>(
   }
 
   try {
-    const response = await fetch(url.toString());
+    const response = await globalThis.fetch(url.toString());
 
     if (response.status === 200) {
       const contentType = response.headers?.get("content-type");
@@ -63,14 +79,67 @@ async function request<T>(
   }
 }
 
+async function executeCached<T>(
+  key: string,
+  fetchFn: () => Promise<T>,
+): Promise<T> {
+  const entry = cache.get(key);
+  const now = Date.now();
+
+  if (entry && now - entry.createdAt < CACHE_TTL) {
+    return entry.data as T;
+  }
+
+  if (entry) {
+    if (!entry.isRevalidating) {
+      entry.isRevalidating = true;
+      fetchFn()
+        .then((freshData) => {
+          cache.set(key, {
+            data: freshData,
+            createdAt: Date.now(),
+            isRevalidating: false,
+          });
+        })
+        .catch(() => {
+          entry.isRevalidating = false;
+        });
+    }
+    return entry.data as T;
+  }
+
+  const inFlight = inFlightPromises.get(key);
+  if (inFlight) {
+    return inFlight as Promise<T>;
+  }
+
+  const promise = fetchFn()
+    .then((data) => {
+      cache.set(key, {
+        data,
+        createdAt: Date.now(),
+        isRevalidating: false,
+      });
+      inFlightPromises.delete(key);
+      return data;
+    })
+    .catch((err) => {
+      inFlightPromises.delete(key);
+      throw err;
+    });
+
+  inFlightPromises.set(key, promise);
+  return promise;
+}
+
 export async function fetchLatestRates(
   base?: string,
   symbols?: string[],
 ): Promise<FrankfurterLatestResponse> {
-  return request<FrankfurterLatestResponse>("/latest", {
-    from: base,
-    to: symbols,
-  });
+  const key = getLatestCacheKey(base, symbols);
+  return executeCached(key, () =>
+    request<FrankfurterLatestResponse>("/latest", { from: base, to: symbols }),
+  );
 }
 
 export async function fetchHistoricalRates(
@@ -78,10 +147,13 @@ export async function fetchHistoricalRates(
   base?: string,
   symbols?: string[],
 ): Promise<FrankfurterHistoricalResponse> {
-  return request<FrankfurterHistoricalResponse>(`/${date}`, {
-    from: base,
-    to: symbols,
-  });
+  const key = getHistoricalCacheKey(date, base, symbols);
+  return executeCached(key, () =>
+    request<FrankfurterHistoricalResponse>(`/${date}`, {
+      from: base,
+      to: symbols,
+    }),
+  );
 }
 
 export async function fetchTimeSeriesRates(
@@ -90,8 +162,11 @@ export async function fetchTimeSeriesRates(
   base?: string,
   symbols?: string[],
 ): Promise<FrankfurterTimeSeriesResponse> {
-  return request<FrankfurterTimeSeriesResponse>(`/${startDate}..${endDate}`, {
-    from: base,
-    to: symbols,
-  });
+  const key = getTimeSeriesCacheKey(startDate, endDate, base, symbols);
+  return executeCached(key, () =>
+    request<FrankfurterTimeSeriesResponse>(`/${startDate}..${endDate}`, {
+      from: base,
+      to: symbols,
+    }),
+  );
 }

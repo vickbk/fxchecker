@@ -14,3 +14,9 @@ export interface FrankfurterTimeSeriesResponse {
   end_date: string;
   rates: Record<string, Record<string, number>>;
 }
+
+export type CacheEntry<T = unknown> = {
+  data: T;
+  createdAt: number;
+  isRevalidating: boolean;
+};
