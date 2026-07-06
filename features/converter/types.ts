@@ -5,4 +5,5 @@ export type URLState = {
   setFrom: (value: string) => void;
   setTo: (value: string) => void;
   setAmount: (value: number) => void;
+  swapCurrencies: () => void;
 };

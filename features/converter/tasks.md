@@ -4,17 +4,17 @@
 
 ### Phase 1: Bookmarkable URL Engine & Custom Hooks (Red-Green-Refactor)
 
-- [ ] **Write Failing Specs for URL Synchronization (RED)**
-- **Status:** ⏳ Pending (Target: 2026-07-06)
+- [x] **Write Failing Specs for URL Synchronization (RED)**
+- **Status:** ✅ Done (Target: 2026-07-06)
 - **Description:** Build Vitest specs verifying that custom interaction hooks properly extract, parse, and synchronize currency state from Next.js URL query parameters.
-- [ ] Create test file `features/converter/hooks/useURLState.test.ts`.
-- [ ] Write a test asserting that default fallback values (`USD`, `EUR`, `100`) load cleanly if the search parameters are completely empty.
-- [ ] Write a test asserting that updating the state smoothly serializes values into the URL string format (`?from=GBP&to=JPY&amount=500`) using modern Next.js navigation mocks.
+- [x] Create test file `features/converter/hooks/useURLState.test.ts`.
+- [x] Write a test asserting that default fallback values (`USD`, `EUR`, `100`) load cleanly if the search parameters are completely empty.
+- [x] Write a test asserting that updating the state smoothly serializes values into the URL string format (`?from=GBP&to=JPY&amount=500`) using modern Next.js navigation mocks.
 
 - [ ] **Implement URL State & Swap Logic (GREEN)**
-- **Status:** ⏳ Pending (Target: 2026-07-11)
+- **Status:** ✅ Done (Target: 2026-07-06)
 - **Description:** Write the minimal hook logic to drive state changes and provide a zero-layout-shift swap function.
-- [ ] Implement `useURLState.ts` inside `features/converter/hooks/` to bind `from`, `to`, and `amount` states to the Next.js router natively.
+- [x] Implement `useURLState.ts` inside `features/converter/hooks/` to bind `from`, `to`, and `amount` states to the Next.js router natively.
 - [ ] Implement `useCurrencySwap.ts` to execute a one-click reversal of the `from` and `to` assets, ensuring state changes are wrapped in a single unified router step to prevent dual-render flickering.
 
 ---

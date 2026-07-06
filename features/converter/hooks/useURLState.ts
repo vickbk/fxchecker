@@ -1,6 +1,6 @@
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import type { URLState } from "../types";
-import { buildStateQuery, readState } from "../utils/helpers";
+import { buildStateQuery, readState } from "../utils/url";
 
 export function useURLState(): URLState {
   const router = useRouter();
@@ -8,20 +8,27 @@ export function useURLState(): URLState {
   const searchParams = useSearchParams();
   const state = readState(searchParams);
 
-  const updateParams = (
-    updates: "from" | "to" | "amount",
-    value: string | number,
-  ) => {
-    const params = buildStateQuery(updates, searchParams, value);
-
-    const nextUrl = params.toString() ? `?${params.toString()}` : pathname;
-    router.replace(nextUrl, { scroll: false });
+  const updateURL = (updates: {
+    from?: string;
+    to?: string;
+    amount?: number;
+  }) => {
+    router.replace(`${pathname}?${buildStateQuery(updates, searchParams)}`, {
+      scroll: false,
+    });
   };
 
   return {
     ...state,
-    setFrom: (value: string) => updateParams("from", value),
-    setTo: (value: string) => updateParams("to", value),
-    setAmount: (value: number) => updateParams("amount", value),
+    setFrom: (value: string) => updateURL({ from: value }),
+    setTo: (value: string) => updateURL({ to: value }),
+    setAmount: (value: number) => updateURL({ amount: value }),
+
+    // Beautifully clean atomic swap with zero double-parsing
+    swapCurrencies: () =>
+      updateURL({
+        from: state.to,
+        to: state.from,
+      }),
   };
 }
