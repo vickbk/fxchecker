@@ -11,18 +11,17 @@
 - [x] Write a test asserting that default fallback values (`USD`, `EUR`, `100`) load cleanly if the search parameters are completely empty.
 - [x] Write a test asserting that updating the state smoothly serializes values into the URL string format (`?from=GBP&to=JPY&amount=500`) using modern Next.js navigation mocks.
 
-- [ ] **Implement URL State & Swap Logic (GREEN)**
+- [x] **Implement URL State & Swap Logic (GREEN)**
 - **Status:** ✅ Done (Target: 2026-07-06)
 - **Description:** Write the minimal hook logic to drive state changes and provide a zero-layout-shift swap function.
-- [x] Implement `useURLState.ts` inside `features/converter/hooks/` to bind `from`, `to`, and `amount` states to the Next.js router natively.
-- [ ] Implement `useCurrencySwap.ts` to execute a one-click reversal of the `from` and `to` assets, ensuring state changes are wrapped in a single unified router step to prevent dual-render flickering.
+- [x] Implement `useURLState.ts` inside `features/converter/hooks/` to bind `from`, `to`, and `amount` states to the Next.js router natively. It also handles currency swap.
 
 ---
 
 ### Phase 2: Accessible Searchable Picker & Converter View (Red-Green-Refactor)
 
 - [ ] **Write Unit Tests for the Searchable Combobox (RED)**
-- **Status:** ⏳ Pending (Target: 2026-07-12)
+- **Status:** ⏳ In Progress (Target: 2026-07-07)
 - **Description:** Formulate accessibility and keyboard-navigation specifications for filtering through available currencies.
 - [ ] Create test file `features/converter/components/CurrencyPicker.test.ts`.
 - [ ] Assert that typing a currency code (e.g., "CH") dynamically limits the list options down to matching records ("CHF").

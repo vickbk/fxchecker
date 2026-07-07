@@ -135,128 +135,75 @@ describe("useURLState", () => {
     expect(result.current.amount).toBe(500);
   });
 
-  it("synchronizes the source currency into the URL query string", () => {
+  describe("Syncing states with URL", () => {
     const replace = vi.fn();
 
-    vi.mocked(useRouter).mockReturnValue({ replace } as never);
-    vi.mocked(useSearchParams).mockReturnValue({
-      get: vi.fn().mockImplementation((key: string) => {
-        switch (key) {
-          case "from":
-            return "USD";
-          case "to":
-            return "EUR";
-          case "amount":
-            return "100";
-          default:
-            return null;
-        }
-      }),
-      toString: vi.fn().mockReturnValue("from=USD&to=EUR&amount=100"),
-    } as never);
-
-    const { result } = renderHook(() => useURLState());
-
-    act(() => {
-      result.current.setFrom("GBP");
+    beforeEach(() => {
+      vi.mocked(useRouter).mockReturnValue({ replace } as never);
+      vi.mocked(useSearchParams).mockReturnValue({
+        get: vi.fn().mockImplementation((key: string) => {
+          switch (key) {
+            case "from":
+              return "USD";
+            case "to":
+              return "EUR";
+            case "amount":
+              return "100";
+            default:
+              return null;
+          }
+        }),
+        toString: vi.fn().mockReturnValue("from=USD&to=EUR&amount=100"),
+      } as never);
     });
 
-    expect(replace).toHaveBeenCalledWith("?from=GBP&to=EUR&amount=100", {
-      scroll: false,
-    });
-  });
+    it("synchronizes the source currency into the URL query string", () => {
+      const { result } = renderHook(() => useURLState());
 
-  it("synchronizes the target currency into the URL query string", () => {
-    const replace = vi.fn();
+      act(() => {
+        result.current.setFrom("GBP");
+      });
 
-    vi.mocked(useRouter).mockReturnValue({ replace } as never);
-    vi.mocked(useSearchParams).mockReturnValue({
-      get: vi.fn().mockImplementation((key: string) => {
-        switch (key) {
-          case "from":
-            return "USD";
-          case "to":
-            return "EUR";
-          case "amount":
-            return "100";
-          default:
-            return null;
-        }
-      }),
-      toString: vi.fn().mockReturnValue("from=USD&to=EUR&amount=100"),
-    } as never);
-
-    const { result } = renderHook(() => useURLState());
-
-    act(() => {
-      result.current.setTo("JPY");
+      expect(replace).toHaveBeenCalledWith("?from=GBP&to=EUR&amount=100", {
+        scroll: false,
+      });
     });
 
-    expect(replace).toHaveBeenCalledWith("?from=USD&to=JPY&amount=100", {
-      scroll: false,
-    });
-  });
+    it("synchronizes the target currency into the URL query string", () => {
+      const { result } = renderHook(() => useURLState());
 
-  it("synchronizes the amount into the URL query string", () => {
-    const replace = vi.fn();
+      act(() => {
+        result.current.setTo("JPY");
+      });
 
-    vi.mocked(useRouter).mockReturnValue({ replace } as never);
-    vi.mocked(useSearchParams).mockReturnValue({
-      get: vi.fn().mockImplementation((key: string) => {
-        switch (key) {
-          case "from":
-            return "USD";
-          case "to":
-            return "EUR";
-          case "amount":
-            return "100";
-          default:
-            return null;
-        }
-      }),
-      toString: vi.fn().mockReturnValue("from=USD&to=EUR&amount=100"),
-    } as never);
-
-    const { result } = renderHook(() => useURLState());
-
-    act(() => {
-      result.current.setAmount(500);
+      expect(replace).toHaveBeenCalledWith("?from=USD&to=JPY&amount=100", {
+        scroll: false,
+      });
     });
 
-    expect(replace).toHaveBeenCalledWith("?from=USD&to=EUR&amount=500", {
-      scroll: false,
-    });
-  });
+    it("synchronizes the amount into the URL query string", () => {
+      const { result } = renderHook(() => useURLState());
 
-  it("performs an atomic currency reversal in a single router transition", () => {
-    const replace = vi.fn();
+      act(() => {
+        result.current.setAmount(500);
+      });
 
-    vi.mocked(useRouter).mockReturnValue({ replace } as never);
-    vi.mocked(useSearchParams).mockReturnValue({
-      get: vi.fn().mockImplementation((key: string) => {
-        switch (key) {
-          case "from":
-            return "USD";
-          case "to":
-            return "EUR";
-          case "amount":
-            return "100";
-          default:
-            return null;
-        }
-      }),
-      toString: vi.fn().mockReturnValue("from=USD&to=EUR&amount=100"),
-    } as never);
-
-    const { result } = renderHook(() => useURLState());
-
-    act(() => {
-      result.current.swapCurrencies();
+      expect(replace).toHaveBeenCalledWith("?from=USD&to=EUR&amount=500", {
+        scroll: false,
+      });
     });
 
-    expect(replace).toHaveBeenCalledTimes(1);
-    expect(replace).toHaveBeenCalledWith("?from=EUR&to=USD&amount=100", {
-      scroll: false,
+    it("performs an atomic currency reversal in a single router transition", () => {
+      const { result } = renderHook(() => useURLState());
+
+      act(() => {
+        result.current.swapCurrencies();
+      });
+
+      expect(replace).toHaveBeenCalledTimes(1);
+      expect(replace).toHaveBeenCalledWith("?from=EUR&to=USD&amount=100", {
+        scroll: false,
+      });
     });
   });
 });
