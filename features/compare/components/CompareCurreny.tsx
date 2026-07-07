@@ -1,9 +1,10 @@
+import { CurrencyCard } from "@/shared/utils";
 import Image from "next/image";
 import { CurrencyActions } from "./CurrencyActions";
 
 export const CompareCurreny = () => {
   return (
-    <li>
+    <CurrencyCard>
       <Image src="/flags/de.webpg" alt="DRC flag" />
       <dl>
         <dt>GBP</dt>
@@ -15,6 +16,6 @@ export const CompareCurreny = () => {
       </dl>
 
       <CurrencyActions />
-    </li>
+    </CurrencyCard>
   );
 };
