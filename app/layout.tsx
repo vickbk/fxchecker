@@ -1,4 +1,8 @@
+import { ConverterCard } from "@/features/converter";
+import { MainHeader } from "@/features/header";
 import { HeadingCtx } from "@/shared/heading";
+import { ThemeSwitch } from "@/shared/theme";
+import { Navbar } from "@/shared/utils";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import "./globals.css";
@@ -29,7 +33,14 @@ export default function RootLayout({
       className={`${geistSans.variable} ${geistMono.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col">
-        <HeadingCtx value={0}>{children}</HeadingCtx>
+        <HeadingCtx value={0}>
+          <MainHeader>
+            <ThemeSwitch />
+          </MainHeader>
+          <ConverterCard />
+          <Navbar />
+          {children}
+        </HeadingCtx>
       </body>
     </html>
   );
