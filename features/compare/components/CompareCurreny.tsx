@@ -5,7 +5,7 @@ import { CurrencyActions } from "./CurrencyActions";
 export const CompareCurreny = () => {
   return (
     <CurrencyCard>
-      <Image src="/flags/de.webpg" alt="DRC flag" />
+      <Image src="/flags/de.webpg" alt="DRC flag" width={100} height={100} />
       <dl>
         <dt>GBP</dt>
         <dd>British Pound</dd>
