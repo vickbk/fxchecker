@@ -20,17 +20,17 @@
 
 ### Phase 2: Accessible Searchable Picker & Converter View (Red-Green-Refactor)
 
-- [ ] **Write Unit Tests for the Searchable Combobox (RED)**
-- **Status:** ⏳ In Progress (Target: 2026-07-07)
+- [x] **Write Unit Tests for the Searchable Combobox (RED)**
+- **Status:** ✅ Done (Target: 2026-07-07)
 - **Description:** Formulate accessibility and keyboard-navigation specifications for filtering through available currencies.
-- [ ] Create test file `features/converter/components/CurrencyPicker.test.ts`.
-- [ ] Assert that typing a currency code (e.g., "CH") dynamically limits the list options down to matching records ("CHF").
-- [ ] Assert correct ARIA keyboard behaviors (`ArrowDown` moves focus, `Enter` selects the active item).
+- [x] Create test file `features/converter/components/CurrencyPicker.test.ts`.
+- [x] Assert that typing a currency code (e.g., "CH") dynamically limits the list options down to matching records ("CHF").
+- [x] Assert correct ARIA keyboard behaviors (`ArrowDown` moves focus, `Enter` selects the active item).
 
-- [ ] **Build Layout-Stable Accessible UI (GREEN)**
-- **Status:** ⏳ Pending (Target: 2026-07-14)
+- [x] **Build Layout-Stable Accessible UI (GREEN)**
+- **Status:** ✅ Done (Target: 2026-07-14)
 - **Description:** Craft the physical view blocks using semantic components with absolute height/width constraints to prevent irritating layout shifting during network loading cycles.
-- [ ] Build the searchable combobox component inside `features/converter/components/CurrencyPicker.tsx` using fully compliant HTML ARIA attributes.
+- [x] Build the searchable combobox component inside `features/converter/components/CurrencyPicker.tsx` using fully compliant HTML ARIA attributes.
 - [ ] Build `features/converter/components/ConverterCard.tsx` as the layout-stable wrapper that encapsulates the amount inputs, picking dropdowns, and target conversion readouts.
 - [ ] Put down explicit visual placeholder skeletons to preserve the exactly calculated container space while background currency calculations are active.
 

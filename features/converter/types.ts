@@ -17,6 +17,7 @@ export type CurrencyOption = {
 export type CurrencyPickerProps = {
   currencies: CurrencyOption[];
   onSelect?: (currency: CurrencyOption) => void;
+  title?: string;
 };
 
 export type UseCurrencyFilterOptions = {

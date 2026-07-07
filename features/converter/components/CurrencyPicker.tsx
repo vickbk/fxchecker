@@ -2,7 +2,11 @@ import { useId } from "react";
 import { useCurrencyFilter } from "../hooks/useCurrencyFilter";
 import type { CurrencyPickerProps } from "../types";
 
-export function CurrencyPicker({ currencies, onSelect }: CurrencyPickerProps) {
+export function CurrencyPicker({
+  currencies,
+  onSelect,
+  title = "Search Currency",
+}: CurrencyPickerProps) {
   const listboxId = useId();
   const inputId = useId();
   const {
@@ -19,7 +23,7 @@ export function CurrencyPicker({ currencies, onSelect }: CurrencyPickerProps) {
   } = useCurrencyFilter({ currencies, onSelect });
 
   return (
-    <div className="w-full max-w-sm rounded-md border border-slate-300 p-3">
+    <article className="max-w-sm rounded-md border border-slate-300 p-3">
       <div
         role="combobox"
         aria-expanded={isOpen}
@@ -45,7 +49,7 @@ export function CurrencyPicker({ currencies, onSelect }: CurrencyPickerProps) {
         onKeyDown={handleKeyDown}
       >
         <label htmlFor={inputId} className="sr-only">
-          Search currencies
+          {title}
         </label>
         <input
           id={inputId}
@@ -63,19 +67,17 @@ export function CurrencyPicker({ currencies, onSelect }: CurrencyPickerProps) {
       </div>
 
       {isOpen ? (
-        <>
-          <style>{`.currency-picker-options { min-height: 12rem; height: 12rem; }`}</style>
-          <div
-            id={listboxId}
-            role="listbox"
-            aria-label="Currencies"
-            data-testid="currency-picker-options"
-            className="currency-picker-options min-h-48"
-          >
-            {filteredCurrencies.length > 0 ? (
-              filteredCurrencies.map((currency, index) => (
+        <ul
+          id={listboxId}
+          role="listbox"
+          aria-label="Currencies"
+          data-testid="currency-picker-options"
+          className="currency-picker-options min-h-48"
+        >
+          {filteredCurrencies.length > 0 ? (
+            filteredCurrencies.map((currency, index) => (
+              <li key={currency.code}>
                 <button
-                  key={currency.code}
                   id={`${inputId}-${index}`}
                   type="button"
                   role="option"
@@ -94,15 +96,15 @@ export function CurrencyPicker({ currencies, onSelect }: CurrencyPickerProps) {
                     {currency.name}
                   </span>
                 </button>
-              ))
-            ) : (
-              <div className="flex h-full items-center justify-center text-sm text-slate-500">
-                No results found
-              </div>
-            )}
-          </div>
-        </>
+              </li>
+            ))
+          ) : (
+            <li className="flex h-full items-center justify-center text-sm text-slate-500">
+              No results found
+            </li>
+          )}
+        </ul>
       ) : null}
-    </div>
+    </article>
   );
 }
