@@ -1,4 +1,5 @@
 import { render, screen } from "@testing-library/react";
+import { describe, expect, test } from "vitest";
 import { checkHeadingOrder, drawRegion } from "../scripts";
 import { Article, Heading, Main, Section } from "./heading-managers";
 
