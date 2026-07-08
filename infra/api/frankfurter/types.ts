@@ -14,3 +14,11 @@ export interface FrankfurterTimeSeriesResponse {
   end_date: string;
   rates: Record<string, Record<string, number>>;
 }
+
+export type Rate = {
+  date: string;
+  base: string;
+  quote: string;
+  rate: number;
+  change?: number;
+};
