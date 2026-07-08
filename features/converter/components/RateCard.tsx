@@ -1,13 +1,23 @@
-import { Section } from "@/shared/heading";
+import { Heading, Section } from "@/shared/heading";
+import { SROnly } from "@/shared/utils";
+import { AmountSetter } from "./AmountSetter";
 import { CurrencyCard } from "./CurrencyCard";
 
 export const RateCard = ({ isSend = false }: { isSend?: boolean }) => {
+  const id = isSend ? "send-rate-header" : "receive-rate-header";
   return (
-    <Section className="bg-card p-4 rounded-lg">
-      {isSend ? "Send rate" : "Receive rate"}
-      <label htmlFor="sss">Exchange amount</label>
-      <input type="number" placeholder="100" defaultValue={100} />
-      <CurrencyCard />
+    <Section aria-describedby={id} className="bg-card p-4 rounded-lg">
+      <Heading className="uppercase text-foreground-secondary" id={id}>
+        {isSend ? "Send" : "Receive"} <SROnly>rate</SROnly>
+      </Heading>
+      <div className="flex justify-between items-center">
+        {isSend ? (
+          <AmountSetter />
+        ) : (
+          <p className="text-4xl font-bold text-lime-500">{100}</p>
+        )}
+        <CurrencyCard />
+      </div>
     </Section>
   );
 };
