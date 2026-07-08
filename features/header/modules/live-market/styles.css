@@ -1,0 +1,27 @@
+.infinite-container {
+  --gradient: linear-gradient(
+    to right,
+    transparent,
+    #000 10%,
+    #000 90%,
+    transparent
+  );
+  mask-image: var(--gradient);
+  -webkit-mask-image: var(--gradient);
+
+  .track {
+    animation: scroll-horizontal-infinite 5s linear infinite;
+  }
+  &:hover .track {
+    animation-play-state: paused;
+  }
+}
+
+@keyframes scroll-horizontal-infinite {
+  0% {
+    transform: translateX(0);
+  }
+  100% {
+    transform: translateX(-50%);
+  }
+}

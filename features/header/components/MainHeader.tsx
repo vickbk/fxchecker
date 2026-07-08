@@ -6,8 +6,8 @@ import { Logo } from "./Logo";
 
 export const MainHeader = ({ children }: { children: React.ReactNode }) => {
   return (
-    <header className="p-4">
-      <div className="flex items-center flex-wrap pb-4 gap-2 uppercase text-sm text-foreground-secondary">
+    <header className="uppercase">
+      <div className="flex items-center flex-wrap p-4 gap-2 text-sm text-foreground-secondary">
         <div className="text-foreground">
           <Logo />
         </div>
