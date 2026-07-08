@@ -7,10 +7,12 @@ export const ConverterCard = () => {
   return (
     <Article className="p-4">
       <Heading className="uppercase text-xl">Check the rate</Heading>
-      <div className="flex flex-col gap-4 bg-background-secondary p-4 rounded-2xl md:flex-row mt-4">
-        <RateCard isSend />
-        <Swapper />
-        <RateCard />
+      <div className="flex flex-col gap-4 bg-background-secondary rounded-2xl md:flex-row mt-4">
+        <div className="p-4 flex flex-col gap-4">
+          <RateCard isSend />
+          <Swapper />
+          <RateCard />
+        </div>
         <ConverterActions />
       </div>
     </Article>
