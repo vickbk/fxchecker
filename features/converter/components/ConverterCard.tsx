@@ -5,14 +5,14 @@ import { Swapper } from "./Swapper";
 
 export const ConverterCard = () => {
   return (
-    <Article>
-      <Heading>Check the rate</Heading>
-      <div>
+    <Article className="p-4">
+      <Heading className="uppercase text-xl">Check the rate</Heading>
+      <div className="flex flex-col gap-4 bg-background-secondary p-4 rounded-2xl md:flex-row mt-4">
         <RateCard isSend />
         <Swapper />
         <RateCard />
+        <ConverterActions />
       </div>
-      <ConverterActions />
     </Article>
   );
 };

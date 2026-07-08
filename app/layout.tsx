@@ -1,6 +1,6 @@
 import { ConverterCard } from "@/features/converter";
 import { MainHeader } from "@/features/header";
-import { HeadingCtx } from "@/shared/heading";
+import { HeadingCtx, Main } from "@/shared/heading";
 import { ThemeSwitch } from "@/shared/theme";
 import { Navbar } from "@/shared/utils";
 import type { Metadata } from "next";
@@ -27,12 +27,14 @@ export default function RootLayout({
     <html lang="en" className={`${jetBrains.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <HeadingCtx value={0}>
-          <MainHeader>
-            <ThemeSwitch />
-          </MainHeader>
-          <ConverterCard />
-          <Navbar />
-          {children}
+          <Main pageHasH1={false}>
+            <MainHeader>
+              <ThemeSwitch />
+            </MainHeader>
+            <ConverterCard />
+            <Navbar />
+            {children}
+          </Main>
         </HeadingCtx>
       </body>
     </html>

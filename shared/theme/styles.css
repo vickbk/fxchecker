@@ -3,6 +3,7 @@
   --foreground: hsl(0, 0%, 4%);
   --background-secondary: hsl(0, 0%, 78%);
   --foreground-secondary: hsl(240, 4%, 9%);
+  --card: hsl(0, 0%, 62%);
 }
 @theme inline {
   --color-neutral-900: hsl(0, 0%, 4%);
@@ -23,6 +24,7 @@
   --color-foreground: var(--foreground);
   --color-background-secondary: var(--background-secondary);
   --color-foreground-secondary: var(--foreground-secondary);
+  --color-card: var(--card);
 }
 
 :root {
@@ -31,6 +33,7 @@
     --foreground: var(--color-neutral-50);
     --background-secondary: var(--color-neutral-700);
     --foreground-secondary: var(--color-neutral-100);
+    --card: var(--color-neutral-600);
   }
 
   &[theme="dark"],
@@ -39,6 +42,7 @@
     --foreground: var(--color-neutral-50);
     --background-secondary: var(--color-neutral-700);
     --foreground-secondary: var(--color-neutral-100);
+    --card: var(--color-neutral-600);
   }
 
   &[theme="light"],
@@ -47,5 +51,6 @@
     --foreground: var(--color-neutral-900);
     --background-secondary: var(--color-neutral-100);
     --foreground-secondary: var(--color-neutral-700);
+    --card: var(--color-neutral-200);
   }
 }
