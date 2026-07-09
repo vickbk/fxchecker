@@ -5,8 +5,8 @@ import { Summary } from "./Summary";
 
 export const MainHistory = () => {
   return (
-    <Article>
-      <Heading>Chart history for USD to EUR</Heading>
+    <Article className="p-4">
+      <Heading className="sr-only">Chart history for USD to EUR</Heading>
       <Summary />
       <Menue />
       <Graph />
