@@ -1,13 +1,19 @@
-import Link from "next/link";
+import { Suspense } from "react";
+import { NavbarProps } from "../types/navbar";
+import { LoadingPlacehoder } from "./LoadingPlaceholder";
+import { NavLink } from "./Navlink";
 
-export const Navbar = () => {
-  const options = ["history", "compare", "favorites", "logs"];
+const options = ["history", "compare", "favorites", "logs"] as const;
+
+export const Navbar = (props: NavbarProps) => {
   return (
     <nav>
       <ul>
-        {options.map((text) => (
+        {options.map(async (text) => (
           <li key={text}>
-            <Link href={`/${text === "history" ? "" : text}`}>{text}</Link>
+            <Suspense fallback={<LoadingPlacehoder className="" />}>
+              <NavLink badge={await props[text].badge} text={text} />
+            </Suspense>
           </li>
         ))}
       </ul>

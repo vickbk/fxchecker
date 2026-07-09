@@ -32,7 +32,7 @@ export default function RootLayout({
               <ThemeSwitch />
             </MainHeader>
             <ConverterCard />
-            <Navbar />
+            <Navbar history={{}} compare={{}} favorites={{}} logs={{}} />
             {children}
           </Main>
         </HeadingCtx>
