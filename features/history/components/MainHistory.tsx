@@ -5,12 +5,11 @@ import { Summary } from "./Summary";
 
 export const MainHistory = () => {
   return (
-    <Article className="p-4">
+    <Article className="p-4 flex flex-col gap-4">
       <Heading className="sr-only">Chart history for USD to EUR</Heading>
-      <div className="flex flex-col gap-4">
-        <Summary />
-        <Menue />
-      </div>
+
+      <Summary />
+      <Menue />
       <Graph />
     </Article>
   );
