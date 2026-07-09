@@ -1,20 +1,24 @@
 import { SROnly } from "@/shared/utils";
+import Link from "next/link";
+
+const timePeriods = [
+  ["1D", "One day"],
+  ["1W", "One week"],
+  ["1M", "One month"],
+  ["3M", "Three months"],
+  ["1Y", "One Year"],
+  ["5Y", "Five years"],
+];
 
 export const Menue = () => {
-  const timePeriods = [
-    ["1D", "One day"],
-    ["1W", "One week"],
-    ["1M", "One month"],
-    ["3M", "Three months"],
-    ["1Y", "One Year"],
-    ["5Y", "Five years"],
-  ];
   return (
-    <ul>
+    <ul className="flex bg-background-secondary self-start rounded-lg">
       {timePeriods.map(([key, text]) => (
         <li key={key}>
-          <SROnly>{text}</SROnly>
-          {key}
+          <Link href={`?${key}`} className="p-4 hover:bg-card rounded-lg block">
+            <SROnly>{text}</SROnly>
+            <span aria-hidden>{key}</span>
+          </Link>
         </li>
       ))}
     </ul>
