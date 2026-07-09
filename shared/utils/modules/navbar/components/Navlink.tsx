@@ -1,7 +1,7 @@
 "use client";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
-import { NavLinkProps } from "../types/navbar";
+import { NavLinkProps } from "../../../types/navbar";
 
 export const NavLink = ({ badge, text }: NavLinkProps) => {
   const query = useSearchParams();
