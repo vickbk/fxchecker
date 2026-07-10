@@ -15,9 +15,9 @@ export const CurrencyList = ({
         return (
           <li
             key={index}
-            className="flex items-center justify-between px-4 gap-4 border-foreground-secondary border-x"
+            className="flex items-center justify-between px-4 gap-4 border-card border"
           >
-            <span className="font-medium text-foreground-secondary">
+            <span className="font-medium text-foreground-secondary truncate">
               {rate.base}/{rate.quote}
             </span>
             <span className="font-bold"> {rate.rate.toFixed(2)}</span>

@@ -8,6 +8,7 @@ export const NavLink = ({ badge, text }: NavLinkProps) => {
   const queryString = query.toString().trim();
   return (
     <Link
+      className="block"
       href={`/${text === "history" ? "" : text}${queryString && "?" + queryString}`}
     >
       {text} {badge && <span>{badge}</span>}
