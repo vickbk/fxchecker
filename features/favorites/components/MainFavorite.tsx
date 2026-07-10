@@ -1,15 +1,18 @@
-import { Heading, Section } from "@/shared/heading";
+import { Heading } from "@/shared/heading";
+import { SectionsWrapper, SROnly } from "@/shared/utils";
 import { Actions } from "./Actions";
 import { FavoriteCard } from "./FavoriteCard";
 
 export const MainFavorite = () => {
   return (
-    <Section aria-describedby="favorite-heading">
-      <Heading id="favorite-heading">Pin Paired currencies</Heading>
+    <SectionsWrapper sectionId="favorite-heading">
+      <Heading id="favorite-heading" className="uppercase">
+        Pin Paired <SROnly>currencies</SROnly>{" "}
+      </Heading>
       <Actions />
-      <ul>
+      <ul className="w-full">
         <FavoriteCard />
       </ul>
-    </Section>
+    </SectionsWrapper>
   );
 };

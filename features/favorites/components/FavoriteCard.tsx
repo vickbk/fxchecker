@@ -1,19 +1,23 @@
-import { CurrencyCard } from "@/shared/utils";
+import { BiIcon, CurrencyCard, SROnly } from "@/shared/utils";
 
 export const FavoriteCard = () => {
   return (
     <CurrencyCard>
-      <dl>
-        <dt>GBP {"->"} EUR</dt>
-        <dd>British Pound to Euro</dd>
+      <dl className="">
+        <dt className="truncate">GBP {"->"} EUR</dt>
+        <dd className="sr-only">British Pound to Euro</dd>
       </dl>
-      <dl>
+      <dl className="ml-auto">
         <dt>0.8990</dt>
-        <dd>^+16%</dd>
+        <dd className="text-red-500">
+          <BiIcon name="caret-up-fill" /> +16%
+        </dd>
       </dl>
       <label>
-        Remove from favorite
-        <input type="checkbox" />
+        <SROnly>
+          Remove from favorite <input type="checkbox" />
+        </SROnly>
+        <BiIcon name="star-fill text-lime-500" />
       </label>
     </CurrencyCard>
   );
