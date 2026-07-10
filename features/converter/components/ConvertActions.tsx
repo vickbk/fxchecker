@@ -20,7 +20,7 @@ export const ConverterActions = () => {
         <li>
           <button
             type="button"
-            className="uppercase flex items-center w-full gap-2 p-4 outline-lime-500 rounded-lg outline"
+            className="uppercase flex items-center gap-2 p-4 outline-lime-500 rounded-lg outline truncate max-w-full grow"
           >
             <BiIcon name="clock" />
             Log conversion

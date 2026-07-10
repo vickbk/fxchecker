@@ -1,18 +1,20 @@
 import { CurrencyCard } from "@/shared/utils";
-import Image from "next/image";
+import { Flag } from "@/shared/utils/components/Flag";
 import { CurrencyActions } from "./CurrencyActions";
 
 export const CompareCurreny = () => {
   return (
     <CurrencyCard>
-      <Image src="/flags/de.webpg" alt="DRC flag" width={100} height={100} />
+      <Flag src="https://flagcdn.com/de.svg" alt="DRC flag" />
       <dl>
-        <dt>GBP</dt>
-        <dd>British Pound</dd>
+        <dt className="text-sm">GBP</dt>
+        <dd className="text-foreground-secondary truncate text-xs">
+          British Pound
+        </dd>
       </dl>
-      <dl>
+      <dl className="ml-auto">
         <dt>765.43</dt>
-        <dd>@ 0.76543</dd>
+        <dd className="text-foreground-secondary text-xs truncate">@ 0.7654</dd>
       </dl>
 
       <CurrencyActions />

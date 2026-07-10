@@ -15,7 +15,10 @@ export const Menue = () => {
     <ul className="flex bg-background-secondary self-start rounded-lg">
       {timePeriods.map(([key, text]) => (
         <li key={key}>
-          <Link href={`?${key}`} className="p-4 hover:bg-card rounded-lg block">
+          <Link
+            href={`?period=${key}`}
+            className="p-4 hover:bg-card rounded-lg block"
+          >
             <SROnly>{text}</SROnly>
             <span aria-hidden>{key}</span>
           </Link>
