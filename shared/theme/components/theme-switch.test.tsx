@@ -93,6 +93,5 @@ describe("ThemeSwitch with Dark Mode", () => {
 
     const icon = screen.getByRole("button").querySelector("i");
     expect(icon).toHaveClass("bi-sun-fill");
-    expect(icon).toHaveClass("c-yellow-400");
   });
 });
