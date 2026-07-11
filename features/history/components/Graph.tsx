@@ -2,8 +2,8 @@ import { Heading } from "@/shared/heading";
 
 export const Graph = () => {
   return (
-    <figure className="rounded-lg bg-background-secondary">
-      <figcaption className="p-4 border-b border-dashed">
+    <figure className="rounded-lg bg-background-secondary w-full">
+      <figcaption className="p-4 border-b border-dashed border-card">
         <Heading className="sr-only">
           The currency exchange story for 3months
         </Heading>
@@ -18,7 +18,7 @@ export const Graph = () => {
             <dt className="sr-only">Current Currency</dt>
             <dd className="flex">
               0.8532 <i className="bi bi-dot" />{" "}
-              <time className="truncate w-40" dateTime="2026-07-09">
+              <time className="truncate w-40 sm:w-auto" dateTime="2026-07-09">
                 July 09 16:00 CET
               </time>
             </dd>

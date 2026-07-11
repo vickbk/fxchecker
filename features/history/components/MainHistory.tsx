@@ -5,7 +5,7 @@ import { Summary } from "./Summary";
 
 export const MainHistory = () => {
   return (
-    <Article className="p-4 flex flex-col gap-4">
+    <Article className="p-4 flex flex-col sm:flex-row flex-wrap gap-4 justify-between">
       <Heading className="sr-only">Chart history for USD to EUR</Heading>
 
       <Summary />

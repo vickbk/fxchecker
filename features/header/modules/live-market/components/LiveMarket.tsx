@@ -16,7 +16,7 @@ export const LiveMarket = () => {
   ];
   return (
     <Article
-      className="flex uppercase bg-background-secondary sticky top-0"
+      className="flex uppercase bg-background-secondary sticky top-0 z-10"
       aria-describedby="live-market"
     >
       <Heading

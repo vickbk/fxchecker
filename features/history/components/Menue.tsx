@@ -12,12 +12,12 @@ const timePeriods = [
 
 export const Menue = () => {
   return (
-    <ul className="flex bg-background-secondary self-start rounded-lg">
+    <ul className="flex bg-background-secondary self-start rounded-lg md:self-center">
       {timePeriods.map(([key, text]) => (
         <li key={key}>
           <Link
             href={`?period=${key}`}
-            className="p-4 hover:bg-card rounded-lg block"
+            className="p-2 hover:bg-card rounded-lg block"
           >
             <SROnly>{text}</SROnly>
             <span aria-hidden>{key}</span>

@@ -13,7 +13,7 @@ export const FavoriteCard = () => {
           <BiIcon name="caret-up-fill" /> +16%
         </dd>
       </dl>
-      <label>
+      <label className="p-2 rounded-lg border border-lime-500">
         <SROnly>
           Remove from favorite <input type="checkbox" />
         </SROnly>

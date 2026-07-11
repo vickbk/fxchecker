@@ -31,9 +31,11 @@ export default function RootLayout({
             <MainHeader>
               <ThemeSwitch />
             </MainHeader>
-            <ConverterCard />
-            <Navbar history={{}} compare={{}} favorites={{}} logs={{}} />
-            {children}
+            <div className="max-w-4xl mx-auto sm:py-8">
+              <ConverterCard />
+              <Navbar history={{}} compare={{}} favorites={{}} logs={{}} />
+              {children}
+            </div>
           </Main>
         </HeadingCtx>
       </body>

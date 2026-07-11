@@ -2,7 +2,7 @@ import { SummaryCard } from "./SummaryCard";
 
 export const Summary = () => {
   return (
-    <dl className="grid grid-cols-2 gap-4">
+    <dl className="grid grid-cols-2 gap-4 sm:flex">
       <SummaryCard term="Open">0.8500</SummaryCard>
       <SummaryCard term="Close">0.8503</SummaryCard>
       <SummaryCard term="Change">
