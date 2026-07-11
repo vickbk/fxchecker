@@ -5,7 +5,7 @@ import { NavLink } from "./Navlink";
 
 export const MobileNavbar = async (props: NavbarProps) => {
   return (
-    <div className="p-4 uppercase relative">
+    <div className="p-4 uppercase relative sm:hidden">
       <button
         type="button"
         popoverTarget="mobile-menue"
