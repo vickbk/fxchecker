@@ -43,12 +43,12 @@
     "eslint": "^9",
     "eslint-config-next": "16.2.10",
     "eslint-import-resolver-typescript": "^4.4.5",
-    "eslint-plugin-boundaries": "^6.0.2",
+    "eslint-plugin-boundaries": "^7.0.2",
     "happy-dom": "^20.10.6",
-    "msw": "^2.14.6",
+    "msw": "^2.15.0",
     "tailwindcss": "^4",
     "typescript": "^6",
-    "typescript-eslint": "^8.62.1",
+    "typescript-eslint": "^8.63.0",
     "vitest": "^4.1.9"
   }
 }
