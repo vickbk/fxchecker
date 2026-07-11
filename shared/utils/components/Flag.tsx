@@ -8,6 +8,7 @@ export const Flag = ({ src, alt }: Record<"src" | "alt", string>) => {
       className="aspect-square object-cover rounded-full"
       src={src}
       alt={alt}
+      loading="eager"
     />
   );
 };

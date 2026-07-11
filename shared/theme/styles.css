@@ -4,7 +4,7 @@
   --background-secondary: hsl(0, 0%, 78%);
   --foreground-secondary: hsl(240, 4%, 9%);
   --card: hsl(0, 0%, 62%);
-  --btn: hsl(240, 1%, 27%);
+  --btn: hsl(240, 2%, 51%);
 }
 @theme inline {
   --color-neutral-900: hsl(0, 0%, 4%);
@@ -12,7 +12,7 @@
   --color-neutral-600: hsl(240, 3%, 13%);
   --color-neutral-500: hsl(0, 0%, 18%);
   --color-neutral-400: hsl(0, 0%, 24%);
-  --color-neutral-300: hsl(240, 1%, 27%);
+  --color-neutral-300: hsl(240, 2%, 51%);
   --color-neutral-200: hsl(0, 0%, 62%);
   --color-neutral-100: hsl(0, 0%, 78%);
   --color-neutral-50: hsl(0, 0, 100%);

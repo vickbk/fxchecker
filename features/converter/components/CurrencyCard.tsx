@@ -6,12 +6,11 @@ import { randomUUID } from "crypto";
 export const CurrencyCard = () => {
   const [id, searchId, popover] = randomUUID().split("-");
   return (
-    <Article role="combobox" aria-controls={`${id}`} aria-expanded={false}>
+    <Article id={`${id}`}>
       <button
         className={`p-4 rounded-md bg-btn flex gap-2 items-center [anchor-name:--${popover}]`}
         type="button"
         popoverTarget={popover}
-        id={id}
       >
         <Flag src="https://flagcdn.com/us.svg" alt="US Flag" /> USD{" "}
         <BiIcon name="caret-down-fill" />
