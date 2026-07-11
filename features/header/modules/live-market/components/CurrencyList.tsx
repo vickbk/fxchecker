@@ -1,4 +1,4 @@
-import { Rate } from "@/infra/api/frankfurter/types";
+import { FrankfurterRate } from "@/infra/api/frankfurter/types";
 import { BiIcon } from "@/shared/utils";
 
 export const CurrencyList = ({
@@ -6,7 +6,7 @@ export const CurrencyList = ({
   rates,
 }: {
   duplicate?: boolean;
-  rates: Rate[];
+  rates: FrankfurterRate[];
 }) => {
   return (
     <ul className="flex" aria-hidden={duplicate}>
