@@ -2,10 +2,12 @@ import type { Themes } from "../types";
 
 export function getSavedTheme() {
   if (typeof window === "undefined") return "dark";
-  return ((localStorage.getItem("theme") as Themes | null) ??
-    window.matchMedia("(prefers-color-scheme: dark)").matches)
-    ? "dark"
-    : "light";
+  return (
+    (localStorage.getItem("theme") as Themes | null) ??
+    (window.matchMedia("(prefers-color-scheme: dark)").matches
+      ? "dark"
+      : "light")
+  );
 }
 
 export function applyTheme(

@@ -1,20 +1,38 @@
-import { test, expect } from "@playwright/test";
+import { shouldSeeLoginButton } from "@/features/account/__testing__";
+import { shouldSeeCompareSection } from "@/features/compare/__testing__";
+import { shouldSeeTheConverterSection } from "@/features/converter/__testing__";
+import { shouldSeeFavoriteFunction } from "@/features/favorites/__testing__";
+import { shouldSeePageTitle } from "@/features/header/__testing__";
+import { shouldSeeHistorySection } from "@/features/history/__testing__";
+import { shouldSeeLogsSection } from "@/features/logs/__testing__";
+import { shouldSeeLightThemeSwitcher } from "@/shared/theme/__testing__";
+import { shouldSeeNavbar } from "@/shared/utils/modules/navbar/__testing__";
+import { test } from "@playwright/test";
 
-test("has title", async ({ page }) => {
-  await page.goto("https://playwright.dev/");
+test.describe("Main Page tests", () => {
+  test("Header should have titles, theme switcher and login button", async ({
+    page,
+  }) => {
+    await page.goto("/");
 
-  // Expect a title "to contain" a substring.
-  await expect(page).toHaveTitle(/Playwright/);
-});
+    await shouldSeePageTitle(page);
+    await shouldSeeLightThemeSwitcher(page);
+    await shouldSeeLoginButton(page);
+  });
 
-test("get started link", async ({ page }) => {
-  await page.goto("https://playwright.dev/");
+  const identicalTests = [
+    ["should have the converter section", shouldSeeTheConverterSection],
+    ["should see navigation section", shouldSeeNavbar],
+    ["should see history section", shouldSeeHistorySection],
+    ["should see compare section", shouldSeeCompareSection],
+    ["Should see favorites section", shouldSeeFavoriteFunction],
+    ["Should see logs section", shouldSeeLogsSection],
+  ] as const;
 
-  // Click the get started link.
-  await page.getByRole("link", { name: "Get started" }).click();
-
-  // Expects page to have a heading with the name of Installation.
-  await expect(
-    page.getByRole("heading", { name: "Installation" }),
-  ).toBeVisible();
+  identicalTests.forEach(([name, t]) =>
+    test(name, async ({ page }) => {
+      await page.goto("/");
+      await t(page);
+    }),
+  );
 });
