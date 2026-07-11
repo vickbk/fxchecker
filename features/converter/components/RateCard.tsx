@@ -10,7 +10,7 @@ export const RateCard = ({ isSend = false }: { isSend?: boolean }) => {
       <Heading className="uppercase text-foreground-secondary" id={id}>
         {isSend ? "Send" : "Receive"} <SROnly>rate</SROnly>
       </Heading>
-      <div className="flex justify-between items-center">
+      <div className="flex justify-between items-center sm:mt-4">
         {isSend ? (
           <AmountSetter />
         ) : (
