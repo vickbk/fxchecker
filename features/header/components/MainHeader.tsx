@@ -17,7 +17,7 @@ export const MainHeader = ({ children }: { children: React.ReactNode }) => {
             55 Currencies
           </span> <BiIcon name="dot" /> <span>EOD</span> <BiIcon name="dot" />
           <span>ECB Data</span>
-          <div className="ml-auto">{children}</div>
+          <div className="ml-auto flex gap-4 items-center">{children}</div>
         </div>
       </header>
       <LiveMarket />

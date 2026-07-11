@@ -1,3 +1,4 @@
+import { AuthManager } from "@/features/account";
 import { ConverterCard } from "@/features/converter";
 import { MainHeader } from "@/features/header";
 import { HeadingCtx, Main } from "@/shared/heading";
@@ -30,6 +31,7 @@ export default function RootLayout({
           <Main pageHasH1={false}>
             <MainHeader>
               <ThemeSwitch />
+              <AuthManager />
             </MainHeader>
             <div className="max-w-4xl mx-auto sm:py-8">
               <ConverterCard />

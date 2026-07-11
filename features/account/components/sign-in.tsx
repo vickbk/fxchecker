@@ -13,10 +13,10 @@ export const SignIn = async () => {
       >
         <Header className="space-y-1">
           <Heading className="text-2xl font-semibold text-white tracking-tight">
-            Welcome to Your Movie Guide
+            Welcome to Foreign exchange tracker
           </Heading>
           <p className="text-sm text-slate-400">
-            Keep your bookmarks logs and chat synced accros your devices.
+            Keep your favorites changes and logs synced accros your devices.
           </p>
         </Header>
 
@@ -36,7 +36,7 @@ export const SignIn = async () => {
       <button
         type="button"
         popoverTarget="sign-in-dialog"
-        className="inline-flex items-center cursor-pointer gap-2 bg-indigo-600 hover:bg-indigo-700 text-white px-4 py-2 rounded-md shadow-lg transition-transform active:scale-95"
+        className="inline-flex items-center cursor-pointer gap-2 bg-lime-500 text-background hover:bg-transparent hover:outline hover:text-lime-500 px-4 py-2 rounded-md shadow-lg transition-transform active:scale-95"
       >
         Sign In <BiIcon name="door-open" />
       </button>
