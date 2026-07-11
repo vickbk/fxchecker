@@ -1,1 +1,1 @@
-export { shouldNotSee, shouldSee, userClicks, userTypes } from "./utils/dsl";
+export * from "./utils/dsl";
