@@ -1,5 +1,12 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { fetchLatestRates, frankfurterCache } from "./service";
+import {
+  fetchCurrencies,
+  fetchCurrencyDetails,
+  fetchHistoricalRates,
+  fetchLatestRates,
+  frankfurterCache,
+  getRate,
+} from "./service";
 import {
   FrankfurterError,
   FrankfurterOfflineError,
@@ -16,6 +23,7 @@ vi.mock("@/shared/config", () => ({
 
 describe("infra/api/frankfurter/service", () => {
   beforeEach(() => {
+    vi.clearAllMocks();
     vi.stubGlobal("fetch", fetchMock);
     frankfurterCache.clear();
   });
@@ -91,6 +99,145 @@ describe("infra/api/frankfurter/service", () => {
 
     expect(thrownError).toBeInstanceOf(FrankfurterOfflineError);
     expect(thrownError).toBeInstanceOf(FrankfurterError);
+  });
+
+  describe("Frankfurter API V2 Endpoint Layout", () => {
+    it("maps the full currency dictionary to the application currency model", async () => {
+      const mockPayload = {
+        USD: {
+          iso_code: "USD",
+          iso_numeric: "840",
+          name: "US Dollar",
+          symbol: "$",
+          start_date: "1999-01-04",
+          end_date: "",
+          providers: ["ECB"],
+        },
+        EUR: {
+          iso_code: "EUR",
+          iso_numeric: "978",
+          name: "Euro",
+          symbol: "€",
+          start_date: "1999-01-04",
+          end_date: "",
+          providers: ["ECB"],
+        },
+      };
+
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => mockPayload,
+      } as Response);
+
+      const result = await fetchCurrencies();
+
+      expect(fetchMock).toHaveBeenCalledWith(
+        "https://frankfurtur.mock/currencies",
+      );
+      expect(result).toEqual([
+        { code: "USD", name: "US Dollar", symbol: "$" },
+        { code: "EUR", name: "Euro", symbol: "€" },
+      ]);
+    });
+
+    it("targets an isolated currency detail endpoint with the requested code", async () => {
+      const mockPayload = {
+        iso_code: "USD",
+        iso_numeric: "840",
+        name: "US Dollar",
+        symbol: "$",
+        start_date: "1999-01-04",
+        end_date: "",
+        providers: ["ECB"],
+      };
+
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => mockPayload,
+      } as Response);
+
+      const result = await fetchCurrencyDetails("USD");
+
+      expect(fetchMock).toHaveBeenCalledWith(
+        "https://frankfurtur.mock/currency/USD",
+      );
+      expect(result).toEqual({ code: "USD", name: "US Dollar", symbol: "$" });
+    });
+
+    it("assembles current live rates requests from the /rates root", async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          date: "2026-07-11",
+          base: "EUR",
+          rates: { USD: 1.09 },
+        }),
+      } as Response);
+
+      await fetchLatestRates();
+
+      expect(fetchMock).toHaveBeenCalledWith("https://frankfurtur.mock/rates");
+    });
+
+    it("appends the historical from parameter to the /rates endpoint", async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          date: "2026-07-11",
+          base: "EUR",
+          rates: { USD: 1.09 },
+        }),
+      } as Response);
+
+      await fetchHistoricalRates("2026-07-11");
+
+      expect(fetchMock).toHaveBeenCalledWith(
+        "https://frankfurtur.mock/rates?from=2026-07-11",
+      );
+    });
+
+    it("serializes base and quote filters using the V2 query contract", async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          date: "2026-07-11",
+          base: "USD",
+          rates: { EUR: 0.92, GBP: 0.79 },
+        }),
+      } as Response);
+
+      await fetchLatestRates("USD", ["EUR", "GBP"]);
+
+      expect(fetchMock).toHaveBeenCalledWith(
+        "https://frankfurtur.mock/rates?base=USD&quotes=EUR,GBP",
+      );
+    });
+
+    it("flattens a rate response into the V2 FrankfurterRate shape", async () => {
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        json: async () => ({
+          date: "2026-07-11",
+          base: "USD",
+          rate: 0.92,
+        }),
+      } as Response);
+
+      const result = await getRate("USD", "EUR");
+
+      expect(result).toEqual({
+        date: "2026-07-11",
+        base: "USD",
+        quote: "EUR",
+        rate: 0.92,
+      });
+    });
   });
 
   describe("SWR Caching Layer", () => {
