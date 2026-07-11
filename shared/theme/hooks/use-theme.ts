@@ -1,13 +1,16 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { applyTheme, getSavedTheme, saveTheme } from "../scripts";
 import type { Themes } from "../types";
 
 export function useTheme() {
-  const [theme, setTheme] = useState<Themes>(() => {
-    if (typeof window === undefined) return "light";
-    return getSavedTheme();
-  });
+  const [theme, setTheme] = useState<Themes>();
 
+  useEffect(() => {
+    const saved = getSavedTheme();
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setTheme(saved);
+    applyTheme(saved);
+  }, []);
   const isDark = theme === "dark";
   const isLight = theme === "light";
 

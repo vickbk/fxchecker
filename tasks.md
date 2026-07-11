@@ -132,3 +132,42 @@
 - [x] Open a file within an active feature workspace (e.g., `features/converter/`) and inject an intentional cross-feature link to a neighboring folder.
 - [x] Execute `pnpm lint` and confirm the parser rejects the build while printing your custom cross-contamination error token.
 - [x] Revert the structural code test to return your workspace to a fully compliant status.
+
+Shifting to a **UI-First workflow** is a highly effective way to stabilize your design system, solidify user flows, and lock down accessibility (like testing your new Heading Level Manager) before getting bogged down in state management or API wiring.
+
+Because we just implemented strict ESLint boundary rules, building your UI inside the `shared/` layer first ensures that your baseline presentation components remain entirely pure and decoupled from domain logic.
+
+Here is the task scaffolding to execute this UI-to-Feature workflow systematically.
+
+---
+
+## 6. UI-First to Feature Integration Workflow
+
+- [ ] **Phase 1: Build Shared Core UI Components (Design System Foundation)**
+- **Status:** ⏳ Pending (Target: 2026-07-08)
+- **Description:** Build the stateless, reusable presentation atomic parts inside `shared/components/ui` or similar, ensuring theme and typography managers are bound.
+- [ ] Scaffold foundational inputs, buttons, tokens, and cards that will be universal across all views.
+- [x] Integrate the new `Heading Level Manager` components (`<Main>`, `<Section>`, `<Heading>`) directly into core structural layouts.
+- [x] Wrap the local presentation workspace in your unified `ThemeProvider` to verify dark/light variations on the raw components.
+- [ ] Write targeted presentation-only tests checking styles, accessible tags, and variant configurations.
+
+- [ ] **Phase 2: Assemble Global App Layouts & Page Wireframes**
+- **Status:** ⏳ Pending (Target: 2026-07-10)
+- **Description:** Compose your atomic UI components into broad application wireframes inside the `app/` folder using mock static data.
+- [ ] Design the main layout shells (Navigation sidebars, persistent header grids, footers, responsive mobile wrappers).
+- [ ] Compose dummy screens (e.g., placeholder Converter screen, Market Dashboard grid) relying exclusively on localized mock data arrays.
+- [ ] Verify semantic outline structures using screen reader/DOM tools to ensure your heading manager scales depth correctly across full viewports.
+
+- [ ] **Phase 3: Domain Extraction & Feature Module Isolation**
+- **Status:** ⏳ Pending (Target: 2026-07-13)
+- **Description:** Slice your visual layouts into isolated feature domains under `features/` and watch for boundary validation.
+- [ ] Identify which chunks of the composed layouts belong to specific domains (e.g., the Currency Pair grid moves into `features/converter`).
+- [ ] Migrate those view layouts into their corresponding `features/*` directory.
+- [ ] Run `pnpm lint` immediately following migration to verify that these isolated views are not accidentally cross-importing from neighboring feature files.
+
+- [ ] **Phase 4: Hook Integration & Business Logic Wiring**
+- **Status:** ⏳ Pending (Target: 2026-07-15)
+- **Description:** Replace the static mockup code inside your feature blocks with real reactive states, domain hooks, and external API pipelines.
+- [ ] Swap out static layouts with local reactive states (`useState`, `useReducer`) to establish interactive view logic.
+- [ ] Layer in your underlying processing engines (custom feature data hooks, infra-level API fetchers, cache persistence rules).
+- [ ] Run the complete test suite (`pnpm test`) to guarantee your visual components transition fluidly between empty, loading, data, and fallback error states.
