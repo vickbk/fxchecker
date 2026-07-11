@@ -1,7 +1,9 @@
 import { shouldSeeLoginButton } from "@/features/account/__testing__/login";
 import { shouldSeeTheConverterSection } from "@/features/converter/__testing__";
 import { shouldSeePageTitle } from "@/features/header/__testing__";
+import { shouldSeeHistorySection } from "@/features/history/__testing__";
 import { shouldSeeLightThemeSwitcher } from "@/shared/theme/__testing__";
+import { shouldSeeNavbar } from "@/shared/utils/modules/navbar/__testing__";
 import { test } from "@playwright/test";
 
 test.describe("Main Page tests", () => {
@@ -18,5 +20,15 @@ test.describe("Main Page tests", () => {
   test("should have the converter section", async ({ page }) => {
     await page.goto("/");
     await shouldSeeTheConverterSection(page);
+  });
+
+  test("should see navigation section", async ({ page }) => {
+    await page.goto("/");
+    await shouldSeeNavbar(page);
+  });
+
+  test("should see history section", async ({ page }) => {
+    await page.goto("/");
+    await shouldSeeHistorySection(page);
   });
 });
