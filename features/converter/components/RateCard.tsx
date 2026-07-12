@@ -1,6 +1,7 @@
 import { Heading, Section } from "@/shared/heading";
 import { SROnly } from "@/shared/utils";
 import { AmountSetter } from "./AmountSetter";
+import { ConvertDisplay } from "./ConvertDisplay";
 import { CurrencyCard } from "./CurrencyCard";
 
 export const RateCard = ({ isSend = false }: { isSend?: boolean }) => {
@@ -11,11 +12,7 @@ export const RateCard = ({ isSend = false }: { isSend?: boolean }) => {
         {isSend ? "Send" : "Receive"} <SROnly>rate</SROnly>
       </Heading>
       <div className="flex justify-between items-center sm:mt-4">
-        {isSend ? (
-          <AmountSetter />
-        ) : (
-          <p className="text-4xl font-bold text-lime-500">{100}</p>
-        )}
+        {isSend ? <AmountSetter /> : <ConvertDisplay />}
         <CurrencyCard isSend={isSend} />
       </div>
     </Section>
