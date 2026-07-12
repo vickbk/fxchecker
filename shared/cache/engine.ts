@@ -9,12 +9,17 @@ export class SWREngine {
     this.ttlMs = options.ttlMs;
   }
 
-  public async execute<T>(key: string, fetchFn: () => Promise<T>): Promise<T> {
+  public async execute<T>(
+    key: string,
+    fetchFn: () => Promise<T>,
+    options?: { ttlMs?: number },
+  ): Promise<T> {
     const entry = this.cache.get(key) as CacheEntry<T> | undefined;
     const now = Date.now();
+    const activeTtl = options?.ttlMs ?? this.ttlMs;
 
     // 1. Fresh Cache Hit
-    if (entry && now - entry.createdAt < this.ttlMs) {
+    if (entry && now - entry.createdAt < activeTtl) {
       return entry.data as Readonly<T>;
     }
 

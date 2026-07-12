@@ -1,3 +1,4 @@
+import { describe, expect, it } from "vitest";
 import { joinClasses } from "./other-helpers";
 
 describe("Other Helpers", () => {

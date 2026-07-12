@@ -133,7 +133,7 @@ describe("infra/api/frankfurter/service", () => {
       const result = await fetchCurrencies();
 
       expect(fetchMock).toHaveBeenCalledWith(
-        "https://frankfurtur.mock/currencies",
+        "https://frankfurtur.mock/v2/currencies",
       );
       expect(result).toEqual([
         { code: "USD", name: "US Dollar", symbol: "$" },
@@ -161,7 +161,7 @@ describe("infra/api/frankfurter/service", () => {
       const result = await fetchCurrencyDetails("USD");
 
       expect(fetchMock).toHaveBeenCalledWith(
-        "https://frankfurtur.mock/currency/USD",
+        "https://frankfurtur.mock/v2/currency/USD",
       );
       expect(result).toEqual({ code: "USD", name: "US Dollar", symbol: "$" });
     });
@@ -179,7 +179,9 @@ describe("infra/api/frankfurter/service", () => {
 
       await fetchLatestRates();
 
-      expect(fetchMock).toHaveBeenCalledWith("https://frankfurtur.mock/rates");
+      expect(fetchMock).toHaveBeenCalledWith(
+        "https://frankfurtur.mock/v2/rates",
+      );
     });
 
     it("appends the historical from parameter to the /rates endpoint", async () => {
@@ -196,7 +198,7 @@ describe("infra/api/frankfurter/service", () => {
       await fetchHistoricalRates("2026-07-11");
 
       expect(fetchMock).toHaveBeenCalledWith(
-        "https://frankfurtur.mock/rates?from=2026-07-11",
+        "https://frankfurtur.mock/v2/rates?from=2026-07-11",
       );
     });
 
@@ -214,7 +216,7 @@ describe("infra/api/frankfurter/service", () => {
       await fetchLatestRates("USD", ["EUR", "GBP"]);
 
       expect(fetchMock).toHaveBeenCalledWith(
-        "https://frankfurtur.mock/rates?base=USD&quotes=EUR,GBP",
+        "https://frankfurtur.mock/v2/rates?base=USD&quotes=EUR,GBP",
       );
     });
 
