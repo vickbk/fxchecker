@@ -5,7 +5,7 @@ on:
   pull_request:
     branches: [main, master]
 env:
-  FRANKFURTER_URL: "http://placeholder.com"
+  FRANKFURTER_URL: "https://api.frankfurter.dev/v2/"
   AUTH_SECRET: "PLACEHOLDER"
   AUTH_GOOGLE_ID: "PLACEHOLDER"
   AUTH_GOOGLE_SECRET: "PLACEHOLDER"
