@@ -31,8 +31,8 @@
 - **Status:** ✅ Done (Target: 2026-07-14)
 - **Description:** Craft the physical view blocks using semantic components with absolute height/width constraints to prevent irritating layout shifting during network loading cycles.
 - [x] Build the searchable combobox component inside `features/converter/components/CurrencyPicker.tsx` using fully compliant HTML ARIA attributes.
-- [ ] Build `features/converter/components/ConverterCard.tsx` as the layout-stable wrapper that encapsulates the amount inputs, picking dropdowns, and target conversion readouts.
-- [ ] Put down explicit visual placeholder skeletons to preserve the exactly calculated container space while background currency calculations are active.
+- [x] Build `features/converter/components/ConverterCard.tsx` as the layout-stable wrapper that encapsulates the amount inputs, picking dropdowns, and target conversion readouts.
+- [x] Put down explicit visual placeholder skeletons to preserve the exactly calculated container space while background currency calculations are active.
 
 ---
 
@@ -41,6 +41,6 @@
 - [ ] **Integrate Infrastructure & Assert Performance Boundaries**
 - **Status:** ⏳ Pending (Target: 2026-07-16)
 - **Description:** Glue the UI layer to our high-performance `shared/cache` and Frankfurter client infrastructure layer.
-- [ ] Connect `ConverterCard` to our pre-built `fetchLatestRates` infrastructure service using an optimal client-side integration hook (or SWR/React Query wrapper).
-- [ ] Run `pnpm lint` and `pnpm test` across the `features/converter` layout to check that it imports cleanly from `shared/cache` and `infra/api/frankfurter` without creating circular dependency trees.
+- [x] Connect `ConverterCard` to our pre-built `fetchLatestRates` infrastructure service using an optimal client-side integration hook (or SWR/React Query wrapper).
+- [x] Run `pnpm lint` and `pnpm test` across the `features/converter` layout to check that it imports cleanly from `shared/cache` and `infra/api/frankfurter` without creating circular dependency trees.
 - [ ] Execute an automated Playwright layout test to guarantee that shifting between input values or toggling currency reversals maintains an absolute **Cumulative Layout Shift (CLS)** score of 0.
