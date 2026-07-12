@@ -32,7 +32,9 @@ export const CurrencyCard = ({ isSend = false }: { isSend: boolean }) => {
           src={`https://flagcdn.com/${getCurrencyCountry(actualCurr!.code)}.svg`}
           alt={`${actualCurr.name} flag`}
         />{" "}
-        {actualCurr.code} <BiIcon name="caret-down-fill" />
+        <SROnly>Change {isSend ? "send" : "receive"} currency(</SROnly>
+        {actualCurr.code}
+        <SROnly>)</SROnly> <BiIcon name="caret-down-fill" />
       </button>
       <form
         popover=""
