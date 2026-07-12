@@ -16,6 +16,7 @@ import {
   getHistoricalCacheKey,
   getLatestCacheKey,
   getTimeSeriesCacheKey,
+  toCurrency,
 } from "./utils/";
 
 export const frankfurterCache = new SWREngine({ ttlMs: 3 * 60 * 1000 });
@@ -85,24 +86,6 @@ async function request<T>(
       `Network connectivity issue / offline: ${(error as Error).message || String(error)}`,
     );
   }
-}
-
-function toCurrency(payload: unknown, fallbackCode?: string): Currency {
-  if (typeof payload !== "object" || payload === null) {
-    return {
-      code: fallbackCode ?? "",
-      name: "",
-      symbol: "",
-    };
-  }
-
-  const record = payload as FrankfurterCurrency;
-
-  return {
-    code: record.iso_code,
-    name: typeof record.name === "string" ? record.name : "",
-    symbol: typeof record.symbol === "string" ? record.symbol : "",
-  };
 }
 
 export async function fetchCurrencies(): Promise<Currency[]> {
@@ -200,7 +183,7 @@ export async function fetchHistoricalRates(
         base: base?.toUpperCase(),
         quotes: symbols?.map((symbol) => symbol.toUpperCase()),
       }),
-    { ttlMs: 30 * 1000 },
+    { ttlMs: 24 * 60 * 60 * 1000 },
   );
 }
 
@@ -218,6 +201,6 @@ export async function fetchTimeSeriesRates(
         from: base,
         to: symbols,
       }),
-    { ttlMs: 30 * 1000 },
+    { ttlMs: 24 * 60 * 60 * 1000 },
   );
 }
