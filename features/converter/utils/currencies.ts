@@ -1,5 +1,3 @@
-import { CurrencyOption } from "../types";
-
 export function filteredCurrencies(
   currencies: CurrencyOption[],
   query: string,

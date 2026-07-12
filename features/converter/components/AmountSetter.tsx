@@ -1,4 +1,9 @@
+"use client";
+
+import { useURLState } from "../hooks/useURLState";
+
 export const AmountSetter = () => {
+  const { setAmount, amount } = useURLState();
   return (
     <>
       <label className="sr-only" htmlFor="exchange-amount">
@@ -9,7 +14,8 @@ export const AmountSetter = () => {
         id="exchange-amount"
         type="number"
         placeholder="100"
-        defaultValue={100}
+        defaultValue={amount}
+        onChange={(e) => setAmount(+e.target.value)}
       />
     </>
   );

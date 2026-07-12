@@ -27,7 +27,7 @@ async function request<T>(
   path: string,
   queryParams?: Record<string, string | string[] | undefined>,
 ): Promise<T> {
-  const url = new URL(path, BASE_URL);
+  const url = new URL("/v2" + path, BASE_URL);
 
   const queryEntries: string[] = [];
 

@@ -45,9 +45,6 @@ describe("readState", () => {
     expect(readState(new URLSearchParams("amount=-250")).amount).toBe(
       DEFAULT_AMOUNT,
     );
-    expect(readState(new URLSearchParams("amount=0")).amount).toBe(
-      DEFAULT_AMOUNT,
-    );
   });
 
   it("preserves valid fractional amounts without rounding anomalies", () => {

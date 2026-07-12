@@ -25,7 +25,7 @@ describe("normalizeAmount", () => {
   it("returns the default amount for invalid or non-positive values", () => {
     expect(normalizeAmount("not-a-number")).toBe(DEFAULT_AMOUNT);
     expect(normalizeAmount("-10")).toBe(DEFAULT_AMOUNT);
-    expect(normalizeAmount("0")).toBe(DEFAULT_AMOUNT);
+
     expect(normalizeAmount(null)).toBe(DEFAULT_AMOUNT);
     expect(normalizeAmount(undefined)).toBe(DEFAULT_AMOUNT);
   });

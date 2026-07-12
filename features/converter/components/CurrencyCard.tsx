@@ -1,10 +1,25 @@
+"use client";
+import { Currency } from "@/infra/api/frankfurter";
 import { Article, Heading, Section } from "@/shared/heading";
-import { BiIcon, Flag, SROnly } from "@/shared/utils";
+import { BiIcon, Flag, getCurrencyCountry, SROnly } from "@/shared/utils";
 import { SRHidden } from "@/shared/utils/components/SRHidden";
-import { randomUUID } from "crypto";
+import { useURLState } from "../hooks/useURLState";
 
-export const CurrencyCard = () => {
-  const [id, searchId, popover] = randomUUID().split("-");
+export const CurrencyCard = ({
+  currencies,
+  isSend = false,
+}: {
+  currencies: Currency[];
+  isSend: boolean;
+}) => {
+  const [id, searchId, popover] = crypto.randomUUID().split("-");
+
+  const { from, to } = useURLState();
+  const actualCurr = currencies.find(
+    ({ code }) =>
+      code === (isSend ? from : to) || code === (isSend ? "USD" : "EUR"),
+  )!;
+
   return (
     <Article id={`${id}`}>
       <button
@@ -12,8 +27,11 @@ export const CurrencyCard = () => {
         type="button"
         popoverTarget={popover}
       >
-        <Flag src="https://flagcdn.com/us.svg" alt="US Flag" /> USD{" "}
-        <BiIcon name="caret-down-fill" />
+        <Flag
+          src={`https://flagcdn.com/${getCurrencyCountry(actualCurr!.code)}.svg`}
+          alt={`${actualCurr.name} flag`}
+        />{" "}
+        {actualCurr.code} <BiIcon name="caret-down-fill" />
       </button>
       <form
         popover=""
@@ -34,15 +52,23 @@ export const CurrencyCard = () => {
 
         <Section>
           <Heading className="flex justify-between border-b py-4 text-foreground-secondary">
-            Currencies <span>56</span>
+            Currencies <span>{currencies.length}</span>
           </Heading>
           <ul className="mt-4">
-            <li className="flex gap-2 text-sm text-foreground-secondary items-center">
-              <Flag src="https://flagcdn.com/us.svg" alt="" />{" "}
-              <SRHidden className="text-lg text-foreground">CDF</SRHidden>{" "}
-              Congolese franc
-              <BiIcon name="check text-lg ml-auto" />
-            </li>
+            {currencies.map(({ name, code }) => (
+              <li
+                key={code}
+                className="flex gap-2 text-sm text-foreground-secondary items-center"
+              >
+                <Flag
+                  src={`https://flagcdn.com/${getCurrencyCountry(code)}.svg`}
+                  alt=""
+                />{" "}
+                <SRHidden className="text-lg text-foreground">{code}</SRHidden>{" "}
+                {name}
+                <BiIcon name="check text-lg ml-auto" />
+              </li>
+            ))}
           </ul>
         </Section>
       </form>

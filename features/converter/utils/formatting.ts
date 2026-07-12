@@ -12,5 +12,5 @@ export function normalizeCurrency(
 
 export function normalizeAmount(value: string | null | undefined): number {
   const parsed = Number.parseFloat(value ?? "");
-  return Number.isFinite(parsed) && parsed > 0 ? parsed : DEFAULT_AMOUNT;
+  return Number.isFinite(parsed) && parsed >= 0 ? parsed : DEFAULT_AMOUNT;
 }
