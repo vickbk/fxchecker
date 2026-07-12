@@ -67,6 +67,61 @@ describe("shared/cache/SWREngine", () => {
     vi.useRealTimers();
   });
 
+  it("uses a request-specific TTL to trigger early revalidation", async () => {
+    vi.useFakeTimers();
+
+    try {
+      const engine = new SWREngine({ ttlMs: 60_000 });
+      const initialValue = { value: 1 };
+      const freshValue = { value: 2 };
+
+      await engine.execute("override-short", () =>
+        Promise.resolve(initialValue),
+      );
+
+      vi.advanceTimersByTime(200);
+
+      const fetchFn = vi.fn(() => Promise.resolve(freshValue));
+      const result = await engine.execute(
+        "override-short",
+        fetchFn as unknown as () => Promise<typeof initialValue>,
+        { ttlMs: 100 },
+      );
+
+      expect(result).toEqual(initialValue);
+      expect(fetchFn).toHaveBeenCalledTimes(1);
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
+  it("uses a request-specific TTL to extend cache vitality", async () => {
+    vi.useFakeTimers();
+
+    try {
+      const engine = new SWREngine({ ttlMs: 100 });
+      const initialValue = { value: 1 };
+      const fetchFn = vi.fn(() => Promise.resolve({ value: 2 }));
+
+      await engine.execute("override-long", () =>
+        Promise.resolve(initialValue),
+      );
+
+      vi.advanceTimersByTime(500);
+
+      const result = await engine.execute(
+        "override-long",
+        fetchFn as unknown as () => Promise<typeof initialValue>,
+        { ttlMs: 60_000 },
+      );
+
+      expect(result).toEqual(initialValue);
+      expect(fetchFn).not.toHaveBeenCalled();
+    } finally {
+      vi.useRealTimers();
+    }
+  });
+
   it("clear() resets cache and in-flight maps", async () => {
     const engine = new SWREngine({ ttlMs: 1000 });
     const first = { a: 1 };

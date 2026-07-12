@@ -106,36 +106,44 @@ function toCurrency(payload: unknown, fallbackCode?: string): Currency {
 }
 
 export async function fetchCurrencies(): Promise<Currency[]> {
-  return frankfurterCache.execute("currencies", async () => {
-    const payload = await request<FrankfurterCurrency[]>("/currencies");
-    if (Array.isArray(payload)) {
-      return payload.map((entry) => {
-        if (typeof entry === "object" && entry !== null) {
-          return {
-            code: entry.iso_code,
-            name: entry.name || "",
-            symbol: entry.symbol || "",
-          };
-        }
+  return frankfurterCache.execute(
+    "currencies",
+    async () => {
+      const payload = await request<FrankfurterCurrency[]>("/currencies");
+      if (Array.isArray(payload)) {
+        return payload.map((entry) => {
+          if (typeof entry === "object" && entry !== null) {
+            return {
+              code: entry.iso_code,
+              name: entry.name || "",
+              symbol: entry.symbol || "",
+            };
+          }
 
-        return { code: "", name: "", symbol: "" };
-      });
-    }
+          return { code: "", name: "", symbol: "" };
+        });
+      }
 
-    return Object.entries(payload ?? {}).map(([code, details]) =>
-      toCurrency(details, code),
-    );
-  });
+      return Object.entries(payload ?? {}).map(([code, details]) =>
+        toCurrency(details, code),
+      );
+    },
+    { ttlMs: 24 * 60 * 60 * 1000 },
+  );
 }
 
 export async function fetchCurrencyDetails(code: string): Promise<Currency> {
   const normalizedCode = code.toUpperCase();
-  return frankfurterCache.execute(`currency:${normalizedCode}`, async () => {
-    const payload = await request<FrankfurterCurrency>(
-      `/currency/${normalizedCode}`,
-    );
-    return toCurrency(payload);
-  });
+  return frankfurterCache.execute(
+    `currency:${normalizedCode}`,
+    async () => {
+      const payload = await request<FrankfurterCurrency>(
+        `/currency/${normalizedCode}`,
+      );
+      return toCurrency(payload);
+    },
+    { ttlMs: 24 * 60 * 60 * 1000 },
+  );
 }
 
 export async function getRate(
@@ -145,17 +153,21 @@ export async function getRate(
   const fromCode = from.toUpperCase();
   const toCode = to.toUpperCase();
 
-  return frankfurterCache.execute(`rate:${fromCode}:${toCode}`, async () => {
-    const payload = await request<FrankfurterRate>(
-      `/rate/${fromCode}/${toCode}`,
-    );
-    return {
-      date: payload.date || "",
-      base: fromCode,
-      quote: toCode,
-      rate: payload.rate || 0,
-    };
-  });
+  return frankfurterCache.execute(
+    `rate:${fromCode}:${toCode}`,
+    async () => {
+      const payload = await request<FrankfurterRate>(
+        `/rate/${fromCode}/${toCode}`,
+      );
+      return {
+        date: payload.date || "",
+        base: fromCode,
+        quote: toCode,
+        rate: payload.rate || 0,
+      };
+    },
+    { ttlMs: 30 * 1000 },
+  );
 }
 
 export async function fetchLatestRates(
@@ -163,11 +175,14 @@ export async function fetchLatestRates(
   symbols?: string[],
 ): Promise<FrankfurterLatestResponse> {
   const key = getLatestCacheKey(base, symbols);
-  return frankfurterCache.execute(key, () =>
-    request<FrankfurterLatestResponse>("/rates", {
-      base: base?.toUpperCase(),
-      quotes: symbols?.map((symbol) => symbol.toUpperCase()),
-    }),
+  return frankfurterCache.execute(
+    key,
+    () =>
+      request<FrankfurterLatestResponse>("/rates", {
+        base: base?.toUpperCase(),
+        quotes: symbols?.map((symbol) => symbol.toUpperCase()),
+      }),
+    { ttlMs: 30 * 1000 },
   );
 }
 
@@ -177,12 +192,15 @@ export async function fetchHistoricalRates(
   symbols?: string[],
 ): Promise<FrankfurterHistoricalResponse> {
   const key = getHistoricalCacheKey(date, base, symbols);
-  return frankfurterCache.execute(key, () =>
-    request<FrankfurterHistoricalResponse>("/rates", {
-      from: date,
-      base: base?.toUpperCase(),
-      quotes: symbols?.map((symbol) => symbol.toUpperCase()),
-    }),
+  return frankfurterCache.execute(
+    key,
+    () =>
+      request<FrankfurterHistoricalResponse>("/rates", {
+        from: date,
+        base: base?.toUpperCase(),
+        quotes: symbols?.map((symbol) => symbol.toUpperCase()),
+      }),
+    { ttlMs: 30 * 1000 },
   );
 }
 
@@ -193,10 +211,13 @@ export async function fetchTimeSeriesRates(
   symbols?: string[],
 ): Promise<FrankfurterTimeSeriesResponse> {
   const key = getTimeSeriesCacheKey(startDate, endDate, base, symbols);
-  return frankfurterCache.execute(key, () =>
-    request<FrankfurterTimeSeriesResponse>(`/${startDate}..${endDate}`, {
-      from: base,
-      to: symbols,
-    }),
+  return frankfurterCache.execute(
+    key,
+    () =>
+      request<FrankfurterTimeSeriesResponse>(`/${startDate}..${endDate}`, {
+        from: base,
+        to: symbols,
+      }),
+    { ttlMs: 30 * 1000 },
   );
 }
