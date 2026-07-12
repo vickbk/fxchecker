@@ -1,9 +1,10 @@
+import { Currency } from "@/infra/api/frankfurter";
 import { act, renderHook } from "@testing-library/react";
 import { describe, expect, it, vi } from "vitest";
-import type { CurrencyOption, UseCurrencyFilterOptions } from "../types";
+import type { UseCurrencyFilterOptions } from "../types";
 import { useCurrencyFilter } from "./useCurrencyFilter";
 
-const currencies: CurrencyOption[] = [
+const currencies: Currency[] = [
   { code: "USD", name: "US Dollar", symbol: "$" },
   { code: "EUR", name: "Euro", symbol: "€" },
   { code: "CHF", name: "Swiss Franc", symbol: "CHF" },
