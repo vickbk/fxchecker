@@ -1,7 +1,6 @@
-export function filteredCurrencies(
-  currencies: CurrencyOption[],
-  query: string,
-) {
+import { Currency } from "@/infra/api/frankfurter";
+
+export function filteredCurrencies(currencies: Currency[], query: string) {
   const normalizedQuery = query.trim().toLowerCase();
   if (normalizedQuery === "") {
     return currencies;
@@ -15,7 +14,7 @@ export function filteredCurrencies(
 }
 
 export function highlightedCurrencyIndex(
-  currencies: CurrencyOption[],
+  currencies: Currency[],
   index: number,
 ) {
   const { length } = currencies;

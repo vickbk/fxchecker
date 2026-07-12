@@ -1,25 +1,21 @@
 "use client";
-import { Currency } from "@/infra/api/frankfurter";
+import { useCurrencies } from "@/shared/currencies";
 import { Article, Heading, Section } from "@/shared/heading";
 import { BiIcon, Flag, getCurrencyCountry, SROnly } from "@/shared/utils";
 import { SRHidden } from "@/shared/utils/components/SRHidden";
 import { useURLState } from "../hooks/useURLState";
 
-export const CurrencyCard = ({
-  currencies,
-  isSend = false,
-}: {
-  currencies: Currency[];
-  isSend: boolean;
-}) => {
+export const CurrencyCard = ({ isSend = false }: { isSend: boolean }) => {
   const [id, searchId, popover] = crypto.randomUUID().split("-");
 
   const { from, to } = useURLState();
-  const actualCurr = currencies.find(
-    ({ code }) =>
-      code === (isSend ? from : to) || code === (isSend ? "USD" : "EUR"),
-  )!;
+  const { currencies } = useCurrencies();
 
+  const actualCurr =
+    currencies.find(({ code }) => code === (isSend ? from : to)) ??
+    currencies.find(({ code }) => code === (isSend ? "USD" : "EUR"));
+
+  if (!actualCurr) return null;
   return (
     <Article id={`${id}`}>
       <button
