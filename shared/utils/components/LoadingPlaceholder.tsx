@@ -1,4 +1,4 @@
-export const LoadingPlacehoder = ({
+export const LoadingPlaceholder = ({
   className = "py-10",
   text,
 }: {

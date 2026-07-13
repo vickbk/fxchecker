@@ -1,6 +1,6 @@
 import { Suspense } from "react";
 import { NavbarProps } from "../types";
-import { options } from "../utilis";
+import { options } from "../utils";
 import { Badge } from "./Badge";
 import { MobileOption } from "./MobileOption";
 
