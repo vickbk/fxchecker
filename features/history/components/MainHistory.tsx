@@ -3,6 +3,7 @@ import { Suspense } from "react";
 import { HistorySearchParams } from "../types";
 import { Graph } from "./Graph";
 import { Menue } from "./Menue";
+import { GraphSkeleton } from "./skeletons/GraphSkeleton";
 import { SummarySkeleton } from "./skeletons/SummarySkeleton";
 import { Summary } from "./Summary";
 
@@ -20,7 +21,7 @@ export const MainHistory = async ({
         <Summary {...params} />
       </Suspense>
       <Menue {...params} />
-      <Suspense>
+      <Suspense fallback={<GraphSkeleton />}>
         <Graph {...params} />
       </Suspense>
     </Article>

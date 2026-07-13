@@ -5,5 +5,9 @@ export const LoadingPlacehoder = ({
   className?: string;
   text?: string;
 }) => {
-  return <div className={`${className} animate-pulse`}>{text}</div>;
+  return (
+    <div className={`${className} animate-pulse`}>
+      <span className="sr-only">{text}</span>
+    </div>
+  );
 };

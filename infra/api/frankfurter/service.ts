@@ -180,7 +180,9 @@ export async function fetchHistoricalRates(
       request<FrankfurterRate[]>("/rates", {
         from: date,
         base: base?.toUpperCase(),
-        quotes: symbols?.map((symbol) => symbol.toUpperCase()),
+        quotes: symbols
+          ?.filter((symbol) => symbol && !!symbol.trim())
+          .map((symbol) => symbol.toUpperCase()),
       }),
     { ttlMs: 24 * 60 * 60 * 1000 },
   );

@@ -1,19 +1,12 @@
-import { fetchHistoricalRates } from "@/infra/api/frankfurter";
-import { FrankfurterRate } from "@/infra/api/frankfurter/types";
+import { loadHistoricalRates } from "../api";
 import { HistorySearchParams } from "../types";
-import { codeToDays, getLookbackDate } from "../utils/date";
 import { SummaryCard } from "./SummaryCard";
 
 export const Summary = async ({ from, to, period }: HistorySearchParams) => {
-  let rates: FrankfurterRate[] | null = null;
-  try {
-    const date = getLookbackDate(codeToDays(period));
-    rates = await fetchHistoricalRates(date, from, [to]);
-  } catch (error) {
-    console.error(error);
-  }
+  const rates = await loadHistoricalRates({ from, to, period });
 
   if (!rates) return null;
+
   const openRate = rates[0].rate;
   const closeRate = rates[rates.length - 1].rate;
   const diff = closeRate - openRate;

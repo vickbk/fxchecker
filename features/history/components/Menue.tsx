@@ -12,8 +12,12 @@ const timePeriods = [
   ["5Y", "Five years"],
 ];
 
-export const Menue = (params: HistorySearchParams) => {
-  const searchParams = new URLSearchParams(params);
+export const Menue = ({
+  from = "USD",
+  to = "EUR",
+  period = "1D",
+}: HistorySearchParams) => {
+  const searchParams = new URLSearchParams({ from, to, period });
   return (
     <ul className="flex bg-background-secondary self-start rounded-lg md:self-center">
       {timePeriods.map(([key, text]) => (
