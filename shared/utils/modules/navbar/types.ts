@@ -1,6 +1,8 @@
+import { ReactNode } from "react";
+
 export type NavLinkProps = {
-  badge?: number;
   text: string;
+  children: ReactNode;
 };
 export type NavbarProps = Record<
   "history" | "compare" | "favorites" | "logs",
@@ -8,3 +10,8 @@ export type NavbarProps = Record<
 >;
 
 export type QueryParams = Record<"from" | "to" | "compare" | "range", string>;
+
+export type OptionProps = {
+  text: string;
+  children: ReactNode;
+};
