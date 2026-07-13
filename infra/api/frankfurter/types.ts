@@ -2,7 +2,7 @@ export interface FrankfurterLatestResponse {
   amount: number;
   base: string;
   date: string;
-  rates: Record<string, number>;
+  rates: FrankfurterRate[];
 }
 
 export type FrankfurterHistoricalResponse = FrankfurterLatestResponse;

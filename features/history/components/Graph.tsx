@@ -1,6 +1,7 @@
 import { Heading } from "@/shared/heading";
+import { HistorySearchParams } from "../types";
 
-export const Graph = () => {
+export const Graph = ({}: HistorySearchParams) => {
   return (
     <figure className="rounded-lg bg-background-secondary w-full">
       <figcaption className="p-4 border-b border-dashed border-card">

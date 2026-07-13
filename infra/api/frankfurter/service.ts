@@ -3,7 +3,6 @@ import { config } from "@/shared/config";
 import type {
   Currency,
   FrankfurterCurrency,
-  FrankfurterHistoricalResponse,
   FrankfurterLatestResponse,
   FrankfurterRate,
   FrankfurterTimeSeriesResponse,
@@ -173,12 +172,12 @@ export async function fetchHistoricalRates(
   date: string,
   base?: string,
   symbols?: string[],
-): Promise<FrankfurterHistoricalResponse> {
+): Promise<FrankfurterRate[]> {
   const key = getHistoricalCacheKey(date, base, symbols);
   return frankfurterCache.execute(
     key,
     () =>
-      request<FrankfurterHistoricalResponse>("/rates", {
+      request<FrankfurterRate[]>("/rates", {
         from: date,
         base: base?.toUpperCase(),
         quotes: symbols?.map((symbol) => symbol.toUpperCase()),

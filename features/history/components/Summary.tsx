@@ -1,19 +1,44 @@
+import { fetchHistoricalRates } from "@/infra/api/frankfurter";
+import { FrankfurterRate } from "@/infra/api/frankfurter/types";
+import { HistorySearchParams } from "../types";
+import { codeToDays, getLookbackDate } from "../utils/date";
 import { SummaryCard } from "./SummaryCard";
 
-export const Summary = () => {
+export const Summary = async ({ from, to, period }: HistorySearchParams) => {
+  let rates: FrankfurterRate[] | null = null;
+  try {
+    const date = getLookbackDate(codeToDays(period));
+    rates = await fetchHistoricalRates(date, from, [to]);
+  } catch (error) {
+    console.error(error);
+  }
+
+  if (!rates) return null;
+  const openRate = rates[0].rate;
+  const closeRate = rates[rates.length - 1].rate;
+  const diff = closeRate - openRate;
+  const increasing = diff >= 0;
+
   return (
     <dl className="grid grid-cols-2 gap-4 sm:flex">
-      <SummaryCard term="Open">0.8500</SummaryCard>
-      <SummaryCard term="Close">0.8503</SummaryCard>
+      <SummaryCard term="Open">{openRate}</SummaryCard>
+      <SummaryCard term="Close">{closeRate}</SummaryCard>
       <SummaryCard term="Change">
-        <span className="text-green-500">
-          <span className="sr-only">Rate raised with</span> +0.0003
+        <span className={`${increasing ? "text-green-500" : "text-red-500"}`}>
+          <span className="sr-only">
+            Rate {increasing ? "raised with" : "declined by"}
+          </span>{" "}
+          {increasing ? "+" : ""}
+          {diff.toFixed(4)}
         </span>
       </SummaryCard>
       <SummaryCard term="% Change">
-        <span className="text-red-500">
-          <span className="sr-only">Drop percentage</span>
-          <i className="bi bi-caret-up-fill" /> 0.0003
+        <span className={`${increasing ? "text-green-500" : "text-red-500"}`}>
+          <span className="sr-only">
+            {increasing ? "Increase" : "Drop"} percentage
+          </span>
+          <i className={`bi bi-caret-${increasing ? "up" : "down"}-fill`} />{" "}
+          {((diff * 100) / openRate).toFixed(4)}
         </span>
       </SummaryCard>
     </dl>
