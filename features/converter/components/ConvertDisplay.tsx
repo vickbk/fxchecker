@@ -1,5 +1,5 @@
 "use client";
-import { LoadingPlacehoder } from "@/shared/utils";
+import { LoadingPlaceholder } from "@/shared/utils";
 import { useRate } from "../hooks/useRate";
 
 export const ConvertDisplay = () => {
@@ -8,7 +8,7 @@ export const ConvertDisplay = () => {
     <dl>
       <dt className="text-4xl font-bold text-lime-500">
         {loading ? (
-          <LoadingPlacehoder className="inline px-16 bg-btn mr-2" />
+          <LoadingPlaceholder className="inline px-16 bg-btn mr-2" />
         ) : (
           (rate * amount).toFixed(2)
         )}

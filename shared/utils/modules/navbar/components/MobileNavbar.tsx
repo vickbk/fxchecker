@@ -1,7 +1,8 @@
 import { Suspense } from "react";
 import { NavbarProps } from "../types";
-import { options } from "../utilis";
-import { NavLink } from "./Navlink";
+import { options } from "../utils";
+import { Badge } from "./Badge";
+import { MobileOption } from "./MobileOption";
 
 export const MobileNavbar = async (props: NavbarProps) => {
   return (
@@ -20,11 +21,11 @@ export const MobileNavbar = async (props: NavbarProps) => {
       >
         <ul className="p-4 grid gap-4">
           {options.map(async (text) => (
-            <li className="p-4 rounded-lg bg-card" key={text}>
+            <MobileOption key={text} text={text}>
               <Suspense>
-                <NavLink badge={await props[text].badge} text={text} />
+                <Badge value={props[text].badge} />
               </Suspense>
-            </li>
+            </MobileOption>
           ))}
         </ul>
       </nav>

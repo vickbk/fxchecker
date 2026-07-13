@@ -1,5 +1,5 @@
 "use client";
-import { BiIcon, LoadingPlacehoder, SROnly } from "@/shared/utils";
+import { BiIcon, LoadingPlaceholder, SROnly } from "@/shared/utils";
 import { useRate } from "../hooks/useRate";
 
 export const ConverterActions = () => {
@@ -14,7 +14,7 @@ export const ConverterActions = () => {
         <dd>
           1{from} ={" "}
           {loading ? (
-            <LoadingPlacehoder className="inline px-8 bg-card mr-2" />
+            <LoadingPlaceholder className="inline px-8 bg-card mr-2" />
           ) : (
             rate
           )}

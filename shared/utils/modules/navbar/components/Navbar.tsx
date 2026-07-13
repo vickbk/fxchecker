@@ -1,8 +1,9 @@
 import { Suspense } from "react";
 import { NavbarProps } from "../types";
-import { options } from "../utilis";
+import { options } from "../utils";
+import { Badge } from "./Badge";
 import { MobileNavbar } from "./MobileNavbar";
-import { NavLink } from "./Navlink";
+import { OptionMenue } from "./OptionMenue";
 
 export const Navbar = (props: NavbarProps) => {
   return (
@@ -10,14 +11,11 @@ export const Navbar = (props: NavbarProps) => {
       <nav className="hidden sm:block p-4">
         <ul className="flex uppercase border-b border-background-secondary">
           {options.map(async (text) => (
-            <li
-              key={text}
-              className="p-4 border-b-2 border-transparent hover:border-lime-500"
-            >
+            <OptionMenue key={text} text={text}>
               <Suspense>
-                <NavLink badge={await props[text].badge} text={text} />
+                <Badge value={props[text].badge} />
               </Suspense>
-            </li>
+            </OptionMenue>
           ))}
         </ul>
       </nav>
