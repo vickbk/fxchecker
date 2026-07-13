@@ -18,13 +18,14 @@ export const Menue = ({
   period = "1D",
 }: HistorySearchParams) => {
   const searchParams = new URLSearchParams({ from, to, period });
+
   return (
     <ul className="flex bg-background-secondary self-start rounded-lg md:self-center">
       {timePeriods.map(([key, text]) => (
         <li key={key}>
           <Link
             href={`?${getSearchQuery(searchParams, ["period", key])}`}
-            className="p-2 hover:bg-card rounded-lg block"
+            className={`p-2 hover:bg-card rounded-lg block${key === period ? " bg-card" : ""}`}
           >
             <SROnly>{text}</SROnly>
             <span aria-hidden>{key}</span>

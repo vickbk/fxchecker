@@ -20,17 +20,17 @@
 * [x] Implement `loadHistoricalRates` mapping the raw multi-node V2 API dictionary into a strict `Array<{ date: string; rate: number }>` payload, ensuring dates are correctly ordered chronologically ascending for the horizontal axes.
 * [ ] Write unit tests verifying that missing data points or weekend gaps are handled smoothly without emitting `NaN` plots or breaking the visualization array.
 
-* [ ] **Develop Client-Optimized Line Chart Component**
-* **Status:** ⏳ Pending (Target: 2026-07-17)
+* [x] **Develop Client-Optimized Line Chart Component**
+* **Status:** ✅ Done (Target: 2026-07-14)
 * **Description:** Build the interactive charting workspace to visualize historical volatility curves smoothly using a dedicated client interactive boundary.
-* [ ] Create `src/features/history/components/HistoryChart.tsx` explicitly marked with the `'use client'` layout directive.
-* [ ] Integrate your selected lightweight visualization primitives (e.g., a native responsive SVG path generator or tree-shaken graphing element) mapped directly to the incoming coordinate array props.
-* [ ] Implement layout-stable styling configurations utilizing explicit aspect ratios (e.g., `aspect-[21/9]` or clear Tailwind `h-64` bounds) to guarantee zero Cumulative Layout Shift (CLS) when data mounts.
-* [ ] Integrate hover tooltips showing precise crosshair dates and custom localized rate figures.
+* [x] Create `src/features/history/modules/chart/components/MainChart.tsx` explicitly marked with the `'use client'` layout directive.
+* [x] Integrate your selected lightweight visualization primitives (e.g., a native responsive SVG path generator or tree-shaken graphing element) mapped directly to the incoming coordinate array props.
+* [x] Implement layout-stable styling configurations utilizing explicit aspect ratios (e.g., `aspect-[21/9]` or clear Tailwind `h-64` bounds) to guarantee zero Cumulative Layout Shift (CLS) when data mounts.
+* [x] Integrate hover tooltips showing precise crosshair dates and custom localized rate figures.
 
-* [ ] **Compose Server Route Integration & Streaming Skeleton**
-* **Status:** ⏳ Pending (Target: 2026-07-18)
+* [x] **Compose Server Route Integration & Streaming Skeleton**
+* **Status:** ✅ Done (Target: 2026-07-14)
 * **Description:** Bind the visualization engine directly into the Server Component data stream and configure an explicit regional streaming fallback skeleton.
-* [ ] Inject the `HistoryChart` component directly into the primary asynchronous server container view, streaming data straight from the Frankfurter client pipeline layer.
-* [ ] Create a layout-matching placeholder canvas `components/HistoryChartSkeleton.tsx` featuring a shifting Tailwind pulse backdrop animation sequence.
-* [ ] Wire the chart skeleton side-by-side with the history table loader under the Next.js route's `<Suspense>` perimeter, bound directly to the active URL `period` query state transitions.
+* [x] Inject the `MainChart` component directly into the primary asynchronous server container view, streaming data straight from the Frankfurter client pipeline layer.
+* [x] Create a layout-matching placeholder canvas `components/HistoryChartSkeleton.tsx` featuring a shifting Tailwind pulse backdrop animation sequence.
+* [x] Wire the chart skeleton side-by-side with the history table loader under the Next.js route's `<Suspense>` perimeter, bound directly to the active URL `period` query state transitions.
