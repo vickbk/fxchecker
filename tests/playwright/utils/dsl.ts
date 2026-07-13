@@ -66,8 +66,16 @@ export function getLabel(page: Page, hasText: TEXT_PATTERN) {
   return getLocatorByText(page, ["label", hasText]);
 }
 
+export function getLink(page: Page, hasText: TEXT_PATTERN) {
+  return page.getByRole("link", { name: hasText });
+}
+
 export async function clickButton(page: Page, hasText: TEXT_PATTERN) {
   await getButton(page, hasText).click();
+}
+
+export async function clickLink(page: Page, hasText: TEXT_PATTERN) {
+  await getLink(page, hasText).click();
 }
 
 export async function clickLabelInput(page: Page, labelText: TEXT_PATTERN) {
