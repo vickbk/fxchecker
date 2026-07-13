@@ -1,8 +1,9 @@
 import { Heading } from "@/shared/heading";
-import { LoadingPlacehoder } from "@/shared/utils";
 import { loadHistoricalRates } from "../api";
+import { MainChart } from "../modules/chart";
 import { HistorySearchParams } from "../types";
 import { codeToPeriod } from "../utils/date";
+import { EmptyHistory } from "./EmptyHistory";
 
 export const Graph = async ({
   from = "USD",
@@ -11,10 +12,10 @@ export const Graph = async ({
 }: HistorySearchParams) => {
   const rates = await loadHistoricalRates({ from, to, period });
 
-  if (!rates) return null;
+  if (!rates || rates.length === 0) return <EmptyHistory />;
 
   const last = rates.at(-1);
-  const today = new Date();
+  const today = last?.date ? new Date(last.date) : new Date();
 
   return (
     <figure className="rounded-lg bg-background-secondary w-full">
@@ -34,7 +35,7 @@ export const Graph = async ({
             <dd className="flex">
               {last?.rate} <i className="bi bi-dot" />{" "}
               <time className="truncate w-40 sm:w-auto" dateTime={last?.date}>
-                {new Intl.DateTimeFormat("en-US", {
+                {new Intl.DateTimeFormat("en-GB", {
                   weekday: "short",
                   month: "short",
                   day: "2-digit",
@@ -49,7 +50,7 @@ export const Graph = async ({
         </dl>
       </figcaption>
       <div className="min-h-30">
-        <LoadingPlacehoder className="bg-card h-64" />
+        <MainChart rates={rates} />
       </div>
     </figure>
   );

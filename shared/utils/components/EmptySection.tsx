@@ -1,5 +1,3 @@
-import { randomUUID } from "crypto";
-
 export const EmptySection = ({
   heading,
   text,
@@ -7,7 +5,7 @@ export const EmptySection = ({
   heading: string;
   text: string;
 }) => {
-  const sectionid = randomUUID();
+  const sectionid = crypto.randomUUID();
   return (
     <section
       aria-describedby={sectionid}
