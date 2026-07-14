@@ -1,3 +1,9 @@
+export function getLookbackDate(days: number) {
+  const daysMilli = days * 24 * 60 * 60 * 1000;
+  const date = new Date(new Date().valueOf() - daysMilli);
+  return date.toISOString().split("T")[0];
+}
+
 export function formatTime(secs: number) {
   return `${Math.floor(secs / 60)}:${Math.floor(secs % 60)
     .toString()

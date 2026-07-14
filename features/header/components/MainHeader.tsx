@@ -1,10 +1,15 @@
 import { Heading } from "@/shared/heading";
-import { BiIcon } from "@/shared/utils";
-import React from "react";
+import { BiIcon, LoadingPlaceholder } from "@/shared/utils";
+import React, { Suspense } from "react";
 import { LiveMarket } from "../modules/live-market";
+import { CourencyCount } from "./CourencyCount";
 import { Logo } from "./Logo";
 
-export const MainHeader = ({ children }: { children: React.ReactNode }) => {
+export const MainHeader = async ({
+  children,
+}: {
+  children: React.ReactNode;
+}) => {
   return (
     <>
       <header className="uppercase">
@@ -13,10 +18,31 @@ export const MainHeader = ({ children }: { children: React.ReactNode }) => {
             <Logo />
           </div>
           <Heading className="sr-only">Foreign Exchange System</Heading>
-          <span className="ml-auto">
-            55 Currencies
-          </span> <BiIcon name="dot" /> <span>EOD</span> <BiIcon name="dot" />
-          <span>ECB Data</span>
+          <dl className="ml-auto">
+            <dt className="sr-only">Total count</dt>
+            <dd>
+              <Suspense
+                fallback={
+                  <LoadingPlaceholder
+                    className="px-8"
+                    text="loading total number of currencies"
+                  />
+                }
+              >
+                <CourencyCount />
+              </Suspense>
+            </dd>
+          </dl>
+          <BiIcon name="dot" />{" "}
+          <dl>
+            <dt>EOD</dt>
+            <dl className="sr-only">End of the day</dl>
+          </dl>{" "}
+          <BiIcon name="dot" />
+          <dd>
+            <dt>ECB Data</dt>
+            <dl className="sr-only">Europian Central Bank data</dl>
+          </dd>
           <div className="ml-auto flex gap-4 items-center">{children}</div>
         </div>
       </header>

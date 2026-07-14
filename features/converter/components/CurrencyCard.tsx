@@ -21,6 +21,8 @@ export const CurrencyCard = ({ isSend = false }: { isSend: boolean }) => {
     currencies.find(({ code }) => code === (isSend ? "USD" : "EUR"));
 
   if (!actualCurr) return null;
+  const country = getCurrencyCountry(actualCurr!.code);
+
   return (
     <Article id={`${id}`}>
       <button
@@ -29,7 +31,11 @@ export const CurrencyCard = ({ isSend = false }: { isSend: boolean }) => {
         popoverTarget={popover}
       >
         <Flag
-          src={`https://flagcdn.com/${getCurrencyCountry(actualCurr!.code)}.svg`}
+          src={
+            country.startsWith("x")
+              ? "/globe.svg"
+              : `https://flagcdn.com/${country}.svg`
+          }
           alt={`${actualCurr.name} flag`}
         />{" "}
         <SROnly>Change {isSend ? "send" : "receive"} currency(</SROnly>

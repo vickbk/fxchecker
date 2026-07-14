@@ -5,14 +5,14 @@ function pathToPage(path: string) {
   return { name: path.substring(1) || "history", path };
 }
 test.describe("Theme Switching accross all pages", () => {
-  const paths = ["/", "/compare", "/favorites", "/logs"] as const;
+  const paths = ["/", "/compare", "/favorites", "/logs"].map(pathToPage);
 
   test.describe("Prefers Light Mode", () => {
-    paths.map(pathToPage).forEach(({ name, path }) => {
-      themeTests.light.forEach(([t, func]) =>
-        test(`${name} - ${t}`, async ({ page }) => {
+    paths.forEach(({ name, path }) => {
+      themeTests.light.forEach(([testName, testFunction]) =>
+        test(`${name} - ${testName}`, async ({ page }) => {
           await page.goto(path);
-          await func(page);
+          await testFunction(page);
         }),
       );
     });
@@ -21,11 +21,11 @@ test.describe("Theme Switching accross all pages", () => {
   test.describe("Prefers Dark Mode", () => {
     test.use({ colorScheme: "dark" });
 
-    paths.map(pathToPage).forEach(({ name, path }) => {
-      themeTests.dark.forEach(([t, func]) =>
-        test(`${name} - ${t}`, async ({ page }) => {
+    paths.forEach(({ name, path }) => {
+      themeTests.dark.forEach(([testName, testFunction]) =>
+        test(`${name} - ${testName}`, async ({ page }) => {
           await page.goto(path);
-          await func(page);
+          await testFunction(page);
         }),
       );
     });

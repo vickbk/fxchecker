@@ -9,3 +9,12 @@ export function keyFromSearchQuery(keys: Record<string, string>) {
   }
   return result.join("-");
 }
+
+export function getSearchQuery(
+  queries: URLSearchParams,
+  ...params: [string, string][]
+) {
+  queries = new URLSearchParams(queries);
+  params.forEach(([key, value]) => queries.set(key, value));
+  return queries.toString();
+}

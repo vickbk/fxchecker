@@ -1,19 +1,10 @@
 import { Article, Heading } from "@/shared/heading";
-import { BiIcon } from "@/shared/utils";
+import { BiIcon, LoadingPlaceholder } from "@/shared/utils";
+import { Suspense } from "react";
 import "../styles.css";
-import { CurrencyList } from "./CurrencyList";
+import { ScrollingCurrencies } from "./ScrollingCurrencies";
 
-export const LiveMarket = () => {
-  const rates = [
-    {
-      date: "2026-01-03",
-      base: "USD",
-      quote: "EUR",
-      rate: 0.85,
-      change: -0.01,
-    },
-    { date: "2026-01-03", base: "EUR", quote: "GBP", rate: 0.75, change: 0.02 },
-  ];
+export const LiveMarket = async () => {
   return (
     <Article
       className="flex uppercase bg-background-secondary sticky top-0 z-10"
@@ -25,12 +16,9 @@ export const LiveMarket = () => {
       >
         <BiIcon name="circle-fill" /> Live Market
       </Heading>
-      <div className="grow overflow-x-auto flex gap-2 scrollbar-none relative infinite-container">
-        <div className="track flex">
-          <CurrencyList rates={rates} />
-          <CurrencyList duplicate rates={rates} />
-        </div>
-      </div>
+      <Suspense fallback={<LoadingPlaceholder className="bg-card h-full" />}>
+        <ScrollingCurrencies />
+      </Suspense>
     </Article>
   );
 };
