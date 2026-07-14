@@ -1,7 +1,15 @@
-export function getLookbackDate(days: number) {
-  const daysMilli = days * 24 * 60 * 60 * 1000;
-  const date = new Date(new Date().valueOf() - daysMilli);
-  return date.toISOString().split("T")[0];
+export function getLookbackDate(days: number): string {
+  const date = new Date();
+  date.setDate(date.getDate() - days);
+
+  const year = date.getFullYear();
+  const month = date.getMonth() + 1;
+  const day = date.getDate();
+
+  const monthStr = month < 10 ? "0" + month : month;
+  const dayStr = day < 10 ? "0" + day : day;
+
+  return `${year}-${monthStr}-${dayStr}`;
 }
 
 export function formatTime(secs: number) {
