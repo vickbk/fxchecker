@@ -36,13 +36,13 @@ export const MainHeader = async ({
           <BiIcon name="dot" />{" "}
           <dl>
             <dt>EOD</dt>
-            <dl className="sr-only">End of the day</dl>
+            <dd className="sr-only">End of the day</dd>
           </dl>{" "}
           <BiIcon name="dot" />
-          <dd>
+          <dl>
             <dt>ECB Data</dt>
-            <dl className="sr-only">Europian Central Bank data</dl>
-          </dd>
+            <dd className="sr-only">Europian Central Bank data</dd>
+          </dl>
           <div className="ml-auto flex gap-4 items-center">{children}</div>
         </div>
       </header>

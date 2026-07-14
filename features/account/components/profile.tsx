@@ -15,34 +15,34 @@ export const Profile = ({ session }: { session: Session }) => {
     : "";
 
   return (
-    <form action={LogOut} className="relative">
+    <form action={LogOut} className="relative normal-case">
       <dialog
         closedby="any"
         id="profile-dialog"
         popover=""
-        className="m-auto p-6 max-w-sm bg-slate-900/95 border border-slate-800 shadow-2xl backdrop-blur-xl rounded-lg overflow-hidden"
+        className="m-auto p-6 max-w-sm bg-background-secondary/95 border border-card shadow-2xl backdrop:backdrop-blur-sm rounded-lg overflow-hidden"
       >
-        <div className="flex items-center gap-4">
+        <figure className="flex items-center gap-4">
           {user?.image ? (
             <Image
               src={user.image}
-              alt={user.name ?? "User avatar"}
+              alt={(user.name ?? "User avatar") + " profile picture"}
               width={64}
               height={64}
               className="w-16 h-16 rounded-full object-cover ring-1 ring-slate-700"
             />
           ) : (
-            <div className="w-16 h-16 rounded-full flex items-center justify-center bg-linear-to-br from-slate-700 to-slate-800 text-white font-semibold">
+            <div className="w-16 h-16 rounded-full flex items-center justify-center bg-linear-to-br from-lime-500 to-green-500 text-background font-semibold">
               {initials}
             </div>
           )}
 
-          <div className="flex-1">
-            <div className="text-sm text-slate-400">Signed in as</div>
-            <div className="text-white font-medium">{user?.name}</div>
-            <div className="text-xs text-slate-500 truncate">{user?.email}</div>
-          </div>
-        </div>
+          <dl className="flex-1">
+            <dt className="text-sm text-slate-400">Signed in as</dt>
+            <dd className="text-white font-medium">{user?.name}</dd>
+            <dd className="text-xs text-slate-500 truncate">{user?.email}</dd>
+          </dl>
+        </figure>
 
         <button
           type="submit"
@@ -55,10 +55,10 @@ export const Profile = ({ session }: { session: Session }) => {
       <button
         type="button"
         popoverTarget="profile-dialog"
-        className="inline-flex items-center gap-2 bg-slate-800 hover:bg-slate-700 text-white px-3 py-2 rounded-md"
+        className="inline-flex items-center gap-2 bg-lime-500 text-background hover:bg-transparent hover:outline hover:text-lime-500  px-3 py-2 rounded-md"
         aria-label="Open account menu"
       >
-        {user?.name} <BiIcon name="user" />
+        {user?.name} <BiIcon name="person" />
       </button>
     </form>
   );
