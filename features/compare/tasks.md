@@ -33,11 +33,11 @@
 - Check if active base currency overlaps with the comparison target list.
 - Replace the colliding currency with a unique item from the replacement pool.
 
-- [ ] Expose an authenticated Server Action `updateCompareList(newList)`:
+- [x] Expose an authenticated Server Action `updateCompareList(newList)`:
 - Validate auth session on incoming writes.
 - Commit sanitized changes to `cx_compare` table.
 
-- [ ] Test base currency mutation triggers:
+- [x] Test base currency mutation triggers:
 - Confirm selecting `EUR` as base filters out the `EUR` row and resolves to a fallback replacement automatically.
 
 ---

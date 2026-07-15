@@ -1,7 +1,7 @@
 import { fetchCurrencies } from "@/infra/api/frankfurter";
 import { getRandomElement } from "@/shared/random";
 
-const defaultCurrencies = [
+export const defaultCurrencies = [
   "EUR",
   "GBP",
   "JPY",
