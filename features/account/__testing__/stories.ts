@@ -3,7 +3,7 @@ import { Page } from "@playwright/test";
 import { SIGN_IN_BUTTON, SIGN_IN_HEADER, SIGN_IN_WITH_GOOGLE } from "./utils";
 
 export async function shouldSeeLoginButton(page: Page) {
-  await shouldSee(page, [SIGN_IN_BUTTON, 1]);
+  await shouldSee(page, SIGN_IN_BUTTON);
 }
 
 export async function shouldSeeTheHeaderOnLoginModal(page: Page) {
