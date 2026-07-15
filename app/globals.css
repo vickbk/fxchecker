@@ -20,3 +20,25 @@ button {
     cursor: not-allowed;
   }
 }
+
+dialog {
+  @apply scale-90;
+  &,
+  &::backdrop {
+    @apply opacity-0;
+    transition:
+      opacity 400ms ease,
+      scale 400ms ease-in;
+  }
+
+  &[popover] {
+    @apply scale-100;
+    &,
+    &::backdrop {
+      @apply opacity-100;
+      @starting-style {
+        @apply opacity-0 scale-90;
+      }
+    }
+  }
+}

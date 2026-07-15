@@ -6,7 +6,7 @@ import {
   TOTAL_FAVORITES_COUNTS,
 } from "./utils";
 
-export async function shouldSeeFavoriteFunction(page: Page) {
+export async function shouldSeeFavoriteSection(page: Page) {
   await page.goto("/favorites");
   await shouldSee(
     page,
