@@ -9,7 +9,7 @@
 - [x] Create and export the `cx_compare` table:
   - Bind the primary key to `users.id` with cascade deletion constraints.
 
-- [x] Define `compareList` as an array column:
+- [x] Define `currency_list` as an array column:
   - Map it to a string array.
   - Establish our default fallback basket: `["EUR", "GBP", "JPY", "AUD", "CAD", "CHF", "CNY", "ZAR"]`.
 
@@ -26,17 +26,16 @@
 - [ ] **API Data Matching & Self-Comparison Safeguard**
 - **Status:** ⏳ Todo (Target: 2026-07-17)
 - **Description:** Build helper functions and server actions to resolve comparison targets on the server while avoiding self-comparison calculations.
-- [ ] Declare global fallback lists:
+- [x] Declare global fallback lists:
 - Predefined basket: `["EUR", "GBP", "JPY", "AUD", "CAD", "CHF", "CNY", "ZAR"]`
-- Replacement pool: `["NZD", "SGD", "HKD", "SEK", "NOK", "MXN"]`
 
-- [ ] Write the `resolveCompareList(baseCurrency, savedList)` helper:
+- [x] Write the `resolveCompareList(baseCurrency, savedList)` helper:
 - Check if active base currency overlaps with the comparison target list.
 - Replace the colliding currency with a unique item from the replacement pool.
 
 - [ ] Expose an authenticated Server Action `updateCompareList(newList)`:
 - Validate auth session on incoming writes.
-- Commit sanitized changes to `userPreferences` table.
+- Commit sanitized changes to `cx_compare` table.
 
 - [ ] Test base currency mutation triggers:
 - Confirm selecting `EUR` as base filters out the `EUR` row and resolves to a fallback replacement automatically.

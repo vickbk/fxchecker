@@ -5,7 +5,7 @@ export const cx_compare = pgTable("cx_compare", {
   userId: uuid("user_id")
     .references(() => users.id, { onDelete: "cascade" })
     .primaryKey(),
-  compareList: text("compare_list")
+  currencyList: text("currency_list")
     .array()
     .notNull()
     .default(["EUR", "GBP", "JPY", "AUD", "CAD", "CHF", "CNY", "ZAR"]),
