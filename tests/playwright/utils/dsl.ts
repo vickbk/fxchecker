@@ -109,3 +109,7 @@ export async function isNotChecked(
   await expect(locator).not.toBeChecked();
   return locator;
 }
+
+export async function clickBodyCorner(page: Page) {
+  await page.locator("body").click({ position: { x: 0, y: 0 } });
+}

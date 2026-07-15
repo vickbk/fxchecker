@@ -41,7 +41,7 @@ const CustomDialog = forwardRef<HTMLDialogElement, DialogProps>(
         {children}
       </dialog>
     );
-  }
+  },
 );
 
 CustomDialog.displayName = "CustomDialog";

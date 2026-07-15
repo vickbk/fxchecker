@@ -1,7 +1,6 @@
-import { SROnly } from "@/shared/utils";
+import { getSearchQuery, SROnly } from "@/shared/utils";
 import Link from "next/link";
 import { HistorySearchParams } from "../types";
-import { getSearchQuery } from "../utils/url";
 
 const timePeriods = [
   ["1D", "One day"],

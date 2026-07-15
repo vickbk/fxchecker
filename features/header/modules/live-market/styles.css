@@ -10,7 +10,7 @@
   -webkit-mask-image: var(--gradient);
 
   .track {
-    animation: scroll-horizontal-infinite 5s linear infinite;
+    animation: scroll-horizontal-infinite 30s linear infinite;
   }
   &:hover .track {
     animation-play-state: paused;

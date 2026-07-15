@@ -4,7 +4,7 @@
 - **Status:** ✅ Done (Target: 2026-07-13)
 - **Description:** Establish the core modular boundaries for the history block and implement lightweight server-side date vector helpers.
 - [x] Create directory structure under `src/features/history/` spanning `/components`, `/utils`, and `/types`.
-- [x] Implement `getLookbackDate(days: number): string` in `utils/date.ts` to safely yield a `YYYY-MM-DD` string representing lookback bounds without timezone shift anomalies or heavy external dependencies.
+- [x] Implement `getLookbackDate(days: number): string` in `shared/utils` to safely yield a `YYYY-MM-DD` string representing lookback bounds without timezone shift anomalies or heavy external dependencies.
 
 - [x] **Implement Server Component Data Pipeline & V2 Integration**
 - **Status:** ✅ Done (Target: 2026-07-14)
