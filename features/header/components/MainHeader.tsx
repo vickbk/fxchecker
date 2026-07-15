@@ -19,7 +19,7 @@ export const MainHeader = async ({
           </div>
           <Heading className="sr-only">Foreign Exchange System</Heading>
           <dl className="ml-auto">
-            <dt className="sr-only">Total count</dt>
+            <dt className="sr-only">Total currency number</dt>
             <dd>
               <Suspense
                 fallback={

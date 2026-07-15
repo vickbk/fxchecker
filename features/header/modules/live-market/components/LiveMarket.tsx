@@ -16,7 +16,14 @@ export const LiveMarket = async () => {
       >
         <BiIcon name="circle-fill" /> Live Market
       </Heading>
-      <Suspense fallback={<LoadingPlaceholder className="bg-card h-full" />}>
+      <Suspense
+        fallback={
+          <LoadingPlaceholder
+            className="bg-card h-full"
+            text="Loading live rate exchange"
+          />
+        }
+      >
         <ScrollingCurrencies />
       </Suspense>
     </Article>

@@ -1,1 +1,1 @@
-export * from "./header.text";
+export * from "./stories";
