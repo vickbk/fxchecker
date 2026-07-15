@@ -104,7 +104,9 @@ describe("infrastructure/core/db/migrate — CLI Script Execution & process.exit
   it("should capture errors, print diagnostics, invoke process.exit(1), and close the connection pool when a migration fails via CLI", async () => {
     // Arrange
     process.argv[1] = "migrate.ts";
-    const operationalError = new Error("Database network connection pool rejected.");
+    const operationalError = new Error(
+      "Database network connection pool rejected.",
+    );
     migrateMock.mockRejectedValueOnce(operationalError);
 
     // Act
