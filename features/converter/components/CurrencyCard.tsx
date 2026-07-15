@@ -3,11 +3,14 @@ import { useCurrencies } from "@/shared/currencies";
 import { Article, Heading, Section } from "@/shared/heading";
 import { BiIcon, Flag, getCurrencyCountry, SROnly } from "@/shared/utils";
 import { SRHidden } from "@/shared/utils/components/SRHidden";
+import { useId } from "react";
 import { useCurrencyFilter } from "../hooks/useCurrencyFilter";
 import { useURLState } from "../hooks/useURLState";
 
 export const CurrencyCard = ({ isSend = false }: { isSend: boolean }) => {
-  const [id, searchId, popover] = crypto.randomUUID().split("-");
+  const id = useId();
+  const searchId = useId();
+  const popover = useId();
 
   const { from, to, setFrom, setTo } = useURLState();
   const { currencies } = useCurrencies();
