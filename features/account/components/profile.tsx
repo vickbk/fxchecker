@@ -46,7 +46,7 @@ export const Profile = ({ session }: { session: Session }) => {
 
         <button
           type="submit"
-          className="w-full mt-4 px-3 py-2 rounded-md border border-slate-700 text-red-400 hover:bg-slate-800 transition-colors"
+          className="w-full mt-4 px-3 py-2 rounded-md border border-card text-red-500 hover:bg-btn transition-colors"
         >
           Sign out
         </button>
