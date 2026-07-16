@@ -1,4 +1,4 @@
-import { AuthManager } from "@/features/account";
+import { AuthManager, AuthProvider } from "@/features/account";
 import { ConverterCard } from "@/features/converter";
 import { MainHeader } from "@/features/header";
 import { fetchCurrencies } from "@/infra/api/frankfurter";
@@ -46,21 +46,23 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jetBrains.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <CurrencyProvider currencies={fetchCurrencies()}>
-          <HeadingCtx value={0}>
-            <Main pageHasH1={false}>
-              <MainHeader>
-                <ThemeSwitch />
-                <AuthManager />
-              </MainHeader>
-              <div className="max-w-4xl mx-auto sm:py-8">
-                <ConverterCard />
-                <Navbar history={{}} compare={{}} favorites={{}} logs={{}} />
-                {children}
-              </div>
-            </Main>
-          </HeadingCtx>
-        </CurrencyProvider>
+        <AuthProvider>
+          <CurrencyProvider currencies={fetchCurrencies()}>
+            <HeadingCtx value={0}>
+              <Main pageHasH1={false}>
+                <MainHeader>
+                  <ThemeSwitch />
+                  <AuthManager />
+                </MainHeader>
+                <div className="max-w-4xl mx-auto sm:py-8">
+                  <ConverterCard />
+                  <Navbar history={{}} compare={{}} favorites={{}} logs={{}} />
+                  {children}
+                </div>
+              </Main>
+            </HeadingCtx>
+          </CurrencyProvider>
+        </AuthProvider>
       </body>
     </html>
   );

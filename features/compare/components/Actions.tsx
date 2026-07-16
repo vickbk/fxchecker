@@ -1,6 +1,7 @@
 import { BiIcon, SROnly } from "@/shared/utils";
+import { ReactNode } from "react";
 
-export const Actions = () => {
+export const Actions = ({ children }: { children?: ReactNode }) => {
   return (
     <div className="flex gap-4 items-center">
       <span className="text-foreground-secondary text-sm">8 Pairs</span>
@@ -9,9 +10,10 @@ export const Actions = () => {
         type="button"
         className="bg-card p-2 rounded-lg [anchor-name:--add-compare]"
       >
-        <SROnly>Add currency to compare</SROnly>
+        <SROnly>Add currency to compare list</SROnly>
         <BiIcon name="plus" />
       </button>
+      {children}
       <div
         popover=""
         id="add-compare"

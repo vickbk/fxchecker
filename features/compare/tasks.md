@@ -23,8 +23,8 @@
 
 ### Phase 2: Server-Side Comparison Engine & Safe Resolvers
 
-- [ ] **API Data Matching & Self-Comparison Safeguard**
-- **Status:** ⏳ Todo (Target: 2026-07-17)
+- [x] **API Data Matching & Self-Comparison Safeguard**
+- **Status:** ⏳ Done (Target: 2026-07-15)
 - **Description:** Build helper functions and server actions to resolve comparison targets on the server while avoiding self-comparison calculations.
 - [x] Declare global fallback lists:
 - Predefined basket: `["EUR", "GBP", "JPY", "AUD", "CAD", "CHF", "CNY", "ZAR"]`
@@ -48,14 +48,14 @@
 - **Status:** ⏳ Todo (Target: 2026-07-18)
 - **Description:** Implement client-side protection hooks to intercept unauthenticated actions (such as adding or deleting rows) and prompt guest users with a dedicated login pop-up.
 - [ ] Build custom utility hook `useCompareGuard`:
-- Pull current system session states.
+  - Pull current system session states.
 
 - [ ] Implement UI operation wrapper `guardAction(action)`:
-- Execute incoming callback if authenticated.
-- Trigger global login modal if session is missing.
+  - Execute incoming callback if authenticated.
+  - Trigger global login modal if session is missing.
 
 - [ ] Support dynamic login prompt parameters in your global login dialog:
-- Customize target display copy: _"Only logged-in users can customize and save their currency comparison list."_
+  - Customize target display copy: _"Only logged-in users can customize and save their currency comparison list."_
 
 - [ ] Verify guest button actions reliably open the auth boundary dialog.
 
@@ -67,15 +67,15 @@
 - **Status:** ⏳ Todo (Target: 2026-07-20)
 - **Description:** Assemble the stateless Server Page using Next.js `searchParams` alongside a fluid, optimistic-update-ready client table wrapper.
 - [ ] Create server page configuration `src/app/compare/page.tsx`:
-- Resolve asynchronous search values (`base`, `amount`).
-- Query target currency rate feeds from endpoints.
+  - Resolve asynchronous search values (`base`, `amount`).
+  - Query target currency rate feeds from endpoints.
 
 - [ ] Layout the stable dashboard grid interface:
-- Render rows showing currency codes, full names, rates, and values.
+  - Render rows showing currency codes, full names, rates, and values.
 
 - [ ] Bind row deletion hooks and addition menus to `guardAction`.
 - [ ] Implement client-side optimistic rendering:
-- Delete/Insert items in UI state instantly.
-- Fire background database mutations concurrently.
+  - Delete/Insert items in UI state instantly.
+  - Fire background database mutations concurrently.
 
 - [ ] Test layout behavior for shift-free responsiveness when converting amounts.

@@ -1,8 +1,9 @@
 import { CurrencyCard } from "@/shared/utils";
 import { Flag } from "@/shared/utils/components/Flag";
+import { ReactNode } from "react";
 import { CurrencyActions } from "./CurrencyActions";
 
-export const CompareCurreny = () => {
+export const CompareCurreny = ({ children }: { children?: ReactNode }) => {
   return (
     <CurrencyCard>
       <Flag src="https://flagcdn.com/de.svg" alt="DRC flag" />
@@ -17,7 +18,7 @@ export const CompareCurreny = () => {
         <dd className="text-foreground-secondary text-xs truncate">@ 0.7654</dd>
       </dl>
 
-      <CurrencyActions />
+      <CurrencyActions>{children}</CurrencyActions>
     </CurrencyCard>
   );
 };

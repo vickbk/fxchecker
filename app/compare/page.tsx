@@ -1,5 +1,6 @@
+import { SignInTrigger } from "@/features/account";
 import { MainCompare } from "@/features/compare";
 
 export default function Compare() {
-  return <MainCompare />;
+  return <MainCompare LoginTrigger={SignInTrigger} />;
 }

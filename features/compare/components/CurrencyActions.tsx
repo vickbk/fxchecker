@@ -1,6 +1,7 @@
 import { BiIcon, SROnly } from "@/shared/utils";
+import { ReactNode } from "react";
 
-export const CurrencyActions = () => {
+export const CurrencyActions = ({ children }: { children?: ReactNode }) => {
   return (
     <ul className="flex gap-2">
       <li>
@@ -13,6 +14,7 @@ export const CurrencyActions = () => {
         <button type="button">
           <SROnly> Remove from compare</SROnly> <BiIcon name="trash" />
         </button>
+        {children}
       </li>
     </ul>
   );
