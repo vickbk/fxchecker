@@ -16,9 +16,10 @@ export const SignInInterceptor = ({
   const isAuthenticated = !!session?.user;
 
   const handleClick = (e: MouseEvent<HTMLButtonElement>) => {
-    e.preventDefault();
     if (isPending) return;
-    startTransition(async () => await onClick?.(e));
+    setTimeout(() => {
+      startTransition(async () => await onClick?.(e));
+    }, 0);
   };
 
   if (isLoading) {

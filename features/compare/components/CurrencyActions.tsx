@@ -1,20 +1,22 @@
-import { BiIcon, SROnly } from "@/shared/utils";
-import { ReactNode } from "react";
+import { BiIcon, SignInInterceptor, SROnly } from "@/shared/utils";
 
-export const CurrencyActions = ({ children }: { children?: ReactNode }) => {
+export const CurrencyActions = ({
+  LoginTrigger,
+}: {
+  LoginTrigger: SignInInterceptor;
+}) => {
   return (
-    <ul className="flex gap-2">
+    <ul className="flex gap-2 text-foreground-secondary">
       <li>
-        <button type="button">
+        <LoginTrigger description="Login to use the add currency to favorite feature and many more options">
           <SROnly> Add to favorite</SROnly>
           <BiIcon name="star" />
-        </button>
+        </LoginTrigger>
       </li>
       <li>
-        <button type="button">
+        <LoginTrigger description="Login to use the remove currency from compare list feature and many more options.">
           <SROnly> Remove from compare</SROnly> <BiIcon name="trash" />
-        </button>
-        {children}
+        </LoginTrigger>
       </li>
     </ul>
   );

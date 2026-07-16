@@ -1,9 +1,12 @@
-import { CurrencyCard } from "@/shared/utils";
+import { CurrencyCard, SignInInterceptor } from "@/shared/utils";
 import { Flag } from "@/shared/utils/components/Flag";
-import { ReactNode } from "react";
 import { CurrencyActions } from "./CurrencyActions";
 
-export const CompareCurreny = ({ children }: { children?: ReactNode }) => {
+export const CompareCurreny = ({
+  LoginTrigger,
+}: {
+  LoginTrigger: SignInInterceptor;
+}) => {
   return (
     <CurrencyCard>
       <Flag src="https://flagcdn.com/de.svg" alt="DRC flag" />
@@ -18,7 +21,7 @@ export const CompareCurreny = ({ children }: { children?: ReactNode }) => {
         <dd className="text-foreground-secondary text-xs truncate">@ 0.7654</dd>
       </dl>
 
-      <CurrencyActions>{children}</CurrencyActions>
+      <CurrencyActions LoginTrigger={LoginTrigger} />
     </CurrencyCard>
   );
 };

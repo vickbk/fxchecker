@@ -1,19 +1,24 @@
-import { BiIcon, SROnly } from "@/shared/utils";
+import { BiIcon, SignInInterceptor, SROnly } from "@/shared/utils";
 import { ReactNode } from "react";
 
-export const Actions = ({ children }: { children?: ReactNode }) => {
+export const Actions = ({
+  LoginTrigger: LoginTrigger,
+}: {
+  children?: ReactNode;
+  LoginTrigger: SignInInterceptor;
+}) => {
   return (
     <div className="flex gap-4 items-center">
       <span className="text-foreground-secondary text-sm">8 Pairs</span>
-      <button
+
+      <LoginTrigger
         popoverTarget="add-compare"
-        type="button"
         className="bg-card p-2 rounded-lg [anchor-name:--add-compare]"
+        description="Login to use the add currency to compare list feature and many more options."
       >
         <SROnly>Add currency to compare list</SROnly>
         <BiIcon name="plus" />
-      </button>
-      {children}
+      </LoginTrigger>
       <div
         popover=""
         id="add-compare"
