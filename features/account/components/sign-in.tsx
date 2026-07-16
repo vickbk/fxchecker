@@ -1,6 +1,6 @@
 import { loginWithGoogle } from "@/infra/core";
 import { BiIcon, SROnly } from "@/shared/utils";
-import { SignInDialog } from "./SignInDialog";
+import { SignInDialog } from "../modules/interceptor";
 
 export const SignIn = async () => {
   return (

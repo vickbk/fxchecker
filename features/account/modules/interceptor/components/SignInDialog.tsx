@@ -1,14 +1,14 @@
 "use client";
 import { Header, Heading } from "@/shared/heading";
 import { BiIcon } from "@/shared/utils";
-import { useAuth } from "../hooks/useAuth";
+import { useSignIn } from "../hooks/useSignInterceptor";
 
 export const SignInDialog = () => {
   const {
     title = "Welcome to Foreign exchange tracker",
     description = "Keep your favorites changes and logs synced accros your devices.",
     setDescriptions,
-  } = useAuth();
+  } = useSignIn();
   return (
     <dialog
       closedby="any"
@@ -16,8 +16,12 @@ export const SignInDialog = () => {
       popover=""
       className="m-auto p-6 max-w-md bg-background-secondary/95 border border-card shadow-2xl backdrop:backdrop-blur-sm rounded-lg text-center normal-case"
       onToggle={(e) => {
-        if (e.newState === "closed")
-          setDescriptions({ title: undefined, description: undefined });
+        if (e.newState === "closed") {
+          setTimeout(
+            () => setDescriptions({ title: undefined, description: undefined }),
+            200,
+          );
+        }
       }}
     >
       <Header className="space-y-1">

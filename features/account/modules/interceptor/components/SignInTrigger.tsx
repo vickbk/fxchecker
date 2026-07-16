@@ -1,15 +1,14 @@
 "use client";
-import { ButtonHTMLAttributes } from "react";
-import { useAuth } from "../hooks/useAuth";
-import { AuthDescription } from "../types";
+import { useSignIn } from "../hooks/useSignInterceptor";
+import { SignInTriggerProps } from "../types";
 
 export const SignInTrigger = ({
   title,
   description,
   children,
   ...props
-}: ButtonHTMLAttributes<HTMLButtonElement> & AuthDescription) => {
-  const { setDescriptions, ...descs } = useAuth();
+}: SignInTriggerProps) => {
+  const { setDescriptions, ...descs } = useSignIn();
   return (
     <button
       type="button"

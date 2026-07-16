@@ -1,4 +1,4 @@
-import { AuthManager, AuthProvider } from "@/features/account";
+import { AuthManager, SignInProvider } from "@/features/account";
 import { ConverterCard } from "@/features/converter";
 import { MainHeader } from "@/features/header";
 import { fetchCurrencies } from "@/infra/api/frankfurter";
@@ -46,7 +46,7 @@ export default function RootLayout({
   return (
     <html lang="en" className={`${jetBrains.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
-        <AuthProvider>
+        <SignInProvider>
           <CurrencyProvider currencies={fetchCurrencies()}>
             <HeadingCtx value={0}>
               <Main pageHasH1={false}>
@@ -62,7 +62,7 @@ export default function RootLayout({
               </Main>
             </HeadingCtx>
           </CurrencyProvider>
-        </AuthProvider>
+        </SignInProvider>
       </body>
     </html>
   );
