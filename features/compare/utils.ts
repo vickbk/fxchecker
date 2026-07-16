@@ -16,6 +16,7 @@ export async function resolveCompareList(
   base: string,
   list: string[] = defaultCurrencies,
 ) {
+  base = base.toUpperCase();
   const index = list.indexOf(base);
   const copy = [...list];
 

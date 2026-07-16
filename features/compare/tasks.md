@@ -44,36 +44,40 @@
 
 ### Phase 3: Client-Side Interceptor & Auth Integration
 
-- [ ] **Unauthenticated Interaction Guard**
-- **Status:** ⏳ Todo (Target: 2026-07-18)
-- **Description:** Implement client-side protection hooks to intercept unauthenticated actions (such as adding or deleting rows) and prompt guest users with a dedicated login pop-up.
-- [ ] Build custom utility hook `useCompareGuard`:
-  - Pull current system session states.
-
-- [ ] Implement UI operation wrapper `guardAction(action)`:
-  - Execute incoming callback if authenticated.
-  - Trigger global login modal if session is missing.
-
-- [ ] Support dynamic login prompt parameters in your global login dialog:
-  - Customize target display copy: _"Only logged-in users can customize and save their currency comparison list."_
-
-- [ ] Verify guest button actions reliably open the auth boundary dialog.
+- [x] **Unauthenticated Interaction Guard**
+  - **Status:** ✅ Done (Target: 2026-07-16)
+  - **Description:** Implement a client-side component-driven auth boundary using custom React Context and native HTML Popovers to dynamically intercept guest interactions and inject context-specific login prompts.
+  - [x] Implement `SignInContext` and custom `useSignInCtx` hook:
+    - Maintain dynamic state for `title` and `description` to customize the sign-in modal dynamically.
+  - [x] Build the interactive `SignInTrigger` component:
+    - Target the native `#sign-in-dialog` popover using the `popoverTarget` HTML attribute.
+    - Update `SignInContext` with contextual text strings on trigger click.
+  - [x] Develop the polymorphic `SignInInterceptor` Client Component:
+    - Bind to current user session state (`useSession`).
+    - Resolve the layout safely: render a default loading state during hydration to prevent visual flashes.
+    - **Guest Route:** Render `SignInTrigger` to catch actions and pop open the auth dialog.
+    - **Authenticated Route:** Render a normal button executing the target `onClick` callback wrapped in `useTransition`.
+  - [x] Set up popover dynamic cleanup using the native `onToggle` event:
+    - Clear state descriptions when `newState === "closed"` (with a safe timeout buffer to match the modal's exit transition).
+  - [x] Verify both interaction loops:
+    - Confirm guests cleanly trigger the dialog with the custom prompt: _"Login to use the remove currency from compare list feature..."_
+    - Confirm authenticated users execute the passed `onClick` logic directly without invoking the modal.
 
 ---
 
 ### Phase 4: Interactive Compare Dashboard UI
 
 - [ ] **State-Linked Dashboard Interface**
-- **Status:** ⏳ Todo (Target: 2026-07-20)
+- **Status:** ⏳ Doing (Target: 2026-07-17)
 - **Description:** Assemble the stateless Server Page using Next.js `searchParams` alongside a fluid, optimistic-update-ready client table wrapper.
-- [ ] Create server page configuration `src/app/compare/page.tsx`:
+- [x] Create server page configuration `src/app/compare/page.tsx`:
   - Resolve asynchronous search values (`base`, `amount`).
   - Query target currency rate feeds from endpoints.
 
-- [ ] Layout the stable dashboard grid interface:
+- [x] Layout the stable dashboard grid interface:
   - Render rows showing currency codes, full names, rates, and values.
 
-- [ ] Bind row deletion hooks and addition menus to `guardAction`.
+- [x] Bind row deletion hooks and addition menus to `guardAction`.
 - [ ] Implement client-side optimistic rendering:
   - Delete/Insert items in UI state instantly.
   - Fire background database mutations concurrently.
