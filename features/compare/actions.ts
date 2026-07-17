@@ -1,6 +1,7 @@
 import { fetchCurrencies, fetchLatestRates } from "@/infra/api/frankfurter";
 import { assertAuthenticated, auth } from "@/infra/core";
 import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { db } from "./db/client";
 import { cx_compare } from "./db/schema";
 import { resolveCompareList } from "./utils";
@@ -40,7 +41,6 @@ export async function myCompareList(base = "USD") {
     return resolveCompareList(base, compareList.currencyList);
   } catch (error) {
     console.log(error);
-    console.log(resolveCompareList(base));
     return resolveCompareList(base);
   }
 }
@@ -70,4 +70,16 @@ export async function getCompareRates(base = "USD") {
     console.error(error);
     return [];
   }
+}
+
+export async function deleteCompareRate({
+  rates,
+  toDelete,
+}: {
+  rates: string[];
+  toDelete: string;
+}) {
+  "use server";
+  await updateCompareList(rates.filter((rate) => rate !== toDelete));
+  revalidatePath("/compare");
 }

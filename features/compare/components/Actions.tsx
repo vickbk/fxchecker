@@ -3,13 +3,18 @@ import { ReactNode } from "react";
 
 export const Actions = ({
   LoginTrigger: LoginTrigger,
+  rates,
 }: {
   children?: ReactNode;
+  rates: string[];
   LoginTrigger: SignInInterceptor;
 }) => {
+  const count = rates.length;
   return (
     <div className="flex gap-4 items-center">
-      <span className="text-foreground-secondary text-sm">8 Pairs</span>
+      <span className="text-foreground-secondary text-sm">
+        {count} Pair{count ? "s" : ""}
+      </span>
 
       <LoginTrigger
         popoverTarget="add-compare"
