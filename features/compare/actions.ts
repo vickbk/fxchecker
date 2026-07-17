@@ -38,7 +38,7 @@ export async function myCompareList(base = "USD") {
 
     if (!compareList) throw new Error("Empty list");
 
-    return resolveCompareList(base, compareList.currencyList);
+    return await resolveCompareList(base, compareList.currencyList);
   } catch (error) {
     console.log(error);
     return resolveCompareList(base);
@@ -47,6 +47,8 @@ export async function myCompareList(base = "USD") {
 export async function getCompareRates(base = "USD") {
   try {
     const quotes = await myCompareList(base);
+
+    if (quotes.length === 0) return [];
 
     const [results, currencies] = await Promise.all([
       fetchLatestRates(base, quotes),
@@ -62,8 +64,8 @@ export async function getCompareRates(base = "USD") {
     return results.map((rate) => ({
       ...rate,
       details: {
-        [base]: baseDetails,
-        [rate.quote]: currencyMap.get(rate.quote),
+        [base]: baseDetails!,
+        [rate.quote]: currencyMap.get(rate.quote)!,
       },
     }));
   } catch (error) {
@@ -72,14 +74,9 @@ export async function getCompareRates(base = "USD") {
   }
 }
 
-export async function deleteCompareRate({
-  rates,
-  toDelete,
-}: {
-  rates: string[];
-  toDelete: string;
-}) {
+export async function deleteCompareRate(toDelete: string) {
   "use server";
+  const rates = await myCompareList("UNDEFINED");
   await updateCompareList(rates.filter((rate) => rate !== toDelete));
   revalidatePath("/compare");
 }

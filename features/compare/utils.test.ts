@@ -37,5 +37,10 @@ describe("Tests for utility functions", () => {
       const list = await resolveCompareList("eur");
       expect(list).not.toContain("EUR");
     });
+
+    test("should return empty list if empty list provided", async () => {
+      const list = await resolveCompareList("eur", []);
+      expect(list).toEqual([]);
+    });
   });
 });

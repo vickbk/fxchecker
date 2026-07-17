@@ -4,6 +4,7 @@ import { getCompareRates } from "../actions";
 import { CompareSearchParams } from "../types";
 import { Actions } from "./Actions";
 import { CompareCurreny } from "./CompareCurreny";
+import { EmptyCompare } from "./EmptyCompare";
 
 export const MainCompare = async ({
   LoginTrigger,
@@ -18,6 +19,8 @@ export const MainCompare = async ({
   });
   const rates = await getCompareRates(from);
   const quotes = rates.map((rate) => rate.quote);
+
+  if (rates.length === 0) return <EmptyCompare LoginTrigger={LoginTrigger} />;
 
   return (
     <Section aria-describedby="compare-description" className="p-4">
@@ -34,7 +37,6 @@ export const MainCompare = async ({
               key={rate.quote}
               {...rate}
               amount={amount}
-              quotes={quotes}
               LoginTrigger={LoginTrigger}
               searchQuery={getSearchQuery(searchQuery, ["to", rate.quote])}
             />

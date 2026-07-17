@@ -1,16 +1,10 @@
-import { Currency, FrankfurterRate } from "@/infra/api/frankfurter/types";
-import { Heading } from "@/shared/heading";
-import {
-  CurrencyCard,
-  getCurrencyCountry,
-  SignInInterceptor,
-  SROnly,
-} from "@/shared/utils";
+import { CurrencyCard, getCurrencyCountry, SROnly } from "@/shared/utils";
 import { Flag } from "@/shared/utils/components/Flag";
 import { SRHidden } from "@/shared/utils/components/SRHidden";
 import Link from "next/link";
 import { deleteCompareRate } from "../actions";
-import { ConfirmDelete } from "./ConfirmDelete";
+import { CompareDelete } from "../modules/delete";
+import { CompareItemProps } from "../types";
 import { CurrencyActions } from "./CurrencyActions";
 
 export const CompareCurreny = ({
@@ -20,19 +14,10 @@ export const CompareCurreny = ({
   base,
   amount,
   details: { [quote]: currency },
-  quotes,
+
   searchQuery,
-}: FrankfurterRate & {
-  details: Partial<Record<string, Currency>>;
-  amount: number;
-  quotes: string[];
-  searchQuery: string;
-  LoginTrigger: SignInInterceptor;
-}) => {
-  const deleteAction = deleteCompareRate.bind(null, {
-    toDelete: quote,
-    rates: quotes,
-  });
+}: CompareItemProps) => {
+  const deleteAction = deleteCompareRate.bind(null, quote);
 
   return (
     <CurrencyCard>
@@ -44,7 +29,8 @@ export const CompareCurreny = ({
         <dt className="text-sm">{quote}</dt>
         <dd className="text-foreground-secondary truncate text-xs">
           <Link href={`?${searchQuery}`}>
-            {currency?.name || "unknown currency name"}{" "}
+            <SROnly>Update quote currency to </SROnly>
+            {currency.name || "unknown currency name"}{" "}
             <span className="absolute inset-0" />
           </Link>
         </dd>
@@ -58,26 +44,11 @@ export const CompareCurreny = ({
       </dl>
 
       <CurrencyActions quote={quote} LoginTrigger={LoginTrigger}>
-        <form
-          action={deleteAction as unknown as (form: FormData) => void}
-          popover=""
-          id={`delete-${quote}`}
-          className={`bg-background/80 shadow-xs shadow-background-secondary max-w-sm text-foreground-secondary p-4 open:grid gap-4 rounded-lg [position-anchor:--delete${quote}] [position-area:bottom_span-left] [position-try:flip-block]`}
-        >
-          <Heading className="uppercase text-center text-lg font-bold text-lime-500">
-            Compare currency deletion ({quote})
-          </Heading>
-          <p>
-            Are you sure you want to delete {quote} ({currency?.name}) from your
-            compare list?
-          </p>
-          <fieldset className="flex justify-center items-center gap-4">
-            <ConfirmDelete />
-            <button type="button" popoverTarget={"delete-" + quote}>
-              Cancel
-            </button>
-          </fieldset>
-        </form>
+        <CompareDelete
+          quote={quote}
+          name={currency.name}
+          deleteAction={deleteAction}
+        />
       </CurrencyActions>
     </CurrencyCard>
   );
