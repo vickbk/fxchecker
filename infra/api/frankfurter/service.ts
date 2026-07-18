@@ -113,15 +113,13 @@ export async function fetchCurrencies(): Promise<Currency[]> {
   );
 }
 
-export async function fetchCurrenciesMap(): Promise<Map<string, Currency>> {
+export async function fetchCurrenciesMap(): Promise<Record<string, Currency>> {
   return frankfurterCache.execute(
     "currencies-map",
     async () => {
-      const currencyMap = new Map<string, Currency>();
+      const currencyMap: Record<string, Currency> = {};
       const currencies = await fetchCurrencies();
-      currencies.forEach((currency) =>
-        currencyMap.set(currency.code, currency),
-      );
+      currencies.forEach((currency) => (currencyMap[currency.code] = currency));
       return currencyMap;
     },
     {
