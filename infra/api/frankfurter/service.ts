@@ -109,7 +109,24 @@ export async function fetchCurrencies(): Promise<Currency[]> {
         toCurrency(details, code),
       );
     },
-    { ttlMs: 24 * 60 * 60 * 1000 },
+    { ttlMs: 7 * 24 * 60 * 60 * 1000 },
+  );
+}
+
+export async function fetchCurrenciesMap(): Promise<Map<string, Currency>> {
+  return frankfurterCache.execute(
+    "currencies-map",
+    async () => {
+      const currencyMap = new Map<string, Currency>();
+      const currencies = await fetchCurrencies();
+      currencies.forEach((currency) =>
+        currencyMap.set(currency.code, currency),
+      );
+      return currencyMap;
+    },
+    {
+      ttlMs: 7 * 24 * 60 * 60 * 1000,
+    },
   );
 }
 
