@@ -17,11 +17,16 @@ export const FavoriteContent = ({
     <>
       <input type="hidden" name="base" value={from} />
       <input type="hidden" name="quote" value={to} />
-      <SignInInterceptor type="submit" disabled={pending}>
-        <BiIcon name={`start${isFavorite ? "-fill" : ""}`} />{" "}
+      <SignInInterceptor
+        className="uppercase flex w-full gap-2 p-4 bg-lime-500 rounded-lg text-background"
+        type="submit"
+        disabled={pending}
+        description="Login to save this currency pair to your personalized favorites list."
+      >
+        <BiIcon name={`star${isFavorite ? "-fill" : ""}`} />{" "}
         {!pending ? (
           <>
-            <SROnly>Add to </SROnly>Favorite
+            <SROnly>{pending ? "Add to" : "Remove from"} </SROnly>Favorite
           </>
         ) : (
           <>

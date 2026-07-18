@@ -20,8 +20,8 @@
 
 ### Phase 2: Core Server Actions & Isolated Reset Layer
 
-- [ ] **State Mutation Actions Engine**
-- **Status:** ⏳ Doing (Target: 2026-07-18)
+- [x] **State Mutation Actions Engine**
+- **Status:** ⏳ Done (Target: 2026-07-18)
 - **Description:** Create isolated, type-safe Next.js Server Actions to safely append, remove, or entirely clear user favorites behind strict authentication verification.
 - [x] Build the `toggleFavoritePair({base: string, quote: string})` Server Action:
 - Validate active auth session context.
@@ -38,21 +38,21 @@
 
 ### Phase 3: UI Integration — Converter Feature
 
-- [ ] **Converter Pair Star Interception**
-- **Status:** ⏳ Todo (Target: 2026-07-18)
+- [x] **Converter Pair Star Interception**
+- **Status:** ✅ Done (Target: 2026-07-18)
 - **Description:** Inject the favorite toggle button alongside the main converter interface to bookmark active currency pairs effortlessly.
-- [ ] Locate the main converter viewport component layout.
-- [ ] Render a visual "Star" icon button positioned cleanly near the conversion layout header.
-- [ ] Wrap the star button element inside the client-side `SignInInterceptor`.
-- [ ] Inject the explicit context prompt string: _"Login to save this currency pair to your personalized favorites list."_
-- [ ] Bind the button `onClick` trigger directly to your `toggleFavoritePair` routine, passing the active base and quote values.
+- [x] Locate the main converter viewport component layout.
+- [x] Render a visual "Star" icon button positioned cleanly near the conversion layout header.
+- [x] Wrap the star button element inside the client-side `SignInInterceptor`.
+- [x] Inject the explicit context prompt string: _"Login to save this currency pair to your personalized favorites list."_
+- [x] Bind the button `onClick` trigger directly to your `toggleFavoritePair` routine, passing the active base and quote values.
 
 ---
 
 ### Phase 4: UI Integration — Compare Feature & Favorites Reset
 
 - [ ] **Dashboard Row Bookmarking & Clean Reset Actions**
-- **Status:** ⏳ Todo (Target: 2026-07-22)
+- **Status:** ⏳ Doing (Target: 2026-07-18)
 - **Description:** Expand rows inside the comparison dashboard grid to include single-click favoriting capabilities, and add an isolated clear interface.
 - [ ] Open the `CompareDashboard` layout grid component.
 - [ ] Add a favoriting option column right next to each currency row's trash icon.
