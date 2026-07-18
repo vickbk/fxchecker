@@ -2,7 +2,7 @@ import { CurrencyCard, getCurrencyCountry, SROnly } from "@/shared/utils";
 import { Flag } from "@/shared/utils/components/Flag";
 import { SRHidden } from "@/shared/utils/components/SRHidden";
 import Link from "next/link";
-import { deleteCompareRate } from "../actions";
+import { deleteCompareCurrency } from "../actions";
 import { CompareDelete } from "../modules/delete";
 import { CompareItemProps } from "../types";
 import { CurrencyActions } from "./CurrencyActions";
@@ -17,7 +17,7 @@ export const CompareCurreny = ({
 
   searchQuery,
 }: CompareItemProps) => {
-  const deleteAction = deleteCompareRate.bind(null, quote);
+  const deleteAction = deleteCompareCurrency.bind(null, quote);
 
   return (
     <CurrencyCard>

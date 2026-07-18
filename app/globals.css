@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "../shared/theme/styles.css";
+@import "../features/compare/styles.css";
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
 @theme inline {
@@ -44,9 +45,11 @@ dialog {
   }
 }
 
-[popover] {
-  @apply bg-background-secondary text-foreground;
-  position-anchor: auto;
-  position-area: bottom span-right;
-  position-try: flip-block;
+@layer base {
+  *[popover] {
+    @apply bg-background-secondary text-foreground;
+    position-anchor: auto;
+    position-area: bottom span-right;
+    position-try: flip-block;
+  }
 }

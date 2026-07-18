@@ -74,9 +74,19 @@ export async function getCompareRates(base = "USD") {
   }
 }
 
-export async function deleteCompareRate(toDelete: string) {
+export async function deleteCompareCurrency(toDelete: string) {
   "use server";
   const rates = await myCompareList("UNDEFINED");
   await updateCompareList(rates.filter((rate) => rate !== toDelete));
+  revalidatePath("/compare");
+}
+
+export async function addToCompareCurrencies(form: FormData) {
+  "use server";
+  const currencies = await myCompareList("UNDEFINED");
+  const newCurrencies = form.getAll("currency") as string[];
+
+  const newList = [...new Set([...currencies, ...newCurrencies])];
+  await updateCompareList(newList);
   revalidatePath("/compare");
 }

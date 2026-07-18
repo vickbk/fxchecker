@@ -1,4 +1,5 @@
 import { BiIcon, EmptySection, SignInInterceptor } from "@/shared/utils";
+import { addToCompareCurrencies } from "../actions";
 import { AddDialog } from "../modules/add";
 
 export const EmptyCompare = ({
@@ -18,7 +19,7 @@ export const EmptyCompare = ({
       >
         Add to compare <BiIcon name="plus-square" />
       </LoginTrigger>
-      <AddDialog />
+      <AddDialog action={addToCompareCurrencies} />
     </EmptySection>
   );
 };

@@ -1,24 +1,25 @@
 import { Heading } from "@/shared/heading";
-import { BiIcon } from "@/shared/utils";
+import { BiIcon, LoadingSubmit } from "@/shared/utils";
 import { CurrencyList } from "./CurrencyList";
 
-export const AddDialog = () => {
+export const AddDialog = ({ action }: { action: (form: FormData) => void }) => {
   return (
     <form
+      action={action}
       popover=""
       id="add-compare-dialog"
-      className="bg-card rounded-lg p-4 top-2"
+      className="add-compare"
     >
       <Heading className="uppercase text-center text-lime-500 text-xl">
         Add Currencies to compare to list
       </Heading>
       <CurrencyList />
-      <button
-        type="submit"
+      <LoadingSubmit
         className="p-2 px-4 rounded-lg bg-lime-500 text-background"
+        text="Saving selection..."
       >
         Save selection <BiIcon name="floppy" />
-      </button>
+      </LoadingSubmit>
     </form>
   );
 };

@@ -9,10 +9,14 @@ export function useCurrencyList() {
     setQuery,
     filtered: useMemo(
       () =>
-        currencies.filter(({ name, code, symbol }) =>
-          [name, code, symbol].some((name) =>
-            name.toLowerCase().includes(query.toLowerCase()),
-          ),
+        new Set(
+          currencies
+            .filter(({ name, code, symbol }) =>
+              [name, code, symbol].some((name) =>
+                name.toLowerCase().includes(query.toLowerCase()),
+              ),
+            )
+            .map(({ code }) => code),
         ),
       [query, currencies],
     ),

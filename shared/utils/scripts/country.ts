@@ -5,6 +5,8 @@ const CURRENCY_OVERRIDES: Record<string, string> = {
   ANG: "cw", // Curaçao
 };
 
-export function getCurrencyCountry(currency: `${string}${string}${string}`) {
-  return CURRENCY_OVERRIDES[currency] ?? currency.substring(0, 2).toLowerCase();
+export function getCurrencyCountry(currency: string) {
+  const country =
+    CURRENCY_OVERRIDES[currency] ?? currency.substring(0, 2).toLowerCase();
+  return country.startsWith("x") ? "un" : country;
 }
