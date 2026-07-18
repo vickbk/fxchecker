@@ -15,6 +15,8 @@ import {
 } from "./utils/errors";
 
 const fetchMock = vi.fn();
+const executeMock = vi.fn();
+
 vi.mock("@/shared/config", () => ({
   config: {
     FRANKFURTER_URL: "https://frankfurtur.mock",
@@ -320,6 +322,55 @@ describe("infra/api/frankfurter/service", () => {
 
       // Assert that the global fetch mock has been called exactly 2 times (seed + background refresh)
       expect(fetchMock).toHaveBeenCalledTimes(2);
+    });
+  });
+
+  describe("fetchCurrenciesMap", () => {
+    it("transforms a flat currency array into a code-indexed record", async () => {
+      executeMock.mockImplementation(async (_key, fallback) => fallback());
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        headers: new Headers({ "content-type": "application/json" }),
+        json: async () => [
+          { iso_code: "USD", name: "US Dollar", symbol: "$" },
+          { iso_code: "EUR", name: "Euro", symbol: "€" },
+        ],
+      } as Response);
+
+      const { fetchCurrenciesMap } = await import("./service");
+      const result = await fetchCurrenciesMap();
+
+      expect(result).toEqual({
+        USD: { code: "USD", name: "US Dollar", symbol: "$" },
+        EUR: { code: "EUR", name: "Euro", symbol: "€" },
+      });
+    });
+
+    it("returns an empty object when the upstream array is empty", async () => {
+      executeMock.mockImplementation(async (_key, fallback) => fallback());
+      fetchMock.mockResolvedValueOnce({
+        ok: true,
+        status: 200,
+        headers: new Headers({ "content-type": "application/json" }),
+        json: async () => [],
+      } as Response);
+
+      const { fetchCurrenciesMap } = await import("./service");
+      const result = await fetchCurrenciesMap();
+
+      expect(result).toEqual({});
+    });
+
+    it("propagates upstream failures without capturing partial state", async () => {
+      executeMock.mockImplementation(async (_key, fallback) => fallback());
+      fetchMock.mockRejectedValueOnce(new Error("network timeout"));
+
+      const { fetchCurrenciesMap } = await import("./service");
+
+      await expect(fetchCurrenciesMap()).rejects.toThrow(
+        "Network connectivity issue / offline: network timeout",
+      );
     });
   });
 });
