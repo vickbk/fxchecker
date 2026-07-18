@@ -21,7 +21,7 @@ export async function runMigrations() {
 export let migrationPromise: Promise<void> | null = null;
 
 // Only execute immediately if this specific file is run directly via node/tsx
-if (require.main === module || process.argv[1]?.endsWith("migrate.ts")) {
+if (import.meta.main || process.argv[1]?.endsWith("migrate.ts")) {
   migrationPromise = (async () => {
     let exitCode = 0;
     try {
