@@ -223,13 +223,14 @@ describe("infra/api/frankfurter/service", () => {
     });
 
     it("flattens a rate response into the V2 FrankfurterRate shape", async () => {
-      fetchMock.mockResolvedValueOnce({
+      fetchMock.mockResolvedValue({
         ok: true,
         status: 200,
         json: async () => ({
           date: "2026-07-11",
           base: "USD",
           rate: 0.92,
+          change: 0,
         }),
       } as Response);
 
@@ -240,6 +241,7 @@ describe("infra/api/frankfurter/service", () => {
         base: "USD",
         quote: "EUR",
         rate: 0.92,
+        change: 0,
       });
     });
   });
