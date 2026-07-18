@@ -1,6 +1,7 @@
 import { auth } from "@/infra/core";
-import { FavoritePair } from "@/shared/currencies";
+import { FavoriteEntry, FavoritePair, FavoriteSuite } from "@/shared/currencies";
 import { eq } from "drizzle-orm";
+import { revalidatePath } from "next/cache";
 import { db } from "./db/client";
 import { exFavorites } from "./db/schema";
 
@@ -12,19 +13,20 @@ export async function getFavorites() {
       await db.query.exFavorites.findFirst({
         where: eq(exFavorites.userId, session.user.id),
       })
-    )?.favoritePairs;
+    )?.favoritePairs as FavoriteEntry[] | undefined;
   } catch (error) {
     console.log(error);
   }
 }
 
 export async function toggleFavorite({ base, quote }: FavoritePair) {
+  "use server";
   const session = await auth();
   if (!session?.user || !session.user.id)
     return { success: false, error: new Error("Authentication required") };
   try {
     const userId = session.user?.id;
-    const pair = `${base}-${quote}`;
+    const pair = (base + "-" + quote) as FavoriteEntry;
     const favorites = (await getFavorites()) ?? [];
     const favoritePairs = favorites.includes(pair)
       ? favorites.filter((p) => p !== pair)
@@ -36,14 +38,17 @@ export async function toggleFavorite({ base, quote }: FavoritePair) {
         target: exFavorites.userId,
         set: { favoritePairs },
       });
+    revalidatePath("/");
+    revalidatePath("/compare");
+    revalidatePath("/favorites");
     return { success: true };
   } catch (error) {
-    console.error(error);
     return { success: false, error: error as Error };
   }
 }
 
 export async function clearAllFavorites() {
+  "use server";
   const session = await auth();
   if (!session?.user || !session.user.id)
     return { success: false, error: new Error("Authentication required") };
@@ -56,9 +61,14 @@ export async function clearAllFavorites() {
         target: exFavorites.userId,
         set: { favoritePairs: [] },
       });
+
+    revalidatePath("/");
+    revalidatePath("/compare");
+    revalidatePath("/favorites");
     return { success: true };
   } catch (error) {
-    console.error(error);
     return { success: false, error: error as Error };
   }
 }
+
+export const favoriteSuite: FavoriteSuite = { toggleFavorite, getFavorites };

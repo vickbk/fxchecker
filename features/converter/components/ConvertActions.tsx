@@ -1,8 +1,9 @@
 "use client";
-import { BiIcon, LoadingPlaceholder, SROnly } from "@/shared/utils";
+import { LoadingPlaceholder } from "@/shared/utils";
+import { ReactNode } from "react";
 import { useRate } from "../hooks/useRate";
 
-export const ConverterActions = () => {
+export const ConverterActions = ({ children }: { children: ReactNode }) => {
   const { from, to, rate, loading } = useRate();
 
   return (
@@ -21,26 +22,7 @@ export const ConverterActions = () => {
           {to}
         </dd>
       </dl>
-      <ul className="uppercase flex justify-center items-center flex-wrap gap-4 sm:ml-auto">
-        <li>
-          <button
-            type="button"
-            className="uppercase flex w-full gap-2 p-4 bg-lime-500 rounded-lg text-background"
-          >
-            <BiIcon name="star-fill" />
-            <SROnly>Add to </SROnly>favorite
-          </button>
-        </li>
-        <li>
-          <button
-            type="button"
-            className="uppercase flex items-center gap-2 p-4 outline-lime-500 rounded-lg outline truncate "
-          >
-            <BiIcon name="clock" />
-            Log conversion
-          </button>
-        </li>
-      </ul>
+      {children}
     </div>
   );
 };

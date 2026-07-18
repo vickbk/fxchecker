@@ -1,5 +1,10 @@
-import { AuthManager, SignInProvider } from "@/features/account";
+import {
+  AuthManager,
+  SignInInterceptor,
+  SignInProvider,
+} from "@/features/account";
 import { ConverterCard } from "@/features/converter";
+import { favoriteSuite } from "@/features/favorites";
 import { MainHeader } from "@/features/header";
 import { fetchCurrencies } from "@/infra/api/frankfurter";
 import { config } from "@/shared/config";
@@ -55,7 +60,10 @@ export default function RootLayout({
                   <AuthManager />
                 </MainHeader>
                 <div className="max-w-4xl mx-auto sm:py-8">
-                  <ConverterCard />
+                  <ConverterCard
+                    favoriteSuite={favoriteSuite}
+                    SignInInterceptor={SignInInterceptor}
+                  />
                   <Navbar history={{}} compare={{}} favorites={{}} logs={{}} />
                   {children}
                 </div>

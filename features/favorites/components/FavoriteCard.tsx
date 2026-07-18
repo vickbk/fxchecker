@@ -1,10 +1,15 @@
+import { FavoriteEntry } from "@/shared/currencies";
 import { BiIcon, CurrencyCard, SROnly } from "@/shared/utils";
 
-export const FavoriteCard = () => {
+export const FavoriteCard = ({ favorite }: { favorite: FavoriteEntry }) => {
+  const [base, quote] = favorite.split("-");
+
   return (
     <CurrencyCard>
       <dl className="">
-        <dt className="truncate">GBP {"->"} EUR</dt>
+        <dt className="truncate">
+          {base} {"->"} {quote}
+        </dt>
         <dd className="sr-only">British Pound to Euro</dd>
       </dl>
       <dl className="ml-auto">

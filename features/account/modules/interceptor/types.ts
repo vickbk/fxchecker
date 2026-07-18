@@ -7,4 +7,4 @@ export type SignInCtx = SignInDescription & {
 };
 
 export type SignInTriggerProps = HTMLAttributes<HTMLButtonElement> &
-  SignInDescription;
+  SignInDescription & { type?: "button" | "submit" | "reset" };
