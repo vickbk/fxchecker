@@ -20,7 +20,7 @@ export const FavoriteCard = async ({
           {base.name} to {quote.name}
         </dd>
       </dl>
-      <FavoriteData />
+      <FavoriteData {...{ base, quote }} />
     </CurrencyCard>
   );
 };

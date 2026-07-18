@@ -1,6 +1,6 @@
 import { SWREngine } from "@/shared/cache";
 import { config } from "@/shared/config";
-import { parseTimeToMs } from "@/shared/utils";
+import { getLookbackDate, parseTimeToMs } from "@/shared/utils";
 import type {
   Currency,
   FrankfurterCurrency,
@@ -153,14 +153,18 @@ export async function getRate(
   return frankfurterCache.execute(
     `rate:${fromCode}:${toCode}`,
     async () => {
-      const payload = await request<FrankfurterRate>(
-        `/rate/${fromCode}/${toCode}`,
-      );
+      const query = `/rate/${fromCode}/${toCode}`;
+
+      const [payload, aWeekback] = await Promise.all([
+        await request<FrankfurterRate>(query),
+        await request<FrankfurterRate>(`${query}?date=${getLookbackDate(7)}`),
+      ]);
       return {
         date: payload.date || "",
         base: fromCode,
         quote: toCode,
         rate: payload.rate || 0,
+        change: payload.rate - aWeekback.rate,
       };
     },
     { ttlMs: parseTimeToMs("30s") },
