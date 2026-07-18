@@ -1,3 +1,4 @@
+import { SignInInterceptor } from "@/features/account";
 import { MainFavorite, MainFavoriteSkeleton } from "@/features/favorites";
 import { getRandomInt } from "@/shared/random";
 import { Suspense } from "react";
@@ -5,7 +6,7 @@ import { Suspense } from "react";
 export default async function Favorite() {
   return (
     <Suspense key={getRandomInt()} fallback={<MainFavoriteSkeleton />}>
-      <MainFavorite />
+      <MainFavorite SignInInterceptor={SignInInterceptor} />
     </Suspense>
   );
 }

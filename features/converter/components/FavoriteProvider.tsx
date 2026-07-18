@@ -16,8 +16,6 @@ export const FavoriteProvider = async ({
   }
   const action = await updateFavoriteStatus(toggleFavorite);
 
-  console.log(favorites);
-
   return (
     <form action={action}>
       <FavoriteContent

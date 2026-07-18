@@ -1,12 +1,15 @@
 import { Currency } from "@/infra/api/frankfurter";
-import { CurrencyCard } from "@/shared/utils";
+import { CurrencyCard, SignInInterceptor } from "@/shared/utils";
 import { FavoriteData } from "./FavoriteData";
 import { FavoriteLink } from "./FavoriteLink";
 
 export const FavoriteCard = async ({
   base,
   quote,
-}: Record<"base" | "quote", Currency>) => {
+  SignInInterceptor,
+}: Record<"base" | "quote", Currency> & {
+  SignInInterceptor: SignInInterceptor;
+}) => {
   return (
     <CurrencyCard>
       <dl className="">
@@ -20,7 +23,7 @@ export const FavoriteCard = async ({
           {base.name} to {quote.name}
         </dd>
       </dl>
-      <FavoriteData {...{ base, quote }} />
+      <FavoriteData {...{ base, quote, SignInInterceptor }} />
     </CurrencyCard>
   );
 };

@@ -57,7 +57,7 @@
 - [ ] Open the `CompareDashboard` layout grid component.
 - [ ] Add a favoriting option column right next to each currency row's trash icon.
 - [ ] Pass the row's corresponding pairing values (`base` from page state, row currency as `quote`) straight into another `SignInInterceptor` wrapper block.
-- [ ] Mount a "Clear Favorite Pairs" action option inside your user preferences layout profile dashboard menu.
-- [ ] Bind that option to trigger your `clearAllFavorites` server sequence.
+- [x] Mount a "Clear Favorite Pairs" action option inside your user preferences layout profile dashboard menu.
+- [x] Bind that option to trigger your `clearAllFavorites` server sequence.
 - [ ] Run verification verification test loops:
 - Execute `pnpm build` and `pnpm lint` to ensure zero boundary breaks across features.
