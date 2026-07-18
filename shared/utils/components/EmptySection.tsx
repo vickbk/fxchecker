@@ -1,9 +1,13 @@
+import { ReactNode } from "react";
+
 export const EmptySection = ({
   heading,
   text,
+  children,
 }: {
   heading: string;
   text: string;
+  children?: ReactNode;
 }) => {
   const sectionid = crypto.randomUUID();
   return (
@@ -15,6 +19,7 @@ export const EmptySection = ({
         {heading}
       </h2>
       <p className="text-foreground-secondary mt-8">{text}</p>
+      {children}
     </section>
   );
 };

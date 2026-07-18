@@ -2,10 +2,15 @@ export function joinClasses(classes: (string | false)[]) {
   return classes.filter((c) => c !== false).join(" ");
 }
 
-export function keyFromSearchQuery(keys: Record<string, string>) {
+export function keyFromSearchQuery(
+  keys: Record<string, string | number>,
+  ...include: string[]
+) {
   const result = [];
+  const hasIncludes = include.length !== 0;
   for (const key in keys) {
-    result.push(key, keys[key]);
+    if (!hasIncludes || include.indexOf(key) !== -1)
+      result.push(key, keys[key]);
   }
   return result.join("-");
 }

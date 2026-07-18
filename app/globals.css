@@ -1,5 +1,6 @@
 @import "tailwindcss";
 @import "../shared/theme/styles.css";
+@import "../features/compare/styles.css";
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
 @theme inline {
@@ -31,7 +32,8 @@ dialog {
       scale 400ms ease-in;
   }
 
-  &[popover] {
+  &[popover],
+  &:open {
     @apply scale-100;
     &,
     &::backdrop {
@@ -40,5 +42,14 @@ dialog {
         @apply opacity-0 scale-90;
       }
     }
+  }
+}
+
+@layer base {
+  *[popover] {
+    @apply bg-background-secondary text-foreground;
+    position-anchor: auto;
+    position-area: bottom span-right;
+    position-try: flip-block;
   }
 }

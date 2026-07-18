@@ -1,0 +1,1 @@
+ALTER TABLE "cx_compare" RENAME COLUMN "compare_list" TO "currency_list";

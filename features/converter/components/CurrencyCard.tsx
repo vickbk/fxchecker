@@ -33,14 +33,7 @@ export const CurrencyCard = ({ isSend = false }: { isSend: boolean }) => {
         type="button"
         popoverTarget={popover}
       >
-        <Flag
-          src={
-            country.startsWith("x")
-              ? "/globe.svg"
-              : `https://flagcdn.com/${country}.svg`
-          }
-          alt={`${actualCurr.name} flag`}
-        />{" "}
+        <Flag country={country} alt={`${actualCurr.name} flag`} />{" "}
         <SROnly>Change {isSend ? "send" : "receive"} currency(</SROnly>
         {actualCurr.code}
         <SROnly>)</SROnly> <BiIcon name="caret-down-fill" />
