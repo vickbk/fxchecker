@@ -6,3 +6,8 @@ export type CurrencyContextType = {
   isLoading: boolean;
   error: Error | null;
 };
+
+export type FavoritePair = {
+  base: string;
+  quote: string;
+};

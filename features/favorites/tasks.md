@@ -2,8 +2,8 @@
 
 ### Phase 1: Database Schema Configuration (Drizzle ORM)
 
-- [ ] **Drizzle Favorites Schema Definition**
-- **Status:** ⏳ Doing (Target: 2026-07-18)
+- [x] **Drizzle Favorites Schema Definition**
+- **Status:** ✅ Done (Target: 2026-07-18)
 - **Description:** Establish the database persistence structure using Drizzle ORM to house persistent currency pairings linked directly to authenticated accounts.
 - [x] Open your Drizzle schema file and export the new `ex_favorites` table definition.
 - [x] Add the `userId` primary key column, referencing the core users table with a `cascade` delete modifier.
@@ -21,19 +21,18 @@
 ### Phase 2: Core Server Actions & Isolated Reset Layer
 
 - [ ] **State Mutation Actions Engine**
-- **Status:** ⏳ Todo (Target: 2026-07-20)
+- **Status:** ⏳ Doing (Target: 2026-07-18)
 - **Description:** Create isolated, type-safe Next.js Server Actions to safely append, remove, or entirely clear user favorites behind strict authentication verification.
-- [ ] Build the `toggleFavoritePair(base: string, quote: string)` Server Action:
+- [x] Build the `toggleFavoritePair({base: string, quote: string})` Server Action:
 - Validate active auth session context.
 - Format incoming pairings into the standardized string token: `const pairToken = "${base}-${quote}"`.
 - Fetch the current array, check if the token exists, and either append or filter it out.
 
-- [ ] Build the `clearAllFavorites()` Server Action:
+- [x] Build the `clearAllFavorites()` Server Action:
 - Secure the execution thread behind auth session validation.
 - Mutate the `favoritePairs` column back to an empty array `[]` for the active user row in `ex_favorites`.
-- Keep this transaction completely isolated from the `cx_compare` configurations.
 
-- [ ] Verify actions return clean, serializable response objects: `{ success: boolean; error?: string }`.
+- [x] Verify actions return clean, serializable response objects: `{ success: boolean; error?: string }`.
 
 ---
 
