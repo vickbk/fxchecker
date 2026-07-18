@@ -17,8 +17,8 @@
 - [x] Build the `/features` directory to house domain isolation folders (`converter`, `market`, `favorites`, `log`).
 - [x] Clean out `/app` to serve purely as the routing configuration shell that imports view containers from the features layer.
 
-- [ ] **Styling, Theme System, & Test Harness Configuration**
-- **Status:** ⏳ In progress (Target: 2026-07-03)
+- [x] **Styling, Theme System, & Test Harness Configuration**
+- **Status:** ✅ Done (Target: 2026-07-03)
 - **Description:** Establish Tailwind CSS dark-first theme systems and seed runtime validation frameworks.
 - [x] Set up Tailwind CSS configuration supporting utility classes and dark mode toggling.
 - [ ] Wire up global typography scales and basic CSS variables inside `shared/styles`.
@@ -28,19 +28,19 @@
 
 ## 2. Infrastructure Layer (`infra`)
 
-- [ ] **Database Core Setup with Neon & Drizzle ORM**
-- **Status:** ⏳ Pending (Target: 2026-07-10)
+- [x] **Database Core Setup with Neon & Drizzle ORM**
+- **Status:** ✅ Done (Target: 2026-07-10)
 - **Description:** Establish data persistence schemas for user synchronization, favorites tracking, and logging with migration validation.
 - [ ] Provision the Neon serverless Postgres database instance.
 - [x] Create `infra/db/schema.ts` defining user profiles, `pinned_pairs`, and `conversion_history` tables.
 - [x] Set up Drizzle config scripts and configure automated migration pipelines for runtime synchronization.
 
-- [ ] **Authentication Engine with Auth.js & Google OAuth**
-- **Status:** ⏳ Pending (Target: 2026-07-12)
+- [x] **Authentication Engine with Auth.js & Google OAuth**
+- **Status:** ✅ Done (Target: 2026-07-12)
 - **Description:** Construct the identity boundary providing optional device sync via Google accounts while isolating multi-tenant data sets.
-- [ ] Configure the NextAuth handler inside `infra/auth` injecting the Drizzle adapter mapping.
-- [ ] Register Google OAuth credentials and secure environment variables.
-- [ ] Construct custom React hooks within `infra/auth/hooks` to safely resolve global session status across the architecture layers.
+- [x] Configure the NextAuth handler inside `infra/auth` injecting the Drizzle adapter mapping.
+- [x] Register Google OAuth credentials and secure environment variables.
+- [x] Construct custom React hooks within `infra/auth/hooks` to safely resolve global session status across the architecture layers.
 
 - [x] **Resilient Frankfurter API Client Suite**
 - **Status:** ✅ Done (Target: 2026-07-06)
@@ -53,27 +53,27 @@
 
 ## 3. Feature Architecture (`src/features`)
 
-- [ ] **Converter Feature Subsystem**
-- **Status:** ⏳ In Progress (Target: 2026-07-18)
+- [x] **Converter Feature Subsystem**
+- **Status:** ✅ Done (Target: 2026-07-18)
 - **Description:** Deliver real-time conversions, searchable pickers, and live URL state mapping.
-- [ ] Build the primary conversion interface inside `features/converter/components`.
-- [ ] Create an accessible, searchable combo-box dropdown component to filter currencies.
-- [ ] Implement URL persistence logic (`?from=USD&to=EUR&amount=250`) keeping state fully bookmarkable.
-- [ ] Write one-click currency reversal hooks with zero layout shifting.
+- [x] Build the primary conversion interface inside `features/converter/components`.
+- [x] Create an accessible, searchable combo-box dropdown component to filter currencies.
+- [x] Implement URL persistence logic (`?from=USD&to=EUR&amount=250`) keeping state fully bookmarkable.
+- [x] Write one-click currency reversal hooks with zero layout shifting.
 
-- [ ] **Market Ticker & Chronological Chart Feature**
-- **Status:** ⏳ Pending (Target: 2026-07-22)
+- [x] **Market Ticker & Chronological Chart Feature**
+- **Status:** ✅ Done (Target: 2026-07-22)
 - **Description:** Implement real-time pair overview tickers and interactive historical time-series canvas graphs.
-- [ ] Structure the currency pairs grid showing baseline 24-hour pricing shifts.
-- [ ] Integrate a performant charting approach (SVG or canvas layout) rendering data windows from 1 day up to 5 years.
-- [ ] Develop the interactive crosshair feature overlay tracking coordinates to surface dates and exact rates on mouse hover.
+- [x] Structure the currency pairs grid showing baseline 24-hour pricing shifts.
+- [x] Integrate a performant charting approach (SVG or canvas layout) rendering data windows from 1 day up to 5 years.
+- [x] Develop the interactive crosshair feature overlay tracking coordinates to surface dates and exact rates on mouse hover.
 
-- [ ] **Favorites Tracking & Comparison Engine**
-- **Status:** ⏳ Pending (Target: 2026-07-25)
+- [x] **Favorites Tracking & Comparison Engine**
+- **Status:** ✅ Pending (Target: 2026-07-18)
 - **Description:** Track high-priority currency pairs side by side and load contexts back into the converter.
-- [ ] Build the cross-currency matrix showing a single target base converted against multiple currencies simultaneously.
-- [ ] Implement toggle workflows enabling local storage tracking for guests, automatically upgrading to the Neon cloud datastore upon Google sign-in.
-- [ ] Create navigation hooks that swap the primary converter state instantly when a user clicks a favorite card.
+- [x] Build the cross-currency matrix showing a single target base converted against multiple currencies simultaneously.
+- [x] Implement toggle workflows enabling local storage tracking for guests, automatically upgrading to the Neon cloud datastore upon Google sign-in.
+- [x] Create navigation hooks that swap the primary converter state instantly when a user clicks a favorite card.
 
 - [ ] **Conversion Log & Data Portability**
 - **Status:** ⏳ Pending (Target: 2026-07-27)

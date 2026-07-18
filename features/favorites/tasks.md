@@ -21,7 +21,7 @@
 ### Phase 2: Core Server Actions & Isolated Reset Layer
 
 - [x] **State Mutation Actions Engine**
-- **Status:** ⏳ Done (Target: 2026-07-18)
+- **Status:** ✅ Done (Target: 2026-07-18)
 - **Description:** Create isolated, type-safe Next.js Server Actions to safely append, remove, or entirely clear user favorites behind strict authentication verification.
 - [x] Build the `toggleFavoritePair({base: string, quote: string})` Server Action:
 - Validate active auth session context.
@@ -51,12 +51,12 @@
 
 ### Phase 4: UI Integration — Compare Feature & Favorites Reset
 
-- [ ] **Dashboard Row Bookmarking & Clean Reset Actions**
-- **Status:** ⏳ Doing (Target: 2026-07-18)
+- [x] **Dashboard Row Bookmarking & Clean Reset Actions**
+- **Status:** ✅ Done (Target: 2026-07-18)
 - **Description:** Expand rows inside the comparison dashboard grid to include single-click favoriting capabilities, and add an isolated clear interface.
-- [ ] Open the `CompareDashboard` layout grid component.
-- [ ] Add a favoriting option column right next to each currency row's trash icon.
-- [ ] Pass the row's corresponding pairing values (`base` from page state, row currency as `quote`) straight into another `SignInInterceptor` wrapper block.
+- [x] Open the `CompareDashboard` layout grid component.
+- [x] Add a favoriting option column right next to each currency row's trash icon.
+- [x] Pass the row's corresponding pairing values (`base` from page state, row currency as `quote`) straight into another `SignInInterceptor` wrapper block.
 - [x] Mount a "Clear Favorite Pairs" action option inside your user preferences layout profile dashboard menu.
 - [x] Bind that option to trigger your `clearAllFavorites` server sequence.
 - [ ] Run verification verification test loops:
