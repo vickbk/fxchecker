@@ -1,22 +1,27 @@
+import { FavoriteSuite } from "@/shared/currencies";
 import { BiIcon, SignInInterceptor, SROnly } from "@/shared/utils";
 import { ReactNode } from "react";
+import { FavoriteForm, SubmitButton } from "../modules/favorite";
 
 export const CurrencyActions = ({
   LoginTrigger,
   children,
   quote,
+  isFavorite,
+  favoriteAction,
 }: {
   LoginTrigger: SignInInterceptor;
   children: ReactNode;
   quote: string;
+  isFavorite: boolean;
+  favoriteAction: FavoriteSuite["toggleFavorite"];
 }) => {
   return (
     <ul className="flex gap-2 text-foreground-secondary z-1">
-      <li>
-        <LoginTrigger description="Login to use the add currency to favorite feature and many more options">
-          <SROnly> Add to favorite</SROnly>
-          <BiIcon name="star" />
-        </LoginTrigger>
+      <li className="text-lime-500">
+        <FavoriteForm favoriteAction={favoriteAction}>
+          <SubmitButton isFavorite={isFavorite} LoginTrigger={LoginTrigger} />
+        </FavoriteForm>
       </li>
       <li>
         <LoginTrigger

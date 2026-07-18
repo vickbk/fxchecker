@@ -1,3 +1,4 @@
+import { FavoriteSuite } from "@/shared/currencies";
 import { Heading, Section } from "@/shared/heading";
 import { getSearchQuery, type SignInInterceptor, SROnly } from "@/shared/utils";
 import { getCompareRates } from "../actions";
@@ -8,9 +9,11 @@ import { EmptyCompare } from "./EmptyCompare";
 
 export const MainCompare = async ({
   LoginTrigger,
+  favoriteSuite,
   ...searchParams
 }: CompareSearchParams & {
   LoginTrigger: SignInInterceptor;
+  favoriteSuite: FavoriteSuite;
 }) => {
   const { from = "USD", amount = 100 } = searchParams;
   const searchQuery = new URLSearchParams({
@@ -18,9 +21,11 @@ export const MainCompare = async ({
     amount: amount + "",
   });
   const rates = await getCompareRates(from);
-  const quotes = rates.map((rate) => rate.quote);
 
   if (rates.length === 0) return <EmptyCompare LoginTrigger={LoginTrigger} />;
+  const quotes = rates.map((rate) => rate.quote);
+
+  const favorites = new Set(await favoriteSuite.getFavorites());
 
   return (
     <Section aria-describedby="compare-description" className="p-4">
@@ -38,6 +43,8 @@ export const MainCompare = async ({
               {...rate}
               amount={amount}
               LoginTrigger={LoginTrigger}
+              isFavorite={favorites.has(`${from}-${rate.quote}`)}
+              toggleFavorite={favoriteSuite.toggleFavorite}
               searchQuery={getSearchQuery(searchQuery, ["to", rate.quote])}
             />
           ))}
