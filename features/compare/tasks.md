@@ -78,8 +78,8 @@
   - Render rows showing currency codes, full names, rates, and values.
 
 - [x] Bind row deletion hooks and addition menus to `guardAction`.
-- [ ] Implement client-side optimistic rendering:
+- [x] Implement client-side optimistic rendering:
   - Delete/Insert items in UI state instantly.
   - Fire background database mutations concurrently.
 
-- [ ] Test layout behavior for shift-free responsiveness when converting amounts.
+- [x] Test layout behavior for shift-free responsiveness when converting amounts.

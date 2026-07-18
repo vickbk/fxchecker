@@ -11,7 +11,7 @@ export const CurrencyActions = ({
   quote: string;
 }) => {
   return (
-    <ul className="flex gap-2 text-foreground-secondary z-10">
+    <ul className="flex gap-2 text-foreground-secondary z-1">
       <li>
         <LoginTrigger description="Login to use the add currency to favorite feature and many more options">
           <SROnly> Add to favorite</SROnly>
