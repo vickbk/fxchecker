@@ -1,5 +1,3 @@
-import { revalidatePath } from "next/cache";
-
 export function joinClasses(classes: (string | false)[]) {
   return classes.filter((c) => c !== false).join(" ");
 }
@@ -24,13 +22,4 @@ export function getSearchQuery(
   queries = new URLSearchParams(queries);
   params.forEach(([key, value]) => queries.set(key, value));
   return queries.toString();
-}
-
-export function revalidatePaths(...paths: string[]) {
-  paths.forEach((path) => revalidatePath(path));
-}
-
-export function revalidateAllPaths() {
-  // These paths are project specific...
-  revalidatePaths("/", "/compare", "/favorites", "/logs");
 }
