@@ -1,17 +1,22 @@
 import { FavoriteSuite } from "@/shared/currencies";
 import { Article, Heading } from "@/shared/heading";
-import { BiIcon, SignInInterceptor } from "@/shared/utils";
+import { SignInInterceptor } from "@/shared/utils";
+import { LogCoversionAction } from "../types";
 import { ConverterActions } from "./ConvertActions";
 import { FavoriteProvider } from "./FavoriteProvider";
+import { LogsContent } from "./LogsContent";
+import { LogsProvider } from "./LogsProvider";
 import { RateCard } from "./RateCard";
 import { Swapper } from "./Swapper";
 
 export const ConverterCard = ({
   SignInInterceptor,
   favoriteSuite,
+  logConversion,
 }: {
   SignInInterceptor: SignInInterceptor;
   favoriteSuite: FavoriteSuite;
+  logConversion: LogCoversionAction;
 }) => {
   return (
     <Article className="p-4">
@@ -28,13 +33,9 @@ export const ConverterCard = ({
               <FavoriteProvider {...{ ...favoriteSuite, SignInInterceptor }} />
             </li>
             <li>
-              <button
-                type="button"
-                className="uppercase flex items-center gap-2 p-4 outline-lime-500 rounded-lg outline truncate "
-              >
-                <BiIcon name="clock" />
-                Log conversion
-              </button>
+              <LogsProvider logConversion={logConversion}>
+                <LogsContent SignInInterceptor={SignInInterceptor} />
+              </LogsProvider>
             </li>
           </ul>
         </ConverterActions>

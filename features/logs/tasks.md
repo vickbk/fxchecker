@@ -21,8 +21,8 @@
 
 ### Phase 2: Core Server Actions Engine
 
-- [ ] **Declarative State Mutation Engine**
-  - **Status:** ⏳ Doing (Target: 2026-07-19)
+- [x] **Declarative State Mutation Engine**
+  - **Status:** ✅ Done (Target: 2026-07-19)
   - **Description:** Implement type-safe Server Actions to manage history records cleanly behind user session validations, utilizing automatic schema typing.
   - [x] Build the `logConversion({base, quote, amount, rate})` Server Action:
     - [x] Verify active authentication session context. Return early if missing.
@@ -39,13 +39,13 @@
 ### Phase 3: UI Integration & Interceptor Binding
 
 - [ ] **Chronological Stream UI & Protected Interceptions**
-  - **Status:** ⏳ Todo (Target: 2026-07-27)
+  - **Status:** ⏳ Doing (Target: 2026-07-19)
   - **Description:** Construct a clean chronological list layout that consumes the automatically deserialized data objects, while gating sensitive interactions behind the client interceptor layer.
-  - [ ] Integrate the automatic `logConversion` statement inside the main converter form submission pipeline so it runs implicitly for authenticated user profiles.
-  - [ ] Build the history display list viewport:
-    - Fetch user log rows from the database, sorted using `.orderBy(desc(exLogs.editTime))`.
-    - Access object keys directly off the returned data row configuration—skipping manual array string splitting layouts entirely.
-    - Render the calculation row format: `[Amount] [Base] → [Result] [Quote]`.
+  - [x] Integrate the automatic `logConversion` statement inside the main converter form submission pipeline so it runs implicitly for authenticated user profiles.
+  - [x] Build the history display list viewport:
+    - [x] Fetch user log rows from the database, sorted using `.orderBy(desc(exLogs.editTime))`.
+    - [x] Access object keys directly off the returned data row configuration—skipping manual array string splitting layouts entirely.
+    - [x] Render the calculation row format: `[Amount] [Base] → [Result] [Quote]`.
   - [ ] Mount individual trash icon controls on each log entry row, completely wrapped inside the client-side `SignInInterceptor`.
   - [ ] Add a "Clear History" header action utility component, wrapped inside the `SignInInterceptor` shell carrying the explicit context prompt: _"Login to manage and purge your calculation history."_
 

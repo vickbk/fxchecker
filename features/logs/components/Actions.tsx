@@ -1,10 +1,10 @@
 import { BiIcon, SROnly } from "@/shared/utils";
 
-export const Actions = () => {
+export const Actions = ({ count }: { count: number }) => {
   return (
     <>
       <p className="text-foreground-secondary">
-        8 Logged <SROnly>Currencies</SROnly>
+        {count} Logged <SROnly>Currenc{count > 1 ? "ies" : "y"}</SROnly>
       </p>
       <button
         type="button"

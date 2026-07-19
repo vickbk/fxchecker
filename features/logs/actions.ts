@@ -1,18 +1,23 @@
 import { assertAuthenticated } from "@/infra/core";
+import { revalidateAllPaths } from "@/shared/cache";
 import { ActionReturn } from "@/shared/utils";
 import { and, eq } from "drizzle-orm";
 import { db } from "./db/client";
 import { exLogs } from "./db/schema";
 import { LogData } from "./types";
+import { logSchema } from "./utils";
 
 export async function logConversion(data: LogData) {
+  "use server";
   const results: ActionReturn = { success: false };
 
   try {
     const userId = await assertAuthenticated();
-    await db.insert(exLogs).values({ userId, data });
+
+    await db.insert(exLogs).values({ userId, data: logSchema.parse(data) });
 
     results.success = true;
+    revalidateAllPaths();
   } catch (error) {
     results.error = error as Error;
   }
@@ -21,6 +26,7 @@ export async function logConversion(data: LogData) {
 }
 
 export async function deleteLogItem(id: string) {
+  "use server";
   const results: ActionReturn = { success: false };
   try {
     const userId = await assertAuthenticated();
@@ -30,6 +36,7 @@ export async function deleteLogItem(id: string) {
       .where(and(eq(exLogs.id, id), eq(exLogs.userId, userId)));
 
     results.success = true;
+    revalidateAllPaths();
   } catch (error) {
     results.error = error as Error;
   }
@@ -37,6 +44,7 @@ export async function deleteLogItem(id: string) {
 }
 
 export async function clearAllLogs() {
+  "use server";
   const results: ActionReturn = { success: false };
 
   try {
@@ -44,6 +52,7 @@ export async function clearAllLogs() {
     await db.delete(exLogs).where(eq(exLogs.userId, userId));
 
     results.success = true;
+    revalidateAllPaths();
   } catch (error) {
     results.error = error as Error;
   }

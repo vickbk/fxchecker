@@ -6,6 +6,7 @@ import {
 import { ConverterCard } from "@/features/converter";
 import { favoriteSuite } from "@/features/favorites";
 import { MainHeader } from "@/features/header";
+import { logConversion } from "@/features/logs";
 import { fetchCurrencies } from "@/infra/api/frankfurter";
 import { config } from "@/shared/config";
 import { CurrencyProvider } from "@/shared/currencies";
@@ -61,8 +62,7 @@ export default function RootLayout({
                 </MainHeader>
                 <div className="max-w-4xl mx-auto sm:py-8">
                   <ConverterCard
-                    favoriteSuite={favoriteSuite}
-                    SignInInterceptor={SignInInterceptor}
+                    {...{ favoriteSuite, SignInInterceptor, logConversion }}
                   />
                   <Navbar history={{}} compare={{}} favorites={{}} logs={{}} />
                   {children}

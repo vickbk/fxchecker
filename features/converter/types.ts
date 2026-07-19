@@ -1,4 +1,5 @@
-import { Currency } from "@/infra/api/frankfurter";
+import { Currency, FrankfurterRate } from "@/infra/api/frankfurter";
+import { ActionReturn } from "@/shared/utils";
 
 export type URLState = {
   from: string;
@@ -34,3 +35,7 @@ export type UseCurrencyFilterReturn = {
   handleBlur: () => void;
   selectHighlighted: () => void;
 };
+
+export type LogCoversionAction = (
+  data: Omit<FrankfurterRate, "date"> & { amount: number },
+) => ActionReturn;
