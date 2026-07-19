@@ -7,6 +7,7 @@ import { SignInTrigger } from "./SignInTrigger";
 export const SignInInterceptor = ({
   onClick,
   children,
+  type = "button",
   ...props
 }: SignInTriggerProps) => {
   const { data: session, status } = useSession();
@@ -37,7 +38,7 @@ export const SignInInterceptor = ({
   if (!isAuthenticated)
     return <SignInTrigger {...props}>{children}</SignInTrigger>;
   return (
-    <button type="button" {...props} onClick={handleClick} disabled={isPending}>
+    <button type={type} {...props} onClick={handleClick} disabled={isPending}>
       {children}
     </button>
   );

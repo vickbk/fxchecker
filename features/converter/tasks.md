@@ -38,8 +38,8 @@
 
 ### Phase 3: Real-Time Interactors & Verification
 
-- [ ] **Integrate Infrastructure & Assert Performance Boundaries**
-- **Status:** ⏳ Pending (Target: 2026-07-16)
+- [x] **Integrate Infrastructure & Assert Performance Boundaries**
+- **Status:** ✅ Done (Target: 2026-07-16)
 - **Description:** Glue the UI layer to our high-performance `shared/cache` and Frankfurter client infrastructure layer.
 - [x] Connect `ConverterCard` to our pre-built `fetchLatestRates` infrastructure service using an optimal client-side integration hook (or SWR/React Query wrapper).
 - [x] Run `pnpm lint` and `pnpm test` across the `features/converter` layout to check that it imports cleanly from `shared/cache` and `infra/api/frankfurter` without creating circular dependency trees.

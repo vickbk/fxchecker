@@ -16,15 +16,15 @@ export const CompareCurreny = ({
   details: { [quote]: currency },
 
   searchQuery,
+  isFavorite,
+  toggleFavorite,
 }: CompareItemProps) => {
   const deleteAction = deleteCompareCurrency.bind(null, quote);
+  const favoriteAction = toggleFavorite.bind(null, { base, quote });
 
   return (
     <CurrencyCard>
-      <Flag
-        src={`https://flagcdn.com/${getCurrencyCountry(quote)}.svg`}
-        alt={""}
-      />
+      <Flag country={getCurrencyCountry(quote)} alt={""} />
       <dl>
         <dt className="text-sm">{quote}</dt>
         <dd className="text-foreground-secondary truncate text-xs">
@@ -35,7 +35,7 @@ export const CompareCurreny = ({
           </Link>
         </dd>
       </dl>
-      <dl className="ml-auto">
+      <dl className="ml-auto text-right">
         <dt>{(amount * rate).toFixed(2)}</dt>
         <dd className="text-foreground-secondary text-xs truncate">
           <SROnly>From {base} at a rate of </SROnly> <SRHidden>@</SRHidden>{" "}
@@ -43,7 +43,7 @@ export const CompareCurreny = ({
         </dd>
       </dl>
 
-      <CurrencyActions quote={quote} LoginTrigger={LoginTrigger}>
+      <CurrencyActions {...{ isFavorite, quote, LoginTrigger, favoriteAction }}>
         <CompareDelete
           quote={quote}
           name={currency.name}

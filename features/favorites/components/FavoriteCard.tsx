@@ -1,24 +1,29 @@
-import { BiIcon, CurrencyCard, SROnly } from "@/shared/utils";
+import { Currency } from "@/infra/api/frankfurter";
+import { CurrencyCard, SignInInterceptor } from "@/shared/utils";
+import { FavoriteData } from "./FavoriteData";
+import { FavoriteLink } from "./FavoriteLink";
 
-export const FavoriteCard = () => {
+export const FavoriteCard = async ({
+  base,
+  quote,
+  SignInInterceptor,
+}: Record<"base" | "quote", Currency> & {
+  SignInInterceptor: SignInInterceptor;
+}) => {
   return (
     <CurrencyCard>
       <dl className="">
-        <dt className="truncate">GBP {"->"} EUR</dt>
-        <dd className="sr-only">British Pound to Euro</dd>
-      </dl>
-      <dl className="ml-auto">
-        <dt>0.8990</dt>
-        <dd className="text-red-500">
-          <BiIcon name="caret-up-fill" /> +16%
+        <dt>
+          <FavoriteLink base={base} quote={quote}>
+            {base.code} {"->"} {quote.code}{" "}
+            <span className="absolute inset-0" />
+          </FavoriteLink>
+        </dt>
+        <dd className="sr-only">
+          {base.name} to {quote.name}
         </dd>
       </dl>
-      <label className="p-2 rounded-lg border border-lime-500">
-        <SROnly>
-          Remove from favorite <input type="checkbox" />
-        </SROnly>
-        <BiIcon name="star-fill text-lime-500" />
-      </label>
+      <FavoriteData {...{ base, quote, SignInInterceptor }} />
     </CurrencyCard>
   );
 };

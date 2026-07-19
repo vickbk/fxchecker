@@ -1,12 +1,12 @@
 import { clickButton, shouldNotSee, shouldSee } from "@/tests/playwright";
 import { Page } from "@playwright/test";
 import {
+  ADD_FAVORITE_BUTTON,
   CHANGE_RECEIVE_TRIGGER,
   CHANGE_SEND_TRIGGER,
   CONVERTER_TITLE,
   CURRENT_RATE,
   EUR_USD_SWAP_TEXT,
-  FAVORITE_BUTTON,
   INITIAL_RECEIVE_EUR,
   INITIAL_SEND_USD,
   INITIAL_SWAP_TEXT,
@@ -28,7 +28,7 @@ export async function shouldSeeTheConverterSection(page: Page) {
     CHANGE_RECEIVE_TRIGGER,
     SWAPPER_TEXT,
     CURRENT_RATE,
-    FAVORITE_BUTTON,
+    ADD_FAVORITE_BUTTON,
     LOG_BUTTON,
   );
 }

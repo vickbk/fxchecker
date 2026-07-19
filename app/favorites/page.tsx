@@ -1,7 +1,12 @@
-import { MainFavorite } from "@/features/favorites";
+import { SignInInterceptor } from "@/features/account";
+import { MainFavorite, MainFavoriteSkeleton } from "@/features/favorites";
+import { getRandomInt } from "@/shared/random";
+import { Suspense } from "react";
 
-function Favorite() {
-  return <MainFavorite />;
+export default async function Favorite() {
+  return (
+    <Suspense key={getRandomInt()} fallback={<MainFavoriteSkeleton />}>
+      <MainFavorite SignInInterceptor={SignInInterceptor} />
+    </Suspense>
+  );
 }
-
-export default Favorite;

@@ -1,5 +1,6 @@
 import { SWREngine } from "@/shared/cache";
 import { config } from "@/shared/config";
+import { getLookbackDate, parseTimeToMs } from "@/shared/utils";
 import type {
   Currency,
   FrankfurterCurrency,
@@ -109,7 +110,22 @@ export async function fetchCurrencies(): Promise<Currency[]> {
         toCurrency(details, code),
       );
     },
-    { ttlMs: 24 * 60 * 60 * 1000 },
+    { ttlMs: parseTimeToMs("7d") },
+  );
+}
+
+export async function fetchCurrenciesMap(): Promise<Record<string, Currency>> {
+  return frankfurterCache.execute(
+    "currencies-map",
+    async () => {
+      const currencyMap: Record<string, Currency> = {};
+      const currencies = await fetchCurrencies();
+      currencies.forEach((currency) => (currencyMap[currency.code] = currency));
+      return currencyMap;
+    },
+    {
+      ttlMs: parseTimeToMs("7d"),
+    },
   );
 }
 
@@ -123,7 +139,7 @@ export async function fetchCurrencyDetails(code: string): Promise<Currency> {
       );
       return toCurrency(payload);
     },
-    { ttlMs: 24 * 60 * 60 * 1000 },
+    { ttlMs: parseTimeToMs("1d") },
   );
 }
 
@@ -137,17 +153,21 @@ export async function getRate(
   return frankfurterCache.execute(
     `rate:${fromCode}:${toCode}`,
     async () => {
-      const payload = await request<FrankfurterRate>(
-        `/rate/${fromCode}/${toCode}`,
-      );
+      const query = `/rate/${fromCode}/${toCode}`;
+
+      const [payload, aWeekback] = await Promise.all([
+        await request<FrankfurterRate>(query),
+        await request<FrankfurterRate>(`${query}?date=${getLookbackDate(7)}`),
+      ]);
       return {
         date: payload.date || "",
         base: fromCode,
         quote: toCode,
         rate: payload.rate || 0,
+        change: payload.rate - aWeekback.rate,
       };
     },
-    { ttlMs: 30 * 1000 },
+    { ttlMs: parseTimeToMs("30s") },
   );
 }
 
@@ -163,7 +183,7 @@ export async function fetchLatestRates(
         base: base?.toUpperCase(),
         quotes: symbols?.map((symbol) => symbol.toUpperCase()),
       }),
-    { ttlMs: 30 * 1000 },
+    { ttlMs: parseTimeToMs("30s") },
   );
 }
 
@@ -183,7 +203,7 @@ export async function fetchHistoricalRates(
           ?.filter((symbol) => symbol && !!symbol.trim())
           .map((symbol) => symbol.toUpperCase()),
       }),
-    { ttlMs: 24 * 60 * 60 * 1000 },
+    { ttlMs: parseTimeToMs("1d") },
   );
 }
 
@@ -201,6 +221,6 @@ export async function fetchTimeSeriesRates(
         from: base,
         to: symbols,
       }),
-    { ttlMs: 24 * 60 * 60 * 1000 },
+    { ttlMs: parseTimeToMs("1d") },
   );
 }
