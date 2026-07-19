@@ -4,6 +4,7 @@ import { getLogs } from "../utils";
 import { Actions } from "./Actions";
 import { EmptyLogs } from "./EmptyLogs";
 import { LogCard } from "./LogCard";
+import { LogDelete } from "./LogDelete";
 
 export const MainLogs = async (params: {
   searchParams: Promise<Record<string, string>>;
@@ -20,7 +21,9 @@ export const MainLogs = async (params: {
         <Actions count={count} {...params} />
         <ul className="w-full grid gap-4">
           {logs.map(({ id, data, editTime }) => (
-            <LogCard key={id} {...{ id, data: data!, editTime }} {...params} />
+            <LogCard key={id} {...{ id, data: data!, editTime }} {...params}>
+              <LogDelete SignInInterceptor={params.SignInInterceptor} />
+            </LogCard>
           ))}
         </ul>
       </SectionsWrapper>

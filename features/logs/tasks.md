@@ -46,8 +46,8 @@
     - [x] Fetch user log rows from the database, sorted using `.orderBy(desc(exLogs.editTime))`.
     - [x] Access object keys directly off the returned data row configuration—skipping manual array string splitting layouts entirely.
     - [x] Render the calculation row format: `[Amount] [Base] → [Result] [Quote]`.
-  - [ ] Mount individual trash icon controls on each log entry row, completely wrapped inside the client-side `SignInInterceptor`.
-  - [ ] Add a "Clear History" header action utility component, wrapped inside the `SignInInterceptor` shell carrying the explicit context prompt: _"Login to manage and purge your calculation history."_
+  - [x] Mount individual trash icon controls on each log entry row, completely wrapped inside the client-side `SignInInterceptor`.
+  - [x] Add a "Clear History" header action utility component, wrapped inside the `SignInInterceptor` shell carrying the explicit context prompt: _"Login to manage and purge your calculation history."_
 
 ---
 

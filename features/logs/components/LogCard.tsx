@@ -1,21 +1,21 @@
-import {
-  BiIcon,
-  CurrencyCard,
-  SignInInterceptor,
-  SROnly,
-} from "@/shared/utils";
+import { BiIcon, CurrencyCard, SROnly } from "@/shared/utils";
 import { SRHidden } from "@/shared/utils/components/SRHidden";
+import { ReactNode } from "react";
+import { deleteLogItem } from "../actions";
 import { LogData } from "../types";
 
 export const LogCard = ({
+  id,
   data: { base, quote, rate, amount },
+  children,
 }: {
   id: string;
   editTime: Date;
   data: LogData;
-  SignInInterceptor: SignInInterceptor;
+  children: ReactNode;
 }) => {
   const results = (rate * amount).toFixed(2);
+  const deleteAction = deleteLogItem.bind(null, id);
   return (
     <CurrencyCard>
       <div className="sm:flex gap-4">
@@ -37,13 +37,7 @@ export const LogCard = ({
         </span>
       </p>
 
-      <button
-        type="button"
-        className="bg-background-secondary text-foreground-secondary p-2 rounded-lg"
-      >
-        <SROnly>Delete</SROnly>
-        <BiIcon name="trash" />
-      </button>
+      <form action={deleteAction as () => void}>{children}</form>
     </CurrencyCard>
   );
 };

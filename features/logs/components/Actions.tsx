@@ -18,9 +18,10 @@ export const Actions = ({
       <SignInInterceptor
         type="button"
         popoverTarget="clear-logs"
+        description="Login to manage and purge your calculation history."
         className="bg-card text-foreground-secondary p-2 rounded-lg"
       >
-        <SROnly>Clear All</SROnly> <BiIcon name="trash" />
+        <SROnly>Clear All logs</SROnly> <BiIcon name="trash" />
       </SignInInterceptor>
       <ClearLogs />
     </>
