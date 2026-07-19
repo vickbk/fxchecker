@@ -26,7 +26,7 @@ export const FavoriteContent = ({
         <BiIcon name={`star${isFavorite ? "-fill" : ""}`} />{" "}
         {!pending ? (
           <>
-            <SROnly>{pending ? "Add to" : "Remove from"} </SROnly>Favorite
+            <SROnly>{!isFavorite ? "Add to" : "Remove from"} </SROnly>Favorite
           </>
         ) : (
           <>

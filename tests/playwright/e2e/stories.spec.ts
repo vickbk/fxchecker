@@ -1,7 +1,7 @@
 import { shouldSeeLoginButton } from "@/features/account/__testing__";
 import { shouldSeeCompareSection } from "@/features/compare/__testing__";
 import { shouldSeeTheConverterSection } from "@/features/converter/__testing__";
-import { shouldSeeFavoriteSection } from "@/features/favorites/__testing__";
+import { shouldSeeEmptyFavoriteSection } from "@/features/favorites/__testing__";
 import { shouldSeePageTitle } from "@/features/header/__testing__";
 import { shouldSeeHistorySection } from "@/features/history/__testing__";
 import { shouldSeeLogsSection } from "@/features/logs/__testing__";
@@ -25,7 +25,7 @@ test.describe("Main Page tests", () => {
     ["should see navigation section", shouldSeeNavbar],
     ["should see history section", shouldSeeHistorySection],
     ["should see compare section", shouldSeeCompareSection],
-    ["Should see favorites section", shouldSeeFavoriteSection],
+    ["Should see favorites section", shouldSeeEmptyFavoriteSection],
     ["Should see logs section", shouldSeeLogsSection],
   ] as const;
 

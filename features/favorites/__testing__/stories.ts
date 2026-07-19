@@ -1,17 +1,8 @@
 import { shouldSee } from "@/tests/playwright";
 import { Page } from "@playwright/test";
-import {
-  CLEAR_FAVORITES,
-  FAVORITES_TITLE,
-  TOTAL_FAVORITES_COUNTS,
-} from "./utils";
+import { WITH_NO_FAVORITES_TEXT, WITH_NO_FAVORITES_TITLE } from "./utils";
 
-export async function shouldSeeFavoriteSection(page: Page) {
+export async function shouldSeeEmptyFavoriteSection(page: Page) {
   await page.goto("/favorites");
-  await shouldSee(
-    page,
-    FAVORITES_TITLE,
-    TOTAL_FAVORITES_COUNTS,
-    CLEAR_FAVORITES,
-  );
+  await shouldSee(page, WITH_NO_FAVORITES_TITLE, WITH_NO_FAVORITES_TEXT);
 }
