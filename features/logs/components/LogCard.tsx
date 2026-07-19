@@ -1,15 +1,21 @@
-import { BiIcon, CurrencyCard, SROnly } from "@/shared/utils";
+import {
+  BiIcon,
+  CurrencyCard,
+  SignInInterceptor,
+  SROnly,
+} from "@/shared/utils";
 import { SRHidden } from "@/shared/utils/components/SRHidden";
 import { LogData } from "../types";
 
 export const LogCard = ({
-  id,
   data: { base, quote, rate, amount },
 }: {
   id: string;
   editTime: Date;
   data: LogData;
+  SignInInterceptor: SignInInterceptor;
 }) => {
+  const results = (rate * amount).toFixed(2);
   return (
     <CurrencyCard>
       <div className="sm:flex gap-4">
@@ -18,21 +24,18 @@ export const LogCard = ({
           <SROnly>3 months ago</SROnly>
         </time>
 
-        <SRHidden className="truncate block">
-          {base} <BiIcon name="arrow-right text-foreground-secondary" /> {quote}
-        </SRHidden>
+        <p className="truncate">
+          {base} <SROnly>to</SROnly>{" "}
+          <BiIcon name="arrow-right text-foreground-secondary" /> {quote}
+        </p>
       </div>
-      <SROnly>
-        {base} to {quote}
-      </SROnly>
 
-      <SRHidden className="truncate ml-auto sm:flex gap-4  text-foreground-secondary">
-        {amount} USD{" "}
+      <p className="truncate ml-auto sm:flex gap-4  text-foreground-secondary">
+        {amount} {base} <SROnly>was equivalent to</SROnly>
         <span className="text-lime-500 block text-right">
-          {(amount * rate).toFixed(2)} {quote}
+          {results} {quote} <SROnly>at a rate of {rate}</SROnly>
         </span>
-      </SRHidden>
-      <SROnly>1 000 USD is 875 EUR</SROnly>
+      </p>
 
       <button
         type="button"
