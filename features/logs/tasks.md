@@ -2,8 +2,8 @@
 
 ### Phase 1: Database Schema & Driver-Level Serialization
 
-- [ ] **Encapsulated Database Layout & Driver Codecs**
-  - **Status:** ⏳ Doing (Target: 2026-07-19)
+- [x] **Encapsulated Database Layout & Driver Codecs**
+  - **Status:** ✅ Done (Target: 2026-07-19)
   - **Description:** Build a highly compact relational table storing tokenized log records, using Drizzle's `customType` utility to manage data transformations transparently at the driver layer.
   - [x] Implement the `logDataColumn` custom type wrapper configuration:
     - **`toDriver(value)`**: Encodes incoming objects into your target layout format string: `${base}-${quote}_${amount}@${rate}`.
@@ -22,17 +22,17 @@
 ### Phase 2: Core Server Actions Engine
 
 - [ ] **Declarative State Mutation Engine**
-  - **Status:** ⏳ Todo (Target: 2026-07-26)
+  - **Status:** ⏳ Doing (Target: 2026-07-19)
   - **Description:** Implement type-safe Server Actions to manage history records cleanly behind user session validations, utilizing automatic schema typing.
-  - [ ] Build the `logConversion(base, quote, amount, result)` Server Action:
-    - Verify active authentication session context. Return early if missing.
-    - Pass the raw parameters object directly into your Drizzle insert execution statement, allowing `toDriver` to handle token mapping automatically.
-  - [ ] Build the `deleteLogItem(id)` Server Action:
-    - Validate session parameters.
-    - Query and remove the specific row matching the target record item ID and the active user ID within `ex_logs`.
-  - [ ] Build the `clearAllLogs()` Server Action:
+  - [x] Build the `logConversion({base, quote, amount, rate})` Server Action:
+    - [x] Verify active authentication session context. Return early if missing.
+    - [x] Pass the raw parameters object directly into your Drizzle insert execution statement, allowing `toDriver` to handle token mapping automatically.
+  - [x] Build the `deleteLogItem(id)` Server Action:
+    - [x] Validate session parameters.
+    - [x] Query and remove the specific row matching the target record item ID and the active user ID within `ex_logs`.
+  - [x] Build the `clearAllLogs()` Server Action:
     - Purge all log rows matching the authenticated user's ID inside the `ex_logs` workspace.
-  - [ ] Ensure all action returns match a uniform, serializable payload: `{ success: boolean; error?: string }`.
+  - [x] Ensure all action returns match a uniform, serializable payload: `{ success: boolean; error?: string }`.
 
 ---
 

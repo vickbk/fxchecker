@@ -1,17 +1,17 @@
 import { customType } from "drizzle-orm/pg-core";
-import { LogDataColumnType } from "./types";
+import { LogData } from "../types";
 
-export const logDataColumn = customType<{ data: LogDataColumnType }>({
+export const logDataColumn = customType<{ data: LogData }>({
   dataType: () => "text",
   toDriver,
   fromDriver,
 });
 
-export function toDriver({ base, quote, rate, amount }: LogDataColumnType) {
+export function toDriver({ base, quote, rate, amount }: LogData) {
   return `${base}-${quote}_${amount}@${rate}`;
 }
 
-export function fromDriver(value: unknown): LogDataColumnType {
+export function fromDriver(value: unknown): LogData {
   if (typeof value !== "string")
     return { base: "", quote: "", amount: 0, rate: 0 };
 
