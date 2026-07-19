@@ -29,6 +29,13 @@
       "when": 1784454160325,
       "tag": "0003_silly_beast",
       "breakpoints": true
+    },
+    {
+      "idx": 4,
+      "version": "7",
+      "when": 1784485846154,
+      "tag": "0004_wild_daredevil",
+      "breakpoints": true
     }
   ]
 }

@@ -1,6 +1,11 @@
 import { fetchCurrenciesMap } from "@/infra/api/frankfurter";
 import { Heading } from "@/shared/heading";
-import { SectionsWrapper, SignInInterceptor, SROnly } from "@/shared/utils";
+import {
+  CurrencyCardContainer,
+  SectionsWrapper,
+  SignInInterceptor,
+  SROnly,
+} from "@/shared/utils";
 import { getFavorites } from "../actions";
 import { Actions } from "./Actions";
 import { EmptyFavorite } from "./EmptyFavorite";
@@ -27,7 +32,7 @@ export const MainFavorite = async ({
         Pin Paired <SROnly>currencies</SROnly>
       </Heading>
       <Actions {...{ SignInInterceptor, favorites: withDetails }} />
-      <ul className="w-full grid gap-4">
+      <CurrencyCardContainer>
         {withDetails.map((favorite) => {
           const { base, quote } = favorite;
           return (
@@ -37,7 +42,7 @@ export const MainFavorite = async ({
             />
           );
         })}
-      </ul>
+      </CurrencyCardContainer>
     </SectionsWrapper>
   );
 };

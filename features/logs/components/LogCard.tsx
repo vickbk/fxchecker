@@ -1,11 +1,12 @@
 import { BiIcon, CurrencyCard, SROnly } from "@/shared/utils";
-import { SRHidden } from "@/shared/utils/components/SRHidden";
 import { ReactNode } from "react";
 import { deleteLogItem } from "../actions";
 import { LogData } from "../types";
+import { LogTime } from "./LogTime";
 
 export const LogCard = ({
   id,
+  editTime,
   data: { base, quote, rate, amount },
   children,
 }: {
@@ -19,10 +20,7 @@ export const LogCard = ({
   return (
     <CurrencyCard>
       <div className="sm:flex gap-4">
-        <time dateTime="2026-07-08">
-          <SRHidden className="text-foreground-secondary">3M</SRHidden>{" "}
-          <SROnly>3 months ago</SROnly>
-        </time>
+        <LogTime time={editTime} />
 
         <p className="truncate">
           {base} <SROnly>to</SROnly>{" "}

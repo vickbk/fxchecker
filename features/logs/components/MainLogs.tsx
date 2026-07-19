@@ -1,5 +1,9 @@
 import { Heading } from "@/shared/heading";
-import { SectionsWrapper, SignInInterceptor } from "@/shared/utils";
+import {
+  CurrencyCardContainer,
+  SectionsWrapper,
+  SignInInterceptor,
+} from "@/shared/utils";
 import { getLogs } from "../utils";
 import { Actions } from "./Actions";
 import { EmptyLogs } from "./EmptyLogs";
@@ -19,13 +23,13 @@ export const MainLogs = async (params: {
       <SectionsWrapper sectionId="logs-header">
         <Heading id="logs-header">Conversion Log</Heading>
         <Actions count={count} {...params} />
-        <ul className="w-full grid gap-4">
+        <CurrencyCardContainer>
           {logs.map(({ id, data, editTime }) => (
             <LogCard key={id} {...{ id, data: data!, editTime }} {...params}>
               <LogDelete SignInInterceptor={params.SignInInterceptor} />
             </LogCard>
           ))}
-        </ul>
+        </CurrencyCardContainer>
       </SectionsWrapper>
     </>
   );
