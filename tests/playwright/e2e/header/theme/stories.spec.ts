@@ -10,10 +10,10 @@ test.describe("Theme Switching accross all pages", () => {
 
   test.describe("Prefers Light Mode", () => {
     // Prefering random test block per run instead of covering all the paths with the very smae tests
-    const { name, path } = getRandomElement(paths);
+    const { path } = getRandomElement(paths);
 
     themeTests.light.forEach(([testName, testFunction]) =>
-      test(`${name} - ${testName}`, async ({ page }) => {
+      test(testName, async ({ page }) => {
         await page.goto(path);
         await testFunction(page);
       }),
@@ -33,10 +33,10 @@ test.describe("Theme Switching accross all pages", () => {
     test.use({ colorScheme: "dark" });
 
     // Prefering a random path per run instead of running all paths with exact same test
-    const { name, path } = getRandomElement(paths);
+    const { path } = getRandomElement(paths);
 
     themeTests.dark.forEach(([testName, testFunction]) =>
-      test(`${name} - ${testName}`, async ({ page }) => {
+      test(testName, async ({ page }) => {
         await page.goto(path);
         await testFunction(page);
       }),
