@@ -1,3 +1,4 @@
+import { getRandomElement } from "@/shared/random";
 import { themeTests } from "@/shared/theme/__testing__";
 import test from "@playwright/test";
 
@@ -8,26 +9,46 @@ test.describe("Theme Switching accross all pages", () => {
   const paths = ["/", "/compare", "/favorites", "/logs"].map(pathToPage);
 
   test.describe("Prefers Light Mode", () => {
-    paths.forEach(({ name, path }) => {
-      themeTests.light.forEach(([testName, testFunction]) =>
-        test(`${name} - ${testName}`, async ({ page }) => {
-          await page.goto(path);
-          await testFunction(page);
-        }),
-      );
-    });
+    // Prefering random test block per run instead of covering all the paths with the very smae tests
+    const { name, path } = getRandomElement(paths);
+
+    themeTests.light.forEach(([testName, testFunction]) =>
+      test(`${name} - ${testName}`, async ({ page }) => {
+        await page.goto(path);
+        await testFunction(page);
+      }),
+    );
+
+    // paths.forEach(({ name, path }) => {
+    //   themeTests.light.forEach(([testName, testFunction]) =>
+    //     test(`${name} - ${testName}`, async ({ page }) => {
+    //       await page.goto(path);
+    //       await testFunction(page);
+    //     }),
+    //   );
+    // });
   });
 
   test.describe("Prefers Dark Mode", () => {
     test.use({ colorScheme: "dark" });
 
-    paths.forEach(({ name, path }) => {
-      themeTests.dark.forEach(([testName, testFunction]) =>
-        test(`${name} - ${testName}`, async ({ page }) => {
-          await page.goto(path);
-          await testFunction(page);
-        }),
-      );
-    });
+    // Prefering a random path per run instead of running all paths with exact same test
+    const { name, path } = getRandomElement(paths);
+
+    themeTests.dark.forEach(([testName, testFunction]) =>
+      test(`${name} - ${testName}`, async ({ page }) => {
+        await page.goto(path);
+        await testFunction(page);
+      }),
+    );
+
+    // paths.forEach(({ name, path }) => {
+    //   themeTests.dark.forEach(([testName, testFunction]) =>
+    //     test(`${name} - ${testName}`, async ({ page }) => {
+    //       await page.goto(path);
+    //       await testFunction(page);
+    //     }),
+    //   );
+    // });
   });
 });
