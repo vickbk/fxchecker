@@ -1,18 +1,13 @@
-import { FavoriteSuite } from "@/shared/currencies";
 import { Article, Heading } from "@/shared/heading";
-import { BiIcon, SignInInterceptor } from "@/shared/utils";
+import { ReactNode } from "react";
 import { ConverterActions } from "./ConvertActions";
-import { FavoriteProvider } from "./FavoriteProvider";
 import { RateCard } from "./RateCard";
 import { Swapper } from "./Swapper";
 
 export const ConverterCard = ({
-  SignInInterceptor,
-  favoriteSuite,
-}: {
-  SignInInterceptor: SignInInterceptor;
-  favoriteSuite: FavoriteSuite;
-}) => {
+  favoriteToggle,
+  conversionLogger,
+}: Record<"favoriteToggle" | "conversionLogger", ReactNode>) => {
   return (
     <Article className="p-4">
       <Heading className="uppercase text-xl">Check the rate</Heading>
@@ -24,18 +19,8 @@ export const ConverterCard = ({
         </div>
         <ConverterActions>
           <ul className="uppercase flex justify-center items-center flex-wrap gap-4 sm:ml-auto">
-            <li>
-              <FavoriteProvider {...{ ...favoriteSuite, SignInInterceptor }} />
-            </li>
-            <li>
-              <button
-                type="button"
-                className="uppercase flex items-center gap-2 p-4 outline-lime-500 rounded-lg outline truncate "
-              >
-                <BiIcon name="clock" />
-                Log conversion
-              </button>
-            </li>
+            <li>{favoriteToggle}</li>
+            <li>{conversionLogger}</li>
           </ul>
         </ConverterActions>
       </div>

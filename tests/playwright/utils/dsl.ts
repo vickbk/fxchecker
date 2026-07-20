@@ -4,7 +4,8 @@ import type {
   TEXT_PATTERN,
 } from "@/tests/common/types";
 import type { Locator, Page } from "@playwright/test";
-import { expect } from "@playwright/test";
+import test, { expect } from "@playwright/test";
+import { SimpleTest } from "../types";
 
 export async function shouldSee(page: Page, ...textes: TEXT_MATCHER[]) {
   for (const text of textes) {
@@ -112,4 +113,13 @@ export async function isNotChecked(
 
 export async function clickBodyCorner(page: Page) {
   await page.locator("body").click({ position: { x: 0, y: 0 } });
+}
+
+export async function runSimilarTests(tests: SimpleTest[]) {
+  tests.forEach(([testName, testFunction]) =>
+    test(testName, async ({ page }) => {
+      await page.goto("/");
+      await testFunction(page);
+    }),
+  );
 }

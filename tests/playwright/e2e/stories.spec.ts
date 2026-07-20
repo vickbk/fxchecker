@@ -4,7 +4,7 @@ import { shouldSeeTheConverterSection } from "@/features/converter/__testing__";
 import { shouldSeeEmptyFavoriteSection } from "@/features/favorites/__testing__";
 import { shouldSeePageTitle } from "@/features/header/__testing__";
 import { shouldSeeHistorySection } from "@/features/history/__testing__";
-import { shouldSeeLogsSection } from "@/features/logs/__testing__";
+import { shouldSeeEmptyLogs } from "@/features/logs/__testing__";
 import { shouldSeeDarkThemeSwitcher } from "@/shared/theme/__testing__";
 import { shouldSeeNavbar } from "@/shared/utils/modules/navbar/__testing__";
 import { test } from "@playwright/test";
@@ -26,7 +26,7 @@ test.describe("Main Page tests", () => {
     ["should see history section", shouldSeeHistorySection],
     ["should see compare section", shouldSeeCompareSection],
     ["Should see favorites section", shouldSeeEmptyFavoriteSection],
-    ["Should see logs section", shouldSeeLogsSection],
+    ["Should see logs section", shouldSeeEmptyLogs],
   ] as const;
 
   identicalTests.forEach(([name, t]) =>

@@ -4,16 +4,18 @@ import {
   SignInProvider,
 } from "@/features/account";
 import { ConverterCard } from "@/features/converter";
-import { favoriteSuite } from "@/features/favorites";
+import { MainToggleFavorite } from "@/features/favorites";
 import { MainHeader } from "@/features/header";
+import { ConversionLogger } from "@/features/logs";
 import { fetchCurrencies } from "@/infra/api/frankfurter";
 import { config } from "@/shared/config";
 import { CurrencyProvider } from "@/shared/currencies";
 import { HeadingCtx, Main } from "@/shared/heading";
 import { ThemeSwitch } from "@/shared/theme";
-import { Navbar } from "@/shared/utils";
+import { LoadingPlaceholder, Navbar } from "@/shared/utils";
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
+import { Suspense } from "react";
 import "./globals.css";
 
 const jetBrains = JetBrains_Mono({
@@ -60,10 +62,27 @@ export default function RootLayout({
                   <AuthManager />
                 </MainHeader>
                 <div className="max-w-4xl mx-auto sm:py-8">
-                  <ConverterCard
-                    favoriteSuite={favoriteSuite}
-                    SignInInterceptor={SignInInterceptor}
-                  />
+                  <Suspense
+                    fallback={
+                      <LoadingPlaceholder
+                        className="bg-background-secondary py-40 rounded-lg"
+                        text="Loading Converter"
+                      />
+                    }
+                  >
+                    <ConverterCard
+                      favoriteToggle={
+                        <MainToggleFavorite
+                          SignInInterceptor={SignInInterceptor}
+                        />
+                      }
+                      conversionLogger={
+                        <ConversionLogger
+                          SignInInterceptor={SignInInterceptor}
+                        />
+                      }
+                    />
+                  </Suspense>
                   <Navbar history={{}} compare={{}} favorites={{}} logs={{}} />
                   {children}
                 </div>

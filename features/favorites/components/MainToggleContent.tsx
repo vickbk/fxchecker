@@ -1,14 +1,13 @@
 "use client";
+import { useURLState } from "@/shared/url/hooks";
 import { BiIcon, SignInInterceptor, SROnly } from "@/shared/utils";
 import { useFormStatus } from "react-dom";
-import { useURLState } from "../hooks/useURLState";
 
-export const FavoriteContent = ({
+export const MainToggleContent = ({
   favorites,
   SignInInterceptor,
 }: { favorites: string[] } & { SignInInterceptor: SignInInterceptor }) => {
   const { from, to } = useURLState();
-
   const { pending } = useFormStatus();
 
   const isFavorite = favorites.includes(from + "-" + to);
