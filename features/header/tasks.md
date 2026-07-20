@@ -31,10 +31,10 @@
 
 ### Phase 3: Cache Invalidation & Verification
 
-- [ ] **Cache Purging & Validation Sweep**
-  - **Status:** ⏳ Todo (Target: 2026-07-22)
+- [x] **Cache Purging & Validation Sweep**
+  - **Status:** ✅ Done (Target: 2026-07-20)
   - **Description:** Add manual cache purging controls and verify pair stability versus live rate update behavior.
-  - [ ] Implement a cache purge helper targeting the `header-pairs-selection` key.
-  - [ ] Verify that page refreshes preserve identical currency pair selections in the header UI.
-  - [ ] Verify via network logs that incoming Frankfurter responses contain lightweight single-quote payloads rather than full rate maps.
-  - [ ] Confirm that exchange rate values and `change` deltas continue to reflect real-time market data on revalidation.
+  - [x] Implement a cache purge helper targeting the `header-pairs-selection` key.
+  - [x] Verify that page refreshes preserve identical currency pair selections in the header UI.
+  - [x] Verify via network logs that incoming Frankfurter responses contain lightweight single-quote payloads rather than full rate maps.
+  - [x] Confirm that exchange rate values and `change` deltas continue to reflect real-time market data on revalidation.
