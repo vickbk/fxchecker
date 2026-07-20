@@ -14,7 +14,10 @@ export const MainLogs = async (params: {
   searchParams: Promise<Record<string, string>>;
   SignInInterceptor: SignInInterceptor;
 }) => {
-  const logs = await getLogs();
+  const [logs, searchParams] = await Promise.all([
+    getLogs(),
+    params.searchParams,
+  ]);
   const count = logs.length;
   if (count === 0) return <EmptyLogs />;
 
@@ -25,7 +28,11 @@ export const MainLogs = async (params: {
         <Actions count={count} {...params} />
         <CurrencyCardContainer>
           {logs.map(({ id, data, editTime }) => (
-            <LogCard key={id} {...{ id, data: data!, editTime }} {...params}>
+            <LogCard
+              key={id}
+              {...{ id, data: data!, editTime }}
+              {...{ ...params, searchParams }}
+            >
               <LogDelete SignInInterceptor={params.SignInInterceptor} />
             </LogCard>
           ))}

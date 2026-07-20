@@ -1,4 +1,5 @@
-import { BiIcon, CurrencyCard, SROnly } from "@/shared/utils";
+import { BiIcon, CurrencyCard, getSearchQuery, SROnly } from "@/shared/utils";
+import Link from "next/link";
 import { ReactNode } from "react";
 import { deleteLogItem } from "../actions";
 import { LogData } from "../types";
@@ -9,23 +10,31 @@ export const LogCard = ({
   editTime,
   data: { base, quote, rate, amount },
   children,
+  searchParams,
 }: {
   id: string;
-  editTime: Date;
+  editTime: string;
   data: LogData;
   children: ReactNode;
+  searchParams: Record<string, string>;
 }) => {
   const results = (rate * amount).toFixed(2);
   const deleteAction = deleteLogItem.bind(null, id);
+
+  const searchQuery = getSearchQuery(
+    new URLSearchParams(searchParams),
+    ["from", base],
+    ["to", quote],
+  );
   return (
     <CurrencyCard>
       <div className="sm:flex gap-4">
         <LogTime time={editTime} />
 
-        <p className="truncate">
-          {base} <SROnly>to</SROnly>{" "}
+        <Link href={`?${searchQuery}`} className="truncate">
+          {base} <SROnly>to</SROnly> <span className="absolute inset-0" />
           <BiIcon name="arrow-right text-foreground-secondary" /> {quote}
-        </p>
+        </Link>
       </div>
 
       <p className="truncate ml-auto sm:flex gap-4  text-foreground-secondary">
@@ -35,7 +44,9 @@ export const LogCard = ({
         </span>
       </p>
 
-      <form action={deleteAction as () => void}>{children}</form>
+      <form className="z-1" action={deleteAction as () => void}>
+        {children}
+      </form>
     </CurrencyCard>
   );
 };

@@ -6,7 +6,7 @@ export const exLogs = pgTable("ex_logs", {
   id: uuid("id").primaryKey().defaultRandom(),
   userId: uuid("user_id").references(() => users.id, { onDelete: "cascade" }),
   data: logDataColumn("data").notNull(),
-  editTime: timestamp("edit_time", { withTimezone: true, mode: "date" })
+  editTime: timestamp("edit_time", { withTimezone: true, mode: "string" })
     .notNull()
     .defaultNow(),
 });
