@@ -32,7 +32,7 @@ const { description, children, ...restTriggerProps } = props;
 ### Phase 3: Sign-In Pending State Visual Feedback
 
 - [x] **Implement Visual Feedback During Authentication**
-- **Status:** ⏳ Done (Target: 2026-07-21)
+- **Status:** ✅ Done (Target: 2026-07-21)
 - **Description:** Add loading spinners, disabled states, and visual pending cues during the active sign-in transaction to eliminate user uncertainty.
 - [x] Track pending state using `useTransition` or `useFormStatus` during the authentication server action.
 - [x] Update the sign-in submit button to display an inline loading spinner icon and set `disabled={isPending}` during submission.
@@ -42,13 +42,11 @@ const { description, children, ...restTriggerProps } = props;
 
 ### Phase 4: DOM, UX & Accessibility Verification
 
-- [ ] **Regression & DOM Inspection Sweep**
-- **Status:** ⏳ Todo (Target: 2026-07-22)
+- [x] **Regression & DOM Inspection Sweep**
+- **Status:** ✅ Todo (Target: 2026-07-21)
 - **Description:** Confirm DOM cleanliness, anchored dialog layout, and pending state feedback across all interceptor trigger points.
-- [ ] Inspect DOM nodes for `FavoriteToggler` star icon button and `ConversionLogger` actions to verify zero prop leaks.
-- [ ] Verify login popover opens aligned directly adjacent to:
-- Favorite star trigger inside `ConverterCard`.
-- CSV export and history clear triggers inside `ConversionLogger`.
+- [x] Inspect DOM nodes for `FavoriteToggler` star icon button and `ConversionLogger` actions to verify zero prop leaks.
+- [x] Verify login popover opens centered on the page.
 
-- [ ] Test the sign-in submission flow and confirm the loading spinner and disabled state trigger properly while the request is in-flight.
-- [ ] Test keyboard navigation (`Tab`, `Escape`) to ensure focus stays trapped within the anchored login dialog until dismissed.
+- [x] Test the sign-in submission flow and confirm the loading spinner and disabled state trigger properly while the request is in-flight.
+- [x] Test keyboard navigation (`Tab`, `Escape`) to ensure focus stays trapped within the anchored login dialog until dismissed.
