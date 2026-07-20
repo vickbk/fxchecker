@@ -12,7 +12,6 @@ export async function updateFavoriteStatus(
     const base = form.get("base") as string;
     const quote = form.get("quote") as string;
 
-    console.log(base, quote);
     await func({ base, quote });
   };
 }
