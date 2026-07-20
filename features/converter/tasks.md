@@ -59,15 +59,15 @@
 
 - [x] Re-export `FavoriteToggler` from `src/features/favorites/index.ts`.
 
-- [ ] **Encapsulate `ConversionLogger` Component**
-- **Status:** ⏳ Todo (Target: 2026-07-29)
-- **Description:** Consolidate automatic URL conversion logging, the chronological stream, CSV export utilities, and wipe actions inside the `logs` feature folder.
-- [ ] Create `src/features/logs/components/ConversionLogger.tsx`:
-- Consume `useURLStatus` internally to detect parameter changes (`base`, `quote`, `amount`, `result`).
-- Trigger `logConversion` automatically when active parameter sets update.
-- Render the chronological history list, `ExportCsvButton`, and `clearAllLogs` button—each wrapped in their respective `SignInInterceptor` boundaries.
+- [x] **Encapsulate `ConversionLogger` Component**
+- **Status:** ✅ Done (Target: 2026-07-20)
+- **Description:** Consolidate automatic URL conversion logging.
+- [x] Create `src/features/logs/components/ConversionLogger.tsx`:
+  - Consume `useURLStatus` internally to detect parameter changes (`base`, `quote`, `amount`, `result`).
+  - Trigger `logConversion` automatically when active parameter sets update.
+  - Render the chronological history list, `ExportCsvButton`, and `clearAllLogs` button—each wrapped in their respective `SignInInterceptor` boundaries.
 
-- [ ] Re-export `ConversionLogger` from `src/features/logs/index.ts`.
+- [x] Re-export `ConversionLogger` from `src/features/logs/index.ts`.
 
 ---
 
