@@ -5,7 +5,7 @@
   "type": "module",
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "pnpm db:migrate && next build",
     "start": "next start",
     "lint": "eslint",
     "lint:fix": "eslint --fix",
@@ -19,6 +19,7 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@vercel/speed-insights": "^2.0.0",
     "bootstrap-icons": "^1.13.1",
     "drizzle-orm": "^0.45.2",
     "next": "16.2.10",
