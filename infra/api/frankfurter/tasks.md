@@ -53,13 +53,13 @@
     - Multi-target symbols mapping (`/rates?quotes=EUR,GBP`)
   - [ ] Write an explicit test for `getRate(from, to)` to verify it strips down a multi-key object payload, providing a single flat returned instance: `{ rate: number, from: string, to: string }`.
 
-- [ ] **Implement V2 Spec Routings, Metadata Lookups & Rate Extractors (GREEN)**
-  - **Status:** ⏳ Pending (Target: 2026-07-13)
+- [x] **Implement V2 Spec Routings, Metadata Lookups & Rate Extractors (GREEN)**
+  - **Status:** ⏳ Done (Target: 2026-07-13)
   - **Description:** Adjust types and services inside `service.ts` to fully adapt to V2 structural schemas.
-  - [ ] Expand `infra/api/frankfurter/types.ts` to support the dictionary map layout for `/currencies` and `/currency/:currency`.
-  - [ ] Implement `fetchCurrencies()` and `fetchCurrencyDetails(code)` passing payloads safely through the shared SWR engine.
-  - [ ] Refactor existing rates routing to discard deprecated structural configurations, shifting fully to the core `/rates` parameter matrix matching V2 signatures.
-  - [ ] Implement `getRate(from, to)` helper leveraging internal cache engines, delivering zero-overhead calculations directly to consumer models.
+  - [x] Expand `infra/api/frankfurter/types.ts` to support the dictionary map layout for `/currencies` and `/currency/:currency`.
+  - [x] Implement `fetchCurrencies()` and `fetchCurrencyDetails(code)` passing payloads safely through the shared SWR engine.
+  - [x] Refactor existing rates routing to discard deprecated structural configurations, shifting fully to the core `/rates` parameter matrix matching V2 signatures.
+  - [x] Implement `getRate(from, to)` helper leveraging internal cache engines, delivering zero-overhead calculations directly to consumer models.
 
 ---
 

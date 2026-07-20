@@ -137,4 +137,27 @@ describe("shared/cache/SWREngine", () => {
     expect(res).toEqual({ a: 2 });
     expect(fetchFn).toHaveBeenCalledTimes(1);
   });
+
+  it("clears a specific key while keeping other keys", async () => {
+    const engine = new SWREngine({ ttlMs: 1000 });
+    const first = { a: 1 };
+    await engine.execute("keep", () => Promise.resolve(first));
+    await engine.execute("clear", () => Promise.resolve(first));
+
+    engine.clearKey("clear");
+
+    const fetchFn = vi.fn(() => Promise.resolve({ a: 2 }));
+    const keep = await engine.execute(
+      "keep",
+      fetchFn as unknown as () => Promise<{ a: number }>,
+    );
+    const clear = await engine.execute(
+      "clear",
+      fetchFn as unknown as () => Promise<{ a: number }>,
+    );
+    expect(keep).toEqual({ a: 1 });
+    expect(clear).toEqual({ a: 2 });
+
+    expect(fetchFn).toHaveBeenCalledTimes(1);
+  });
 });
