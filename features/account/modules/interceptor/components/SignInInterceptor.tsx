@@ -8,6 +8,7 @@ export const SignInInterceptor = ({
   onClick,
   children,
   type = "button",
+  description,
   ...props
 }: SignInTriggerProps) => {
   const { data: session, status } = useSession();
@@ -36,7 +37,9 @@ export const SignInInterceptor = ({
     );
   }
   if (!isAuthenticated)
-    return <SignInTrigger {...props}>{children}</SignInTrigger>;
+    return (
+      <SignInTrigger {...{ ...props, description }}>{children}</SignInTrigger>
+    );
   return (
     <button type={type} {...props} onClick={handleClick} disabled={isPending}>
       {children}
