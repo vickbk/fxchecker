@@ -1,20 +1,22 @@
 import { BiIcon, SignInInterceptor, SROnly } from "@/shared/utils";
+import { ReactNode } from "react";
 import { ClearLogs } from "./ClearLogs";
-import { ExportToCSV } from "./ExportToCSV";
 
 export const Actions = ({
   count,
   SignInInterceptor,
+  children,
 }: {
   count: number;
   SignInInterceptor: SignInInterceptor;
+  children: ReactNode;
 }) => {
   return (
     <>
       <p className="text-foreground-secondary">
         {count} Logged <SROnly>Currenc{count > 1 ? "ies" : "y"}</SROnly>
       </p>
-      <ExportToCSV SignInInterceptor={SignInInterceptor} />
+      {children}
       <SignInInterceptor
         type="button"
         popoverTarget="clear-logs"

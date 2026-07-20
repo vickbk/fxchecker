@@ -4,6 +4,7 @@ import {
   SectionsWrapper,
   SignInInterceptor,
 } from "@/shared/utils";
+import { ExportToCSV } from "../modules/csv";
 import { getLogs } from "../utils";
 import { Actions } from "./Actions";
 import { EmptyLogs } from "./EmptyLogs";
@@ -25,7 +26,12 @@ export const MainLogs = async (params: {
     <>
       <SectionsWrapper sectionId="logs-header">
         <Heading id="logs-header">Conversion Log</Heading>
-        <Actions count={count} {...params} />
+        <Actions count={count} {...params}>
+          <ExportToCSV
+            SignInInterceptor={params.SignInInterceptor}
+            logs={logs}
+          />
+        </Actions>
         <CurrencyCardContainer>
           {logs.map(({ id, data, editTime }) => (
             <LogCard

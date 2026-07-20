@@ -54,9 +54,9 @@
 ### Phase 4: Data Portability (CSV Export Engine)
 
 - [ ] **Clean Data Export Stream**
-  - **Status:** ⏳ Todo (Target: 2026-07-28)
+  - **Status:** ⏳ Doing (Target: 2026-07-20)
   - **Description:** Implement an authenticated client-side parser to read the pre-mapped log data arrays and convert them instantly into a structural, downloadable CSV stream.
-  - [ ] Mount an "Export to CSV" utility option in the history toolbar layout, wrapped inside the `SignInInterceptor`: _"Login to download your conversion history as a CSV file."_
+  - [x] Mount an "Export to CSV" utility option in the history toolbar layout, wrapped inside the `SignInInterceptor`: _"Login to download your conversion history as a CSV file."_
   - [ ] Build the client-side utility function `exportLogsToCSV(logsArray)`:
     - Loop through the rows and directly map the typed object properties to spreadsheet column headers: `Log ID, Timestamp, Base Currency, Quote Currency, Input Amount, Conversion Result`.
   - [ ] Configure the native browser file system download sequence:
