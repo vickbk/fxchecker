@@ -1,4 +1,4 @@
-import { clickButton, shouldSee } from "@/tests/playwright";
+import { clickButton, getButton, shouldSee } from "@/tests/playwright";
 import { Page } from "@playwright/test";
 import {
   EMPTY_LOGS_HEADING,
@@ -17,16 +17,12 @@ export async function shouldSeeLogsSection(page: Page) {
 
 export async function shouldSeeEmptyLogs(page: Page) {
   await page.goto("/logs");
-  await shouldSee(
-    page,
-    EMPTY_LOGS_HEADING,
-    EMPTY_LOGS_TEXT,
-    MAIN_CONVERSION_LOGGER,
-  );
+  await shouldSee(page, EMPTY_LOGS_HEADING, EMPTY_LOGS_TEXT);
+  await getButton(page, MAIN_CONVERSION_LOGGER);
 }
 
 export async function shouldSeeInterceptorMessageIfNotSignedIn(page: Page) {
-  await shouldSee(page, MAIN_CONVERSION_LOGGER);
+  await getButton(page, MAIN_CONVERSION_LOGGER);
   await clickButton(page, MAIN_CONVERSION_LOGGER);
   await shouldSee(page, LOG_SIGNIN_INTERCEPTOR_MESSAGE);
 }
