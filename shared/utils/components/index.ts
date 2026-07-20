@@ -1,3 +1,5 @@
+export { CurrencyCardContainer } from "./CurrencyCardContainer";
+
 export { BiIcon } from "./bi-icon";
 export { CurrencyCard } from "./CurrencyCard";
 export { EmptySection } from "./EmptySection";

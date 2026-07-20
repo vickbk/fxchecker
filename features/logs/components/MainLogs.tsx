@@ -1,5 +1,10 @@
 import { Heading } from "@/shared/heading";
-import { SectionsWrapper, SignInInterceptor } from "@/shared/utils";
+import {
+  CurrencyCardContainer,
+  SectionsWrapper,
+  SignInInterceptor,
+} from "@/shared/utils";
+import { ExportToCSV } from "../modules/csv";
 import { getLogs } from "../utils";
 import { Actions } from "./Actions";
 import { EmptyLogs } from "./EmptyLogs";
@@ -10,7 +15,10 @@ export const MainLogs = async (params: {
   searchParams: Promise<Record<string, string>>;
   SignInInterceptor: SignInInterceptor;
 }) => {
-  const logs = await getLogs();
+  const [logs, searchParams] = await Promise.all([
+    getLogs(),
+    params.searchParams,
+  ]);
   const count = logs.length;
   if (count === 0) return <EmptyLogs />;
 
@@ -18,14 +26,23 @@ export const MainLogs = async (params: {
     <>
       <SectionsWrapper sectionId="logs-header">
         <Heading id="logs-header">Conversion Log</Heading>
-        <Actions count={count} {...params} />
-        <ul className="w-full grid gap-4">
+        <Actions count={count} {...params}>
+          <ExportToCSV
+            SignInInterceptor={params.SignInInterceptor}
+            logs={logs}
+          />
+        </Actions>
+        <CurrencyCardContainer>
           {logs.map(({ id, data, editTime }) => (
-            <LogCard key={id} {...{ id, data: data!, editTime }} {...params}>
+            <LogCard
+              key={id}
+              {...{ id, data: data!, editTime }}
+              {...{ ...params, searchParams }}
+            >
               <LogDelete SignInInterceptor={params.SignInInterceptor} />
             </LogCard>
           ))}
-        </ul>
+        </CurrencyCardContainer>
       </SectionsWrapper>
     </>
   );

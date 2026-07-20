@@ -1,6 +1,11 @@
 import { FavoriteSuite } from "@/shared/currencies";
 import { Heading, Section } from "@/shared/heading";
-import { getSearchQuery, type SignInInterceptor, SROnly } from "@/shared/utils";
+import {
+  CurrencyCardContainer,
+  getSearchQuery,
+  type SignInInterceptor,
+  SROnly,
+} from "@/shared/utils";
 import { getCompareRates } from "../actions";
 import { CompareSearchParams } from "../types";
 import { Actions } from "./Actions";
@@ -36,7 +41,7 @@ export const MainCompare = async ({
           {amount} FROM {from}
         </Heading>
         <Actions rates={quotes} LoginTrigger={LoginTrigger} />
-        <ul className="w-full grid gap-4">
+        <CurrencyCardContainer>
           {rates.map((rate) => (
             <CompareCurreny
               key={rate.quote}
@@ -48,7 +53,7 @@ export const MainCompare = async ({
               searchQuery={getSearchQuery(searchQuery, ["to", rate.quote])}
             />
           ))}
-        </ul>
+        </CurrencyCardContainer>
       </div>
     </Section>
   );
