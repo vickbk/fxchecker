@@ -57,11 +57,11 @@
   - **Status:** ⏳ Doing (Target: 2026-07-20)
   - **Description:** Implement an authenticated client-side parser to read the pre-mapped log data arrays and convert them instantly into a structural, downloadable CSV stream.
   - [x] Mount an "Export to CSV" utility option in the history toolbar layout, wrapped inside the `SignInInterceptor`: _"Login to download your conversion history as a CSV file."_
-  - [ ] Build the client-side utility function `exportLogsToCSV(logsArray)`:
-    - Loop through the rows and directly map the typed object properties to spreadsheet column headers: `Log ID, Timestamp, Base Currency, Quote Currency, Input Amount, Conversion Result`.
-  - [ ] Configure the native browser file system download sequence:
-    - Convert parsed metrics into a browser `Blob` target using type `text/csv;charset=utf-8;`.
-    - Instantiate a transient link element with an explicit timestamped filename (`conversion_history_YYYY_MM_DD.csv`), trigger the click event, and immediately remove the link node from the document context.
-  - [ ] Execute codebase verification passes:
+  - [x] Build the client-side utility function `exportLogsToCSV(logsArray)`:
+    - Loop through the rows and directly map the typed object properties to spreadsheet column headers: `Timestamp, Base Currency, Quote Currency, Exchange Rate, Input Amount, Conversion Result`.
+  - [x] Configure the native browser file system download sequence:
+    - [x] Convert parsed metrics into a browser `Blob` target using type `text/csv;charset=utf-8;`.
+    - [x] Instantiate a transient link element with an explicit timestamped filename (`conversion_history_YYYY_MM_DDThh_mm_ss.csv`), trigger the click event, and immediately remove the link node from the document context.
+  - [x] Execute codebase verification passes:
     - Run `pnpm build` to confirm static checking routines pass cleanly.
     - Run `pnpm lint` to ensure zero boundary style exceptions.

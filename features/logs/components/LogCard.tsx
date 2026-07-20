@@ -25,6 +25,7 @@ export const LogCard = ({
     new URLSearchParams(searchParams),
     ["from", base],
     ["to", quote],
+    ["amount", amount + ""],
   );
   return (
     <CurrencyCard>

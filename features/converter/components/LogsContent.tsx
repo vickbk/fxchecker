@@ -27,7 +27,7 @@ export const LogsContent = ({
         className="uppercase flex items-center gap-2 p-4 outline-lime-500 rounded-lg outline truncate"
         type="submit"
         disabled={pending}
-        description="Login to save this currency pair to your personalized favorites list."
+        description="Login to log the current calculation history."
       >
         <BiIcon name="clock" />
         {!pending ? (
