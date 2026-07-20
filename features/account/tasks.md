@@ -31,12 +31,12 @@ const { description, children, ...restTriggerProps } = props;
 
 ### Phase 3: Sign-In Pending State Visual Feedback
 
-- [ ] **Implement Visual Feedback During Authentication**
-- **Status:** ⏳ Todo (Target: 2026-07-22)
+- [x] **Implement Visual Feedback During Authentication**
+- **Status:** ⏳ Done (Target: 2026-07-21)
 - **Description:** Add loading spinners, disabled states, and visual pending cues during the active sign-in transaction to eliminate user uncertainty.
-- [ ] Track pending state using `useTransition` or `useFormStatus` during the authentication server action.
-- [ ] Update the sign-in submit button to display an inline loading spinner icon and set `disabled={isPending}` during submission.
-- [ ] Add `aria-busy="true"` and `aria-disabled="true"` to the active dialog form during authentication for screen-reader accessibility.
+- [x] Track pending state using `useTransition` or `useFormStatus` during the authentication server action.
+- [x] Update the sign-in submit button to display an inline loading spinner icon and set `disabled={isPending}` during submission.
+- [x] Add `aria-busy="true"` and `aria-disabled="true"` to the active dialog form during authentication for screen-reader accessibility.
 
 ---
 

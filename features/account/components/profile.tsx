@@ -1,5 +1,5 @@
 import { LogOut } from "@/infra/core";
-import { BiIcon } from "@/shared/utils";
+import { BiIcon, LoadingSubmit } from "@/shared/utils";
 import { Session } from "next-auth";
 import Image from "next/image";
 
@@ -44,12 +44,12 @@ export const Profile = ({ session }: { session: Session }) => {
           </dl>
         </figure>
 
-        <button
-          type="submit"
+        <LoadingSubmit
+          text="Signing out..."
           className="w-full mt-4 px-3 py-2 rounded-md border border-card text-red-500 hover:bg-btn transition-colors"
         >
           Sign out
-        </button>
+        </LoadingSubmit>
       </dialog>
 
       <button
