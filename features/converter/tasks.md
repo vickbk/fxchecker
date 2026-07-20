@@ -49,8 +49,8 @@
 
 ### Phase 1: Feature Encapsulation (`favorites` & `logs`)
 
-- [ ] **Encapsulate `FavoriteToggler` Component**
-- **Status:** ⏳ Doing (Target: 2026-07-20)
+- [x] **Encapsulate `FavoriteToggler` Component**
+- **Status:** ✅ Done (Target: 2026-07-20)
 - **Description:** Move all favorite UI, state handling, and interceptor hooks into a self-contained component inside the `favorites` feature folder.
 - [x] Create `src/features/favorites/components/FavoriteToggler.tsx`:
   - [x] Consume `useURLStatus` internally to read `base` and `quote` parameters.
