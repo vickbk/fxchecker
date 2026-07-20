@@ -73,10 +73,10 @@
 
 ### Phase 2: Slotted `ConverterCard` Refactoring
 
-- [ ] **Convert `ConverterCard` to Pure Composition Slot Model**
-- **Status:** ⏳ Todo (Target: 2026-07-30)
+- [x] **Convert `ConverterCard` to Pure Composition Slot Model**
+- **Status:** ✅ Done (Target: 2026-07-20)
 - **Description:** Remove all direct imports of favorite or log actions/schemas from the `converter` feature, refactoring `ConverterCard` to accept passive `ReactNode` props.
-- [ ] Update `ConverterCardProps` interface in `src/features/converter/components/ConverterCard.tsx`:
+- [x] Update `ConverterCardProps` interface in `src/features/converter/components/ConverterCard.tsx`:
 
 ```ts
 interface ConverterCardProps {
@@ -85,25 +85,25 @@ interface ConverterCardProps {
 }
 ```
 
-- [ ] Remove imports referencing `@/features/favorites` and `@/features/logs` inside `ConverterCard.tsx`.
-- [ ] Position `{favoriteToggle}` in the card header toolbar and `{conversionLogger}` in the bottom content area.
-- [ ] Ensure `ConverterCard` relies strictly on `useURLStatus` for its own conversion calculation interface.
+- [x] Remove imports referencing `@/features/favorites` and `@/features/logs` inside `ConverterCard.tsx`.
+- [x] Position `{favoriteToggle}` in the card header toolbar and `{conversionLogger}` in the bottom content area.
+- [x] Ensure `ConverterCard` relies strictly on `useURLStatus` for its own conversion calculation interface.
 
 ---
 
 ### Phase 3: Composition Root & Suspense Setup (`layout.tsx`)
 
-- [ ] **Assemble Composition Root with `<Suspense>` Boundary**
-- **Status:** ⏳ Todo (Target: 2026-07-30)
+- [x] **Assemble Composition Root with `<Suspense>` Boundary**
+- **Status:** ✅ Done (Target: 2026-07-20)
 - **Description:** Compose the feature components together inside `app/layout.tsx` while wrapping URL-dependent client components in a Next.js `<Suspense>` boundary.
-- [ ] Create a fallback component `<ConverterSkeleton/>` for loading states during client hydration.
-- [ ] Refactor `app/layout.tsx`:
+- [x] Create a fallback component `<ConverterSkeleton/>` for loading states during client hydration.
+- [x] Refactor `app/layout.tsx`:
 - Import `ConverterCard` from `@/features/converter`.
 - Import `FavoriteToggler` from `@/features/favorites`.
 - Import `ConversionLogger` from `@/features/logs`.
 
-- [ ] Wrap `ConverterCard` inside `<Suspense fallback="{<ConverterSkeleton"/>}>` inside `layout.tsx`.
-- [ ] Pass the components directly as JSX props:
+- [x] Wrap `ConverterCard` inside `<Suspense fallback="{<ConverterSkeleton"/>}>` inside `layout.tsx`.
+- [x] Pass the components directly as JSX props:
 
 ```tsx
 <ConverterCard
@@ -116,12 +116,12 @@ interface ConverterCardProps {
 
 ### Phase 4: Validation & Boundary Sweep
 
-- [ ] **Build Verification & Dependency Audit**
-- **Status:** ⏳ Todo (Target: 2026-07-30)
+- [x] **Build Verification & Dependency Audit**
+- **Status:** ✅ Todo (Target: 2026-07-20)
 - **Description:** Verify that cross-feature imports are eliminated and static site generation succeeds without `useSearchParams` hydration warnings.
-- [ ] Run `pnpm lint` to confirm zero circular dependencies between feature modules.
-- [ ] Run `pnpm build` to confirm Next.js compiles the layout segment cleanly without de-opting page generation.
-- [ ] Verify runtime behavior:
+- [x] Run `pnpm lint` to confirm zero circular dependencies between feature modules.
+- [x] Run `pnpm build` to confirm Next.js compiles the layout segment cleanly without de-opting page generation.
+- [x] Verify runtime behavior:
 - Navigating between currency pairs updates the URL via `useURLStatus`.
 - `FavoriteToggler` reflects status changes independently.
 - `ConversionLogger` logs calculation entries and exposes export/clear controls cleanly.

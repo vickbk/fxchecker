@@ -1,3 +1,5 @@
+"use server";
+
 import { getRate } from "@/infra/api/frankfurter";
 
 export async function loadConversionRate(
