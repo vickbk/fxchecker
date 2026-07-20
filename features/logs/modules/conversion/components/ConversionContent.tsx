@@ -1,23 +1,22 @@
 "use client";
 
 import { BiIcon, SignInInterceptor } from "@/shared/utils";
-import { useFormStatus } from "react-dom";
-import { useRate } from "../hooks/useRate";
+import { useConversion } from "../hooks";
 
-export const LogsContent = ({
+export const ConversionContent = ({
   SignInInterceptor,
 }: {
   SignInInterceptor: SignInInterceptor;
 }) => {
-  const { from, to, rate, amount } = useRate();
-  const { pending } = useFormStatus();
+  const { from, to, amount, rate, loading, pending } = useConversion();
+
   return (
     <>
       {(
         [
           ["base", from],
           ["quote", to],
-          ["rate", rate],
+          ["rate", rate ?? 0],
           ["amount", amount],
         ] as const
       ).map(([name, value]) => (
@@ -26,7 +25,7 @@ export const LogsContent = ({
       <SignInInterceptor
         className="uppercase flex items-center gap-2 p-4 outline-lime-500 rounded-lg outline truncate"
         type="submit"
-        disabled={pending}
+        disabled={pending || loading}
         description="Login to log the current calculation history."
       >
         <BiIcon name="clock" />

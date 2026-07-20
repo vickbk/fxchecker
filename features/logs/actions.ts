@@ -58,3 +58,13 @@ export async function clearAllLogs() {
   }
   return results;
 }
+
+export async function saveConversion(form: FormData) {
+  "use server";
+  await logConversion({
+    base: form.get("base") as string,
+    quote: form.get("quote") as string,
+    rate: form.get("rate") as unknown as number,
+    amount: form.get("amount") as unknown as number,
+  });
+}
