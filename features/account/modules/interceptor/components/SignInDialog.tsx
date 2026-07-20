@@ -14,7 +14,7 @@ export const SignInDialog = () => {
       closedby="any"
       id="sign-in-dialog"
       popover=""
-      className="m-auto p-6 max-w-md bg-background-secondary/95 border border-card shadow-2xl backdrop:backdrop-blur-sm rounded-lg text-center normal-case"
+      className="[position-anchor:none] m-auto p-6 max-w-md bg-background-secondary/95 border border-card shadow-2xl backdrop:backdrop-blur-sm rounded-lg text-center normal-case"
       onToggle={(e) => {
         if (e.newState === "closed") {
           setTimeout(

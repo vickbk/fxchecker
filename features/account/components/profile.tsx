@@ -20,7 +20,7 @@ export const Profile = ({ session }: { session: Session }) => {
         closedby="any"
         id="profile-dialog"
         popover=""
-        className="m-auto p-6 max-w-sm bg-background-secondary/95 border border-card shadow-2xl backdrop:backdrop-blur-sm rounded-lg overflow-hidden"
+        className="m-auto p-6 max-w-sm bg-background-secondary/95 border border-card shadow-2xl backdrop:backdrop-blur-sm rounded-lg overflow-hidden [position-anchor:none]"
       >
         <figure className="flex items-center gap-4">
           {user?.image ? (

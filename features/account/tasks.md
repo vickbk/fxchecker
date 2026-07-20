@@ -16,16 +16,16 @@ const { description, children, ...restTriggerProps } = props;
 
 ---
 
-### Phase 2: Contextual Dialog/Popover Positioning
+### Phase 2: Login Dialog Viewport Centering Fix
 
-- [ ] **Refactor Login Dialog Positioning Relative to Trigger**
-- **Status:** ⏳ Todo (Target: 2026-07-22)
-- **Description:** Update the login dialog content position from a fixed viewport center to anchor adjacent to the active trigger element.
-- [ ] Update `SignInInterceptor` positioning container:
-- Shift overlay strategy from standard viewport modal overlay to popover/anchored portal (e.g., utilizing `@radix-ui/react-popover` or Floating UI anchor alignment).
-- Position popover dynamically relative to the trigger button (`align="end"`, `side="bottom"` or `side="top"` depending on viewport bounds).
+- [x] **Override Global CSS Anchor Positioning on Login Dialog**
+- **Status:** ✅ Done (Target: 2026-07-21)
+- **Description:** Neutralize `position-anchor: auto;` on the login dialog element so it remains strictly centered on the viewport across all screen sizes.
+- [x] Update `SignInInterceptor` dialog container styles:
+- Unset/override anchor positioning: `position-anchor: none;` (or explicit `anchor-name: none`).
+- Enforce fixed viewport centering (`inset: 0`, `margin: auto`, or fixed `top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`).
 
-- [ ] Preserve responsive fallback: Keep centered modal positioning for mobile viewports (`<sm`), while anchoring near the trigger on desktop viewports (`≥sm`).
+- [x] Verify the dialog remains centered in the middle of the screen on both mobile (`<sm`) and desktop (`≥sm`).
 
 ---
 
