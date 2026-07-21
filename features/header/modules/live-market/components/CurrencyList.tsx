@@ -30,7 +30,7 @@ export const CurrencyList = ({
                 tabIndex={visible ? 0 : -1}
                 aria-hidden={!visible}
                 href={`?${getSearchQuery(searchParams, ["from", base], ["to", quote])}`}
-                className="font-medium text-foreground-secondary truncate"
+                className="font-medium text-foreground-secondary truncate focus-visible:outline-none focus-visible:underline hover:underline hover:text-lime-500 focus-visible:text-lime-500"
               >
                 <SROnly>From</SROnly> {base}/{quote}
               </Link>
