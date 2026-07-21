@@ -12,7 +12,8 @@
   .track {
     animation: scroll-horizontal-infinite 30s linear infinite;
   }
-  &:hover .track {
+  &:hover .track,
+  &:focus-within .track {
     animation-play-state: paused;
   }
 }

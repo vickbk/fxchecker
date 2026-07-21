@@ -19,7 +19,7 @@ export const LiveMarket = async () => {
       <Suspense
         fallback={
           <LoadingPlaceholder
-            className="bg-card h-full"
+            className="bg-background-secondary h-full"
             text="Loading live rate exchange"
           />
         }

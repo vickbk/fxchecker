@@ -1,29 +1,34 @@
 "use client";
-import { FrankfurterRate } from "@/infra/api/frankfurter/types";
 import { BiIcon, getSearchQuery, SROnly } from "@/shared/utils";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Fragment } from "react/jsx-runtime";
+import { CurrencyListProps } from "../types";
 
 export const CurrencyList = ({
   duplicate = false,
   rates,
-}: {
-  duplicate?: boolean;
-  rates: FrankfurterRate[];
-}) => {
+  isItemVisible,
+  registerItem,
+}: CurrencyListProps) => {
   const searchParams = useSearchParams();
   return (
-    <dl className="flex" aria-hidden={duplicate}>
-      {rates.map(({ base, quote, rate, change }, index) => {
+    <dl className="flex">
+      {rates.map(({ base, quote, rate, change }) => {
         const isGoingUp = change && change >= 0;
         const ratePercentage = change
           ? ((change * 100) / rate).toFixed(2)
           : null;
+
+        const key = `${duplicate ? "trackB" : "trackA"}-${base}-${quote}`;
+        const visible = isItemVisible(key, !duplicate);
         return (
-          <Fragment key={index}>
+          <Fragment key={key}>
             <dt className="flex items-center justify-between px-4 gap-4 border-card border">
               <Link
+                ref={registerItem(key)}
+                tabIndex={visible ? 0 : -1}
+                aria-hidden={!visible}
                 href={`?${getSearchQuery(searchParams, ["from", base], ["to", quote])}`}
                 className="font-medium text-foreground-secondary truncate"
               >
