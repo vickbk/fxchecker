@@ -1,26 +1,31 @@
 import { fetchCurrencies, fetchLatestRates } from "@/infra/api/frankfurter";
 import { assertAuthenticated, auth } from "@/infra/core";
+import { SWREngine } from "@/shared/cache";
+import { parseTimeToMs } from "@/shared/utils";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "./db/client";
 import { cx_compare } from "./db/schema";
 import { resolveCompareList } from "./utils";
 
+const compareCache = new SWREngine({ ttlMs: parseTimeToMs("30m") });
+
 export async function updateCompareList(newList: string[]) {
   const session = await auth();
   if (!session?.user || !session.user.id) return null;
   try {
+    const userId = session.user.id;
     await db
       .insert(cx_compare)
       .values({
-        userId: session.user.id!,
+        userId,
         currencyList: newList,
       })
       .onConflictDoUpdate({
         target: cx_compare.userId,
         set: { currencyList: newList },
       });
-
+    compareCache.clearKey("compare-" + userId);
     return true;
   } catch (error) {
     console.error(error);
@@ -32,9 +37,13 @@ export async function myCompareList(base = "USD") {
   try {
     const userId = await assertAuthenticated();
 
-    const compareList = await db.query.cx_compare.findFirst({
-      where: eq(cx_compare.userId, userId),
-    });
+    const compareList = await compareCache.execute(
+      `compare-list-${userId}`,
+      async () =>
+        await db.query.cx_compare.findFirst({
+          where: eq(cx_compare.userId, userId),
+        }),
+    );
 
     if (!compareList) throw new Error("Empty list");
 
@@ -44,6 +53,7 @@ export async function myCompareList(base = "USD") {
     return resolveCompareList(base);
   }
 }
+
 export async function getCompareRates(base = "USD") {
   try {
     const quotes = await myCompareList(base);
