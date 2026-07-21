@@ -29,10 +29,28 @@
 
 ### Phase 3: Cache Invalidation & UX Verification
 
-- [ ] **Revalidation & Verification Sweep**
-- **Status:** ⏳ Doing (Target: 2026-07-21)
+- [x] **Revalidation & Verification Sweep**
+- **Status:** ⏳ Done (Target: 2026-07-21)
 - **Description:** Verify cache tag revalidation when adding/clearing logs or toggling favorites, and confirm zero-state UI behavior.
-- [ ] Tag count queries for revalidation (`revalidateTag('logs-count')` / `revalidateTag('favorites-count')`) when mutation actions complete.
-- [ ] Verify that adding or removing a favorite immediately updates the navigation badge count.
-- [ ] Verify that clearing or logging a conversion updates the log badge count dynamically.
-- [ ] Test zero-count states to ensure no empty or layout-shifting badge elements remain in the DOM.
+- [x] Tag count queries for revalidation (`revalidateTag('logs-count')` / `revalidateTag('favorites-count')`) when mutation actions complete.
+- [x] Verify that adding or removing a favorite immediately updates the navigation badge count.
+- [x] Verify that clearing or logging a conversion updates the log badge count dynamically.
+- [x] Test zero-count states to ensure no empty or layout-shifting badge elements remain in the DOM.
+
+---
+
+### Phase 4: Mobile Menu Active Route Highlighting Fix
+
+- [ ] **Fix Stale Active State in Mobile Navigation Drawer**
+- **Status:** ⏳ Doing (Target: 2026-07-21)
+- **Description:** Fix the mobile menu navigation items so the currently active route is dynamically highlighted based on the current URL path, resolving the bug where it remains stuck on "history".
+- [ ] Inspect mobile drawer menu component (`MobileNav` / `NavDrawer`).
+- [ ] Replace hardcoded or static active index state with dynamic path matching using `usePathname()` from `next/navigation`:
+
+```tsx
+const pathname = usePathname();
+const isActive = pathname === item.href;
+```
+
+- [ ] Apply active styling (e.g., active background/text highlight) and `aria-current={isActive ? "page" : undefined}` dynamically to each drawer link.
+- [ ] Confirm drawer closes cleanly upon navigation while updating the active route indicator.

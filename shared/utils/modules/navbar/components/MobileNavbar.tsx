@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { NavbarProps } from "../types";
 import { options } from "../utils";
 import { Badge } from "./Badge";
+import { MobileCurrent } from "./MobileCurrent";
 import { MobileOption } from "./MobileOption";
 
 export const MobileNavbar = async (props: NavbarProps) => {
@@ -12,7 +13,7 @@ export const MobileNavbar = async (props: NavbarProps) => {
         popoverTarget="mobile-menue"
         className="bg-background-secondary w-full flex justify-between p-4 rounded-lg uppercase [anchor-name:--my-btn]"
       >
-        History <i className="bi bi-chevron-down" />
+        <MobileCurrent /> <i className="bi bi-chevron-down ml-auto" />
       </button>
       <nav
         popover=""
