@@ -5,7 +5,7 @@ import { and, eq } from "drizzle-orm";
 import { db } from "./db/client";
 import { exLogs } from "./db/schema";
 import { LogData } from "./types";
-import { logSchema } from "./utils";
+import { clearLogsCache, logSchema } from "./utils";
 
 export async function logConversion(data: LogData) {
   "use server";
@@ -17,6 +17,7 @@ export async function logConversion(data: LogData) {
     await db.insert(exLogs).values({ userId, data: logSchema.parse(data) });
 
     results.success = true;
+    clearLogsCache(userId);
     revalidateAllPaths();
   } catch (error) {
     results.error = error as Error;
@@ -36,6 +37,8 @@ export async function deleteLogItem(id: string) {
       .where(and(eq(exLogs.id, id), eq(exLogs.userId, userId)));
 
     results.success = true;
+
+    clearLogsCache(userId);
     revalidateAllPaths();
   } catch (error) {
     results.error = error as Error;
@@ -52,6 +55,8 @@ export async function clearAllLogs() {
     await db.delete(exLogs).where(eq(exLogs.userId, userId));
 
     results.success = true;
+
+    clearLogsCache(userId);
     revalidateAllPaths();
   } catch (error) {
     results.error = error as Error;

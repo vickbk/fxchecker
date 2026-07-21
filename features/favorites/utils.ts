@@ -1,4 +1,8 @@
+import { SWREngine } from "@/shared/cache";
+import { parseTimeToMs } from "@/shared/utils";
 import { getFavorites, toggleFavorite } from "./actions";
+
+export const favoriteCache = new SWREngine({ ttlMs: parseTimeToMs("30m") });
 
 export async function mainToggleFavorite(form: FormData) {
   "use server";
