@@ -2,6 +2,7 @@ import { Suspense } from "react";
 import { NavbarProps } from "../types";
 import { options } from "../utils";
 import { Badge } from "./Badge";
+import { MobileCurrent } from "./MobileCurrent";
 import { MobileOption } from "./MobileOption";
 
 export const MobileNavbar = async (props: NavbarProps) => {
@@ -10,9 +11,10 @@ export const MobileNavbar = async (props: NavbarProps) => {
       <button
         type="button"
         popoverTarget="mobile-menue"
-        className="bg-background-secondary w-full flex justify-between p-4 rounded-lg uppercase [anchor-name:--my-btn]"
+        className="bg-background-secondary w-full flex gap-4 items-center justify-between p-4 rounded-lg uppercase [anchor-name:--my-btn]"
       >
-        History <i className="bi bi-chevron-down" />
+        <MobileCurrent {...props} />{" "}
+        <i className="bi bi-chevron-down ml-auto" />
       </button>
       <nav
         popover=""
@@ -20,10 +22,10 @@ export const MobileNavbar = async (props: NavbarProps) => {
         className="bg-background-secondary text-foreground inset-auto [position-anchor:--my-btn] [position-area:bottom_span-right] [position-try:flip-block] w-[anchor-size(width)] mt-4 rounded-lg"
       >
         <ul className="p-4 grid gap-4">
-          {options.map(async (text) => (
-            <MobileOption key={text} text={text}>
+          {options.map(async (option) => (
+            <MobileOption key={option} text={option}>
               <Suspense>
-                <Badge value={props[text].badge} />
+                {props[option].badge && <Badge value={props[option].badge} />}
               </Suspense>
             </MobileOption>
           ))}
