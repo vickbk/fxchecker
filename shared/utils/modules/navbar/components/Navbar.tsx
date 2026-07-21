@@ -13,7 +13,7 @@ export const Navbar = (props: NavbarProps) => {
           {options.map(async (text) => (
             <OptionMenue key={text} text={text}>
               <Suspense>
-                <Badge value={props[text].badge} />
+                {props[text].badge && <Badge value={props[text].badge} />}
               </Suspense>
             </OptionMenue>
           ))}
