@@ -20,10 +20,10 @@ export const MobileNavbar = async (props: NavbarProps) => {
         className="bg-background-secondary text-foreground inset-auto [position-anchor:--my-btn] [position-area:bottom_span-right] [position-try:flip-block] w-[anchor-size(width)] mt-4 rounded-lg"
       >
         <ul className="p-4 grid gap-4">
-          {options.map(async (text) => (
-            <MobileOption key={text} text={text}>
+          {options.map(async (option) => (
+            <MobileOption key={option} text={option}>
               <Suspense>
-                <Badge value={props[text].badge} />
+                <Badge value={props[option].badge} />
               </Suspense>
             </MobileOption>
           ))}

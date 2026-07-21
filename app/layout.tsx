@@ -4,9 +4,9 @@ import {
   SignInProvider,
 } from "@/features/account";
 import { ConverterCard } from "@/features/converter";
-import { MainToggleFavorite } from "@/features/favorites";
+import { getFavoritesCount, MainToggleFavorite } from "@/features/favorites";
 import { MainHeader } from "@/features/header";
-import { ConversionLogger } from "@/features/logs";
+import { ConversionLogger, getLogsCount } from "@/features/logs";
 import { fetchCurrencies } from "@/infra/api/frankfurter";
 import { config } from "@/shared/config";
 import { CurrencyProvider } from "@/shared/currencies";
@@ -84,7 +84,12 @@ export default function RootLayout({
                       }
                     />
                   </Suspense>
-                  <Navbar history={{}} compare={{}} favorites={{}} logs={{}} />
+                  <Navbar
+                    history={{}}
+                    compare={{}}
+                    favorites={{ badge: getFavoritesCount() }}
+                    logs={{ badge: getLogsCount() }}
+                  />
                   {children}
                 </div>
               </Main>

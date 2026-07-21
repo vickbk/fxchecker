@@ -19,26 +19,18 @@
 ### Phase 2: Navigation UI & Badge Integration
 
 - [ ] **Wire Feature Counts into Navigation Items**
-- **Status:** ⏳ Todo (Target: 2026-07-23)
+- **Status:** ⏳ Doing (Target: 2026-07-21)
 - **Description:** Import feature getter functions into the main Navigation / Header component and pass count values down to navigation link badges.
-- [ ] Fetch log and favorite counts concurrently within the Navigation Server Component (e.g., using `Promise.all([getLogsCount(), getFavoritesCount()])`).
-- [ ] Attach badge pill indicators to the **Logs** and **Favorites** navigation items:
-
-```tsx
-<NavLink href="/logs">
-  Logs
-  {logsCount > 0 && <Badge>{logsCount}</Badge>}
-</NavLink>
-```
-
-- [ ] Ensure responsive badge scaling across desktop navbar and mobile drawer views.
+- [x] Fetch log and favorite counts concurrently within the Navigation Server Component.
+- [x] Attach badge pill indicators to the **Logs** and **Favorites** navigation items:
+- [x] Ensure responsive badge scaling across desktop navbar and mobile drawer views.
 
 ---
 
 ### Phase 3: Cache Invalidation & UX Verification
 
 - [ ] **Revalidation & Verification Sweep**
-- **Status:** ⏳ Todo (Target: 2026-07-23)
+- **Status:** ⏳ Doing (Target: 2026-07-21)
 - **Description:** Verify cache tag revalidation when adding/clearing logs or toggling favorites, and confirm zero-state UI behavior.
 - [ ] Tag count queries for revalidation (`revalidateTag('logs-count')` / `revalidateTag('favorites-count')`) when mutation actions complete.
 - [ ] Verify that adding or removing a favorite immediately updates the navigation badge count.
