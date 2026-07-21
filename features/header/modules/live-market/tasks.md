@@ -2,33 +2,25 @@
 
 ### Phase 1: Dynamic Item Visibility Observer (`useMarqueeVisibility`)
 
-- [ ] **Implement Intersection Observer Hook for Marquee Items**
-- **Status:** ⏳ Doing (Target: 2026-07-21)
+- [x] **Implement Intersection Observer Hook for Marquee Items**
+- **Status:** ✅ Done (Target: 2026-07-21)
 - **Description:** Build a custom React hook using `IntersectionObserver` to track which currency links are actively inside the visible marquee container viewport.
-- [ ] Configure the `IntersectionObserver` with the main marquee container as `root` (with `threshold: 0.1` or `rootMargin: '0px'`).
-- [ ] Apply attributes dynamically based on item visibility (for both Track A and Track B):
+- [x] Configure the `IntersectionObserver` with the main marquee container as `root` (with `threshold: 0.1` or `rootMargin: '0px'`).
+- [x] Apply attributes dynamically based on item visibility (for both Track A and Track B):
 - **In Viewport:** `tabIndex={0}`, `aria-hidden="false"`
 - **Out of Viewport:** `tabIndex={-1}`, `aria-hidden="true"`
 
-- [ ] Provide a fallback for initial SSR/hydration (default visible items to `0` and off-screen items to `-1`).
+- [x] Provide a fallback for initial SSR/hydration (default visible items to `0` and off-screen items to `-1`).
 
 ---
 
 ### Phase 2: Interaction Pause & Focus Controls
 
-- [ ] **Pause Marquee Movement on Focus/Hover**
-- **Status:** ⏳ Todo (Target: 2026-07-22)
+- [x] **Pause Marquee Movement on Focus/Hover**
+- **Status:** ⏳ Done (Target: 2026-07-21)
 - **Description:** Prevent elements from moving out from underneath the user's cursor or keyboard focus during interaction.
-- [x] Add CSS rules in the live market module:
-
-```css
-.marquee-container:hover .marquee-track,
-.marquee-container:focus-within .marquee-track {
-  animation-play-state: paused;
-}
-```
-
-- [ ] Add distinct focus styles (`outline` / `ring`) to currency links when focused via keyboard to ensure high contrast against the background.
+- [x] Add CSS rules in the live market module.
+- [x] Add distinct focus styles (`outline` / `ring`) to currency links when focused via keyboard to ensure high contrast against the background.
 
 ---
 
