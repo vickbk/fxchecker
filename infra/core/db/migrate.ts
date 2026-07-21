@@ -13,7 +13,7 @@ const db = getDB();
 export async function runMigrations() {
   console.log("Migration starting...");
   await migrate(db, {
-    migrationsFolder: path.join(__dirname, "migrations"),
+    migrationsFolder: path.join(import.meta.dirname, "migrations"),
   });
   console.log("Migration completed");
 }
