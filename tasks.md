@@ -171,3 +171,62 @@ Here is the task scaffolding to execute this UI-to-Feature workflow systematical
 - [ ] Swap out static layouts with local reactive states (`useState`, `useReducer`) to establish interactive view logic.
 - [ ] Layer in your underlying processing engines (custom feature data hooks, infra-level API fetchers, cache persistence rules).
 - [ ] Run the complete test suite (`pnpm test`) to guarantee your visual components transition fluidly between empty, loading, data, and fallback error states.
+
+---
+
+## Production Provisioning & Migration Pipeline Task List
+
+### Phase 1: Neon Postgres Provisioning & Credentials
+
+- [x] **Provision Neon Postgres Database**
+- **Status:** ✅ Doing (Target: 2026-07-21)
+- **Description:** Provision a production Neon Postgres database project and retrieve connection strings.
+- [x] Create a new project in the [Neon Console](https://console.neon.tech).
+- [x] Copy the **Pooled Connection String** (used by Next.js serverless functions at runtime to manage connection limits).
+- [x] Copy the **Direct / Unpooled Connection String** (used during migration phase for DDL operations that require direct TCP / transaction isolation).
+
+---
+
+### Phase 2: Build-Phase Migration Pipeline Setup
+
+- [x] **Configure Automated Database Migration Script**
+- **Status:** ✅ Done (Target: 2026-07-21)
+- **Description:** Integrate database migrations directly into the build command so schema updates run automatically before `next build` compiles the application.
+- [x] Verify or add the migration runner script in `package.json`:
+
+```json
+{
+  "scripts": {
+    "db:migrate": "drizzle-kit migrate",
+    "build": "pnpm db:migrate && next build"
+  }
+}
+```
+
+- [x] Ensure migration runner reads the unpooled `MIGRATION_DATABASE_URL` or `DATABASE_URL` environment variable during the execution phase.
+- [x] Test migration command locally against a staging/test Neon branch to verify idempotency (ensuring re-running migrations on identical schema results in a no-op).
+
+---
+
+### Phase 3: Vercel Project Setup & Environment Injection
+
+- [x] **Configure Vercel Environment & Deployment Pipeline**
+- **Status:** ✅ Done (Target: 2026-07-21)
+- **Description:** Link the project to Vercel, populate production secrets, and execute the deployment build.
+- [x] Import the GitHub repository into Vercel.
+- [x] Configure Production Environment Variables on Vercel:
+  - `DATABASE_URL` → Neon Pooled Connection String (`postgres://...pooler.neon.tech/...`)
+  - `MIGRATION_DATABASE_URL` → Neon Direct Connection String (`postgres://...neon.tech/...`)
+  - Add any required Auth / App secrets.
+  - [x] Set Build Command in Vercel Project Settings to `pnpm build` (or `npm run build`).
+
+---
+
+### Phase 4: Production Verification & Schema Validation
+
+- [x] **Verify Production Deployment & Database Health**
+- **Status:** ✅ Done (Target: 2026-07-21)
+- **Description:** Inspect Vercel build logs, verify table structures in Neon, and test live database interaction.
+- [x] Inspect Vercel Deployment Logs to confirm `pnpm db:migrate` completed successfully prior to Next.js compilation.
+- [x] Check the Neon Dashboard / Drizzle Studio to confirm all tables, indexes, and enum types were created.
+- [x] Perform smoke testing on the deployed Vercel URL (test sign-in, currency rate operations, and database read/write actions).

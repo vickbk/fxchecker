@@ -13,6 +13,7 @@ import { CurrencyProvider } from "@/shared/currencies";
 import { HeadingCtx, Main } from "@/shared/heading";
 import { ThemeSwitch } from "@/shared/theme";
 import { LoadingPlaceholder, Navbar } from "@/shared/utils";
+import { SpeedInsights } from "@vercel/speed-insights/next";
 import type { Metadata } from "next";
 import { JetBrains_Mono } from "next/font/google";
 import { Suspense } from "react";
@@ -90,6 +91,7 @@ export default function RootLayout({
             </HeadingCtx>
           </CurrencyProvider>
         </SignInProvider>
+        <SpeedInsights />
       </body>
     </html>
   );
