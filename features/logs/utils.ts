@@ -29,7 +29,7 @@ export async function getLogs() {
 export async function getLogsCount() {
   try {
     const userId = await assertAuthenticated();
-    return db.$count(exLogs, eq(exLogs.userId, userId));
+    return await db.$count(exLogs, eq(exLogs.userId, userId));
   } catch (error) {
     console.log(error);
     return 0;
