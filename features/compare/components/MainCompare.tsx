@@ -1,7 +1,7 @@
-import { FavoriteSuite } from "@/shared/currencies";
 import { Heading, Section } from "@/shared/heading";
 import {
   CurrencyCardContainer,
+  FavoriteWrapper,
   getSearchQuery,
   type SignInInterceptor,
   SROnly,
@@ -9,16 +9,16 @@ import {
 import { getCompareRates } from "../actions";
 import { CompareSearchParams } from "../types";
 import { Actions } from "./Actions";
-import { CompareCurreny } from "./CompareCurreny";
+import { CompareCurrency } from "./CompareCurrency";
 import { EmptyCompare } from "./EmptyCompare";
 
 export const MainCompare = async ({
   LoginTrigger,
-  favoriteSuite,
+  FavoriteWrapper,
   ...searchParams
 }: CompareSearchParams & {
   LoginTrigger: SignInInterceptor;
-  favoriteSuite: FavoriteSuite;
+  FavoriteWrapper: FavoriteWrapper;
 }) => {
   const { from = "USD", amount = 100 } = searchParams;
   const searchQuery = new URLSearchParams({
@@ -29,8 +29,6 @@ export const MainCompare = async ({
 
   if (rates.length === 0) return <EmptyCompare LoginTrigger={LoginTrigger} />;
   const quotes = rates.map((rate) => rate.quote);
-
-  const favorites = new Set(await favoriteSuite.getFavorites());
 
   return (
     <Section aria-describedby="compare-description" className="p-4">
@@ -43,15 +41,19 @@ export const MainCompare = async ({
         <Actions rates={quotes} LoginTrigger={LoginTrigger} />
         <CurrencyCardContainer>
           {rates.map((rate) => (
-            <CompareCurreny
+            <CompareCurrency
               key={rate.quote}
               {...rate}
               amount={amount}
               LoginTrigger={LoginTrigger}
-              isFavorite={favorites.has(`${from}-${rate.quote}`)}
-              toggleFavorite={favoriteSuite.toggleFavorite}
               searchQuery={getSearchQuery(searchQuery, ["to", rate.quote])}
-            />
+            >
+              <FavoriteWrapper
+                base={from}
+                quote={rate.quote}
+                SignInInterceptor={LoginTrigger}
+              />
+            </CompareCurrency>
           ))}
         </CurrencyCardContainer>
       </div>

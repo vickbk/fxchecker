@@ -3,16 +3,16 @@
 import { BiIcon, SignInInterceptor, SROnly } from "@/shared/utils";
 import { useFormStatus } from "react-dom";
 
-export const SubmitButton = ({
-  LoginTrigger,
+export const FavoriteToggleSubmit = ({
+  SignInInterceptor,
   isFavorite,
 }: {
-  LoginTrigger: SignInInterceptor;
+  SignInInterceptor: SignInInterceptor;
   isFavorite: boolean;
 }) => {
   const { pending } = useFormStatus();
   return (
-    <LoginTrigger
+    <SignInInterceptor
       type="submit"
       disabled={pending}
       description="Login to use the add pair currency to favorite feature and many more options"
@@ -31,6 +31,6 @@ export const SubmitButton = ({
           <BiIcon name={`arrow-repeat inline-block animate-spin`} />
         </>
       )}
-    </LoginTrigger>
+    </SignInInterceptor>
   );
 };

@@ -7,7 +7,7 @@ import { CompareDelete } from "../modules/delete";
 import { CompareItemProps } from "../types";
 import { CurrencyActions } from "./CurrencyActions";
 
-export const CompareCurreny = ({
+export const CompareCurrency = ({
   LoginTrigger,
   quote,
   rate,
@@ -16,11 +16,9 @@ export const CompareCurreny = ({
   details: { [quote]: currency },
 
   searchQuery,
-  isFavorite,
-  toggleFavorite,
+  children,
 }: CompareItemProps) => {
   const deleteAction = deleteCompareCurrency.bind(null, quote);
-  const favoriteAction = toggleFavorite.bind(null, { base, quote });
 
   return (
     <CurrencyCard>
@@ -43,7 +41,13 @@ export const CompareCurreny = ({
         </dd>
       </dl>
 
-      <CurrencyActions {...{ isFavorite, quote, LoginTrigger, favoriteAction }}>
+      <CurrencyActions
+        {...{
+          quote,
+          LoginTrigger,
+          favoriteWrapper: children,
+        }}
+      >
         <CompareDelete
           quote={quote}
           name={currency.name}

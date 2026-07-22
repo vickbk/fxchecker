@@ -1,7 +1,7 @@
 import { SignInInterceptor } from "@/features/account";
 import { CompareSearchParams, MainCompare } from "@/features/compare";
 import { MainCompareSkeleton } from "@/features/compare/components/skeletons/MainCompareSkeleton";
-import { favoriteSuite } from "@/features/favorites";
+import { FavoriteToggleWrapper } from "@/features/favorites";
 import { keyFromSearchQuery } from "@/shared/utils";
 import { Suspense } from "react";
 
@@ -18,7 +18,10 @@ export default async function Compare({
     >
       <MainCompare
         LoginTrigger={SignInInterceptor}
-        {...{ ...params, favoriteSuite }}
+        {...{
+          ...params,
+          FavoriteWrapper: FavoriteToggleWrapper,
+        }}
       />
     </Suspense>
   );

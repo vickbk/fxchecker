@@ -1,10 +1,6 @@
 import { assertAuthenticated } from "@/infra/core";
 import { revalidateAllPaths } from "@/shared/cache";
-import {
-  FavoriteEntry,
-  FavoritePair,
-  FavoriteSuite,
-} from "@/shared/currencies";
+import { FavoriteEntry, FavoritePair } from "@/shared/currencies";
 import { eq } from "drizzle-orm";
 import { db } from "./db/client";
 import { exFavorites } from "./db/schema";
@@ -69,5 +65,3 @@ export async function clearAllFavorites() {
     return { success: false, error: error as Error };
   }
 }
-
-export const favoriteSuite: FavoriteSuite = { toggleFavorite, getFavorites };
