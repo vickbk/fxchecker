@@ -77,29 +77,29 @@
 
 ### Phase 2: Refactor `features/compare` to Accept Generic Wrapper
 
-- [ ] **Decouple `MainCompare` from Favorites Domain**
-- **Status:** ⏳ Doing (Target: 2026-07-22)
+- [x] **Decouple `MainCompare` from Favorites Domain**
+- **Status:** ✅ Done (Target: 2026-07-22)
 - **Description:** Remove all direct references, hooks, or imports from `features/favorites` inside `features/compare`.
 - [x] Update `MainCompareProps` to accept an optional `FavoriteSlot` (or `FavoriteWrapper`) component prop.
 - [x] Render the passed slot component inside the compare card layout, forwarding the base and target currency values.
-- [ ] Confirm zero imports from `@/features/favorites` exist anywhere inside `src/features/compare/`.
+- [x] Confirm zero imports from `@/features/favorites` exist anywhere inside `src/features/compare/`.
 
 ---
 
 ### Phase 3: Page-Level Composition Layer Wiring
 
-- [ ] **Wire `FavoriteToggleWrapper` into Compare Page Route**
-- **Status:** ⏳ Todo (Target: 2026-07-23)
+- [x] **Wire `FavoriteToggleWrapper` into Compare Page Route**
+- **Status:** ✅ Done (Target: 2026-07-22)
 - **Description:** Inject `FavoriteToggleWrapper` into `MainCompare` at the composition layer in the compare route page.
-- [ ] Import `MainCompare` from `@/features/compare` and `FavoriteToggleWrapper` from `@/features/favorites` inside the page route component.
-- [ ] Pass `FavoriteToggleWrapper` directly to `MainCompare` via the slot prop.
+- [x] Import `MainCompare` from `@/features/compare` and `FavoriteToggleWrapper` from `@/features/favorites` inside the page route component.
+- [x] Pass `FavoriteToggleWrapper` directly to `MainCompare` via the slot prop.
 
 ---
 
 ### Phase 4: Testing & Verification
 
-- [ ] **Isolation & Integration Sweep**
-- **Status:** ⏳ Todo (Target: 2026-07-23)
+- [x] **Isolation & Integration Sweep**
+- **Status:** ✅ Done (Target: 2026-07-22)
 - **Description:** Verify isolated component rendering and end-to-end favorite toggling.
-- [ ] Write a unit test for `MainCompare` using a dummy mock slot to confirm it renders cleanly without dependencies on `favorites`.
-- [ ] Test toggling favorites on the live compare page and verify that navigation badges and query caches update instantly.
+- [-] Write a unit test for `MainCompare` using a dummy mock slot to confirm it renders cleanly without dependencies on `favorites`.
+- [x] Test toggling favorites on the live compare page and verify that navigation badges and query caches update instantly.

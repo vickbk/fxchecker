@@ -5,7 +5,7 @@ import { FavoriteToggleSubmit } from "./FavoriteToggleSubmit";
 export const FavoriteToggleWrapper = async ({
   base,
   quote,
-  isFavorite = false,
+  isFavorite,
   SignInInterceptor,
 }: {
   base: string;
@@ -16,7 +16,7 @@ export const FavoriteToggleWrapper = async ({
   const action = toggleFavorite.bind(null, { base, quote });
 
   isFavorite =
-    isFavorite || !!(await getFavorites())?.includes(`${base}-${quote}`);
+    isFavorite ?? !!(await getFavorites())?.includes(`${base}-${quote}`);
 
   return (
     <form action={action as () => void}>
