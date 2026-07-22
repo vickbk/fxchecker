@@ -78,7 +78,7 @@
 ### Phase 2: Refactor `features/compare` to Accept Generic Wrapper
 
 - [ ] **Decouple `MainCompare` from Favorites Domain**
-- **Status:** ⏳ Todo (Target: 2026-07-22)
+- **Status:** ⏳ Doing (Target: 2026-07-22)
 - **Description:** Remove all direct references, hooks, or imports from `features/favorites` inside `features/compare`.
 - [ ] Update `MainCompareProps` to accept an optional `FavoriteSlot` (or `FavoriteWrapper`) component prop.
 - [ ] Render the passed slot component inside the compare card layout, forwarding the base and target currency values.
