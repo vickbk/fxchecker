@@ -17,5 +17,9 @@ export const FavoriteLink = ({
     ["to", quote.code],
   );
 
-  return <Link href={`?${query}`}>{children}</Link>;
+  return (
+    <Link href={`?${query}`} className="focus-visible:outline-none">
+      {children}
+    </Link>
+  );
 };

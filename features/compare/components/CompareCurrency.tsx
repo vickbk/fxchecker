@@ -26,7 +26,7 @@ export const CompareCurrency = ({
       <dl>
         <dt className="text-sm">{quote}</dt>
         <dd className="text-foreground-secondary truncate text-xs">
-          <Link href={`?${searchQuery}`}>
+          <Link href={`?${searchQuery}`} className="focus-visible:outline-none">
             <SROnly>Update quote currency to </SROnly>
             {currency.name || "unknown currency name"}{" "}
             <span className="absolute inset-0" />

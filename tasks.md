@@ -261,13 +261,13 @@ Here is the task scaffolding to execute this UI-to-Feature workflow systematical
 
 ### Phase 3: Converter Module (`features/converter`)
 
-- [ ] **Align Converter Controls & Action Triggers**
-- **Status:** ⏳ Todo (Target: 2026-07-22)
+- [x] **Align Converter Controls & Action Triggers**
+- **Status:** ✅ Done (Target: 2026-07-22)
 - **Description:** Refine interactive states across the core currency converter card.
-- [ ] Update focus-within rings and hover borders on amount input fields and currency picker dropdown triggers.
-- [ ] Apply rotation transitions and focus rings to the currency swapper button.
-- [ ] Align hover and focus states for the favorite toggler star button inside the converter.
-- [ ] Update hover and focus indicator states on the converter logs trigger link/button.
+- [x] Update focus-within rings and hover borders on amount input fields and currency picker dropdown triggers.
+- [x] Apply rotation transitions and focus rings to the currency swapper button.
+- [x] Align hover and focus states for the favorite toggler star button inside the converter.
+- [x] Update hover and focus indicator states on the converter logs trigger link/button.
 
 ---
 

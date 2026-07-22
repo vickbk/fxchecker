@@ -32,7 +32,10 @@ export const LogCard = ({
       <div className="sm:flex gap-4">
         <LogTime time={editTime} />
 
-        <Link href={`?${searchQuery}`} className="truncate">
+        <Link
+          href={`?${searchQuery}`}
+          className="truncate focus-visible:outline-none"
+        >
           {base} <SROnly>to</SROnly> <span className="absolute inset-0" />
           <BiIcon name="arrow-right text-foreground-secondary" /> {quote}
         </Link>

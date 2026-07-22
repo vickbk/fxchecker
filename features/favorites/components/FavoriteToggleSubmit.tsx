@@ -14,6 +14,9 @@ export const FavoriteToggleSubmit = ({
   return (
     <SignInInterceptor
       type="submit"
+      className={
+        "action-btn px-1 aspect-square outline hover:bg-lime-500/10 focus-visible:bg-lime-500/10 rounded-sm"
+      }
       disabled={pending}
       description="Login to use the add pair currency to favorite feature and many more options"
     >
