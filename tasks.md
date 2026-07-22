@@ -230,3 +230,92 @@ Here is the task scaffolding to execute this UI-to-Feature workflow systematical
 - [x] Inspect Vercel Deployment Logs to confirm `pnpm db:migrate` completed successfully prior to Next.js compilation.
 - [x] Check the Neon Dashboard / Drizzle Studio to confirm all tables, indexes, and enum types were created.
 - [x] Perform smoke testing on the deployed Vercel URL (test sign-in, currency rate operations, and database read/write actions).
+
+## Domain-Specific Hover & Focus State Design Alignment Task List
+
+### Phase 1: Header & Top Utilities (`features/header`)
+
+- [x] **Align Header Utilities & Theme Controls**
+- **Status:** ✅ Done (Target: 2026-07-22)
+- **Description:** Refine interactive states for theme toggle and authentication triggers in the top navigation header.
+- [x] Apply focus-visible ring offsets and hover background highlights to the theme switcher button.
+- [x] Update hover and keyboard focus-visible states on the header sign-in trigger button.
+
+- [x] **Align Live Market Ticker Items**
+- **Status:** ⏳ Done (Target: 2026-07-22)
+- **Description:** Update hover and focus indicators across scrolling live market rate cards.
+- [x] Update hover color for ticker currency links.
+- [x] Ensure visible ticker links display text in accent color on keyboard navigation without disrupting the marquee layout.
+
+---
+
+### Phase 2: Main Navigation (`features/navigation`)
+
+- [ ] **Align Desktop & Mobile Navigation Links**
+- **Status:** ⏳ Todo (Target: 2026-07-22)
+- **Description:** Update hover, active, and focus states across desktop navbar links and mobile drawer controls.
+- [ ] Apply design-spec hover highlights and focus rings to desktop navigation links and badge pills.
+- [ ] Update mobile menu drawer trigger, close button, and full-width drawer link hover/focus states.
+
+---
+
+### Phase 3: Converter Module (`features/converter`)
+
+- [ ] **Align Converter Controls & Action Triggers**
+- **Status:** ⏳ Todo (Target: 2026-07-22)
+- **Description:** Refine interactive states across the core currency converter card.
+- [ ] Update focus-within rings and hover borders on amount input fields and currency picker dropdown triggers.
+- [ ] Apply rotation transitions and focus rings to the currency swapper button.
+- [ ] Align hover and focus states for the favorite toggler star button inside the converter.
+- [ ] Update hover and focus indicator states on the converter logs trigger link/button.
+
+---
+
+### Phase 4: History Module (`features/history`)
+
+- [ ] **Align History Navigation Bar & Interactive Log Items**
+- **Status:** ⏳ Todo (Target: 2026-07-23)
+- **Description:** Align interactive elements within the history section and its internal sub-navigation bar.
+- [ ] Update hover background fills, active tab indicators, and focus rings on the history section navigation bar links.
+- [ ] Apply subtle hover highlight rows and focus outlines to individual history entries and action buttons.
+
+---
+
+### Phase 5: Compare Module (`features/compare`)
+
+- [ ] **Align Compare Controls & Currency Management Actions**
+- **Status:** ⏳ Todo (Target: 2026-07-23)
+- **Description:** Refine hover and focus states on multi-currency comparison inputs and list management controls.
+- [ ] Update hover and focus-visible states on the add currency trigger and dropdown selector.
+- [ ] Apply hover state highlights and focus rings to the remove/delete currency buttons on compare items.
+
+---
+
+### Phase 6: Favorites Module (`features/favorites`)
+
+- [ ] **Align Favorite Item Actions & Bulk Clearing**
+- **Status:** ⏳ Todo (Target: 2026-07-23)
+- **Description:** Update interactive feedback across favorite cards and bulk actions.
+- [ ] Refine hover background shifts and focus rings on favorite item toggle triggers.
+- [ ] Update hover state and focus-visible indicators for the "Clear All" favorites button.
+
+---
+
+### Phase 7: Logs Module (`features/logs`)
+
+- [ ] **Align Log Item Operations & Export Actions**
+- **Status:** ⏳ Todo (Target: 2026-07-23)
+- **Description:** Align focus and hover feedback across conversion logs management controls.
+- [ ] Apply hover highlights and focus-visible rings to individual log delete buttons.
+- [ ] Update hover color shifts and focus rings for the bulk "Clear Logs" action button.
+- [ ] Refine hover transitions and focus outlines on the "Export to CSV" action button.
+
+---
+
+### Phase 8: Account Feature (`features/account`)
+
+- [x] **Align Auth Cards & Account Actions**
+- **Status:** ⏳ Done (Target: 2026-07-22)
+- **Description:** Update input and action button focus/hover states across authentication cards.
+- [x] Update focus-within rings on input fields and hover states on submit buttons inside the Login card.
+- [x] Apply hover background shifts and focus-visible rings to the Log Out card action button.

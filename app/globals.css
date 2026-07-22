@@ -46,10 +46,22 @@ dialog {
 }
 
 @layer base {
+  * {
+    @apply outline-lime-500;
+  }
   *[popover] {
     @apply bg-background-secondary text-foreground;
     position-anchor: auto;
     position-area: bottom span-right;
     position-try: flip-block;
+  }
+}
+
+@layer utilities {
+  .action-btn {
+    @apply transition-transform duration-200;
+    &:active {
+      @apply scale-95;
+    }
   }
 }

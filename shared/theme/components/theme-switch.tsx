@@ -6,7 +6,11 @@ export const ThemeSwitch = () => {
 
   return (
     <div className="ml-auto">
-      <button type="button" onClick={toggleTheme} className="cursor-pointer">
+      <button
+        type="button"
+        onClick={toggleTheme}
+        className="cursor-pointer action-btn hover:outline focus-visible:outline px-1 rounded-full aspect-square self-center"
+      >
         <span className="sr-only">
           Switch to {isDark ? "light" : "dark"} theme
         </span>
