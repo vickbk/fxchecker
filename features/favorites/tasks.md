@@ -59,5 +59,47 @@
 - [x] Pass the row's corresponding pairing values (`base` from page state, row currency as `quote`) straight into another `SignInInterceptor` wrapper block.
 - [x] Mount a "Clear Favorite Pairs" action option inside your user preferences layout profile dashboard menu.
 - [x] Bind that option to trigger your `clearAllFavorites` server sequence.
-- [ ] Run verification verification test loops:
+- [x] Run verification verification test loops:
 - Execute `pnpm build` and `pnpm lint` to ensure zero boundary breaks across features.
+
+## Reusable Favorites Wrapper & Compare Decoupling Task List
+
+### Phase 1: Reusable Slot Creation in `features/favorites`
+
+- [x] **Create Generic `FavoriteToggleWrapper` Component**
+- **Status:** ✅ Done (Target: 2026-07-22)
+- **Description:** Implement a generic slot wrapper in `src/features/favorites/components/FavoriteToggleWrapper.tsx` that encapsulates favorite submission handling for any currency pair.
+- [x] Define explicit props accepting `baseCurrency`, `targetCurrency` and `SignInInterceptor`.
+- [x] Handle server action execution (`toggleFavoriteAction`) with server form.
+- [x] Export `FavoriteToggleWrapper` from the `features/favorites` public entry point.
+
+---
+
+### Phase 2: Refactor `features/compare` to Accept Generic Wrapper
+
+- [ ] **Decouple `MainCompare` from Favorites Domain**
+- **Status:** ⏳ Todo (Target: 2026-07-22)
+- **Description:** Remove all direct references, hooks, or imports from `features/favorites` inside `features/compare`.
+- [ ] Update `MainCompareProps` to accept an optional `FavoriteSlot` (or `FavoriteWrapper`) component prop.
+- [ ] Render the passed slot component inside the compare card layout, forwarding the base and target currency values.
+- [ ] Confirm zero imports from `@/features/favorites` exist anywhere inside `src/features/compare/`.
+
+---
+
+### Phase 3: Page-Level Composition Layer Wiring
+
+- [ ] **Wire `FavoriteToggleWrapper` into Compare Page Route**
+- **Status:** ⏳ Todo (Target: 2026-07-23)
+- **Description:** Inject `FavoriteToggleWrapper` into `MainCompare` at the composition layer in the compare route page.
+- [ ] Import `MainCompare` from `@/features/compare` and `FavoriteToggleWrapper` from `@/features/favorites` inside the page route component.
+- [ ] Pass `FavoriteToggleWrapper` directly to `MainCompare` via the slot prop.
+
+---
+
+### Phase 4: Testing & Verification
+
+- [ ] **Isolation & Integration Sweep**
+- **Status:** ⏳ Todo (Target: 2026-07-23)
+- **Description:** Verify isolated component rendering and end-to-end favorite toggling.
+- [ ] Write a unit test for `MainCompare` using a dummy mock slot to confirm it renders cleanly without dependencies on `favorites`.
+- [ ] Test toggling favorites on the live compare page and verify that navigation badges and query caches update instantly.
