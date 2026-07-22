@@ -46,8 +46,11 @@ dialog {
 }
 
 @layer base {
-  * {
-    @apply outline-lime-500;
+  a,
+  button {
+    &:focus-visible {
+      @apply outline outline-lime-500;
+    }
   }
   *[popover] {
     @apply bg-background-secondary text-foreground;

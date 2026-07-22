@@ -29,7 +29,7 @@ export const CurrencyCard = ({ isSend = false }: { isSend: boolean }) => {
   return (
     <Article id={`${id}`}>
       <button
-        className={`p-4 rounded-md bg-btn flex gap-2 items-center [anchor-name:--${popover}]`}
+        className={`p-4 rounded-md bg-btn flex gap-2 items-center hover:scale-105 action-btn [anchor-name:--${popover}]`}
         type="button"
         popoverTarget={popover}
       >

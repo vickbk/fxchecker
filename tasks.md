@@ -251,11 +251,11 @@ Here is the task scaffolding to execute this UI-to-Feature workflow systematical
 
 ### Phase 2: Main Navigation (`features/navigation`)
 
-- [ ] **Align Desktop & Mobile Navigation Links**
-- **Status:** ⏳ Todo (Target: 2026-07-22)
+- [x] **Align Desktop & Mobile Navigation Links**
+- **Status:** ✅ Done (Target: 2026-07-22)
 - **Description:** Update hover, active, and focus states across desktop navbar links and mobile drawer controls.
-- [ ] Apply design-spec hover highlights and focus rings to desktop navigation links and badge pills.
-- [ ] Update mobile menu drawer trigger, close button, and full-width drawer link hover/focus states.
+- [x] Apply design-spec hover highlights and focus rings to desktop navigation links and badge pills.
+- [x] Update mobile menu drawer trigger, close button, and full-width drawer link hover/focus states.
 
 ---
 
