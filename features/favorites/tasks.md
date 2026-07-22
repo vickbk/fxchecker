@@ -80,8 +80,8 @@
 - [ ] **Decouple `MainCompare` from Favorites Domain**
 - **Status:** ⏳ Doing (Target: 2026-07-22)
 - **Description:** Remove all direct references, hooks, or imports from `features/favorites` inside `features/compare`.
-- [ ] Update `MainCompareProps` to accept an optional `FavoriteSlot` (or `FavoriteWrapper`) component prop.
-- [ ] Render the passed slot component inside the compare card layout, forwarding the base and target currency values.
+- [x] Update `MainCompareProps` to accept an optional `FavoriteSlot` (or `FavoriteWrapper`) component prop.
+- [x] Render the passed slot component inside the compare card layout, forwarding the base and target currency values.
 - [ ] Confirm zero imports from `@/features/favorites` exist anywhere inside `src/features/compare/`.
 
 ---
