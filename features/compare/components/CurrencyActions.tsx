@@ -17,7 +17,7 @@ export const CurrencyActions = ({
       <li className="text-lime-500">{favoriteWrapper}</li>
       <li>
         <LoginTrigger
-          className={`[anchor-name:--delete${quote}] action-btn`}
+          className={`[anchor-name:--delete${quote}] rounded-sm action-btn hover:outline hover:outline-foreground-secondary`}
           popoverTarget={"delete-" + quote}
           description="Login to use the remove currency from compare list feature and many more options."
         >

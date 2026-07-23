@@ -274,7 +274,7 @@ Here is the task scaffolding to execute this UI-to-Feature workflow systematical
 ### Phase 4: History Module (`features/history`)
 
 - [x] **Align History Navigation Bar & Interactive Log Items**
-- **Status:** ⏳ Done (Target: 2026-07-22)
+- **Status:** ✅ Done (Target: 2026-07-22)
 - **Description:** Align interactive elements within the history section and its internal sub-navigation bar.
 - [x] Update hover background fills, active tab indicators, and focus rings on the history section navigation bar links.
 - [x] Apply subtle hover highlight rows and focus outlines to individual history entries and action buttons.
@@ -284,38 +284,38 @@ Here is the task scaffolding to execute this UI-to-Feature workflow systematical
 ### Phase 5: Compare Module (`features/compare`)
 
 - [x] **Align Compare Controls & Currency Management Actions**
-- **Status:** ⏳ Done (Target: 2026-07-22)
+- **Status:** ✅ Done (Target: 2026-07-22)
 - **Description:** Refine hover and focus states on multi-currency comparison inputs and list management controls.
-- [ ] Update hover and focus-visible states on the add currency trigger and dropdown selector.
+- [x] Update hover and focus-visible states on the add currency trigger and dropdown selector.
 - [x] Apply hover state highlights and focus rings to the remove/delete currency buttons on compare items.
 
 ---
 
 ### Phase 6: Favorites Module (`features/favorites`)
 
-- [ ] **Align Favorite Item Actions & Bulk Clearing**
-- **Status:** ⏳ Todo (Target: 2026-07-23)
+- [x] **Align Favorite Item Actions & Bulk Clearing**
+- **Status:** ✅ Done (Target: 2026-07-23)
 - **Description:** Update interactive feedback across favorite cards and bulk actions.
-- [ ] Refine hover background shifts and focus rings on favorite item toggle triggers.
-- [ ] Update hover state and focus-visible indicators for the "Clear All" favorites button.
+- [x] Refine hover background shifts and focus rings on favorite item toggle triggers.
+- [x] Update hover state and focus-visible indicators for the "Clear All" favorites button.
 
 ---
 
 ### Phase 7: Logs Module (`features/logs`)
 
-- [ ] **Align Log Item Operations & Export Actions**
-- **Status:** ⏳ Todo (Target: 2026-07-23)
+- [x] **Align Log Item Operations & Export Actions**
+- **Status:** ✅ Done (Target: 2026-07-23)
 - **Description:** Align focus and hover feedback across conversion logs management controls.
-- [ ] Apply hover highlights and focus-visible rings to individual log delete buttons.
-- [ ] Update hover color shifts and focus rings for the bulk "Clear Logs" action button.
-- [ ] Refine hover transitions and focus outlines on the "Export to CSV" action button.
+- [x] Apply hover highlights and focus-visible rings to individual log delete buttons.
+- [x] Update hover color shifts and focus rings for the bulk "Clear Logs" action button.
+- [x] Refine hover transitions and focus outlines on the "Export to CSV" action button.
 
 ---
 
 ### Phase 8: Account Feature (`features/account`)
 
 - [x] **Align Auth Cards & Account Actions**
-- **Status:** ⏳ Done (Target: 2026-07-22)
+- **Status:** ✅ Done (Target: 2026-07-22)
 - **Description:** Update input and action button focus/hover states across authentication cards.
 - [x] Update focus-within rings on input fields and hover states on submit buttons inside the Login card.
 - [x] Apply hover background shifts and focus-visible rings to the Log Out card action button.

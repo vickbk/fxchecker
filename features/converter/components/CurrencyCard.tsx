@@ -32,7 +32,6 @@ export const CurrencyCard = ({ isSend = false }: { isSend: boolean }) => {
 
   if (!actualCurr) return null;
   const country = getCurrencyCountry(actualCurr!.code);
-  const popoverElement = document.getElementById(popover);
 
   return (
     <Article id={`${id}`}>
@@ -96,10 +95,11 @@ export const CurrencyCard = ({ isSend = false }: { isSend: boolean }) => {
                       }}
                       onKeyDown={(e) => {
                         if ([" ", "Enter"].includes(e.key))
-                          popoverElement?.hidePopover();
+                          document.getElementById(popover)?.hidePopover();
                       }}
                       onClick={(e) => {
-                        if (e.detail !== 0) popoverElement?.hidePopover();
+                        if (e.detail !== 0)
+                          document.getElementById(popover)?.hidePopover();
                       }}
                     />
                     <Flag alt="" country={getCurrencyCountry(code)} />{" "}

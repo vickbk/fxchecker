@@ -13,7 +13,7 @@ export const LogDelete = ({
     <SignInInterceptor
       type="submit"
       disabled={pending}
-      className="bg-background-secondary text-foreground-secondary p-2 rounded-lg"
+      className="bg-background-secondary text-foreground-secondary p-2 rounded-lg hover:outline hover:outline-foreground-secondary"
     >
       <SROnly>{pending ? "Deleting..." : "Delete Log"}</SROnly>
       <BiIcon
