@@ -273,21 +273,21 @@ Here is the task scaffolding to execute this UI-to-Feature workflow systematical
 
 ### Phase 4: History Module (`features/history`)
 
-- [ ] **Align History Navigation Bar & Interactive Log Items**
-- **Status:** ⏳ Todo (Target: 2026-07-23)
+- [x] **Align History Navigation Bar & Interactive Log Items**
+- **Status:** ⏳ Done (Target: 2026-07-22)
 - **Description:** Align interactive elements within the history section and its internal sub-navigation bar.
-- [ ] Update hover background fills, active tab indicators, and focus rings on the history section navigation bar links.
-- [ ] Apply subtle hover highlight rows and focus outlines to individual history entries and action buttons.
+- [x] Update hover background fills, active tab indicators, and focus rings on the history section navigation bar links.
+- [x] Apply subtle hover highlight rows and focus outlines to individual history entries and action buttons.
 
 ---
 
 ### Phase 5: Compare Module (`features/compare`)
 
-- [ ] **Align Compare Controls & Currency Management Actions**
-- **Status:** ⏳ Todo (Target: 2026-07-23)
+- [x] **Align Compare Controls & Currency Management Actions**
+- **Status:** ⏳ Done (Target: 2026-07-22)
 - **Description:** Refine hover and focus states on multi-currency comparison inputs and list management controls.
 - [ ] Update hover and focus-visible states on the add currency trigger and dropdown selector.
-- [ ] Apply hover state highlights and focus rings to the remove/delete currency buttons on compare items.
+- [x] Apply hover state highlights and focus rings to the remove/delete currency buttons on compare items.
 
 ---
 

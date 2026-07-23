@@ -20,7 +20,7 @@ export const Actions = ({
 
       <LoginTrigger
         popoverTarget="add-compare-dialog"
-        className="bg-card p-2 rounded-lg [anchor-name:--add-compare]"
+        className="bg-card p-2 rounded-lg [anchor-name:--add-compare] action-btn"
         description="Login to use the add currency to compare list feature and many more options."
       >
         <SROnly>Add currency to compare list</SROnly>

@@ -14,38 +14,37 @@ body {
   font-family: var(--font-sans), sans-serif;
 }
 
-button {
-  cursor: pointer;
+@layer base {
+  button {
+    cursor: pointer;
 
-  &:disabled {
-    cursor: not-allowed;
-  }
-}
-
-dialog {
-  @apply scale-90;
-  &,
-  &::backdrop {
-    @apply opacity-0;
-    transition:
-      opacity 400ms ease,
-      scale 400ms ease-in;
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 
-  &[popover],
-  &:open {
-    @apply scale-100;
+  dialog {
+    @apply scale-90;
     &,
     &::backdrop {
-      @apply opacity-100;
-      @starting-style {
-        @apply opacity-0 scale-90;
+      @apply opacity-0;
+      transition:
+        opacity 400ms ease,
+        scale 400ms ease-in;
+    }
+
+    &[popover],
+    &:open {
+      @apply scale-100;
+      &,
+      &::backdrop {
+        @apply opacity-100;
+        @starting-style {
+          @apply opacity-0 scale-90;
+        }
       }
     }
   }
-}
-
-@layer base {
   a,
   button {
     &:focus-visible {
@@ -60,11 +59,12 @@ dialog {
   }
 }
 
-@layer utilities {
-  .action-btn {
-    @apply transition-transform duration-200;
-    &:active {
-      @apply scale-95;
-    }
+@utility action-btn {
+  @apply transition-transform duration-200;
+  &:active {
+    @apply scale-95;
+  }
+  &:focus {
+    @apply scale-102;
   }
 }
