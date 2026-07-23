@@ -12,7 +12,7 @@ export const SignInTrigger = ({
   return (
     <button
       type="button"
-      {...{ ...props, popoverTarget: "sign-in-dialog" }}
+      {...{ ...props, commandfor: "sign-in-dialog", command: "show-modal" }}
       onClick={() =>
         setDescriptions({
           title: title ?? descs.title,

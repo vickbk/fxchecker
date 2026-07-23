@@ -76,10 +76,13 @@ export function CurrencyPicker({
         >
           {filteredCurrencies.length > 0 ? (
             filteredCurrencies.map((currency, index) => (
-              <li key={currency.code}>
+              <li
+                role="option"
+                aria-selected={index === highlightedIndex}
+                key={currency.code}
+              >
                 <label
                   id={`${inputId}-${index}`}
-                  aria-selected={index === highlightedIndex}
                   onMouseEnter={() => handleMouseEnter(index)}
                   className={`flex w-full items-center justify-between px-3 py-2 text-left ${
                     index === highlightedIndex ? "bg-slate-100" : ""

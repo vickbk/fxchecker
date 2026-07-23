@@ -1,9 +1,10 @@
+import { Currency } from "@/infra/api/frankfurter";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
 import { CurrencyPicker } from "./CurrencyPicker";
 
-const currencies: CurrencyOption[] = [
+const currencies: Currency[] = [
   { code: "USD", name: "US Dollar", symbol: "$" },
   { code: "EUR", name: "Euro", symbol: "€" },
   { code: "CHF", name: "Swiss Franc", symbol: "CHF" },
@@ -37,6 +38,9 @@ describe("CurrencyPicker", () => {
 
     expect(combobox).toHaveAttribute("aria-expanded", "true");
     expect(screen.getByRole("listbox")).toBeInTheDocument();
+
+    const firstRadio = screen.getByRole("radio", { name: /US Dollar/i });
+    expect(firstRadio).toBeInTheDocument();
 
     await user.keyboard("{ArrowDown}{ArrowDown}");
     expect(screen.getAllByRole("option")[1]).toHaveAttribute(

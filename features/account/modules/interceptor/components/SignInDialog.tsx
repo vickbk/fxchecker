@@ -13,15 +13,12 @@ export const SignInDialog = () => {
     <dialog
       closedby="any"
       id="sign-in-dialog"
-      popover=""
       className="[position-anchor:none] m-auto p-6 max-w-md bg-background-secondary/95 border border-card shadow-2xl backdrop:backdrop-blur-sm rounded-lg text-center normal-case"
-      onToggle={(e) => {
-        if (e.newState === "closed") {
-          setTimeout(
-            () => setDescriptions({ title: undefined, description: undefined }),
-            200,
-          );
-        }
+      onClose={() => {
+        setTimeout(
+          () => setDescriptions({ title: undefined, description: undefined }),
+          200,
+        );
       }}
     >
       <Header className="space-y-1">

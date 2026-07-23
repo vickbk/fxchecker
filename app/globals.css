@@ -27,18 +27,21 @@ body {
     @apply scale-90;
     &,
     &::backdrop {
-      @apply opacity-0;
+      @apply opacity-0 scale-0;
       transition:
         opacity 400ms ease,
         scale 400ms ease-in;
+      @starting-style {
+        @apply opacity-100 scale-100 block;
+      }
     }
 
-    &[popover],
+    &:popover-open,
     &:open {
       @apply scale-100;
       &,
       &::backdrop {
-        @apply opacity-100;
+        @apply opacity-100 scale-100;
         @starting-style {
           @apply opacity-0 scale-90;
         }
@@ -51,7 +54,7 @@ body {
       @apply outline outline-lime-500;
     }
   }
-  *[popover] {
+  *:popover-open {
     @apply bg-background-secondary text-foreground;
     position-anchor: auto;
     position-area: bottom span-right;

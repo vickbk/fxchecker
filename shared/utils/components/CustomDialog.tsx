@@ -1,3 +1,4 @@
+"use client";
 import {
   type DialogHTMLAttributes,
   forwardRef,
@@ -46,4 +47,4 @@ const CustomDialog = forwardRef<HTMLDialogElement, DialogProps>(
 
 CustomDialog.displayName = "CustomDialog";
 
-export default CustomDialog;
+export { CustomDialog };
