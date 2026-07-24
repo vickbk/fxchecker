@@ -76,26 +76,32 @@ export function CurrencyPicker({
         >
           {filteredCurrencies.length > 0 ? (
             filteredCurrencies.map((currency, index) => (
-              <li key={currency.code}>
-                <button
+              <li
+                role="option"
+                aria-selected={index === highlightedIndex}
+                key={currency.code}
+              >
+                <label
                   id={`${inputId}-${index}`}
-                  type="button"
-                  role="option"
-                  aria-selected={index === highlightedIndex}
                   onMouseEnter={() => handleMouseEnter(index)}
-                  onClick={() => {
-                    handleMouseEnter(index);
-                    selectHighlighted();
-                  }}
                   className={`flex w-full items-center justify-between px-3 py-2 text-left ${
                     index === highlightedIndex ? "bg-slate-100" : ""
                   }`}
                 >
+                  <input
+                    type="radio"
+                    name="select-currency"
+                    value={currency.code}
+                    onChange={(e) => {
+                      if (e.target.checked) handleMouseEnter(index);
+                      selectHighlighted();
+                    }}
+                  />
                   <span>{currency.code}</span>
                   <span className="text-sm text-slate-500">
                     {currency.name}
                   </span>
-                </button>
+                </label>
               </li>
             ))
           ) : (

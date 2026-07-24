@@ -14,42 +14,60 @@ body {
   font-family: var(--font-sans), sans-serif;
 }
 
-button {
-  cursor: pointer;
+@layer base {
+  button {
+    cursor: pointer;
 
-  &:disabled {
-    cursor: not-allowed;
-  }
-}
-
-dialog {
-  @apply scale-90;
-  &,
-  &::backdrop {
-    @apply opacity-0;
-    transition:
-      opacity 400ms ease,
-      scale 400ms ease-in;
+    &:disabled {
+      cursor: not-allowed;
+    }
   }
 
-  &[popover],
-  &:open {
-    @apply scale-100;
+  dialog {
+    @apply scale-90;
     &,
     &::backdrop {
-      @apply opacity-100;
+      @apply opacity-0 scale-0;
+      transition:
+        opacity 400ms ease,
+        scale 400ms ease-in;
       @starting-style {
-        @apply opacity-0 scale-90;
+        @apply opacity-100 scale-100 block;
+      }
+    }
+
+    &:popover-open,
+    &:open {
+      @apply scale-100;
+      &,
+      &::backdrop {
+        @apply opacity-100 scale-100;
+        @starting-style {
+          @apply opacity-0 scale-90;
+        }
       }
     }
   }
-}
-
-@layer base {
-  *[popover] {
+  a,
+  button {
+    &:focus-visible {
+      @apply outline outline-lime-500;
+    }
+  }
+  *:popover-open {
     @apply bg-background-secondary text-foreground;
     position-anchor: auto;
     position-area: bottom span-right;
     position-try: flip-block;
+  }
+}
+
+@utility action-btn {
+  @apply transition-transform duration-200;
+  &:active {
+    @apply scale-95;
+  }
+  &:focus {
+    @apply scale-102;
   }
 }

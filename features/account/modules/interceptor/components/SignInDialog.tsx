@@ -13,15 +13,12 @@ export const SignInDialog = () => {
     <dialog
       closedby="any"
       id="sign-in-dialog"
-      popover=""
       className="[position-anchor:none] m-auto p-6 max-w-md bg-background-secondary/95 border border-card shadow-2xl backdrop:backdrop-blur-sm rounded-lg text-center normal-case"
-      onToggle={(e) => {
-        if (e.newState === "closed") {
-          setTimeout(
-            () => setDescriptions({ title: undefined, description: undefined }),
-            200,
-          );
-        }
+      onClose={() => {
+        setTimeout(
+          () => setDescriptions({ title: undefined, description: undefined }),
+          200,
+        );
       }}
     >
       <Header className="space-y-1">
@@ -33,7 +30,7 @@ export const SignInDialog = () => {
 
       <LoadingSubmit
         text="Signing in with Google..."
-        className="my-4 w-full cursor-pointer inline-flex items-center justify-center gap-3 px-4 py-3 rounded-md shadow-sm transition-transform transform hover:scale-[1.02] active:scale-[0.98] focus:outline-none focus-visible:ring-2 focus-visible:ring-lime-500 bg-linear-to-br from-red-500 to-green-500 text-slate-900 font-medium"
+        className="my-4 w-full cursor-pointer inline-flex items-center justify-center border-2 border-background gap-3 px-4 py-3 rounded-md shadow-sm transition-transform transform hover:scale-[1.02] active:scale-[0.98] focus-visible:outline focus-visible:outline-lime-500 bg-linear-to-br from-red-500 to-green-500 text-slate-900 font-medium"
       >
         <BiIcon name="google" />
         Sign in with Google

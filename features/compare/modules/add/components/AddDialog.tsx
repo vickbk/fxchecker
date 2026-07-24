@@ -15,7 +15,7 @@ export const AddDialog = ({ action }: { action: (form: FormData) => void }) => {
       </Heading>
       <CurrencyList />
       <LoadingSubmit
-        className="p-2 px-4 rounded-lg bg-lime-500 text-background"
+        className="p-2 px-4 rounded-lg action-btn bg-lime-500 text-background add-compare__submit"
         text="Saving selection..."
       >
         Save selection <BiIcon name="floppy" />

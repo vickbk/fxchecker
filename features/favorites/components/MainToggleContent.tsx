@@ -17,7 +17,7 @@ export const MainToggleContent = ({
       <input type="hidden" name="base" value={from} />
       <input type="hidden" name="quote" value={to} />
       <SignInInterceptor
-        className="uppercase flex w-full gap-2 p-4 bg-lime-500 rounded-lg text-background"
+        className="uppercase flex w-full gap-2 p-4 bg-lime-500 hover:bg-lime-500/90 border-2 action-btn border-background-secondary rounded-lg text-background"
         type="submit"
         disabled={pending}
         description="Login to save this currency pair to your personalized favorites list."

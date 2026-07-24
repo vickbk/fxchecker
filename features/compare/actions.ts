@@ -9,6 +9,7 @@ import { cx_compare } from "./db/schema";
 import { resolveCompareList } from "./utils";
 
 const compareCache = new SWREngine({ ttlMs: parseTimeToMs("30m") });
+const compareKeyPrefix = "compare-list-";
 
 export async function updateCompareList(newList: string[]) {
   const session = await auth();
@@ -25,7 +26,7 @@ export async function updateCompareList(newList: string[]) {
         target: cx_compare.userId,
         set: { currencyList: newList },
       });
-    compareCache.clearKey("compare-" + userId);
+    compareCache.clearKey(compareKeyPrefix + userId);
     return true;
   } catch (error) {
     console.error(error);
@@ -38,7 +39,7 @@ export async function myCompareList(base = "USD") {
     const userId = await assertAuthenticated();
 
     const compareList = await compareCache.execute(
-      `compare-list-${userId}`,
+      `${compareKeyPrefix}${userId}`,
       async () =>
         await db.query.cx_compare.findFirst({
           where: eq(cx_compare.userId, userId),

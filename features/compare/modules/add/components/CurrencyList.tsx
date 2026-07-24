@@ -8,11 +8,11 @@ export const CurrencyList = () => {
   const { filtered, setQuery, currencies } = useCurrencyList();
 
   return (
-    <fieldset className="flex flex-col gap-2 max-h-104 min-h-78 max-w-full overflow-y-auto py-4 add-compare__list">
-      <label className="block sticky -top-4 bg-card p-4">
-        <SROnly>Search query</SROnly>
+    <fieldset className="flex flex-col gap-2 max-h-104 min-h-78 max-w-full overflow-y-auto py-4 add-compare__list p-2">
+      <label className="block sticky -top-4 bg-card">
+        <SROnly>Enter currency name</SROnly>
         <input
-          className="w-full p-2 outline outline-background"
+          className="w-full p-2 outline outline-background-secondary hover:outline-background focus:outline-lime-500"
           type="text"
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for a currency of your interest"
@@ -36,7 +36,7 @@ export const CurrencyList = () => {
             <Flag country={getCurrencyCountry(code)} alt="" />
             <span className="grid gap mr-auto">
               {code} ({symbol}){" "}
-              <span className="text-foreground-secondary truncate max-w-50">
+              <span className="text-foreground-secondary truncate max-w-50 text-sm">
                 {name}
               </span>{" "}
             </span>

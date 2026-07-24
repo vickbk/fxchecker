@@ -1,7 +1,7 @@
-export { CurrencyCardContainer } from "./CurrencyCardContainer";
-
 export { BiIcon } from "./bi-icon";
 export { CurrencyCard } from "./CurrencyCard";
+export { CurrencyCardContainer } from "./CurrencyCardContainer";
+export { CustomDialog } from "./CustomDialog";
 export { EmptySection } from "./EmptySection";
 export { Flag } from "./Flag";
 export { LoadingPlaceholder } from "./LoadingPlaceholder";
