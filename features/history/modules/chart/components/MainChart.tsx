@@ -22,7 +22,7 @@ export const MainChart = ({ rates }: { rates: FrankfurterRate[] }) => {
       />
     );
   return (
-    <div className="h-64 md:h-72 p-4 border border-dashed border-card rounded-lg text-foreground-secondary text-sm">
+    <div className="h-64 md:h-72 py-4 border border-dashed border-card rounded-lg text-foreground-secondary text-sm">
       <ResponsiveContainer width={"100%"} height={"100%"}>
         <AreaChart
           data={rates}
@@ -57,6 +57,7 @@ export const MainChart = ({ rates }: { rates: FrankfurterRate[] }) => {
             domain={["auto", "auto"]}
             axisLine={false}
             tickLine={false}
+            width={80}
             tick={{ fill: "var(--color-foreground-secondary)", fontSize: 12 }}
           />
           <Tooltip content={<CustomToolTip />} />
