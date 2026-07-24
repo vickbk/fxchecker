@@ -160,4 +160,32 @@ describe("shared/cache/SWREngine", () => {
 
     expect(fetchFn).toHaveBeenCalledTimes(1);
   });
+  it("clearKeys clears multiple keys while keeping unrelated keys", async () => {
+    const engine = new SWREngine({ ttlMs: 1000 });
+    const first = { a: 1 };
+    await engine.execute("keep", () => Promise.resolve(first));
+    await engine.execute("clear-1", () => Promise.resolve(first));
+    await engine.execute("clear-2", () => Promise.resolve(first));
+
+    engine.clearKeys("clear-1", "clear-2");
+
+    const fetchFn = vi.fn(() => Promise.resolve({ a: 2 }));
+    const keep = await engine.execute(
+      "keep",
+      fetchFn as unknown as () => Promise<{ a: number }>,
+    );
+    const clear1 = await engine.execute(
+      "clear-1",
+      fetchFn as unknown as () => Promise<{ a: number }>,
+    );
+    const clear2 = await engine.execute(
+      "clear-2",
+      fetchFn as unknown as () => Promise<{ a: number }>,
+    );
+    expect(keep).toEqual({ a: 1 });
+    expect(clear1).toEqual({ a: 2 });
+    expect(clear2).toEqual({ a: 2 });
+
+    expect(fetchFn).toHaveBeenCalledTimes(2);
+  });
 });
