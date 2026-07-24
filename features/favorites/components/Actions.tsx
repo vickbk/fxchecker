@@ -20,7 +20,7 @@ export const Actions = ({
       </dl>
       <SignInInterceptor
         popoverTarget="clear-favorite-prompt"
-        className="p-2 bg-card rounded-lg"
+        className="p-2 bg-card rounded-lg action-btn hover:outline hover:outline-foreground-secondary"
       >
         <SROnly>Clear all favorites</SROnly>
         <BiIcon name="trash" />

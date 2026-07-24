@@ -8,7 +8,7 @@ import { EmptyHistory } from "./EmptyHistory";
 export const Graph = async ({
   from = "USD",
   to = "EUR",
-  period = "1D",
+  period = "3M",
 }: HistorySearchParams) => {
   const rates = await loadHistoricalRates({ from, to, period });
 

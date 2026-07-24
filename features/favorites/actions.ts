@@ -39,7 +39,7 @@ export async function toggleFavorite({ base, quote }: FavoritePair) {
         target: exFavorites.userId,
         set: { favoritePairs },
       });
-    favoriteCache.clearKey(`favorites-${userId}`);
+    favoriteCache.clearKeys(`favorites-${userId}`, "all-favorites");
     revalidateAllPaths();
     return { success: true };
   } catch (error) {
@@ -58,7 +58,7 @@ export async function clearAllFavorites() {
         target: exFavorites.userId,
         set: { favoritePairs: [] },
       });
-    favoriteCache.clearKey(`favorites-${userId}`);
+    favoriteCache.clearKeys(`favorites-${userId}`, "all-favorites");
     revalidateAllPaths();
     return { success: true };
   } catch (error) {

@@ -9,10 +9,10 @@ export const MobileOption = ({ text, children }: OptionProps) => {
 
   return (
     <li
-      className={`p-4 rounded-lg bg-card ${isActive ? "outline text-lime-500" : ""}`}
+      className={`p-4 rounded-lg bg-card focus-within:outline focus-within:outline-lime-500 ${isActive ? "outline text-lime-500" : ""}`}
     >
       <Link
-        className="block"
+        className="flex justify-between items-center focus-visible:outline-none"
         ref={closeDialog}
         href={`/${isHistory ? "" : text}${queryString && "?" + queryString}`}
       >

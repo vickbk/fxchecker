@@ -15,7 +15,7 @@ export const ExportToCSV = ({
       type="button"
       onClick={() => handleCSVExport(logs)}
       description="Login to download your conversion history as a CSV file."
-      className="bg-card text-foreground-secondary p-2 rounded-lg"
+      className="bg-card text-foreground-secondary p-2 rounded-lg action-btn outline outline-transparent hover:outline-foreground-secondary focus-visible:outline-lime-500"
     >
       Export to CSV <BiIcon name="folder" />
     </SignInInterceptor>

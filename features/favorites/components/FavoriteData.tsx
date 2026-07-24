@@ -34,7 +34,7 @@ export const FavoriteData = async ({
       </dl>
       <form className="z-1" action={removeAction as (form: FormData) => void}>
         <SignInInterceptor
-          className="p-2 rounded-lg border border-lime-500"
+          className="p-2 rounded-lg border border-lime-500 action-btn hover:bg-lime-500/10"
           type="submit"
         >
           <SROnly>Remove from favorite</SROnly>

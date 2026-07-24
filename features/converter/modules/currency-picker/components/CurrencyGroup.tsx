@@ -1,0 +1,64 @@
+import { Currency } from "@/infra/api/frankfurter";
+import { BiIcon, Flag, getCurrencyCountry } from "@/shared/utils";
+import { SRHidden } from "@/shared/utils/components/SRHidden";
+
+export const CurrencyGroup = ({
+  title,
+  currencies,
+  popover,
+  actualCurr,
+  choice,
+  setChoice,
+}: {
+  currencies: Currency[];
+  title: string;
+  popover: string;
+  actualCurr: Currency;
+  choice: string;
+  setChoice: (choice: string) => void;
+}) => {
+  return (
+    <fieldset>
+      <legend className="w-full flex justify-between border-b border-foreground-secondary py-4 text-foreground-secondary sticky top-1 z-1 bg-btn">
+        {title} <span> {currencies.length}</span>
+      </legend>
+      <div className="mt-4 w-64 p-1">
+        {
+          <>
+            {currencies.map(({ name, code }) => (
+              <label
+                key={code}
+                className="relative rounded-lg flex gap-2 text-sm text-foreground-secondary items-center p-2 w-full hover:outline hover:outline-foreground-secondary has-focus-visible:outline has-focus-visible:outline-lime-500 action-btn cursor-pointer"
+              >
+                <input
+                  type="radio"
+                  name="convert-currency"
+                  className="absolute scale-0 opacity-0"
+                  onChange={(e) => {
+                    if (e.target.checked) {
+                      setChoice(code);
+                    }
+                  }}
+                  onKeyDown={(e) => {
+                    if ([" ", "Enter"].includes(e.key))
+                      document.getElementById(popover)?.hidePopover();
+                  }}
+                  onClick={(e) => {
+                    if (e.detail !== 0)
+                      document.getElementById(popover)?.hidePopover();
+                  }}
+                />
+                <Flag alt="" country={getCurrencyCountry(code)} />{" "}
+                <SRHidden className="text-lg text-foreground">{code}</SRHidden>{" "}
+                <span className="truncate max-w-48">{name}</span>
+                {(code === actualCurr.code || code === choice) && (
+                  <BiIcon name="check text-lg ml-auto" />
+                )}
+              </label>
+            ))}
+          </>
+        }
+      </div>
+    </fieldset>
+  );
+};

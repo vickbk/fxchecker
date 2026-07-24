@@ -14,7 +14,7 @@ const timePeriods = [
 export const Menue = ({
   from = "USD",
   to = "EUR",
-  period = "1D",
+  period = "3M",
 }: HistorySearchParams) => {
   const searchParams = new URLSearchParams({ from, to, period });
 

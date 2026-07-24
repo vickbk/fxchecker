@@ -79,4 +79,8 @@ export class SWREngine {
     this.cache.delete(key);
     this.inFlightPromises.delete(key);
   }
+
+  public clearKeys(...keys: string[]) {
+    keys.forEach((key) => this.clearKey(key));
+  }
 }

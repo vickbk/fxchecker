@@ -1,5 +1,5 @@
 import { Heading } from "@/shared/heading";
-import { ConfirmDelete } from "./ConfirmDelete";
+import { BiIcon, LoadingSubmit } from "@/shared/utils";
 
 export const CompareDelete = ({
   quote,
@@ -24,8 +24,17 @@ export const CompareDelete = ({
         Are you sure you want to delete {quote} ({name}) from your compare list?
       </p>
       <fieldset className="flex justify-center items-center gap-4">
-        <ConfirmDelete />
-        <button type="button" popoverTarget={"delete-" + quote}>
+        <LoadingSubmit
+          text="Deleting..."
+          className="bg-lime-500 text-background p-2 rounded-lg action-btn"
+        >
+          Confirm <BiIcon name="trash" />
+        </LoadingSubmit>
+        <button
+          className="action-btn"
+          type="button"
+          popoverTarget={"delete-" + quote}
+        >
           Cancel
         </button>
       </fieldset>

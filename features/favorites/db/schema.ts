@@ -1,4 +1,5 @@
 import { users } from "@/infra/core";
+import { FavoriteEntry } from "@/shared/currencies";
 import { pgTable, text, uuid } from "drizzle-orm/pg-core";
 
 export const exFavorites = pgTable("ex_favorites", {
@@ -7,5 +8,9 @@ export const exFavorites = pgTable("ex_favorites", {
     .references(() => users.id, { onDelete: "cascade" }),
 
   // Stores stringified tuplets formatted as "BASE-QUOTE" (e.g., ["USD-EUR", "GBP-JPY"])
-  favoritePairs: text("favorite_pairs").array().notNull().default([]),
+  favoritePairs: text("favorite_pairs")
+    .array()
+    .$type<FavoriteEntry[]>()
+    .notNull()
+    .default([]),
 });
