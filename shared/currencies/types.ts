@@ -3,6 +3,7 @@ import { Currency } from "@/infra/api/frankfurter";
 
 export type CurrencyContextType = {
   currencies: Currency[];
+  favorites: string[];
   isLoading: boolean;
   error: Error | null;
 };

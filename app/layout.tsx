@@ -4,7 +4,11 @@ import {
   SignInProvider,
 } from "@/features/account";
 import { ConverterCard } from "@/features/converter";
-import { getFavoritesCount, MainToggleFavorite } from "@/features/favorites";
+import {
+  getAllFavorites,
+  getFavoritesCount,
+  MainToggleFavorite,
+} from "@/features/favorites";
 import { MainHeader } from "@/features/header";
 import { ConversionLogger, getLogsCount } from "@/features/logs";
 import { fetchCurrencies } from "@/infra/api/frankfurter";
@@ -55,7 +59,10 @@ export default function RootLayout({
     <html lang="en" className={`${jetBrains.variable} h-full antialiased`}>
       <body className="min-h-full flex flex-col">
         <SignInProvider>
-          <CurrencyProvider currencies={fetchCurrencies()}>
+          <CurrencyProvider
+            currencies={fetchCurrencies()}
+            favorites={getAllFavorites()}
+          >
             <HeadingCtx value={0}>
               <Main pageHasH1={false}>
                 <MainHeader>
