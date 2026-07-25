@@ -3,6 +3,7 @@ import {
   SignInInterceptor,
   SignInProvider,
 } from "@/features/account";
+import { ChatPopOver } from "@/features/chatbot";
 import { ConverterCard } from "@/features/converter";
 import {
   getAllFavorites,
@@ -65,6 +66,7 @@ export default function Layout({
                 />
                 {children}
               </div>
+              <ChatPopOver />
             </Main>
           </HeadingCtx>
         </CurrencyProvider>

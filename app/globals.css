@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "../shared/theme/styles.css";
 @import "../features/compare/styles.css";
+@import "../features/chatbot/styles.css";
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
 @theme inline {
