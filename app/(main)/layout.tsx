@@ -37,7 +37,7 @@ export default function Layout({
                 <ThemeSwitch />
                 <AuthManager />
               </MainHeader>
-              <div className="max-w-4xl mx-auto sm:py-8">
+              <div className="max-w-5xl mx-auto sm:py-8">
                 <Suspense
                   fallback={
                     <LoadingPlaceholder
