@@ -24,7 +24,7 @@ export const Menue = ({
         <li key={key}>
           <Link
             href={`?${getSearchQuery(searchParams, ["period", key])}`}
-            className={`p-2 hover:bg-card rounded-lg block${key === period ? " bg-card" : ""}`}
+            className={`p-4 hover:bg-card rounded-lg block${key === period ? " bg-card" : ""}`}
           >
             <SROnly>{text}</SROnly>
             <span aria-hidden>{key}</span>
