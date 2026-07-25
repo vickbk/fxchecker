@@ -64,11 +64,11 @@ body {
 }
 
 @utility action-btn {
-  @apply transition-transform duration-200;
+  @apply transition-transform duration-200 border-2 border-transparent;
   &:active {
     @apply scale-95;
   }
-  &:focus {
+  &:focus-visible {
     @apply scale-102;
   }
 }

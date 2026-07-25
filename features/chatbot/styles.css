@@ -1,15 +1,13 @@
 .chat {
-  @apply bg-red-500;
-
   .chat__btn {
-    @apply fixed bottom-4 action-btn right-4 aspect-square px-4 text-background bg-lime-500 rounded-full;
+    @apply fixed bottom-4 action-btn right-4 aspect-square px-3 text-background bg-lime-500 border-background rounded-full;
     & > .chat__close {
       @apply hidden;
     }
   }
 
   .chat__box {
-    @apply bg-background-secondary [position-area:top_span-left] bottom-2 p-4 rounded-lg;
+    @apply bg-background-secondary [position-area:top_span-left] bottom-2 rounded-lg;
 
     &:popover-open {
       & + .chat__btn {

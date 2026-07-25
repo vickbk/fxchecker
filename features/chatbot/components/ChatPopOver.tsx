@@ -1,9 +1,11 @@
 import { BiIcon, SROnly } from "@/shared/utils";
+import { ChatHeader } from "./ChatHeader";
 
 export const ChatPopOver = () => {
   return (
     <div className="chat">
       <article className="chat__box" popover="auto" id="chat-box">
+        <ChatHeader />
         Here is the chat bot box
       </article>
       <button className="chat__btn" type="button" popoverTarget="chat-box">
