@@ -79,6 +79,7 @@ function initConfig(conf: Partial<Config> = {}) {
   process.env.AUTH_GOOGLE_SECRET = "test_google_secret";
   process.env.NEXT_PUBLIC_APP_URL = "http://localhost:3000";
   process.env.DATABASE_URL = "test_db_url";
+  process.env.GOOGLE_GENERATIVE_AI_API_KEY = "test_generative_key";
 
   Object.keys(conf).forEach(
     (key) => (process.env[key] = conf[key as keyof Config] as string),

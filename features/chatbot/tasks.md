@@ -16,9 +16,9 @@
 - **Target**: 2026-07-26
 - **Description**: Create a screen-reader-accessible chat container with mock message bubbles and keyboard-friendly prompt input controls.
 - **Steps**:
-  - [ ] Build `ChatMessageList` wrapped in an `aria-live="polite"` region to ensure streaming LLM token output is announced smoothly to assistive technologies.
-  - [ ] Build `ChatInput` with an auto-resizing text field, submit shortcut handling (Cmd/Ctrl + Enter), and stop generation controls.
-  - [ ] Implement auto-scroll to bottom functionality with a user scroll-lock override when reading previous messages.
+  - [x] Build `ChatMessageList` wrapped in an `aria-live="polite"` region to ensure streaming LLM token output is announced smoothly to assistive technologies.
+  - [x] Build `ChatInput` with an auto-resizing text field, submit shortcut handling (Cmd/Ctrl + Enter), and stop generation controls.
+  - [x] Implement auto-scroll to bottom functionality with a user scroll-lock override when reading previous messages.
 
 ---
 
@@ -42,9 +42,15 @@
 - **Target**: 2026-07-27
 - **Description**: Establish Zod schemas and TypeScript interfaces for all chatbot AI tools to ensure strict parameter validation without cross-feature coupling.
 - **Steps**:
-- Create the tools contract file in `src/features/chatbot/types/tools.ts`.
-- Define Zod schemas for `convert_currency`, `compare_currencies`, `get_rate_history`, `get_live_ticker`, `search_currencies`, `manage_favorites`, and `get_conversion_logs`.
-- Export strongly typed input and output interfaces for server tool execution handlers.
+- [x] Create the tools contract file in `src/features/chatbot/types/tools.ts`.
+- Define Zod schemas for:
+  - [x] `convert_currency`,
+  - [x] `compare_currencies`,
+  - [x] `get_rate_history`,
+  - [x] `search_currencies`,
+  - [ ] `manage_favorites`, and
+  - [ ] `get_conversion_logs`.
+- [ ] Export strongly typed input and output interfaces for server tool execution handlers.
 
 - [ ] **5. Implement Server-Side Tool Execution Handlers & Generative UI**
 - **Status**: ⏳ Todo

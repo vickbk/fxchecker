@@ -10,6 +10,10 @@ import {
   toUIMessageStream,
   type UIMessage,
 } from "ai";
+import { compare_currencies } from "./tools/compare-currencies";
+import { convert_currency } from "./tools/convert-currency";
+import { get_rate_history } from "./tools/get-rate-history";
+import { get_currencies, search_currency } from "./tools/search-currencies";
 import { getPromptWithContext } from "./utils/prompts-helpers";
 
 export async function chat(messages: UIMessage[]) {
@@ -19,7 +23,13 @@ export async function chat(messages: UIMessage[]) {
       messages: await convertToModelMessages(messages),
       system: getPromptWithContext(),
       stopWhen: stepCountIs(5),
-      tools: {},
+      tools: {
+        convert_currency,
+        compare_currencies,
+        get_rate_history,
+        search_currency,
+        get_currencies,
+      },
     });
 
     return createUIMessageStreamResponse({ stream: toUIMessageStream(result) });
