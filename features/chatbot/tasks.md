@@ -13,7 +13,7 @@
 
 - [ ] **2. Build Accessible Message Stream & Input Frame**
 - **Status**: 🚀 Doing
-- **Target**: 2026-07-25
+- **Target**: 2026-07-26
 - **Description**: Create a screen-reader-accessible chat container with mock message bubbles and keyboard-friendly prompt input controls.
 - **Steps**:
   - [ ] Build `ChatMessageList` wrapped in an `aria-live="polite"` region to ensure streaming LLM token output is announced smoothly to assistive technologies.

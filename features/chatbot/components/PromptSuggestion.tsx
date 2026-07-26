@@ -8,7 +8,7 @@ const QUICK_PROMPTS = [
 
 export const PromptSuggestion = () => {
   return (
-    <div className="flex items-center justify-center p-2 flex-wrap gap-1.5 overflow-x-auto no-scrollbar pb-1 text-xs">
+    <div className="flex items-center justify-center p-2 m-auto flex-wrap gap-1.5 overflow-x-auto no-scrollbar pb-1 text-xs">
       {QUICK_PROMPTS.map((prompt) => (
         <button
           key={prompt}

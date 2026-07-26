@@ -19,7 +19,10 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
+    "@ai-sdk/google": "^4.0.24",
+    "@ai-sdk/react": "^4.0.40",
     "@vercel/speed-insights": "^2.0.0",
+    "ai": "^7.0.37",
     "bootstrap-icons": "^1.13.1",
     "drizzle-orm": "^0.45.2",
     "next": "16.2.10",
@@ -27,6 +30,7 @@
     "pg": "^8.22.0",
     "react": "19.2.7",
     "react-dom": "19.2.7",
+    "react-markdown": "^10.1.0",
     "recharts": "^3.9.2",
     "zod": "^4.4.3"
   },
