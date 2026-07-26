@@ -7,7 +7,9 @@
   }
 
   .chat__box {
-    @apply bg-background-secondary w-full max-w-xs [position-area:left_span-top] right-2 rounded-lg;
+    @apply bg-background-secondary w-full max-h-[80vh] overflow-y-auto max-w-xs right-2 rounded-lg;
+
+    position-area: left span-top;
 
     &:popover-open {
       & + .chat__btn {

@@ -2,17 +2,16 @@
 
 import { BiIcon, joinClasses } from "@/shared/utils";
 import { UIMessage } from "ai";
-import { RefObject } from "react";
 import ReactMarkdown from "react-markdown";
-import { getMessageText } from "../utils";
+import { getMessageText, scrollIntoView } from "../utils";
 import { MarkDown } from "./Markdown";
 
 export const MessageBubble = ({
   message,
-  scrollRef,
+  isLast,
 }: {
   message: UIMessage;
-  scrollRef?: RefObject<HTMLDivElement>;
+  isLast?: boolean;
 }) => {
   const isUser = message.role === "user";
   const messageText = getMessageText(message).trim();
@@ -25,7 +24,7 @@ export const MessageBubble = ({
         "flex gap-3 max-w-[85%]",
         isUser && "ml-auto flex-row-reverse",
       )}
-      ref={scrollRef}
+      ref={isLast ? scrollIntoView : null}
     >
       <div
         className={joinClasses(
@@ -37,11 +36,12 @@ export const MessageBubble = ({
       </div>
       <div
         className={joinClasses(
-          "p-3 rounded-2xl text-sm",
+          "p-3 rounded-2xl text-sm max-w-[85%]",
           isUser
-            ? "bg-lime-500 text-background rounded-tr-none"
+            ? "bg-lime-500/80 text-background rounded-tr-none"
             : "bg-btn rounded-tl-none border border-card",
         )}
+        aria-live={isLast && !isUser ? "polite" : undefined}
       >
         <ReactMarkdown components={MarkDown()}>{messageText}</ReactMarkdown>
       </div>

@@ -6,7 +6,7 @@ import { sendAutomaticallyWhen } from "../utils/for-hooks";
 export function useChatBot() {
   const [error, setError] = useState<string | null>(null);
   //   const { persistedMessages, clearHistory } = useStoredMessages();
-  const { sendMessage, status, messages } = useChat({
+  const { sendMessage, status, messages, stop } = useChat({
     onError: (err) => {
       if ("status" in err && err.status === 429) {
         setError("FinBot is at capacity. Please wait a moment...");
@@ -29,6 +29,7 @@ export function useChatBot() {
   return {
     isLoading,
     handleSubmit,
+    stop,
     messages,
     error,
     sendMessage: useCallback(

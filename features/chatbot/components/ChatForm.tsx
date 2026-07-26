@@ -6,13 +6,14 @@ export const ChatForm = ({
 }: {
   isLoading: boolean;
   handleSubmit: (formdata: FormData) => void;
+  stop: () => void;
 }) => {
   return (
     <form
-      className="flex [align-items:start] justify-end gap-2 p-2 sticky bottom-0"
+      className="flex bg-background-secondary [align-items:start] justify-end gap-2 p-2 sticky bottom-0"
       action={handleSubmit}
     >
-      <label className="relative flex-1 bg-muted/50 focus-within:bg-background border border-border focus-within:border-primary/50 focus-within:ring-2 focus-within:ring-primary/20 rounded-xl transition-all">
+      <label className="relative flex-1 transition-all">
         <SROnly>Chat input prompt</SROnly>
         <textarea
           // ref={textareaRef}
@@ -24,7 +25,7 @@ export const ChatForm = ({
           name="text"
           placeholder="Ask FINBOT about rates, trends, conversions..."
           disabled={isLoading}
-          className="w-full p-2 bg-transparent text-sm text-foreground placeholder:text-muted-foreground focus:outline-none resize-none max-h-30 min-h-10"
+          className="w-full p-2 py-4 rounded-lg outline focus-visible:outline-lime-500 text-sm text-foreground placeholder:text-muted-foreground resize-none max-h-30 min-h-10 scrollbar-none"
         />
       </label>
 

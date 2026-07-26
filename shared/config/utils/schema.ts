@@ -37,5 +37,9 @@ export const configSchema = z.object({
     })
     .min(1, "DATABASE_URL cannot be empty"),
   DATABASE_MAX_CONNECTIONS: z.number().default(10),
+  GEMINI_VERSION: z.string().default("gemini-3.1-flash-lite-preview"),
+  GOOGLE_GENERATIVE_AI_API_KEY: z.string(
+    "GOOGLE_GENERATIVE_AI_API_KEY cannot be empty",
+  ),
   ...clientSchema.shape,
 });

@@ -22,6 +22,12 @@ const getServerConfig = (): Config => {
     DATABASE_MAX_CONNECTIONS: process.env.DATABASE_MAX_CONNECTIONS
       ? parseInt(process.env.DATABASE_MAX_CONNECTIONS, 10)
       : undefined,
+    GOOGLE_GENERATIVE_AI_API_KEY: buildRequired(
+      isBuildPhase,
+      process.env.GOOGLE_GENERATIVE_AI_API_KEY,
+    ),
+    GEMINI_VERSION: process.env.GEMINI_VERSION,
+
     ...getClientConfig(),
   });
 
