@@ -1,0 +1,38 @@
+@utility thinking {
+  @apply flex gap-1 items-center;
+
+  .thinking__dot {
+    @apply p-1 bg-foreground-secondary rounded-full animate-bounce;
+
+    &:nth-child(2) {
+      animation-delay: -0.2s;
+    }
+    &:last-child {
+      animation-delay: -0.4s;
+    }
+  }
+}
+
+@utility chat-bubble {
+  @apply flex gap-3 max-w-[85%];
+
+  .chat-bubble__avatar {
+    @apply w-7 h-7 rounded-full flex items-center justify-center shrink-0 bg-lime-500 text-background;
+  }
+
+  .chat-bubble__content {
+    @apply p-3 rounded-2xl text-sm max-w-[85%] bg-btn rounded-tl-none border border-card;
+  }
+
+  &.chat-bubble--user {
+    @apply ml-auto flex-row-reverse;
+
+    .chat-bubble__avatar {
+      @apply bg-btn text-foreground;
+    }
+
+    .chat-bubble__content {
+      @apply bg-lime-500/80 text-background rounded-tl-2xl rounded-tr-none;
+    }
+  }
+}

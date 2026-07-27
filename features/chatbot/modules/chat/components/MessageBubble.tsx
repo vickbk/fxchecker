@@ -20,27 +20,14 @@ export const MessageBubble = ({
 
   return (
     <div
-      className={joinClasses(
-        "flex gap-3 max-w-[85%]",
-        isUser && "ml-auto flex-row-reverse",
-      )}
+      className={joinClasses("chat-bubble", isUser && "chat-bubble--user")}
       ref={isLast ? scrollIntoView : null}
     >
-      <div
-        className={joinClasses(
-          "w-7 h-7 rounded-full flex items-center justify-center shrink-0",
-          isUser ? "bg-btn" : "bg-lime-500 text-background",
-        )}
-      >
+      <div className={"chat-bubble__avatar"}>
         {isUser ? <BiIcon name="person-fill" /> : <BiIcon name="robot" />}
       </div>
       <div
-        className={joinClasses(
-          "p-3 rounded-2xl text-sm max-w-[85%]",
-          isUser
-            ? "bg-lime-500/80 text-background rounded-tr-none"
-            : "bg-btn rounded-tl-none border border-card",
-        )}
+        className="chat-bubble__content"
         aria-live={isLast && !isUser ? "polite" : undefined}
       >
         <ReactMarkdown components={MarkDown()}>{messageText}</ReactMarkdown>

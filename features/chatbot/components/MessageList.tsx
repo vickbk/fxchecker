@@ -1,15 +1,18 @@
 import { UIDataTypes, UIMessage, UITools } from "ai";
 import { MessageBubble } from "../modules/chat";
+import { ThinkingBubble } from "../modules/chat/components/ThinkingBubble";
 import { PromptSuggestion } from "./PromptSuggestion";
 
 export const MessageList = ({
   messages,
   sendMessage,
   error,
+  isLoading,
 }: {
   messages: UIMessage<unknown, UIDataTypes, UITools>[];
   sendMessage: (text: string) => void;
   error: string | null;
+  isLoading: boolean;
 }) => {
   const { length } = messages;
   return (
@@ -22,6 +25,7 @@ export const MessageList = ({
           isLast={index === length - 1}
         />
       ))}
+      {isLoading && <ThinkingBubble />}
       {error && (
         <p className="p-2 bg-card text-red-500 text-center mt-auto rounded-lg">
           {error}
