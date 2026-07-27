@@ -1,4 +1,6 @@
 import { chat } from "@/features/chatbot";
+import { manage_favorites } from "@/features/favorites";
+import { manage_conversion_logs } from "@/features/logs";
 
 /**
  * Vercel AI SDK Chat API Route Handler.
@@ -15,5 +17,8 @@ import { chat } from "@/features/chatbot";
  */
 export async function POST(req: Request) {
   const { messages } = await req.json();
-  return chat(messages);
+  return chat({
+    messages,
+    tools: { manage_conversion_logs, manage_favorites },
+  });
 }

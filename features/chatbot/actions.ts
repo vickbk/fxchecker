@@ -7,6 +7,7 @@ import {
   createUIMessageStreamResponse,
   stepCountIs,
   streamText,
+  Tool,
   toUIMessageStream,
   type UIMessage,
 } from "ai";
@@ -16,7 +17,13 @@ import { get_rate_history } from "./tools/get-rate-history";
 import { get_currencies, search_currency } from "./tools/search-currencies";
 import { buildSystemPrompt } from "./utils/prompts-helpers";
 
-export async function chat(messages: UIMessage[]) {
+export async function chat({
+  messages,
+  tools,
+}: {
+  messages: UIMessage[];
+  tools?: Record<string, Tool>;
+}) {
   try {
     const result = await streamText({
       model: google(config.GEMINI_VERSION),
@@ -24,6 +31,7 @@ export async function chat(messages: UIMessage[]) {
       system: buildSystemPrompt(),
       stopWhen: stepCountIs(5),
       tools: {
+        ...tools,
         convert_currency,
         compare_currencies,
         get_rate_history,
