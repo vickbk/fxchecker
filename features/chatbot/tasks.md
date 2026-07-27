@@ -57,8 +57,8 @@
 - **Target**: 2026-07-27
 - **Description**: Connect Zod tool schemas to shared infrastructure services and build inline generative UI card renderers inside message bubbles.
 - **Steps**:
-- Create server tool handlers in `src/features/chatbot/server/tools.ts` using the Vercel AI SDK.
-- Bind tool executions to shared rate services in `src/infra/rates` and metadata utilities in `src/shared`.
+- [x] Create server tool handlers in `src/features/chatbot/server/tools.ts` using the Vercel AI SDK.
+- [x] Bind tool executions to shared rate services in `src/infra/rates` and metadata utilities in `src/shared`.
 - Build `ToolCard` renderers to display conversion summary cards, mini comparison tables, and trend indicators inside chat bubbles.
 - Wrap account-sensitive chat triggers with `SignInInterceptor` to prompt authentication without clearing active chat context.
 

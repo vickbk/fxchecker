@@ -14,14 +14,14 @@ import { compare_currencies } from "./tools/compare-currencies";
 import { convert_currency } from "./tools/convert-currency";
 import { get_rate_history } from "./tools/get-rate-history";
 import { get_currencies, search_currency } from "./tools/search-currencies";
-import { getPromptWithContext } from "./utils/prompts-helpers";
+import { buildSystemPrompt } from "./utils/prompts-helpers";
 
 export async function chat(messages: UIMessage[]) {
   try {
     const result = await streamText({
       model: google(config.GEMINI_VERSION),
       messages: await convertToModelMessages(messages),
-      system: getPromptWithContext(),
+      system: buildSystemPrompt(),
       stopWhen: stepCountIs(5),
       tools: {
         convert_currency,
