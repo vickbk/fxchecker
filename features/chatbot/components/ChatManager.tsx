@@ -10,8 +10,15 @@ import { ChatHeader } from "./ChatHeader";
 import { MessageList } from "./MessageList";
 
 export const ChatManager = () => {
-  const { messages, handleSubmit, sendMessage, isLoading, stop, error } =
-    useChatBot();
+  const {
+    messages,
+    handleSubmit,
+    sendMessage,
+    isLoading,
+    stop,
+    error,
+    clearHistory,
+  } = useChatBot();
   const [isOpen, setOpen] = useState(false);
   return (
     <article
@@ -25,7 +32,7 @@ export const ChatManager = () => {
       <ChatHeader />
       {isOpen ? (
         <>
-          {messages.length > 0 && <ClearButton handleClear={() => {}} />}
+          {messages.length > 0 && <ClearButton handleClear={clearHistory} />}
           <MessageList {...{ messages, sendMessage }}>
             {isLoading && <ThinkingBubble />}
             {error && (

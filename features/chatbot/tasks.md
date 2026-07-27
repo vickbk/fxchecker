@@ -29,8 +29,8 @@
 - **Target**: 2026-07-27
 - **Description**: Connect the UI to local IndexedDB storage to preserve privacy and persist message history across page reloads without database overhead.
 - **Steps**:
-  - [ ] Initialize clear storage button `ClearStorage`.
-  - [ ] Initialize the IndexedDB database client in `src/features/chatbot/lib/db.ts` with dedicated object stores for sessions and messages.
+  - [x] Initialize clear storage button `ClearStorage`.
+  - [ ] Initialize the IndexedDB database client in `features/chatbot/modules/storage/db.ts` with dedicated object stores for sessions and messages.
   - [ ] Build the `useChatStorage` custom hook to read, append, update, and clear local conversation threads from the UI.
   - [ ] Implement fallback error handling for offline usage and storage quota limits.
 
