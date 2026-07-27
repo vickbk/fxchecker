@@ -3,8 +3,8 @@ import { SWREngine } from "@/shared/cache";
 import { parseTimeToMs } from "@/shared/utils";
 import { desc, eq } from "drizzle-orm";
 import z from "zod";
-import { db } from "./db/client";
-import { exLogs } from "./db/schema";
+import { db } from "../db/client";
+import { exLogs } from "../db/schema";
 
 const currencyMessage = "currency must be 3 characters long";
 export const logSchema = z.object({
