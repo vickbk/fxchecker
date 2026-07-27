@@ -27,3 +27,8 @@ export function getDB() {
     };
   });
 }
+
+export function closeDB() {
+  dbInstance?.close();
+  dbInstance = null;
+}

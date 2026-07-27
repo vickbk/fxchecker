@@ -5,8 +5,10 @@ export async function getAllMessages() {
   const db = await getDB();
 
   return new Promise<UIMessage[]>((resolve, reject) => {
-    const tx = db.transaction("messages", "readonly").objectStore("messages");
-    // .index("by-createdAt");
+    const tx = db
+      .transaction("messages", "readonly")
+      .objectStore("messages")
+      .index("by-createdAt");
 
     const request = tx.getAll();
 
@@ -35,7 +37,7 @@ export async function saveMessage(message: UIMessage) {
     const request = db
       .transaction("messages", "readwrite")
       .objectStore("messages")
-      .put(message);
+      .put({ ...message, createdAt: new Date().getTime() });
 
     request.onsuccess = () => resolve();
     request.onerror = () => reject(request.error);

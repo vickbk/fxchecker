@@ -24,15 +24,15 @@
 
 ### Phase 2: Local Persistence & Storage Adapter
 
-- [ ] **3. Implement IndexedDB Client & Storage Hook**
-- **Status**: 🚀 Doing
+- [x] **3. Implement IndexedDB Client & Storage Hook**
+- **Status**: ✅ Done
 - **Target**: 2026-07-27
 - **Description**: Connect the UI to local IndexedDB storage to preserve privacy and persist message history across page reloads without database overhead.
 - **Steps**:
   - [x] Initialize clear storage button `ClearStorage`.
-  - [ ] Initialize the IndexedDB database client in `features/chatbot/modules/storage/db.ts` with dedicated object stores for sessions and messages.
-  - [ ] Build the `useChatStorage` custom hook to read, append, update, and clear local conversation threads from the UI.
-  - [ ] Implement fallback error handling for offline usage and storage quota limits.
+  - [x] Initialize the IndexedDB database client in `features/chatbot/modules/storage/db.ts` with dedicated object stores for sessions and messages.
+  - [x] Build the `useChatStorage` custom hook to read, append, update, and clear local conversation threads from the UI.
+  - [x] Implement fallback error handling for offline usage and storage quota limits.
 
 ---
 
@@ -43,7 +43,6 @@
 - **Target**: 2026-07-27
 - **Description**: Establish Zod schemas and TypeScript interfaces for all chatbot AI tools to ensure strict parameter validation without cross-feature coupling.
 - **Steps**:
-- [x] Create the tools contract file in `src/features/chatbot/types/tools.ts`.
 - Define Zod schemas for:
   - [x] `convert_currency`,
   - [x] `compare_currencies`,
@@ -51,7 +50,6 @@
   - [x] `search_currencies`,
   - [ ] `manage_favorites`, and
   - [ ] `get_conversion_logs`.
-- [ ] Export strongly typed input and output interfaces for server tool execution handlers.
 
 - [ ] **5. Implement Server-Side Tool Execution Handlers & Generative UI**
 - **Status**: ⏳ Todo
@@ -60,8 +58,8 @@
 - **Steps**:
 - [x] Create server tool handlers in `src/features/chatbot/server/tools.ts` using the Vercel AI SDK.
 - [x] Bind tool executions to shared rate services in `src/infra/rates` and metadata utilities in `src/shared`.
-- Build `ToolCard` renderers to display conversion summary cards, mini comparison tables, and trend indicators inside chat bubbles.
-- Wrap account-sensitive chat triggers with `SignInInterceptor` to prompt authentication without clearing active chat context.
+- [ ] Build `ToolCard` renderers to display conversion summary cards, mini comparison tables, and trend indicators inside chat bubbles.
+- [ ] Wrap account-sensitive chat triggers with `SignInInterceptor` to prompt authentication without clearing active chat context.
 
 ---
 
@@ -72,15 +70,15 @@
 - **Target**: 2026-07-28
 - **Description**: Create the Next.js App Router API endpoint for streaming assistant responses using the Vercel AI SDK.
 - **Steps**:
-- Create `app/api/chat/route.ts` with a POST route handler invoking `streamText`.
-- Attach server tool definitions and configure system prompt instructions.
-- Add rate-limiting middleware guards to protect the endpoint from prompt abuse.
+  - [x] Create `app/api/chat/route.ts` with a POST route handler invoking `streamText`.
+  - [x] Attach server tool definitions and configure system prompt instructions.
+  - [ ] Add rate-limiting middleware guards to protect the endpoint from prompt abuse.
 
 - [ ] **7. Create Storybook Stories & Playwright E2E Suite**
 - **Status**: ⏳ Todo
 - **Target**: 2026-07-28
 - **Description**: Build isolated UI stories and centralized Playwright E2E automation for the chatbot feature.
 - **Steps**:
-- Create component stories for empty, streaming, and tool execution states in `src/features/chatbot/__testing__/ChatPopover.stories.tsx`.
-- Write Playwright specs in `tests/playwright/chatbot.spec.ts` that import stories directly from the feature's `__testing__` directory.
-- Mock API stream responses in Playwright to deterministically test drawer toggling, tool UI rendering, and IndexedDB message persistence.
+  - [ ] Create component stories for empty, streaming, and tool execution states in `src/features/chatbot/__testing__/ChatPopover.stories.tsx`.
+  - [ ] Write Playwright specs in `tests/playwright/chatbot.spec.ts` that import stories directly from the feature's `__testing__` directory.
+  - [ ] Mock API stream responses in Playwright to deterministically test drawer toggling, tool UI rendering, and IndexedDB message persistence.

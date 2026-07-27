@@ -1,19 +1,25 @@
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
-import { useActionState, useCallback, useState } from "react";
+import { useActionState, useCallback, useEffect, useState } from "react";
 import { useChatStorage } from "../modules/storage";
 import { sendAutomaticallyWhen } from "../utils/for-hooks";
 
 export function useChatBot() {
   const [error, setError] = useState<string | null>(null);
   const { saveMessages, messages, clearHistory } = useChatStorage();
-  const { sendMessage, status, stop, setMessages } = useChat({
+  const {
+    sendMessage,
+    messages: chatMessages,
+    status,
+    stop,
+    setMessages,
+  } = useChat({
     onError: (err) => {
       if ("status" in err && err.status === 429) {
         setError("FinBot is at capacity. Please wait a moment...");
       } else setError("Something went wrong. Please try again.");
     },
-    onFinish: ({ messages }) => {
+    onFinish({ messages }) {
       saveMessages(messages);
     },
     sendAutomaticallyWhen,
@@ -30,6 +36,10 @@ export function useChatBot() {
     sendMessage({ text });
   }, null);
 
+  useEffect(() => {
+    const lastMessage = chatMessages.at(-1);
+    if (lastMessage?.role === "user") saveMessages(chatMessages);
+  }, [chatMessages, saveMessages, status]);
   return {
     isLoading,
     handleSubmit,

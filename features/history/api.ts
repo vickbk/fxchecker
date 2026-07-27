@@ -4,9 +4,9 @@ import { HistorySearchParams } from "./types";
 import { codeToDays } from "./utils/date";
 
 export async function loadHistoricalRates({
-  from,
-  to,
-  period,
+  from = "USD",
+  to = "EUR",
+  period = "3M",
 }: HistorySearchParams) {
   try {
     const date = getLookbackDate(codeToDays(period));

@@ -1,5 +1,6 @@
 import { UIMessage } from "ai";
 import { useCallback, useEffect, useState } from "react";
+import { closeDB } from "./db";
 import { clearAllMessages, getAllMessages, saveAllMessages } from "./utils";
 
 export function useChatStorage() {
@@ -20,6 +21,7 @@ export function useChatStorage() {
     })();
     return () => {
       active = false;
+      closeDB();
     };
   }, []);
 
