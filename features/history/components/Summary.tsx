@@ -16,8 +16,12 @@ export const Summary = async (params: HistorySearchParams) => {
   return (
     <>
       <dl className="grid grid-cols-2 gap-4 sm:flex">
-        <SummaryCard term="Open">{openRate}</SummaryCard>
-        <SummaryCard term="Close">{closeRate}</SummaryCard>
+        <SummaryCard term="Open" sronly="rate">
+          {openRate}
+        </SummaryCard>
+        <SummaryCard term="Close" sronly="rate">
+          {closeRate}
+        </SummaryCard>
         <SummaryCard term="Change">
           <span className={`${increasing ? "text-green-500" : "text-red-500"}`}>
             <span className="sr-only">

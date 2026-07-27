@@ -1,6 +1,7 @@
 @import "tailwindcss";
 @import "../shared/theme/styles.css";
 @import "../features/compare/styles.css";
+@import "../features/chatbot/styles.css";
 @import "bootstrap-icons/font/bootstrap-icons.css";
 
 @theme inline {
@@ -63,11 +64,11 @@ body {
 }
 
 @utility action-btn {
-  @apply transition-transform duration-200;
+  @apply transition-transform duration-200 border-2 border-transparent;
   &:active {
     @apply scale-95;
   }
-  &:focus {
+  &:focus-visible {
     @apply scale-102;
   }
 }

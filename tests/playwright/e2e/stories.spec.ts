@@ -1,4 +1,5 @@
 import { shouldSeeLoginButton } from "@/features/account/__testing__";
+import { shouldOpenAndCloseChatbot } from "@/features/chatbot/__testing__";
 import { shouldSeeCompareSection } from "@/features/compare/__testing__";
 import { shouldSeeTheConverterSection } from "@/features/converter/__testing__";
 import { shouldSeeEmptyFavoriteSection } from "@/features/favorites/__testing__";
@@ -27,6 +28,7 @@ test.describe("Main Page tests", () => {
     ["should see compare section", shouldSeeCompareSection],
     ["Should see favorites section", shouldSeeEmptyFavoriteSection],
     ["Should see logs section", shouldSeeEmptyLogs],
+    ["Should see chatbot section", shouldOpenAndCloseChatbot],
   ] as const;
 
   identicalTests.forEach(([name, t]) =>

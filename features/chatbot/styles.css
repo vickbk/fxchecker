@@ -1,0 +1,25 @@
+.chat {
+  .chat__btn {
+    @apply fixed bottom-4 action-btn right-4 aspect-square px-3 text-background bg-lime-500 border-background rounded-full;
+    & > .chat__close {
+      @apply hidden;
+    }
+  }
+
+  .chat__box {
+    @apply bg-background-secondary w-full max-h-[80vh] overflow-y-auto max-w-xs right-2 rounded-lg;
+
+    position-area: left span-top;
+
+    &:popover-open {
+      & + .chat__btn {
+        & > .chat__open {
+          @apply hidden;
+        }
+        & > .chat__close {
+          @apply inline;
+        }
+      }
+    }
+  }
+}
