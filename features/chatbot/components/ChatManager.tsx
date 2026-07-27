@@ -3,6 +3,8 @@
 import { LoadingPlaceholder } from "@/shared/utils";
 import { useState } from "react";
 import { useChatBot } from "../hooks/useChatbot";
+import { ThinkingBubble } from "../modules/chat";
+import { ClearButton } from "../modules/storage";
 import { ChatForm } from "./ChatForm";
 import { ChatHeader } from "./ChatHeader";
 import { MessageList } from "./MessageList";
@@ -23,7 +25,15 @@ export const ChatManager = () => {
       <ChatHeader />
       {isOpen ? (
         <>
-          <MessageList {...{ messages, isLoading, sendMessage, error }} />
+          {messages.length > 0 && <ClearButton handleClear={() => {}} />}
+          <MessageList {...{ messages, sendMessage }}>
+            {isLoading && <ThinkingBubble />}
+            {error && (
+              <p className="p-2 bg-card text-red-500 text-center mt-auto rounded-lg">
+                {error}
+              </p>
+            )}
+          </MessageList>
           <ChatForm {...{ isLoading, handleSubmit, stop }} />
         </>
       ) : (

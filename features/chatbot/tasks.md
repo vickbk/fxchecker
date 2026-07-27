@@ -11,9 +11,9 @@
 - [x] Add keyboard event listeners for automatic focus trapping, ESC key dismissal, and trigger focus restoration.
 - [x] Style the floating drawer overlay using Tailwind CSS v4 design tokens with light and dark mode support.
 
-- [ ] **2. Build Accessible Message Stream & Input Frame**
-- **Status**: 🚀 Doing
-- **Target**: 2026-07-26
+- [x] **2. Build Accessible Message Stream & Input Frame**
+- **Status**: ✅ Done
+- **Target**: 2026-07-27
 - **Description**: Create a screen-reader-accessible chat container with mock message bubbles and keyboard-friendly prompt input controls.
 - **Steps**:
   - [x] Build `ChatMessageList` wrapped in an `aria-live="polite"` region to ensure streaming LLM token output is announced smoothly to assistive technologies.
@@ -25,13 +25,14 @@
 ### Phase 2: Local Persistence & Storage Adapter
 
 - [ ] **3. Implement IndexedDB Client & Storage Hook**
-- **Status**: ⏳ Todo
-- **Target**: 2026-07-26
+- **Status**: 🚀 Doing
+- **Target**: 2026-07-27
 - **Description**: Connect the UI to local IndexedDB storage to preserve privacy and persist message history across page reloads without database overhead.
 - **Steps**:
-- Initialize the IndexedDB database client in `src/features/chatbot/lib/db.ts` with dedicated object stores for sessions and messages.
-- Build the `useChatStorage` custom hook to read, append, update, and clear local conversation threads from the UI.
-- Implement fallback error handling for offline usage and storage quota limits.
+  - [ ] Initialize clear storage button `ClearStorage`.
+  - [ ] Initialize the IndexedDB database client in `src/features/chatbot/lib/db.ts` with dedicated object stores for sessions and messages.
+  - [ ] Build the `useChatStorage` custom hook to read, append, update, and clear local conversation threads from the UI.
+  - [ ] Implement fallback error handling for offline usage and storage quota limits.
 
 ---
 
