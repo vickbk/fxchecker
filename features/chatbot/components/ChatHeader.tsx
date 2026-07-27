@@ -1,5 +1,5 @@
 import { Header, Heading } from "@/shared/heading";
-import { BiIcon } from "@/shared/utils";
+import { BiIcon, SROnly } from "@/shared/utils";
 import { FinancialBotIcon } from "../modules/icons";
 
 export const ChatHeader = () => {
@@ -12,7 +12,8 @@ export const ChatHeader = () => {
         <span className="flex items-center gap-1.5">
           <span className="font-semibold text-sm tracking-tight">FINBOT</span>
           <span className="text-[10px] font-medium px-1.5 py-0.5 rounded-full text-lime-500 bg-background uppercase tracking-wider">
-            AI
+            {" "}
+            AI{" "}
           </span>
         </span>
         <span className="text-xs text-background-secondary">
@@ -24,6 +25,7 @@ export const ChatHeader = () => {
         popoverTarget="chat-box"
         className="p-2 action-btn hover:text-red-500"
       >
+        <SROnly>Close chatbot</SROnly>
         <BiIcon name="x-lg" />
       </button>
     </Header>

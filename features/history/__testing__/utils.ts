@@ -1,7 +1,7 @@
 export const [
   HISTORY_TITLE = /Chart history for/i,
-  OPEN_CARD = /open/i,
-  CLOSE_CARD = /close/i,
+  OPEN_CARD = /open rate/i,
+  CLOSE_CARD = /close rate/i,
   CHANGE_PERCENTAGE = /% change/i,
 
   ONE_DAY = /One Day/i,
