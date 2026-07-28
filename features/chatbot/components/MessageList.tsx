@@ -1,15 +1,16 @@
 import { UIDataTypes, UIMessage, UITools } from "ai";
+import { ReactNode } from "react";
 import { MessageBubble } from "../modules/chat";
 import { PromptSuggestion } from "./PromptSuggestion";
 
 export const MessageList = ({
   messages,
   sendMessage,
-  error,
+  children,
 }: {
   messages: UIMessage<unknown, UIDataTypes, UITools>[];
   sendMessage: (text: string) => void;
-  error: string | null;
+  children: ReactNode;
 }) => {
   const { length } = messages;
   return (
@@ -22,11 +23,7 @@ export const MessageList = ({
           isLast={index === length - 1}
         />
       ))}
-      {error && (
-        <p className="p-2 bg-card text-red-500 text-center mt-auto rounded-lg">
-          {error}
-        </p>
-      )}
+      {children}
     </div>
   );
 };
