@@ -2,7 +2,7 @@ import Link from "next/link";
 import { Components } from "react-markdown";
 
 const linkClass =
-  "text-indigo-400 hover:text-indigo-300 underline underline-offset-2 font-medium transition-colors";
+  "text-lime-500 hover:text-lime-500/80 underline underline-offset-2 font-medium transition-colors";
 
 /**
  * Returns ReactMarkdown component overrides that intercept /movies/ID links
