@@ -8,40 +8,62 @@ import {
 
 export const manage_compare = tool({
   description:
-    "Manage user's compare list. Can list, add or remove compare currency in the list",
+    "Manage the user's currency comparison list. Can list current currencies, or add/remove 3-letter ISO currency codes (e.g., USD, EUR, JPY).",
   inputSchema: z.object({
     action: z
       .enum(["list", "add", "remove"])
       .describe("The compare management action to perform"),
     currencies: z
-      .array(z.string().transform((val) => val?.toUpperCase().trim()))
+      .array(
+        z
+          .string()
+          .trim()
+          .toUpperCase()
+          .regex(/^[A-Z]{3}$/, "Must be a 3-letter ISO currency code"),
+      )
       .optional()
       .describe(
-        "The list of 3-letter ISO currency code (required for add/remove)",
+        "List of 3-letter ISO currency codes (required and must be non-empty for 'add' or 'remove')",
       ),
   }),
   execute: async ({ action, currencies }) => {
     try {
       if (action === "list") {
-        return { success: true, compareList: await getCompareRates() };
+        const compareList = await getCompareRates();
+        return { success: true, compareList };
       }
-      if (!currencies)
+
+      // Guard against missing or empty arrays for mutation actions
+      if (!currencies || currencies.length === 0) {
         return {
           success: false,
-          error:
-            "the currency codes are required to add or remove to the compare list.",
+          error: `At least one valid 3-letter currency code is required to ${action} items.`,
         };
-      if (action === "add" || action === "remove") {
-        const isAdd = action === "add";
-        const results = await (
-          isAdd ? addCompareCurrencies : deleteCompareCurrencies
-        )(currencies);
+      }
+
+      if (action === "add") {
+        const results = await addCompareCurrencies(currencies);
         return {
-          revalidate: !!results,
           success: !!results,
+          revalidate: !!results,
+          action: "add",
+          currencies,
           error: results
             ? undefined
-            : `Failed to ${isAdd ? "add" : "delete"} ${currencies.join(", ")} to the compare list`,
+            : `Failed to add ${currencies.join(", ")} to the compare list.`,
+        };
+      }
+
+      if (action === "remove") {
+        const results = await deleteCompareCurrencies(currencies);
+        return {
+          success: !!results,
+          revalidate: !!results,
+          action: "remove",
+          currencies,
+          error: results
+            ? undefined
+            : `Failed to remove ${currencies.join(", ")} from the compare list.`,
         };
       }
 

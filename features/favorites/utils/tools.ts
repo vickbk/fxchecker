@@ -12,15 +12,17 @@ export const manage_favorites = tool({
       .describe("The favorite management action to perform"),
     base: z
       .string()
-      .optional()
-      .transform((val) => val?.toUpperCase().trim())
+      .trim()
+      .toUpperCase()
+      .regex(/^[A-Z]{3}$/, "Must be a 3-letter ISO currency code")
       .describe(
         "The 3-letter ISO base currency code (required for add/remove)",
       ),
     quote: z
       .string()
-      .optional()
-      .transform((val) => val?.toUpperCase().trim())
+      .trim()
+      .toUpperCase()
+      .regex(/^[A-Z]{3}$/, "Must be a 3-letter ISO currency code")
       .describe(
         "The 3-letter ISO target currency code (required for add/remove)",
       ),
