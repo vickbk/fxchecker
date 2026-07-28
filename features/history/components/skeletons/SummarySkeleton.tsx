@@ -1,5 +1,4 @@
 import { LoadingPlaceholder } from "@/shared/utils";
-import { Menue } from "../Menue";
 
 export const SummarySkeleton = () => {
   return (
@@ -14,7 +13,8 @@ export const SummarySkeleton = () => {
             />
           ))}
       </div>
-      <Menue period="" from="" to="" />
+
+      <LoadingPlaceholder className="px-36 py-6 rounded-lg ml-auto bg-background-secondary" />
     </>
   );
 };

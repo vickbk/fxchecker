@@ -79,6 +79,7 @@ export const manage_conversion_logs = tool({
 
         if (result.success)
           return {
+            revalidate: true,
             success: true,
             message: `Logged conversion of ${amount} ${base} to ${quote} at rate ${rate}.`,
           };

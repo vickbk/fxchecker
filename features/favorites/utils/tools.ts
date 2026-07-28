@@ -4,7 +4,7 @@ import { getFavorites, toggleFavorite } from "../actions";
 
 export const manage_favorites = tool({
   description:
-    "Manage the user's favorite currency pairs stored in local IndexedDB. Can list, add, or remove currency pairs.",
+    "Manage the user's favorite currency pairs. Can list, add, or remove currency pairs.",
 
   inputSchema: z.object({
     action: z
@@ -12,15 +12,17 @@ export const manage_favorites = tool({
       .describe("The favorite management action to perform"),
     base: z
       .string()
-      .optional()
-      .transform((val) => val?.toUpperCase().trim())
+      .trim()
+      .toUpperCase()
+      .regex(/^[A-Z]{3}$/, "Must be a 3-letter ISO currency code")
       .describe(
         "The 3-letter ISO base currency code (required for add/remove)",
       ),
     quote: z
       .string()
-      .optional()
-      .transform((val) => val?.toUpperCase().trim())
+      .trim()
+      .toUpperCase()
+      .regex(/^[A-Z]{3}$/, "Must be a 3-letter ISO currency code")
       .describe(
         "The 3-letter ISO target currency code (required for add/remove)",
       ),
@@ -44,6 +46,7 @@ export const manage_favorites = tool({
       if (action === "add" || action === "remove") {
         const result = await toggleFavorite({ base, quote });
         return {
+          revalidate: result.success,
           success: result.success,
           message: result.success
             ? `Toggled ${base}/${quote} to favorites.`
