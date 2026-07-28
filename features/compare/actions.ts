@@ -1,6 +1,6 @@
 import { fetchCurrencies, fetchLatestRates } from "@/infra/api/frankfurter";
 import { assertAuthenticated, auth } from "@/infra/core";
-import { SWREngine } from "@/shared/cache";
+import { createGlobalCache, SWREngine } from "@/shared/cache";
 import { parseTimeToMs } from "@/shared/utils";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
@@ -8,7 +8,10 @@ import { db } from "./db/client";
 import { cx_compare } from "./db/schema";
 import { resolveCompareList } from "./utils";
 
-const compareCache = new SWREngine({ ttlMs: parseTimeToMs("30m") });
+const getCompareCache = createGlobalCache(
+  "COMPARE_CACHE",
+  () => new SWREngine({ ttlMs: parseTimeToMs("30m") }),
+);
 const compareKeyPrefix = "compare-list-";
 
 export async function updateCompareList(newList: string[]) {
@@ -26,7 +29,7 @@ export async function updateCompareList(newList: string[]) {
         target: cx_compare.userId,
         set: { currencyList: newList },
       });
-    compareCache.clearKey(compareKeyPrefix + userId);
+    getCompareCache().clearKey(compareKeyPrefix + userId);
     return true;
   } catch (error) {
     console.error(error);
@@ -38,7 +41,7 @@ export async function myCompareList(base = "USD") {
   try {
     const userId = await assertAuthenticated();
 
-    const compareList = await compareCache.execute(
+    const compareList = await getCompareCache().execute(
       `${compareKeyPrefix}${userId}`,
       async () =>
         await db.query.cx_compare.findFirst({
