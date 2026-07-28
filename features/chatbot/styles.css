@@ -1,6 +1,9 @@
+@import "./modules/chat/styles.css";
 .chat {
+  @apply sticky bottom-0 flex justify-end p-4;
+
   .chat__btn {
-    @apply fixed bottom-4 action-btn right-4 aspect-square px-3 text-background bg-lime-500 border-background rounded-full;
+    @apply action-btn aspect-square px-3 text-background bg-lime-500 border-background rounded-full;
     & > .chat__close {
       @apply hidden;
     }

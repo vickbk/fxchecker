@@ -1,10 +1,10 @@
 import { assertAuthenticated } from "@/infra/core";
-import { SWREngine } from "@/shared/cache";
+import { createGlobalCache, SWREngine } from "@/shared/cache";
 import { parseTimeToMs } from "@/shared/utils";
 import { desc, eq } from "drizzle-orm";
 import z from "zod";
-import { db } from "./db/client";
-import { exLogs } from "./db/schema";
+import { db } from "../db/client";
+import { exLogs } from "../db/schema";
 
 const currencyMessage = "currency must be 3 characters long";
 export const logSchema = z.object({
@@ -14,13 +14,16 @@ export const logSchema = z.object({
   rate: z.coerce.number("rate must be defined"),
 });
 
-export const logsCache = new SWREngine({ ttlMs: parseTimeToMs("30m") });
+export const getLogsCache = createGlobalCache(
+  "LOGS_CACHE",
+  () => new SWREngine({ ttlMs: parseTimeToMs("30m") }),
+);
 
 export async function getLogs() {
   try {
     const userId = await assertAuthenticated();
 
-    return await logsCache.execute(
+    return await getLogsCache().execute(
       `logs-${userId}`,
       async () =>
         await db.query.exLogs.findMany({
@@ -37,7 +40,7 @@ export async function getLogs() {
 export async function getLogsCount() {
   try {
     const userId = await assertAuthenticated();
-    return await logsCache.execute(
+    return await getLogsCache().execute(
       `logs-count-${userId}`,
       async () => await db.$count(exLogs, eq(exLogs.userId, userId)),
     );
@@ -48,6 +51,5 @@ export async function getLogsCount() {
 }
 
 export function clearLogsCache(userId: string) {
-  logsCache.clearKey(`logs-${userId}`);
-  logsCache.clearKey(`logs-count-${userId}`);
+  getLogsCache().clearKeys(`logs-${userId}`, `logs-count-${userId}`);
 }

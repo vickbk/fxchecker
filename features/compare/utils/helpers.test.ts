@@ -1,6 +1,6 @@
 import { Currency, fetchCurrencies } from "@/infra/api/frankfurter";
 import { beforeEach, describe, expect, test, vi } from "vitest";
-import { defaultCurrencies, resolveCompareList } from "./utils";
+import { defaultCurrencies, resolveCompareList } from "./helpers";
 
 vi.mock("@/infra/api/frankfurter", () => {
   return {

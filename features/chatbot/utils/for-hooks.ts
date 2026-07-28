@@ -20,3 +20,12 @@ export async function sendAutomaticallyWhen(state: {
 
   return lastAssistantMessageIsCompleteWithToolCalls(state);
 }
+
+export function shouldRefresh(parts: UIMessage["parts"]) {
+  return parts.some((part: UIMessage["parts"][number]) => {
+    return (
+      part.type.startsWith("tool-") &&
+      (part as { output?: { revalidate?: boolean } })?.output?.revalidate
+    );
+  });
+}

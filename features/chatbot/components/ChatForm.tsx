@@ -16,8 +16,8 @@ export const ChatForm = ({
       <label className="relative flex-1 transition-all">
         <SROnly>Chat input prompt</SROnly>
         <textarea
-          // ref={textareaRef}
-          rows={1}
+          
+          rows={2}
           autoFocus
           // value={input}
           // onChange={(e) => setInput(e.target.value)}
@@ -25,7 +25,7 @@ export const ChatForm = ({
           name="text"
           placeholder="Ask FINBOT about rates, trends, conversions..."
           disabled={isLoading}
-          className="w-full p-2 py-4 rounded-lg outline focus-visible:outline-lime-500 text-sm text-foreground placeholder:text-muted-foreground resize-none max-h-30 min-h-10 scrollbar-none"
+          className="w-full p-2 rounded-lg outline focus-visible:outline-lime-500 text-sm text-foreground placeholder:text-muted-foreground resize-none max-h-30 min-h-10 scrollbar-none"
         />
       </label>
 

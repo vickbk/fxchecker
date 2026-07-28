@@ -1,0 +1,1 @@
+export { createGlobalSingleton } from "./singleton";
