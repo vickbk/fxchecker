@@ -38,9 +38,9 @@
 
 ### Phase 3: AI Tool Contracts & Infrastructure Binding
 
-- [ ] **4. Define AI Tool Zod Contracts & Types**
-- **Status**: ⏳ Todo
-- **Target**: 2026-07-27
+- [x] **4. Define AI Tool Zod Contracts & Types**
+- **Status**: ✅ Done
+- **Target**: 2026-07-28
 - **Description**: Establish Zod schemas and TypeScript interfaces for all chatbot AI tools to ensure strict parameter validation without cross-feature coupling.
 - **Steps**:
 - Define Zod schemas for:
@@ -48,8 +48,9 @@
   - [x] `compare_currencies`,
   - [x] `get_rate_history`,
   - [x] `search_currencies`,
-  - [ ] `manage_favorites`, and
-  - [ ] `get_conversion_logs`.
+  - [x] `manage_compare`,
+  - [x] `manage_favorites`, and
+  - [x] `get_conversion_logs`.
 
 - [ ] **5. Implement Server-Side Tool Execution Handlers & Generative UI**
 - **Status**: ⏳ Todo
@@ -79,6 +80,6 @@
 - **Target**: 2026-07-28
 - **Description**: Build isolated UI stories and centralized Playwright E2E automation for the chatbot feature.
 - **Steps**:
-  - [ ] Create component stories for empty, streaming, and tool execution states in `src/features/chatbot/__testing__/ChatPopover.stories.tsx`.
-  - [ ] Write Playwright specs in `tests/playwright/chatbot.spec.ts` that import stories directly from the feature's `__testing__` directory.
-  - [ ] Mock API stream responses in Playwright to deterministically test drawer toggling, tool UI rendering, and IndexedDB message persistence.
+  - [-] Create component stories for empty, streaming, and tool execution states in `src/features/chatbot/__testing__/ChatPopover.stories.tsx`.
+  - [x] Write Playwright specs in `tests/playwright/chatbot.spec.ts` that import stories directly from the feature's `__testing__` directory.
+  - [-] Mock API stream responses in Playwright to deterministically test drawer toggling, tool UI rendering, and IndexedDB message persistence.
