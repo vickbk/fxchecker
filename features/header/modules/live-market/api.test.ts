@@ -15,6 +15,15 @@ vi.mock("@/shared/cache", () => ({
       // no-op for test isolation
     }
   },
+  createGlobalCache(
+    key: string,
+    func = new (class {
+      execute = mockExecute;
+      constructor() {}
+    })(),
+  ) {
+    return func;
+  },
 }));
 
 vi.mock("@/shared/utils", () => ({
