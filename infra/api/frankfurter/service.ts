@@ -17,6 +17,8 @@ import {
   getTimeSeriesCacheKey,
   toCurrency,
 } from "./utils/";
+import { sanitizeCurrencyCode } from "./utils/currency-helpers";
+import { assertSafeRequestPath } from "./utils/request-helpers";
 
 export const getFrankfurterCache = createGlobalCache(
   "FRANKFURTER_CACHE",
@@ -24,21 +26,6 @@ export const getFrankfurterCache = createGlobalCache(
 );
 
 const BASE_URL = config.FRANKFURTER_URL;
-
-function assertSafeRequestPath(path: string): void {
-  if (!path.startsWith("/")) {
-    throw new FrankfurterValidationError("Invalid request path.");
-  }
-
-  if (
-    path.includes("://") ||
-    path.includes("..") ||
-    path.includes("\\") ||
-    /[\r\n\t]/.test(path)
-  ) {
-    throw new FrankfurterValidationError("Unsafe request path detected.");
-  }
-}
 
 async function request<T>(
   path: string,
@@ -166,8 +153,8 @@ export async function getRate(
   from: string,
   to: string,
 ): Promise<FrankfurterRate> {
-  const fromCode = from.toUpperCase();
-  const toCode = to.toUpperCase();
+  const fromCode = sanitizeCurrencyCode(from.toUpperCase(), "from");
+  const toCode = sanitizeCurrencyCode(to.toUpperCase(), "to");
 
   return getFrankfurterCache().execute(
     `rate:${fromCode}:${toCode}`,
