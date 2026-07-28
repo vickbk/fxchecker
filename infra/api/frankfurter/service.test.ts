@@ -4,7 +4,7 @@ import {
   fetchCurrencyDetails,
   fetchHistoricalRates,
   fetchLatestRates,
-  frankfurterCache,
+  getFrankfurterCache,
   getRate,
 } from "./service";
 import {
@@ -27,7 +27,7 @@ describe("infra/api/frankfurter/service", () => {
   beforeEach(() => {
     vi.clearAllMocks();
     vi.stubGlobal("fetch", fetchMock);
-    frankfurterCache.clear();
+    getFrankfurterCache().clear();
   });
 
   afterEach(() => {

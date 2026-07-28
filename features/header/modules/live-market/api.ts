@@ -1,13 +1,20 @@
 import { getRate } from "@/infra/api/frankfurter";
-import { revalidateAllPaths, SWREngine } from "@/shared/cache";
+import {
+  createGlobalCache,
+  revalidateAllPaths,
+  SWREngine,
+} from "@/shared/cache";
 import { parseTimeToMs } from "@/shared/utils";
 import { getCurrencyPairs } from "./utils";
 
-const headerCache = new SWREngine({ ttlMs: parseTimeToMs("1D") });
+const getHeaderCache = createGlobalCache(
+  "HEADER_CACHE",
+  () => new SWREngine({ ttlMs: parseTimeToMs("1D") }),
+);
 
 export async function getLatestRates() {
   try {
-    const pairs = await headerCache.execute(
+    const pairs = await getHeaderCache().execute(
       "header-pairs-selection",
       getCurrencyPairs,
     );
@@ -32,6 +39,6 @@ export async function getLatestRates() {
 }
 
 export async function clearRatesCache() {
-  headerCache.clearKey("header-pairs-selection");
+  getHeaderCache().clearKey("header-pairs-selection");
   revalidateAllPaths();
 }
