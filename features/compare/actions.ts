@@ -6,7 +6,7 @@ import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "./db/client";
 import { cx_compare } from "./db/schema";
-import { resolveCompareList } from "./utils";
+import { resolveCompareList } from "./utils/helpers";
 
 const getCompareCache = createGlobalCache(
   "COMPARE_CACHE",
@@ -90,17 +90,33 @@ export async function getCompareRates(base = "USD") {
 
 export async function deleteCompareCurrency(toDelete: string) {
   "use server";
-  const rates = await myCompareList("UNDEFINED");
-  await updateCompareList(rates.filter((rate) => rate !== toDelete));
+  await deleteCompareCurrencies([toDelete]);
+}
+
+export async function addCompareCurrencies(currencies: string[]) {
+  const myCurrencies = await myCompareList("UNDEFINED");
+
+  const newList = [...new Set([...myCurrencies, ...currencies])];
+  const results = await updateCompareList(newList);
   revalidatePath("/compare");
+  return !!results;
+}
+
+export async function deleteCompareCurrencies(toDelete: string[]) {
+  const currencies = await myCompareList("UNDEFINED");
+  const deleteSet = new Set(toDelete);
+
+  const results = await updateCompareList(
+    currencies.filter((currency) => !deleteSet.has(currency)),
+  );
+
+  revalidatePath("/compare");
+  return !!results;
 }
 
 export async function addToCompareCurrencies(form: FormData) {
   "use server";
-  const currencies = await myCompareList("UNDEFINED");
   const newCurrencies = form.getAll("currency") as string[];
 
-  const newList = [...new Set([...currencies, ...newCurrencies])];
-  await updateCompareList(newList);
-  revalidatePath("/compare");
+  await addCompareCurrencies(newCurrencies);
 }
