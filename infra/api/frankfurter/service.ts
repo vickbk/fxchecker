@@ -25,10 +25,26 @@ export const getFrankfurterCache = createGlobalCache(
 
 const BASE_URL = config.FRANKFURTER_URL;
 
+function assertSafeRequestPath(path: string): void {
+  if (!path.startsWith("/")) {
+    throw new FrankfurterValidationError("Invalid request path.");
+  }
+
+  if (
+    path.includes("://") ||
+    path.includes("..") ||
+    path.includes("\\") ||
+    /[\r\n\t]/.test(path)
+  ) {
+    throw new FrankfurterValidationError("Unsafe request path detected.");
+  }
+}
+
 async function request<T>(
   path: string,
   queryParams?: Record<string, string | string[] | undefined>,
 ): Promise<T> {
+  assertSafeRequestPath(path);
   const url = new URL("/v2" + path, BASE_URL);
 
   const queryEntries: string[] = [];
