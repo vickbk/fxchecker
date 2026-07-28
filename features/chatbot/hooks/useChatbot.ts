@@ -1,5 +1,6 @@
 import { useChat } from "@ai-sdk/react";
 import { DefaultChatTransport } from "ai";
+import { useRouter } from "next/navigation";
 import { useActionState, useCallback, useEffect, useState } from "react";
 import { useChatStorage } from "../modules/storage";
 import { sendAutomaticallyWhen } from "../utils/for-hooks";
@@ -7,6 +8,7 @@ import { sendAutomaticallyWhen } from "../utils/for-hooks";
 export function useChatBot() {
   const [error, setError] = useState<string | null>(null);
   const { saveMessages, messages, clearHistory } = useChatStorage();
+  const router = useRouter();
   const {
     sendMessage,
     messages: chatMessages,
@@ -14,6 +16,7 @@ export function useChatBot() {
     stop,
     setMessages,
   } = useChat({
+    messages,
     onError: (err) => {
       if ("status" in err && err.status === 429) {
         setError("FinBot is at capacity. Please wait a moment...");
@@ -21,6 +24,7 @@ export function useChatBot() {
     },
     onFinish({ messages }) {
       saveMessages(messages);
+      router.refresh();
     },
     sendAutomaticallyWhen,
     transport: new DefaultChatTransport({ api: "/api/chat", body: {} }),
