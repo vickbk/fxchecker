@@ -4,12 +4,12 @@ import { FavoriteEntry, FavoritePair } from "@/shared/currencies";
 import { eq } from "drizzle-orm";
 import { db } from "./db/client";
 import { exFavorites } from "./db/schema";
-import { favoriteCache } from "./utils";
+import { getFavoriteCache } from "./utils";
 
 export async function getFavorites() {
   try {
     const userId = await assertAuthenticated();
-    return favoriteCache.execute(
+    return getFavoriteCache().execute(
       `favorites-${userId}`,
       async () =>
         (
@@ -39,7 +39,7 @@ export async function toggleFavorite({ base, quote }: FavoritePair) {
         target: exFavorites.userId,
         set: { favoritePairs },
       });
-    favoriteCache.clearKeys(`favorites-${userId}`, "all-favorites");
+    getFavoriteCache().clearKeys(`favorites-${userId}`, "all-favorites");
     revalidateAllPaths();
     return { success: true };
   } catch (error) {
@@ -58,7 +58,7 @@ export async function clearAllFavorites() {
         target: exFavorites.userId,
         set: { favoritePairs: [] },
       });
-    favoriteCache.clearKeys(`favorites-${userId}`, "all-favorites");
+    getFavoriteCache().clearKeys(`favorites-${userId}`, "all-favorites");
     revalidateAllPaths();
     return { success: true };
   } catch (error) {
