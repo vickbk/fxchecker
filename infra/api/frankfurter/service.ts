@@ -1,4 +1,4 @@
-import { SWREngine } from "@/shared/cache";
+import { createGlobalCache, SWREngine } from "@/shared/cache";
 import { config } from "@/shared/config";
 import { getLookbackDate, parseTimeToMs } from "@/shared/utils";
 import type {
@@ -18,7 +18,10 @@ import {
   toCurrency,
 } from "./utils/";
 
-export const frankfurterCache = new SWREngine({ ttlMs: 3 * 60 * 1000 });
+export const getFrankfurterCache = createGlobalCache(
+  "FRANKFURTER_CACHE",
+  () => new SWREngine({ ttlMs: parseTimeToMs("3m") }),
+);
 
 const BASE_URL = config.FRANKFURTER_URL;
 
@@ -88,7 +91,7 @@ async function request<T>(
 }
 
 export async function fetchCurrencies(): Promise<Currency[]> {
-  return frankfurterCache.execute(
+  return getFrankfurterCache().execute(
     "currencies",
     async () => {
       const payload = await request<FrankfurterCurrency[]>("/currencies");
@@ -115,7 +118,7 @@ export async function fetchCurrencies(): Promise<Currency[]> {
 }
 
 export async function fetchCurrenciesMap(): Promise<Record<string, Currency>> {
-  return frankfurterCache.execute(
+  return getFrankfurterCache().execute(
     "currencies-map",
     async () => {
       const currencyMap: Record<string, Currency> = {};
@@ -131,7 +134,7 @@ export async function fetchCurrenciesMap(): Promise<Record<string, Currency>> {
 
 export async function fetchCurrencyDetails(code: string): Promise<Currency> {
   const normalizedCode = code.toUpperCase();
-  return frankfurterCache.execute(
+  return getFrankfurterCache().execute(
     `currency:${normalizedCode}`,
     async () => {
       const payload = await request<FrankfurterCurrency>(
@@ -150,7 +153,7 @@ export async function getRate(
   const fromCode = from.toUpperCase();
   const toCode = to.toUpperCase();
 
-  return frankfurterCache.execute(
+  return getFrankfurterCache().execute(
     `rate:${fromCode}:${toCode}`,
     async () => {
       const query = `/rate/${fromCode}/${toCode}`;
@@ -176,7 +179,7 @@ export async function fetchLatestRates(
   symbols?: string[],
 ): Promise<FrankfurterRate[]> {
   const key = getLatestCacheKey(base, symbols);
-  return frankfurterCache.execute(
+  return getFrankfurterCache().execute(
     key,
     () =>
       request<FrankfurterRate[]>("/rates", {
@@ -193,7 +196,7 @@ export async function fetchHistoricalRates(
   symbols?: string[],
 ): Promise<FrankfurterRate[]> {
   const key = getHistoricalCacheKey(date, base, symbols);
-  return frankfurterCache.execute(
+  return getFrankfurterCache().execute(
     key,
     () =>
       request<FrankfurterRate[]>("/rates", {
@@ -214,7 +217,7 @@ export async function fetchTimeSeriesRates(
   symbols?: string[],
 ): Promise<FrankfurterTimeSeriesResponse> {
   const key = getTimeSeriesCacheKey(startDate, endDate, base, symbols);
-  return frankfurterCache.execute(
+  return getFrankfurterCache().execute(
     key,
     () =>
       request<FrankfurterTimeSeriesResponse>(`/${startDate}..${endDate}`, {

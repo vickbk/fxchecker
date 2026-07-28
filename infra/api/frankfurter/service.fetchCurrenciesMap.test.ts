@@ -10,6 +10,16 @@ vi.mock("@/shared/cache", () => ({
       clear: vi.fn(),
     };
   }),
+  createGlobalCache(
+    key: string,
+    func = new (class {
+      constructor() {}
+      execute = executeMock;
+      clear = vi.fn();
+    })(),
+  ) {
+    return func;
+  },
 }));
 
 vi.mock("@/shared/config", () => ({
