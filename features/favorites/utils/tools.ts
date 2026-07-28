@@ -44,6 +44,7 @@ export const manage_favorites = tool({
       if (action === "add" || action === "remove") {
         const result = await toggleFavorite({ base, quote });
         return {
+          revalidate: true,
           success: result.success,
           message: result.success
             ? `Toggled ${base}/${quote} to favorites.`

@@ -3,7 +3,7 @@ import { DefaultChatTransport } from "ai";
 import { useRouter } from "next/navigation";
 import { useActionState, useCallback, useEffect, useState } from "react";
 import { useChatStorage } from "../modules/storage";
-import { sendAutomaticallyWhen } from "../utils/for-hooks";
+import { sendAutomaticallyWhen, shouldRefresh } from "../utils/for-hooks";
 
 export function useChatBot() {
   const [error, setError] = useState<string | null>(null);
@@ -22,9 +22,10 @@ export function useChatBot() {
         setError("FinBot is at capacity. Please wait a moment...");
       } else setError("Something went wrong. Please try again.");
     },
-    onFinish({ messages }) {
+    onFinish({ messages, message }) {
       saveMessages(messages);
-      router.refresh();
+
+      if (shouldRefresh(message.parts)) router.refresh();
     },
     sendAutomaticallyWhen,
     transport: new DefaultChatTransport({ api: "/api/chat", body: {} }),
