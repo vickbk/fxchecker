@@ -17,6 +17,8 @@ import {
   getTimeSeriesCacheKey,
   toCurrency,
 } from "./utils/";
+import { sanitizeCurrencyCode } from "./utils/currency-helpers";
+import { assertSafeRequestPath } from "./utils/request-helpers";
 
 export const getFrankfurterCache = createGlobalCache(
   "FRANKFURTER_CACHE",
@@ -29,6 +31,7 @@ async function request<T>(
   path: string,
   queryParams?: Record<string, string | string[] | undefined>,
 ): Promise<T> {
+  assertSafeRequestPath(path);
   const url = new URL("/v2" + path, BASE_URL);
 
   const queryEntries: string[] = [];
@@ -150,8 +153,8 @@ export async function getRate(
   from: string,
   to: string,
 ): Promise<FrankfurterRate> {
-  const fromCode = from.toUpperCase();
-  const toCode = to.toUpperCase();
+  const fromCode = sanitizeCurrencyCode(from.toUpperCase(), "from");
+  const toCode = sanitizeCurrencyCode(to.toUpperCase(), "to");
 
   return getFrankfurterCache().execute(
     `rate:${fromCode}:${toCode}`,
