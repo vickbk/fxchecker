@@ -1,6 +1,6 @@
+import { useURLState } from "@/shared/url";
 import { startTransition, useActionState, useEffect } from "react";
 import { loadRate } from "../actions";
-import { useURLState } from "./useURLState";
 
 export function useRate() {
   const { from, to, amount } = useURLState();

@@ -1,9 +1,11 @@
 "use client";
 
-import { useURLState } from "../hooks/useURLState";
+import { URLState } from "@/shared/url/types";
 
-export const AmountSetter = () => {
-  const { setAmount, amount } = useURLState();
+export const AmountSetter = ({
+  setAmount,
+  amount,
+}: Pick<URLState, "setAmount" | "amount">) => {
   return (
     <>
       <label className="sr-only" htmlFor="exchange-amount">

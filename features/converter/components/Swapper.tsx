@@ -1,6 +1,6 @@
 "use client";
+import { useURLState } from "@/shared/url";
 import { BiIcon, SROnly } from "@/shared/utils";
-import { useURLState } from "../hooks/useURLState";
 
 export const Swapper = () => {
   const { swapCurrencies, from, to } = useURLState();

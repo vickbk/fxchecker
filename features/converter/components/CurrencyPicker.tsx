@@ -1,5 +1,5 @@
 import { useId } from "react";
-import { useCurrencyFilter } from "../hooks/useCurrencyFilter";
+import { useCurrencyFilter } from "../modules/currency-picker/hooks/useCurrencyFilter";
 import type { CurrencyPickerProps } from "../types";
 
 export function CurrencyPicker({
