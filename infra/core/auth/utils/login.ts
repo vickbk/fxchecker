@@ -27,18 +27,21 @@ export async function login({
   }
 
   try {
+    const { email } = profile;
+    const name = profile.name ?? email;
+    const image = profile.picture ?? null;
     await db
       .insert(users)
       .values({
-        email: profile.email,
-        name: profile.name ?? profile.email,
-        image: profile.picture ?? null,
+        email,
+        name,
+        image,
       })
       .onConflictDoUpdate({
         target: users.email,
         set: {
-          name: profile.name ?? profile.email,
-          image: profile.picture ?? null,
+          name,
+          image,
         },
       })
       .returning({ id: users.id });
