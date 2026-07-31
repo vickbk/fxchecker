@@ -4,7 +4,7 @@ import { FavoriteEntry, FavoritePair } from "@/shared/currencies";
 import { eq } from "drizzle-orm";
 import { db } from "./db/client";
 import { exFavorites } from "./db/schema";
-import { getFavoriteCache } from "./utils/helpers";
+import { getFavoriteCache } from "./utils/cache";
 
 export async function getFavorites() {
   try {

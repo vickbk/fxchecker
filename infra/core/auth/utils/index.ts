@@ -4,5 +4,4 @@
  * environments (API routes, server actions, server components).
  */
 
-export { auth, handlers } from "./init";
-export { assertAuthenticated } from "./user";
+export { assertAuthenticated, auth, handlers } from "./init";

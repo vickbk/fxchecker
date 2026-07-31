@@ -20,3 +20,16 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
     session,
   },
 });
+
+export async function assertAuthenticated(): Promise<string> {
+  const session = await auth();
+  const userId = session?.user?.id;
+
+  if (!userId) {
+    throw new Error(
+      "Unauthorized: You must be logged in to perform this action.",
+    );
+  }
+
+  return userId;
+}

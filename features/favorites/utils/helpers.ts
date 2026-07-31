@@ -1,13 +1,8 @@
-import { createGlobalCache, SWREngine } from "@/shared/cache";
 import { parseTimeToMs } from "@/shared/utils";
 import { getFavorites, toggleFavorite } from "../actions";
 import { db } from "../db/client";
+import { getFavoriteCache } from "./cache";
 import { getFavoritesList } from "./favorite-list";
-
-export const getFavoriteCache = createGlobalCache(
-  "FAVORITE_CACHE",
-  () => new SWREngine({ ttlMs: parseTimeToMs("30m") }),
-);
 
 export async function mainToggleFavorite(form: FormData) {
   "use server";

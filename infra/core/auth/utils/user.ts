@@ -7,7 +7,6 @@
 import { eq } from "drizzle-orm";
 import { db } from "../db/client";
 import { users } from "../db/schema";
-import { auth } from "./init";
 
 /**
  * Fetch a user row by email.
@@ -31,15 +30,3 @@ export async function getUserByEmail(email: string) {
  * Helper utility to enforce session authentication across actions.
  * Throws a predictable error context if the call is anonymous.
  */
-export async function assertAuthenticated(): Promise<string> {
-  const session = await auth();
-  const userId = session?.user?.id;
-
-  if (!userId) {
-    throw new Error(
-      "Unauthorized: You must be logged in to perform this action.",
-    );
-  }
-
-  return userId;
-}
