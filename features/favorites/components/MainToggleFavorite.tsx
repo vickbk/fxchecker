@@ -1,6 +1,6 @@
 import { SignInInterceptor } from "@/shared/utils";
 import { getFavorites } from "../actions";
-import { mainToggleFavorite } from "../utils";
+import { mainToggleFavorite } from "../utils/helpers";
 import { MainToggleContent } from "./MainToggleContent";
 
 export const MainToggleFavorite = async ({

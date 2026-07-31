@@ -1,14 +1,6 @@
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { applyTheme, getSavedTheme } from "./handle-theme";
 
-// Mock getMemoItem
-vi.mock("@/shared", () => ({
-  getMemoItem: vi.fn((key: string) => {
-    if (key === "theme") return undefined;
-    return undefined;
-  }),
-}));
-
 describe("Theme Handler", () => {
   describe("get saved theme", () => {
     beforeEach(() => {

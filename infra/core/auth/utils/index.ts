@@ -5,4 +5,4 @@
  */
 
 export { auth, handlers } from "./init";
-export { assertAuthenticated, getUserByEmail } from "./user";
+export { assertAuthenticated } from "./user";

@@ -2,7 +2,7 @@ import { SelectLog } from "./types";
 
 const header =
   "Timestamp,Base Currency,Quote Currency,Exchange Rate,Input Amount,Conversion Result";
-export function exportLogsToCSV(logs: SelectLog[]) {
+function exportLogsToCSV(logs: SelectLog[]) {
   try {
     const content = logs.map(
       ({ editTime, data: { base, quote, rate, amount } }) =>

@@ -30,7 +30,7 @@ export async function shouldSeeHistorySection(page: Page) {
   await shouldSeePeriodMenue(page);
 }
 
-export async function shouldSeePeriodMenue(page: Page) {
+async function shouldSeePeriodMenue(page: Page) {
   await shouldSee(
     page,
     ONE_DAY,

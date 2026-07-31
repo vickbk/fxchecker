@@ -16,7 +16,7 @@ export async function shouldCloseTheLoginDialogByClickingOutise(page: Page) {
   await clickBodyCorner(page);
 }
 
-export async function shouldLoginWithGoogle(page: Page) {
-  await shouldSeeTheHeaderOnLoginModal(page);
-  await clickButton(page, SIGN_IN_WITH_GOOGLE);
-}
+// export async function shouldLoginWithGoogle(page: Page) {
+//   await shouldSeeTheHeaderOnLoginModal(page);
+//   await clickButton(page, SIGN_IN_WITH_GOOGLE);
+// }

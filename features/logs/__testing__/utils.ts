@@ -1,7 +1,7 @@
 export const [
-  NO_EMPTY_LOGS_HEADING = /Conversion log/i,
-  LOGGED_CURRENCIES = /logged currencies/i,
-  EXPORT_CSV = /export to csv/i,
+  // NO_EMPTY_LOGS_HEADING = /Conversion log/i,
+  // LOGGED_CURRENCIES = /logged currencies/i,
+  // EXPORT_CSV = /export to csv/i,
 
   EMPTY_LOGS_HEADING = /No conversion logged yet/i,
   EMPTY_LOGS_TEXT = /Every conversion is recorded here automatically when you tap LOG CONVERSION. Your log is private to your session/i,

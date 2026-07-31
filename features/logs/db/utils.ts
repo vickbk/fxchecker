@@ -7,11 +7,11 @@ export const logDataColumn = customType<{ data: LogData }>({
   fromDriver,
 });
 
-export function toDriver({ base, quote, rate, amount }: LogData) {
+function toDriver({ base, quote, rate, amount }: LogData) {
   return `${base}-${quote}_${amount}@${rate}`;
 }
 
-export function fromDriver(value: unknown): LogData {
+function fromDriver(value: unknown): LogData {
   if (typeof value !== "string")
     return { base: "", quote: "", amount: 0, rate: 0 };
 

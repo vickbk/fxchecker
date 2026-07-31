@@ -14,7 +14,7 @@ const getCompareCache = createGlobalCache(
 );
 const compareKeyPrefix = "compare-list-";
 
-export async function updateCompareList(newList: string[]) {
+async function updateCompareList(newList: string[]) {
   const session = await auth();
   if (!session?.user || !session.user.id) return null;
   try {
@@ -37,7 +37,7 @@ export async function updateCompareList(newList: string[]) {
   }
 }
 
-export async function myCompareList(base = "USD") {
+async function myCompareList(base = "USD") {
   try {
     const userId = await assertAuthenticated();
 

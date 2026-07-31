@@ -1,9 +1,5 @@
 import { getRate } from "@/infra/api/frankfurter";
-import {
-  createGlobalCache,
-  revalidateAllPaths,
-  SWREngine,
-} from "@/shared/cache";
+import { createGlobalCache, SWREngine } from "@/shared/cache";
 import { parseTimeToMs } from "@/shared/utils";
 import { getCurrencyPairs } from "./utils";
 
@@ -36,9 +32,4 @@ export async function getLatestRates() {
     console.error("Error fetching latest rates:", error);
     return [];
   }
-}
-
-export async function clearRatesCache() {
-  getHeaderCache().clearKey("header-pairs-selection");
-  revalidateAllPaths();
 }

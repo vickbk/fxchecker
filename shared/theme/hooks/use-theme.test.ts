@@ -9,16 +9,6 @@ vi.mock("../scripts", () => ({
   saveTheme: vi.fn(),
 }));
 
-// Mock memorization
-vi.mock("@/shared", async () => {
-  const actual = await vi.importActual("@/shared");
-  return {
-    ...actual,
-    setMemoItem: vi.fn(),
-    getMemoItem: vi.fn(),
-  };
-});
-
 describe("use Theme", () => {
   beforeEach(() => {
     localStorage.clear();
