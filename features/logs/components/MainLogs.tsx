@@ -5,7 +5,7 @@ import {
   SignInInterceptor,
 } from "@/shared/utils";
 import { ExportToCSV } from "../modules/csv";
-import { getLogs } from "../utils";
+import { getLogs } from "../utils/logs";
 import { Actions } from "./Actions";
 import { EmptyLogs } from "./EmptyLogs";
 import { LogCard } from "./LogCard";

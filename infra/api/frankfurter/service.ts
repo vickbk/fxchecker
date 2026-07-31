@@ -1,12 +1,7 @@
 import { createGlobalCache, SWREngine } from "@/shared/cache";
 import { config } from "@/shared/config";
 import { getLookbackDate, parseTimeToMs } from "@/shared/utils";
-import type {
-  Currency,
-  FrankfurterCurrency,
-  FrankfurterRate,
-  FrankfurterTimeSeriesResponse,
-} from "./types";
+import type { Currency, FrankfurterCurrency, FrankfurterRate } from "./types";
 import {
   FrankfurterError,
   FrankfurterOfflineError,
@@ -14,7 +9,6 @@ import {
   FrankfurterValidationError,
   getHistoricalCacheKey,
   getLatestCacheKey,
-  getTimeSeriesCacheKey,
   toCurrency,
 } from "./utils/";
 import { sanitizeCurrencyCode } from "./utils/currency-helpers";
@@ -208,24 +202,6 @@ export async function fetchHistoricalRates(
         quotes: symbols
           ?.filter((symbol) => symbol && !!symbol.trim())
           .map((symbol) => symbol.toUpperCase()),
-      }),
-    { ttlMs: parseTimeToMs("1d") },
-  );
-}
-
-export async function fetchTimeSeriesRates(
-  startDate: string,
-  endDate: string,
-  base?: string,
-  symbols?: string[],
-): Promise<FrankfurterTimeSeriesResponse> {
-  const key = getTimeSeriesCacheKey(startDate, endDate, base, symbols);
-  return getFrankfurterCache().execute(
-    key,
-    () =>
-      request<FrankfurterTimeSeriesResponse>(`/${startDate}..${endDate}`, {
-        from: base,
-        to: symbols,
       }),
     { ttlMs: parseTimeToMs("1d") },
   );

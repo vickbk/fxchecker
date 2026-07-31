@@ -1,4 +1,4 @@
-import { useURLState } from "@/shared/url/hooks";
+import { useURLState } from "@/shared/url";
 import { startTransition, useActionState, useEffect } from "react";
 import { useFormStatus } from "react-dom";
 import { loadConversionRate } from "./utils";

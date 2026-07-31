@@ -72,17 +72,7 @@ export function useCurrencyFilter(
     }
 
     if (event.key === "Enter") {
-      if (highlightedIndex >= 0 && highlightedIndex < filtered.length) {
-        const selectedCurrency = filtered[highlightedIndex];
-
-        if (selectedCurrency) {
-          onSelect?.(selectedCurrency);
-        }
-      }
-
-      setIsOpen(false);
-      setQuery("");
-      setHighlightedIndex(INITIAL_HIGHLIGHT);
+      selectHighlighted();
     }
   };
 

@@ -5,7 +5,7 @@ import { and, eq } from "drizzle-orm";
 import { db } from "./db/client";
 import { exLogs } from "./db/schema";
 import { LogData } from "./types";
-import { clearLogsCache, logSchema } from "./utils";
+import { clearLogsCache, logSchema } from "./utils/logs";
 
 export async function logConversion(data: LogData) {
   "use server";

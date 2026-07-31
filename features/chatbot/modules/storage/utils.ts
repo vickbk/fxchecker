@@ -31,7 +31,7 @@ export async function clearAllMessages() {
   });
 }
 
-export async function saveMessage(message: UIMessage) {
+async function saveMessage(message: UIMessage) {
   const db = await getDB();
   return await new Promise<void>((resolve, reject) => {
     const request = db

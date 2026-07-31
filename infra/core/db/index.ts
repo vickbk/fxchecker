@@ -6,4 +6,3 @@
  */
 
 export { getDB } from "./client";
-export type { DBSignature } from "./types";

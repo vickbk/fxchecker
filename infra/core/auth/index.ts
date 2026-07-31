@@ -6,6 +6,6 @@
  * runtime.
  */
 
-export { loginWithGoogle, LogOut } from "./actions";
+export { LogOut, loginWithGoogle } from "./actions";
 export { users } from "./db/schema";
-export { assertAuthenticated, auth, getUserByEmail, handlers } from "./utils";
+export { assertAuthenticated, auth, handlers } from "./utils";

@@ -2,10 +2,6 @@ import { Page } from "@playwright/test";
 import { clickButton, shouldSee } from "./#inner";
 import { SWITCH_TO_DARK, SWITCH_TO_LIGHT } from "./utils";
 
-export async function shouldSeeLightThemeSwitcher(page: Page) {
-  await shouldSee(page, SWITCH_TO_LIGHT);
-}
-
 export async function shouldSeeDarkThemeSwitcher(page: Page) {
   await shouldSee(page, SWITCH_TO_DARK);
 }
@@ -20,30 +16,28 @@ async function switchToDark(page: Page) {
   await shouldSee(page, SWITCH_TO_LIGHT);
 }
 
-export async function inPrefersDarkShouldLoadPageInDarkMode(page: Page) {
+async function inPrefersDarkShouldLoadPageInDarkMode(page: Page) {
   await shouldSee(page, SWITCH_TO_LIGHT);
 }
 
-export async function inPrefersDarkShouldSwitchToLight(page: Page) {
+async function inPrefersDarkShouldSwitchToLight(page: Page) {
   await switchToLight(page);
 }
 
-export async function inPrefersDarkLightModeShouldPersistAfterPageRefresh(
-  page: Page,
-) {
+async function inPrefersDarkLightModeShouldPersistAfterPageRefresh(page: Page) {
   await switchToLight(page);
   await page.reload();
   await shouldSee(page, SWITCH_TO_DARK);
 }
 
-export async function inPrefersDarkShouldSwitchBackToDarkAfterSwitchingToLight(
+async function inPrefersDarkShouldSwitchBackToDarkAfterSwitchingToLight(
   page: Page,
 ) {
   await switchToLight(page);
   await switchToDark(page);
 }
 
-export async function inPrefersDarkAfterMultipleSwitchDarkShouldPersistOnPageReload(
+async function inPrefersDarkAfterMultipleSwitchDarkShouldPersistOnPageReload(
   page: Page,
 ) {
   await switchToLight(page);
@@ -57,30 +51,28 @@ export async function inPrefersDarkAfterMultipleSwitchDarkShouldPersistOnPageRel
   await shouldSee(page, SWITCH_TO_LIGHT);
 }
 
-export async function inPrefersLightPageShouldStartInLightTheme(page: Page) {
+async function inPrefersLightPageShouldStartInLightTheme(page: Page) {
   await shouldSee(page, SWITCH_TO_DARK);
 }
 
-export async function inPrefersLightShouldSwitchToDark(page: Page) {
+async function inPrefersLightShouldSwitchToDark(page: Page) {
   await switchToDark(page);
 }
 
-export async function inPrefersLightDarkThemeShouldPersistOnPageReload(
-  page: Page,
-) {
+async function inPrefersLightDarkThemeShouldPersistOnPageReload(page: Page) {
   await switchToDark(page);
   await page.reload();
   await shouldSee(page, SWITCH_TO_LIGHT);
 }
 
-export async function inPrefersLightThemeShouldReturnToLightAfterBeingDark(
+async function inPrefersLightThemeShouldReturnToLightAfterBeingDark(
   page: Page,
 ) {
   await switchToDark(page);
   await switchToLight(page);
 }
 
-export async function inPrefersLightLightThemeShouldPersistAfterPageRefresh(
+async function inPrefersLightLightThemeShouldPersistAfterPageRefresh(
   page: Page,
 ) {
   await switchToDark(page);

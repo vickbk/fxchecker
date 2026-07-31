@@ -14,7 +14,7 @@ export const logSchema = z.object({
   rate: z.coerce.number("rate must be defined"),
 });
 
-export const getLogsCache = createGlobalCache(
+const getLogsCache = createGlobalCache(
   "LOGS_CACHE",
   () => new SWREngine({ ttlMs: parseTimeToMs("30m") }),
 );
