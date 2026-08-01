@@ -23,3 +23,8 @@ export function getSearchQuery(
   params.forEach(([key, value]) => queries.set(key, value));
   return queries.toString();
 }
+
+export function scrollIntoView(element: HTMLElement | null) {
+  if (!element) return;
+  element.scrollIntoView({ behavior: "smooth", block: "center" });
+}
