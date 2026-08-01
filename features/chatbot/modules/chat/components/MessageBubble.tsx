@@ -1,9 +1,9 @@
 "use client";
 
-import { BiIcon, joinClasses } from "@/shared/utils";
+import { BiIcon, joinClasses, scrollIntoView } from "@/shared/utils";
 import { UIMessage } from "ai";
 import ReactMarkdown from "react-markdown";
-import { getMessageText, scrollIntoView } from "../utils";
+import { getMessageText } from "../utils";
 import { MarkDown } from "./Markdown";
 
 export const MessageBubble = ({
