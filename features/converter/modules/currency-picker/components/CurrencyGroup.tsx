@@ -51,7 +51,12 @@ export const CurrencyGroup = ({
                       document.getElementById(popover)?.hidePopover();
                   }}
                   onClick={(e) => {
-                    if (e.detail !== 0)
+                    if (
+                      e.detail !== 0 ||
+                      ["pen", "touch"].includes(
+                        (e as unknown as PointerEvent).pointerType,
+                      )
+                    )
                       document.getElementById(popover)?.hidePopover();
                   }}
                 />
