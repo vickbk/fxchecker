@@ -20,7 +20,7 @@ import { LoadingPlaceholder, Navbar } from "@/shared/utils";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Suspense } from "react";
 
-export default function Layout({
+export default async function Layout({
   children,
 }: Readonly<{
   children: React.ReactNode;
@@ -36,7 +36,9 @@ export default function Layout({
             <Main pageHasH1={false}>
               <MainHeader>
                 <ThemeSwitch />
-                <AuthManager />
+                <Suspense>
+                  <AuthManager />
+                </Suspense>
               </MainHeader>
               <div className="max-w-5xl mx-auto sm:py-8">
                 <Suspense
@@ -49,12 +51,10 @@ export default function Layout({
                 >
                   <ConverterCard
                     favoriteToggle={
-                      <MainToggleFavorite
-                        SignInInterceptor={SignInInterceptor}
-                      />
+                      <MainToggleFavorite {...{ SignInInterceptor }} />
                     }
                     conversionLogger={
-                      <ConversionLogger SignInInterceptor={SignInInterceptor} />
+                      <ConversionLogger {...{ SignInInterceptor }} />
                     }
                   />
                 </Suspense>

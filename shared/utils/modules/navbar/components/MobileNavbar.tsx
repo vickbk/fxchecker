@@ -13,7 +13,9 @@ export const MobileNavbar = async (props: NavbarProps) => {
         popoverTarget="mobile-menue"
         className="bg-background-secondary w-full flex gap-4 items-center justify-between p-4 rounded-lg uppercase [anchor-name:--my-btn]"
       >
-        <MobileCurrent {...props} />{" "}
+        <Suspense>
+          <MobileCurrent {...props} />{" "}
+        </Suspense>
         <i className="bi bi-chevron-down ml-auto" />
       </button>
       <nav
@@ -23,11 +25,13 @@ export const MobileNavbar = async (props: NavbarProps) => {
       >
         <ul className="p-4 grid gap-4">
           {options.map(async (option) => (
-            <MobileOption key={option} text={option}>
-              <Suspense>
-                {props[option].badge && <Badge value={props[option].badge} />}
-              </Suspense>
-            </MobileOption>
+            <Suspense key={option}>
+              <MobileOption text={option}>
+                <Suspense>
+                  {props[option].badge && <Badge value={props[option].badge} />}
+                </Suspense>
+              </MobileOption>
+            </Suspense>
           ))}
         </ul>
       </nav>
