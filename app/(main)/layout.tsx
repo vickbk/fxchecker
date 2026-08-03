@@ -51,12 +51,10 @@ export default async function Layout({
                 >
                   <ConverterCard
                     favoriteToggle={
-                      <MainToggleFavorite
-                        SignInInterceptor={SignInInterceptor}
-                      />
+                      <MainToggleFavorite {...{ SignInInterceptor }} />
                     }
                     conversionLogger={
-                      <ConversionLogger SignInInterceptor={SignInInterceptor} />
+                      <ConversionLogger {...{ SignInInterceptor }} />
                     }
                   />
                 </Suspense>
