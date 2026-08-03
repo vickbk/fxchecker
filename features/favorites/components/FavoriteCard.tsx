@@ -1,5 +1,6 @@
 import { Currency } from "@/infra/api/frankfurter";
 import { CurrencyCard, SignInInterceptor } from "@/shared/utils";
+import { Suspense } from "react";
 import { FavoriteData } from "./FavoriteData";
 import { FavoriteLink } from "./FavoriteLink";
 
@@ -14,10 +15,12 @@ export const FavoriteCard = async ({
     <CurrencyCard>
       <dl className="">
         <dt>
-          <FavoriteLink base={base} quote={quote}>
-            {base.code} {"->"} {quote.code}{" "}
-            <span className="absolute inset-0" />
-          </FavoriteLink>
+          <Suspense key={`favorite-${base.code}-${quote.code}`}>
+            <FavoriteLink base={base} quote={quote}>
+              {base.code} {"->"} {quote.code}{" "}
+              <span className="absolute inset-0" />
+            </FavoriteLink>
+          </Suspense>
         </dt>
         <dd className="sr-only">
           {base.name} to {quote.name}
