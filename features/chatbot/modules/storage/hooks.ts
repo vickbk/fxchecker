@@ -1,3 +1,4 @@
+import { logError } from "@/shared/utils";
 import { UIMessage } from "ai";
 import { useCallback, useEffect, useState } from "react";
 import { closeDB } from "./db";
@@ -33,7 +34,7 @@ export function useChatStorage() {
         await saveAllMessages(messages);
         setMessages(await getAllMessages());
       } catch (error) {
-        console.error(error);
+        logError(error);
       }
     }, []),
     clearHistory: useCallback(async () => {

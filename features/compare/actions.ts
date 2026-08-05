@@ -1,7 +1,7 @@
 import { fetchCurrencies, fetchLatestRates } from "@/infra/api/frankfurter";
-import { assertAuthenticated, auth } from "@/infra/core";
+import { assertAuthenticated, isAuthError } from "@/infra/core";
 import { createGlobalCache, SWREngine } from "@/shared/cache";
-import { parseTimeToMs } from "@/shared/utils";
+import { logError, parseTimeToMs } from "@/shared/utils";
 import { eq } from "drizzle-orm";
 import { revalidatePath } from "next/cache";
 import { db } from "./db/client";
@@ -15,10 +15,8 @@ const getCompareCache = createGlobalCache(
 const compareKeyPrefix = "compare-list-";
 
 async function updateCompareList(newList: string[]) {
-  const session = await auth();
-  if (!session?.user || !session.user.id) return null;
   try {
-    const userId = session.user.id;
+    const userId = await assertAuthenticated();
     await db
       .insert(cx_compare)
       .values({
@@ -32,7 +30,7 @@ async function updateCompareList(newList: string[]) {
     getCompareCache().clearKey(compareKeyPrefix + userId);
     return true;
   } catch (error) {
-    console.error(error);
+    logError(error, !isAuthError(error, "AuthNotAuthenticatedError"));
     return false;
   }
 }
@@ -53,7 +51,7 @@ async function myCompareList(base = "USD") {
 
     return await resolveCompareList(base, compareList.currencyList);
   } catch (error) {
-    console.log(error);
+    logError(error, !isAuthError(error, "AuthNotAuthenticatedError"));
     return resolveCompareList(base);
   }
 }
@@ -83,7 +81,7 @@ export async function getCompareRates(base = "USD") {
       },
     }));
   } catch (error) {
-    console.error(error);
+    logError(error);
     return [];
   }
 }
@@ -111,7 +109,7 @@ export async function deleteCompareCurrencies(toDelete: string[]) {
   );
 
   revalidatePath("/compare");
-  return !!results;
+  return results;
 }
 
 export async function addToCompareCurrencies(form: FormData) {

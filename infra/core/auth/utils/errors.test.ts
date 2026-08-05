@@ -3,6 +3,7 @@ import {
   AuthError,
   AuthNotAuthenticatedError,
   AuthUnauthorizedError,
+  isAuthError,
 } from "./errors";
 
 describe("auth errors", () => {
@@ -99,6 +100,38 @@ describe("auth errors", () => {
       expect(error).toBeInstanceOf(AuthUnauthorizedError);
       expect(error).toBeInstanceOf(AuthError);
       expect(error).toBeInstanceOf(Error);
+    });
+  });
+
+  describe("isAuthError", () => {
+    test("should return true for an instance of AuthError", () => {
+      const error = new AuthError("This is an auth error");
+      expect(isAuthError(error)).toBe(true);
+    });
+
+    test("should return true for an instance of AuthNotAuthenticatedError", () => {
+      const error = new AuthNotAuthenticatedError();
+      expect(isAuthError(error)).toBe(true);
+    });
+
+    test("should return true for an instance of AuthUnauthorizedError", () => {
+      const error = new AuthUnauthorizedError();
+      expect(isAuthError(error)).toBe(true);
+    });
+
+    test("should return false for an instance of a different error type", () => {
+      const error = new Error("This is a generic error");
+      expect(isAuthError(error)).toBe(false);
+    });
+
+    test("should return false when instance is specified and the error is not of that type", () => {
+      const error = new AuthNotAuthenticatedError();
+      expect(isAuthError(error, "AuthUnauthorizedError")).toBe(false);
+    });
+
+    test("should return false when instance is specified and the error is not of that type", () => {
+      const error = new AuthError("This is an auth error");
+      expect(isAuthError(error, "AuthNotAuthenticatedError")).toBe(false);
     });
   });
 });

@@ -1,6 +1,6 @@
-import { assertAuthenticated } from "@/infra/core";
+import { assertAuthenticated, isAuthError } from "@/infra/core";
 import { createGlobalCache, SWREngine } from "@/shared/cache";
-import { parseTimeToMs } from "@/shared/utils";
+import { logError, parseTimeToMs } from "@/shared/utils";
 import { desc, eq } from "drizzle-orm";
 import z from "zod";
 import { db } from "../db/client";
@@ -32,7 +32,7 @@ export async function getLogs() {
         }),
     );
   } catch (error) {
-    console.error(error);
+    logError(error, !isAuthError(error, "AuthNotAuthenticatedError"));
     return [];
   }
 }
@@ -45,7 +45,7 @@ export async function getLogsCount() {
       async () => await db.$count(exLogs, eq(exLogs.userId, userId)),
     );
   } catch (error) {
-    console.log(error);
+    logError(error, !isAuthError(error, "AuthNotAuthenticatedError"));
     return 0;
   }
 }

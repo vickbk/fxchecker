@@ -1,4 +1,4 @@
-import { parseTimeToMs } from "@/shared/utils";
+import { logError, parseTimeToMs } from "@/shared/utils";
 import { getFavorites, toggleFavorite } from "../actions";
 import { db } from "../db/client";
 import { getFavoriteCache } from "./cache";
@@ -18,7 +18,7 @@ export async function getFavoritesCount() {
 
     return favorites?.length || 0;
   } catch (error) {
-    console.error(error);
+    logError(error);
     return 0;
   }
 }
@@ -38,7 +38,7 @@ export async function getAllFavorites() {
       },
     );
   } catch (error) {
-    console.error(error);
+    logError(error);
     return [];
   }
 }

@@ -9,7 +9,4 @@
 export { LogOut, loginWithGoogle } from "./actions";
 export { users } from "./db/schema";
 export { assertAuthenticated, auth, handlers } from "./utils";
-export {
-  AuthNotAuthenticatedError,
-  AuthUnauthorizedError,
-} from "./utils/errors";
+export { isAuthError } from "./utils/errors";

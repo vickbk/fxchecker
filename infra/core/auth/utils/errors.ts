@@ -26,3 +26,16 @@ export class AuthUnauthorizedError extends AuthError {
     super(message, "FORBIDDEN", 403);
   }
 }
+
+const authErrorNames = {
+  AuthError: AuthError,
+  AuthNotAuthenticatedError: AuthNotAuthenticatedError,
+  AuthUnauthorizedError: AuthUnauthorizedError,
+};
+export function isAuthError(
+  error: unknown,
+  instance: keyof typeof authErrorNames = "AuthError",
+): boolean {
+  const instanceConstructor = authErrorNames[instance];
+  return instanceConstructor && error instanceof instanceConstructor;
+}
