@@ -1,3 +1,4 @@
+import { logError } from "@/shared/utils";
 import { customType } from "drizzle-orm/pg-core";
 import { LogData } from "../types";
 
@@ -27,7 +28,7 @@ function fromDriver(value: unknown): LogData {
       rate: Number(rate),
     };
   } catch (error) {
-    console.error(error);
+    logError(error);
     return { base: "ERR", quote: "ERR", amount: 0, rate: 0 };
   }
 }

@@ -1,11 +1,12 @@
 import { Currency, fetchCurrencies } from "@/infra/api/frankfurter";
+import { logError } from "@/shared/utils";
 
-export const CourencyCount = async () => {
+export const CurrencyCount = async () => {
   let currencies: Currency[] | null = null;
   try {
     currencies = await fetchCurrencies();
   } catch (error) {
-    console.error(error);
+    logError(error);
   }
   if (!currencies) return null;
 

@@ -1,6 +1,7 @@
-import { assertAuthenticated } from "@/infra/core";
+import { assertAuthenticated, isAuthError } from "@/infra/core";
 import { revalidateAllPaths } from "@/shared/cache";
 import { FavoriteEntry, FavoritePair } from "@/shared/currencies";
+import { logError } from "@/shared/utils";
 import { eq } from "drizzle-orm";
 import { db } from "./db/client";
 import { exFavorites } from "./db/schema";
@@ -19,7 +20,7 @@ export async function getFavorites() {
         )?.favoritePairs as FavoriteEntry[] | undefined,
     );
   } catch (error) {
-    console.log(error);
+    logError(error, !isAuthError(error, "AuthNotAuthenticatedError"));
   }
 }
 

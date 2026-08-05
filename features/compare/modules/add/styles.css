@@ -23,14 +23,15 @@
     }
 
     .add-compare__option-label {
-      @apply p-2 gap-4 border-b action-btn border-background-secondary justify-between items-center text-start cursor-pointer;
+      @apply p-2 gap-4 action-btn rounded-lg border border-btn justify-between items-center text-start cursor-pointer;
 
       & > .add-compare__check {
         @apply hidden;
       }
 
-      &:hover {
-        @apply outline outline-foreground-secondary border-transparent rounded-lg;
+      &:hover,
+      &:has(:focus-visible) {
+        @apply outline outline-lime-500 border-transparent;
       }
     }
   }

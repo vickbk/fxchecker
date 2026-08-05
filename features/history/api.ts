@@ -1,5 +1,5 @@
 import { fetchHistoricalRates } from "@/infra/api/frankfurter";
-import { getLookbackDate } from "@/shared/utils";
+import { getLookbackDate, logError } from "@/shared/utils";
 import { HistorySearchParams } from "./types";
 import { codeToDays } from "./utils/date";
 
@@ -12,7 +12,7 @@ export async function loadHistoricalRates({
     const date = getLookbackDate(codeToDays(period));
     return await fetchHistoricalRates(date, from, [to]);
   } catch (error) {
-    console.error(error);
+    logError(error);
   }
   return null;
 }
