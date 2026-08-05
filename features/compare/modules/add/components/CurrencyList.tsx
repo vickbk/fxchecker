@@ -16,7 +16,7 @@ export const CurrencyList = () => {
       <label className="block sticky -top-4 bg-card">
         <SROnly>Enter currency name</SROnly>
         <input
-          className="w-full rounded-md p-2 outline outline-background-secondary hover:outline-background focus:outline-lime-500"
+          className="w-full rounded-md p-2 outline outline-btn hover:outline-lime-500 focus:outline-lime-500"
           type="text"
           onChange={(e) => setQuery(e.target.value)}
           placeholder="Search for a currency of your interest"

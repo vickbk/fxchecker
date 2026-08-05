@@ -2,7 +2,7 @@ import { Heading } from "@/shared/heading";
 import { BiIcon, LoadingPlaceholder } from "@/shared/utils";
 import React, { Suspense } from "react";
 import { LiveMarket } from "../modules/live-market";
-import { CourencyCount } from "./CourencyCount";
+import { CurrencyCount } from "./CurrencyCount";
 import { Logo } from "./Logo";
 
 export const MainHeader = async ({
@@ -29,7 +29,7 @@ export const MainHeader = async ({
                   />
                 }
               >
-                <CourencyCount />
+                <CurrencyCount />
               </Suspense>
             </dd>
           </dl>
