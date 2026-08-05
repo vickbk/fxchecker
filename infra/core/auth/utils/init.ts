@@ -8,6 +8,7 @@
 
 import NextAuth from "next-auth";
 import { authOptions } from "./config";
+import { AuthNotAuthenticatedError } from "./errors";
 import { jwt } from "./jwt";
 import { login } from "./login";
 import { session } from "./session";
@@ -26,7 +27,7 @@ export async function assertAuthenticated(): Promise<string> {
   const userId = session?.user?.id;
 
   if (!userId) {
-    throw new Error(
+    throw new AuthNotAuthenticatedError(
       "Unauthorized: You must be logged in to perform this action.",
     );
   }
