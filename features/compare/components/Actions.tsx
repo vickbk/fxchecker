@@ -2,7 +2,6 @@ import { BiIcon, SignInInterceptor, SROnly } from "@/shared/utils";
 import { ReactNode } from "react";
 import { addToCompareCurrencies } from "../actions";
 import { AddDialog } from "../modules/add";
-import { AddForm } from "../modules/add/components/AddForm";
 
 export const Actions = ({
   LoginTrigger: LoginTrigger,
@@ -27,9 +26,7 @@ export const Actions = ({
         <SROnly>Add currency to compare list</SROnly>
         <BiIcon name="plus" />
       </LoginTrigger>
-      <AddDialog>
-        <AddForm action={addToCompareCurrencies} />
-      </AddDialog>
+      <AddDialog action={addToCompareCurrencies} />
     </div>
   );
 };

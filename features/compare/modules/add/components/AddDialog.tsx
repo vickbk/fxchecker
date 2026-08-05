@@ -1,21 +1,10 @@
-"use client";
-import { LoadingPlaceholder } from "@/shared/utils";
-import { ReactNode, useState } from "react";
+import { AddForm } from "./AddForm";
+import { DialogWapper } from "./DialogWrapper";
 
-export const AddDialog = ({ children }: { children: ReactNode }) => {
-  const [open, setOpen] = useState(false);
+export const AddDialog = ({ action }: { action: (form: FormData) => void }) => {
   return (
-    <div
-      popover=""
-      onToggle={(e) => setOpen(e.newState === "open")}
-      id="add-compare-dialog"
-      className="add-compare"
-    >
-      {open ? (
-        children
-      ) : (
-        <LoadingPlaceholder className="max-w-full w-xs min-h-100" />
-      )}
-    </div>
+    <DialogWapper>
+      <AddForm action={action} />
+    </DialogWapper>
   );
 };
