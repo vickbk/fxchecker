@@ -19,7 +19,7 @@ describe("Error Logger", () => {
     const error = new Error("Test error");
 
     logError(error, true);
-    expect(consoleErrorSpy).toHaveBeenCalledWith(`Error:`, error);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(error);
   });
 
   it("should not log an error when shouldLog is false", () => {
@@ -30,23 +30,25 @@ describe("Error Logger", () => {
     expect(consoleErrorSpy).not.toHaveBeenCalled();
   });
 
-  it("should not log when the error is not an instance of Error", () => {
+  it("should log when the error is not an instance of Error", () => {
     const notAnError = "This is not an error";
 
     logError(notAnError, true);
-    expect(consoleErrorSpy).not.toHaveBeenCalled();
+    expect(consoleErrorSpy).toHaveBeenCalledWith(notAnError);
   });
 
   it("should not log when the error is null or undefined", () => {
     logError(null, true);
     logError(undefined, true);
+
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
   });
 
   it("should log custom error instance messages when shouldLog is true", () => {
     const err = new CustomError("Custom error message");
 
     logError(err, true);
-    expect(consoleErrorSpy).toHaveBeenCalledWith(`Error:`, err);
+    expect(consoleErrorSpy).toHaveBeenCalledWith(err);
   });
 
   it("should not log custom error instance messages when shouldLog is false", () => {
