@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
-import { Config } from "../types";
+import { initConfig } from "./config-test-init";
 
 beforeEach(() => {
   vi.resetModules();
@@ -68,20 +68,28 @@ describe("Server Enviroment check", () => {
     const { config } = await import("./env");
     expect(config.NEXT_PUBLIC_APP_URL).toBe("test_url");
   });
+
+  describe("Test environment check", () => {
+    test("should return validated config properties cleanly in test mode", async () => {
+      initConfig({
+        TEST_USER_EMAIL: "proxy-test@fxchecker.dev",
+        TEST_USER_ID: undefined,
+      });
+
+      const { config } = await import("./env");
+      expect(config.TEST_USER_EMAIL).toBe("proxy-test@fxchecker.dev");
+      expect(config.TEST_USER_ID).toBe("");
+    });
+
+    test("should throw when trying to access test variables outside test environment", async () => {
+      initConfig({
+        NODE_ENV: "production",
+      });
+      const { config } = await import("./env");
+
+      expect(() => config.TEST_USER_EMAIL).toThrow(
+        `Attempting to access test environment variable "TEST_USER_EMAIL" in a non-test environment.`,
+      );
+    });
+  });
 });
-
-function initConfig(conf: Partial<Config> = {}) {
-  process.env.FRANKFURTER_URL = "http://test_frankfurter_url";
-  process.env.TMDB_API_KEY = "test_tmdb_key";
-  process.env.AI_PROVIDER_KEY = "test_ai_key";
-  process.env.AUTH_SECRET = "test_auth_secret";
-  process.env.AUTH_GOOGLE_ID = "test_google_id";
-  process.env.AUTH_GOOGLE_SECRET = "test_google_secret";
-  process.env.NEXT_PUBLIC_APP_URL = "http://localhost:3000";
-  process.env.DATABASE_URL = "test_db_url";
-  process.env.GOOGLE_GENERATIVE_AI_API_KEY = "test_generative_key";
-
-  Object.keys(conf).forEach(
-    (key) => (process.env[key] = conf[key as keyof Config] as string),
-  );
-}

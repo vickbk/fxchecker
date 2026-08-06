@@ -1,10 +1,12 @@
 import z from "zod";
+import { testSchema } from "./test-config";
 
 const clientSchema = z.object({
   NEXT_PUBLIC_APP_URL: z.string().default("http://localhost:3000"),
   NEXT_PUBLIC_CHATBOT_STORAGE_KEY: z.string().default(""),
   NEXT_PUBLIC_FLAGCDN: z.url().default("https://flagcdn.com"),
 });
+
 export const configSchema = z.object({
   FRANKFURTER_URL: z.url({ message: "FRANKFURTER_URL is required" }),
   AUTH_SECRET: z
@@ -42,4 +44,5 @@ export const configSchema = z.object({
     "GOOGLE_GENERATIVE_AI_API_KEY cannot be empty",
   ),
   ...clientSchema.shape,
+  ...testSchema.shape,
 });

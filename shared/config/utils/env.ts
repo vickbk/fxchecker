@@ -1,7 +1,9 @@
 import type { Config } from "../types";
+import { isTestEnv } from "./config-test-init";
 import { expandEnv } from "./expand-env";
 import { buildRequired } from "./helpers";
 import { configSchema } from "./schema";
+import { checkTestRequest, getTestConfig } from "./test-config";
 
 expandEnv();
 let cachedConfig: Config | null = null;
@@ -31,6 +33,7 @@ const getServerConfig = (): Config => {
     GEMINI_VERSION: process.env.GEMINI_VERSION,
 
     ...getClientConfig(),
+    ...(isTestEnv() ? getTestConfig() : {}),
   });
 
   if (!parsed.success) {
@@ -51,10 +54,11 @@ const getClientConfig = () => ({
 
 export const config = new Proxy({} as Config, {
   get(_, prop) {
+    checkTestRequest(prop);
     const isBrowser = typeof window !== "undefined";
 
     if (isBrowser) {
-      if (!prop.toString().includes("NEXT_PUBLIC")) {
+      if (!prop.toString().startsWith("NEXT_PUBLIC")) {
         throw new Error(
           `Attempted to access server-side environment variable ${String(
             prop,
