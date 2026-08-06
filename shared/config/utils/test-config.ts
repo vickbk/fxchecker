@@ -32,4 +32,4 @@ export function checkTestRequest(prop: string | symbol): void {
 }
 
 export const isTestEnv = () =>
-  process.env.NODE_ENV === "test" || !!process.env.TEST_ENV;
+  process.env.NODE_ENV === "test" || !!process.env.TEST_ENV || process.env.CI;
