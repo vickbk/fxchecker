@@ -71,30 +71,30 @@
 
 ### Phase 2: Workflow Execution & Caching
 
-- [ ] **Configure Node & Playwright Caching**
-  - **Status**: ⏳ Todo
-  - **Target**: 2026-08-11
+- [x] **Configure Node & Playwright Caching**
+  - **Status**: ✅ Done
+  - **Target**: 2026-08-06
   - **Description**: Speed up pipeline runs by caching npm packages and Playwright browser binaries across CI builds.
   - **Steps**:
-    - [ ] Add `actions/cache` for `~/.cache/ms-playwright` keyed by lockfile
-    - [ ] Add step `npx playwright install --with-deps` on browser cache miss
+    - [x] Add `actions/cache` for `~/.cache/ms-playwright` keyed by lockfile
+    - [x] Add step `pnpx playwright install --with-deps` on browser cache miss
 
-- [ ] **Next.js Web Server Orchestration**
-  - **Status**: ⏳ Todo
-  - **Target**: 2026-08-11
+- [x] **Next.js Web Server Orchestration**
+  - **Status**: ✅ Done
+  - **Target**: 2026-08-06
   - **Description**: Run Playwright against a production build of the Next.js app inside the runner.
   - **Steps**:
-    - [ ] Add application build step (`npm run build`)
-    - [ ] Configure `webServer` block in `playwright.config.ts` (`command: 'npm run start'`, `port: 3000`, `reuseExistingServer: !process.env.CI`)
+    - [x] Add application build step (`pnpm build`)
+    - [x] Configure `webServer` block in `playwright.config.ts` (`command: 'pnpm start'`, `port: 3000`, `reuseExistingServer: !process.env.CI`)
 
 ---
 
 ### Phase 3: Reporting & Ephemeral Artifact Handling
 
-- [ ] **Artifact & Trace Uploads**
-  - **Status**: ⏳ Todo
-  - **Target**: 2026-08-12
+- [x] **Artifact & Trace Uploads**
+  - **Status**: ✅ Done
+  - **Target**: 2026-08-06
   - **Description**: Preserve failure screenshots, video recordings, and Playwright trace files for debugging.
   - **Steps**:
-    - [ ] Add `actions/upload-artifact` step for `playwright-report/` with `if: always()` condition
-    - [ ] Ensure `tests/playwright/.auth/user.json` remains in `.gitignore` and is not committed
+    - [x] Add `actions/upload-artifact` step for `playwright-report/` with `if: always()` condition
+    - [x] Ensure `tests/playwright/.auth/user.json` remains in `.gitignore` and is not committed
