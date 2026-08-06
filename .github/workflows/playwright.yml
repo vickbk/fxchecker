@@ -4,9 +4,13 @@ permissions:
   pull-requests: write
 on:
   push:
-    branches: [main, master]
+    branches:
+      - main
+      - master
   pull_request:
-    branches: [main, master]
+    branches:
+      - main
+      - master
 
 env:
   FRANKFURTER_URL: "https://api.frankfurter.dev/v2/"
