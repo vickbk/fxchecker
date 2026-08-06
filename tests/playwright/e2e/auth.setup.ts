@@ -7,7 +7,16 @@ test.describe("Setup authentication data", () => {
     page,
     context,
   }) => {
-    await setupTestUser(context);
+    const results = await setupTestUser();
+    await context.addCookies([
+      {
+        ...results,
+        path: "/",
+        httpOnly: true,
+        sameSite: "Lax",
+        expires: Math.floor(Date.now() / 1000) + 30 * 24 * 60 * 60,
+      },
+    ]);
     await page.goto("/");
     await context.storageState({
       path: path.resolve(import.meta.dirname, "../.auth/user.json"),
