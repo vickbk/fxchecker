@@ -51,22 +51,21 @@
 
 ### Phase 1: Environment & Neon DB Branch Configuration
 
-- [ ] **Configure CI Environment Secrets**
-  - **Status**: ⏳ Todo
-  - **Target**: 2026-08-10
+- [x] **Configure CI Environment Secrets**
+  - **Status**: ✅ Done
+  - **Target**: 2026-08-06
   - **Description**: Inject connection credentials for the Neon preview branch and Auth.js runtime secrets into the CI workflow.
   - **Steps**:
-    - [ ] Add `DATABASE_URL` pointing to the Neon preview database branch in GitHub Actions Secrets
-    - [ ] Add `AUTH_SECRET` (or `NEXTAUTH_SECRET`) to CI environment secrets
-    - [ ] Set `PLAYWRIGHT_TEST_BASE_URL` to `http://localhost:3000`
+    - [x] Add `DATABASE_URL` pointing to the Neon preview database branch in GitHub Actions Secrets
+    - [x] Add `AUTH_SECRET` (or `NEXTAUTH_SECRET`) to CI environment secrets
 
-- [ ] **Database Schema Migration Sync**
-  - **Status**: ⏳ Todo
+- [x] **Database Schema Migration Sync**
+  - **Status**: ✅ Done
   - **Target**: 2026-08-10
   - **Description**: Ensure the Neon preview branch schema is fully migrated prior to executing `auth.setup.ts`.
   - **Steps**:
-    - [ ] Add Drizzle migration command (`drizzle-kit push` or `db:migrate`) to the CI workflow step before test execution
-    - [ ] Verify non-blocking connection pooled / direct URL configuration for Neon in CI
+    - [x] Add Drizzle migration command (`drizzle-kit push` or `db:migrate`) to the CI workflow step before test execution
+    - [x] Verify non-blocking connection pooled / direct URL configuration for Neon in CI
 
 ---
 
