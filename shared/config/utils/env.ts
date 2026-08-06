@@ -1,7 +1,9 @@
 import type { Config } from "../types";
+import { expandEnv } from "./expand-env";
 import { buildRequired } from "./helpers";
 import { configSchema } from "./schema";
 
+expandEnv();
 let cachedConfig: Config | null = null;
 
 const getServerConfig = (): Config => {

@@ -6,11 +6,10 @@ import { defineConfig, devices } from "@playwright/test";
  */
 import dotenv from "dotenv";
 import path from "path";
-import { expandEnv } from "./tests/playwright/utils/extend-dotenv";
 // import path from 'path';
 dotenv.config({ path: path.resolve(import.meta.dirname, ".env") });
 dotenv.config({ path: path.resolve(import.meta.dirname, ".env.test") });
-expandEnv();
+
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
@@ -63,8 +62,8 @@ export default defineConfig({
     // Map unauthenticated projects
     ...targetBrowsers.map((b) => ({
       name: `guest-${b.name}`,
-      testIgnore: /.*\.auth\.spec\.ts/,
       testMatch: /.*\.spec\.ts/,
+      testIgnore: /.*\.auth\.spec\.ts/,
       use: {
         ...b.device,
       },
