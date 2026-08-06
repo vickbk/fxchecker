@@ -25,8 +25,3 @@ export async function getUserByEmail(email: string) {
     return null;
   }
 }
-
-/**
- * Helper utility to enforce session authentication across actions.
- * Throws a predictable error context if the call is anonymous.
- */
