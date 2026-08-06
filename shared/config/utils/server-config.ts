@@ -4,7 +4,7 @@ import { clientSchema, getClientConfig } from "./client-config";
 import { buildRequired } from "./helpers";
 import { getTestConfig, isTestEnv, testSchema } from "./test-config";
 
-export const configSchema = z.object({
+const configSchema = z.object({
   FRANKFURTER_URL: z.url({ message: "FRANKFURTER_URL is required" }),
   AUTH_SECRET: z
     .string({
