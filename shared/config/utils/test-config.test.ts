@@ -74,6 +74,7 @@ describe("Test Environment Config Module", () => {
     it("should throw an error if accessing TEST_ variables when not in test mode", () => {
       initConfig({
         TEST_ENV: null,
+        CI: null,
         NODE_ENV: "production",
       });
 
@@ -106,21 +107,6 @@ describe("Test Environment Config Module", () => {
       });
 
       expect(() => checkTestRequest("DATABASE_URL")).not.toThrow();
-    });
-  });
-
-  describe("testEnv Proxy", () => {
-    it("should block access and throw when evaluated in production environment", async () => {
-      initConfig({
-        TEST_ENV: null,
-        NODE_ENV: "production",
-      });
-
-      const { config } = await import("./env");
-
-      expect(() => config.TEST_USER_EMAIL).toThrow(
-        'Attempting to access test environment variable "TEST_USER_EMAIL" in a non-test environment.',
-      );
     });
   });
 });

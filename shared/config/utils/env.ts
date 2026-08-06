@@ -1,55 +1,10 @@
 import type { Config } from "../types";
+import { getClientConfig } from "./client-config";
 import { expandEnv } from "./expand-env";
-import { buildRequired } from "./helpers";
-import { configSchema } from "./schema";
-import { checkTestRequest, getTestConfig, isTestEnv } from "./test-config";
+import { getServerConfig } from "./server-config";
+import { checkTestRequest } from "./test-config";
 
 expandEnv();
-let cachedConfig: Config | null = null;
-
-const getServerConfig = (): Config => {
-  if (cachedConfig) return cachedConfig;
-
-  const isBuildPhase = process.env.NEXT_PHASE === "phase-production-build";
-
-  const parsed = configSchema.safeParse({
-    FRANKFURTER_URL: buildRequired(isBuildPhase, process.env.FRANKFURTER_URL),
-    AUTH_SECRET: buildRequired(isBuildPhase, process.env.AUTH_SECRET),
-    AUTH_GOOGLE_ID: buildRequired(isBuildPhase, process.env.AUTH_GOOGLE_ID),
-    AUTH_GOOGLE_SECRET: buildRequired(
-      isBuildPhase,
-      process.env.AUTH_GOOGLE_SECRET,
-    ),
-    AI_PROVIDER_KEY: buildRequired(isBuildPhase, process.env.AI_PROVIDER_KEY),
-    DATABASE_URL: buildRequired(isBuildPhase, process.env.DATABASE_URL),
-    DATABASE_MAX_CONNECTIONS: process.env.DATABASE_MAX_CONNECTIONS
-      ? parseInt(process.env.DATABASE_MAX_CONNECTIONS, 10)
-      : undefined,
-    GOOGLE_GENERATIVE_AI_API_KEY: buildRequired(
-      isBuildPhase,
-      process.env.GOOGLE_GENERATIVE_AI_API_KEY,
-    ),
-    GEMINI_VERSION: process.env.GEMINI_VERSION,
-
-    ...getClientConfig(),
-    ...(isTestEnv() ? getTestConfig() : {}),
-  });
-
-  if (!parsed.success) {
-    const errorMessages = parsed.error.issues.map((i) => i.message).join(", ");
-    throw new Error(`Environment validation failed: ${errorMessages}`);
-  }
-
-  cachedConfig = parsed.data;
-  return cachedConfig;
-};
-
-const getClientConfig = () => ({
-  NEXT_PUBLIC_APP_URL:
-    process.env.NEXT_PUBLIC_APP_URL || "http://localhost:3000",
-  NEXT_PUBLIC_CHATBOT_STORAGE_KEY:
-    process.env.NEXT_PUBLIC_CHATBOT_STORAGE_KEY || "movie-guide-app",
-});
 
 export const config = new Proxy({} as Config, {
   get(_, prop) {

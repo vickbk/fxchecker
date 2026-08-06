@@ -3,7 +3,7 @@ import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { vi } from "vitest";
 import { Config } from "../types";
 
-export const DEFAULT_TEST_ENV: Config = {
+const DEFAULT_TEST_ENV: Config = {
   FRANKFURTER_URL: "http://test_frankfurter_url",
   AI_PROVIDER_KEY: "test_ai_key",
   AUTH_SECRET: "test_auth_secret",

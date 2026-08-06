@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
-import { initConfig } from "./init-helpers.test";
+import { initConfig, resetConfig } from "./init-helpers.test";
 
 beforeEach(() => {
   vi.resetModules();
@@ -10,6 +10,8 @@ beforeEach(() => {
   delete process.env.AUTH_GOOGLE_SECRET;
   delete process.env.NEXT_PUBLIC_APP_URL;
 });
+
+afterEach(resetConfig);
 
 describe("Client Environment", () => {
   test("throws if client attempts to access private keys", async () => {
@@ -33,6 +35,7 @@ describe("Client Environment", () => {
     expect(config.NEXT_PUBLIC_APP_URL).toBe("http://localhost:3000");
   });
 });
+
 describe("Server Enviroment check", () => {
   beforeEach(() => {
     vi.stubGlobal("window", undefined);
@@ -91,5 +94,33 @@ describe("Server Enviroment check", () => {
         `Attempting to access test environment variable "TEST_USER_EMAIL" in a non-test environment.`,
       );
     });
+  });
+});
+
+describe("testEnv Proxy", () => {
+  beforeEach(() => {
+    vi.stubGlobal("window", undefined);
+    initConfig();
+  });
+  afterEach(() => {
+    vi.unstubAllGlobals();
+  });
+  test("should block access and throw when evaluated in production environment", async () => {
+    initConfig({
+      TEST_ENV: null,
+      CI: null,
+      NODE_ENV: "production",
+    });
+
+    const { config } = await import("./env");
+
+    expect(() => config.TEST_USER_EMAIL).toThrow(
+      'Attempting to access test environment variable "TEST_USER_EMAIL" in a non-test environment.',
+    );
+  });
+
+  test("should render normally in test environment", async () => {
+    const { config } = await import("./env");
+    expect(config.TEST_USER_NAME).toBeDefined();
   });
 });
