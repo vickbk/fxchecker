@@ -22,12 +22,14 @@ export function getTestConfig(): z.infer<typeof testSchema> {
  * Asserts that test environment variables are accessed only in test mode.
  */
 export function checkTestRequest(prop: string | symbol): void {
-  const isTest = process.env.NODE_ENV === "test" || !!process.env.TEST_ENV;
   const propKey = String(prop);
 
-  if (!isTest && propKey.startsWith("TEST_")) {
+  if (!isTestEnv() && propKey.startsWith("TEST_")) {
     throw new Error(
       `Attempting to access test environment variable "${propKey}" in a non-test environment.`,
     );
   }
 }
+
+export const isTestEnv = () =>
+  process.env.NODE_ENV === "test" || !!process.env.TEST_ENV;

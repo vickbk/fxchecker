@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
-import { initConfig, resetConfig } from "./config-test-init";
+import { initConfig, resetConfig } from "./init-helpers.test";
 
 import { checkTestRequest, getTestConfig, testSchema } from "./test-config";
 

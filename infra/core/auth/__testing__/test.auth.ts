@@ -29,13 +29,13 @@ export async function setupTestUser() {
 }
 
 const profile = {
-  name: process.env.TEST_USER_NAME,
-  email: process.env.TEST_USER_EMAIL,
+  name: config.TEST_USER_NAME,
+  email: config.TEST_USER_EMAIL,
   picture: null,
 };
 
 const account = {
   provider: "google",
   type: "oauth" as const,
-  providerAccountId: "google-test-id-12345",
+  providerAccountId: config.TEST_USER_ID,
 };

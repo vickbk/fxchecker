@@ -1,9 +1,8 @@
 import type { Config } from "../types";
-import { isTestEnv } from "./config-test-init";
 import { expandEnv } from "./expand-env";
 import { buildRequired } from "./helpers";
 import { configSchema } from "./schema";
-import { checkTestRequest, getTestConfig } from "./test-config";
+import { checkTestRequest, getTestConfig, isTestEnv } from "./test-config";
 
 expandEnv();
 let cachedConfig: Config | null = null;

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
-import { initConfig } from "./config-test-init";
+import { initConfig } from "./init-helpers.test";
 
 beforeEach(() => {
   vi.resetModules();
