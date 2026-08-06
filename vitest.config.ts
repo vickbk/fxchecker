@@ -17,5 +17,8 @@ export default defineConfig({
       "**/dist/**",
       "**/*.spec.ts",
     ],
+    coverage: {
+      reporter: ["html", "text", "json", "json-summary"],
+    },
   },
 });
