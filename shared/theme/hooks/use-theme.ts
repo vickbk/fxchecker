@@ -1,5 +1,7 @@
 import { useCallback, useEffect, useState } from "react";
-import { applyTheme, getSavedTheme, saveTheme } from "../scripts";
+import { saveTheme } from "../scripts";
+import { applyTheme } from "../scripts/apply-theme";
+import { getSavedTheme } from "../scripts/get-saved-theme";
 import type { Themes } from "../types";
 
 export function useTheme() {

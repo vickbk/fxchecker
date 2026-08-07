@@ -1,4 +1,5 @@
 import { ApplyThemeOptions, Themes } from "../types";
+import { saveTheme } from "./save-theme";
 
 export function applyTheme(
   theme: Themes,
@@ -17,11 +18,7 @@ export function applyTheme(
 
   // 3. Safe localStorage persistence
   if (persist) {
-    try {
-      localStorage.setItem("theme", theme);
-    } catch {
-      // Gracefully handle storage exceptions (Safari Private Browsing, restricted iFrames)
-    }
+    saveTheme(theme);
   }
 
   // 4. Trigger state/store updater callback
