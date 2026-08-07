@@ -1,5 +1,5 @@
-import { afterEach, beforeEach, describe, expect, test } from "vitest";
-import { getClientConfig } from "./client-config";
+import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
+import { checkClientRequest, getClientConfig } from "./client-config";
 import { initConfig, resetConfig } from "./init-helpers.test";
 
 beforeEach(() => {
@@ -35,5 +35,35 @@ describe("get client config", () => {
 
     const { NEXT_PUBLIC_APP_URL } = getClientConfig();
     expect(NEXT_PUBLIC_APP_URL).toBe(testLink);
+  });
+});
+
+describe("Check client side environment", () => {
+  test("should return true in client side environment", () => {
+    expect(checkClientRequest("NEXT_PUBLIC_VARIABLE")).toBe(true);
+  });
+
+  test("should throw if trying to access server variables in client side environment", () => {
+    expect(() => checkClientRequest("MY_SERVER_VARIABLE")).toThrow(
+      "Attempted to access server-side environment variable MY_SERVER_VARIABLE from a Client Component.",
+    );
+  });
+
+  describe("server access", () => {
+    beforeEach(() => {
+      vi.resetModules();
+      vi.stubGlobal("window", undefined);
+    });
+    afterEach(() => {
+      vi.unstubAllGlobals();
+    });
+    test("should return false in server environment", () => {
+      expect(checkClientRequest("NEXT_PUBLIC_MY_VARIABLE")).toBeFalsy();
+    });
+
+    test("should not throw when trying to access server variables", () => {
+      expect(() => checkClientRequest("MY_SERVER_VARIABLE")).not.toThrow();
+      expect(checkClientRequest("MY_SERVER_VARIABLE")).toBeFalsy();
+    });
   });
 });
