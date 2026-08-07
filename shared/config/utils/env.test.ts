@@ -86,6 +86,8 @@ describe("Server Enviroment check", () => {
 
     test("should throw when trying to access test variables outside test environment", async () => {
       initConfig({
+        TEST_ENV: null,
+        CI: null,
         NODE_ENV: "production",
       });
       const { config } = await import("./env");
