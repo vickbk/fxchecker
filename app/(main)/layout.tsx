@@ -11,8 +11,8 @@ import {
   MainToggleFavorite,
 } from "@/features/favorites";
 import { MainHeader } from "@/features/header";
-import { Navbar } from "@/features/history/modules/navbar";
 import { ConversionLogger, getLogsCount } from "@/features/logs";
+import { Navbar } from "@/features/navbar";
 import { fetchCurrencies } from "@/infra/api/frankfurter";
 import { CurrencyProvider } from "@/shared/currencies";
 import { HeadingCtx, Main } from "@/shared/heading";

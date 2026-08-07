@@ -1,4 +1,3 @@
-// eslint-disable-next-line boundaries/dependencies
 import { shouldSee } from "@/tests/playwright";
 import { Page } from "@playwright/test";
 import { COMPARE_TAB, FAVORITE_TAB, HISTORY_TAB, LOG_TAB } from "./utils";
