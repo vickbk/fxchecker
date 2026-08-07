@@ -3,18 +3,18 @@ import userEvent from "@testing-library/user-event";
 import { expect } from "vitest";
 import { ZodSchema } from "zod/v3";
 
-export const shouldSee = (...texts: (string | RegExp)[]) => {
-  texts.forEach((text) => {
+function shouldGet(...textes: (string | RegExp)[]) {
+  return textes.map((text) => {
     const regex = typeof text === "string" ? new RegExp(text, "i") : text;
-    expect(screen.getByText(regex)).toBeInTheDocument();
+    return expect(screen.getByText(regex));
   });
+}
+export const shouldSee = (...texts: (string | RegExp)[]) => {
+  shouldGet(...texts).forEach((matcher) => matcher.toBeInTheDocument());
 };
 
 export const shouldNotSee = (...texts: (string | RegExp)[]) => {
-  texts.forEach((text) => {
-    const regex = typeof text === "string" ? new RegExp(text, "i") : text;
-    expect(screen.queryByText(regex)).not.toBeInTheDocument();
-  });
+  shouldGet(...texts).forEach((matcher) => matcher.not.toBeInTheDocument());
 };
 
 export const userClicks = async (

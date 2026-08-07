@@ -7,26 +7,28 @@ import type { Locator, Page } from "@playwright/test";
 import test, { expect } from "@playwright/test";
 import { SimpleTest } from "../types";
 
-export async function shouldSee(page: Page, ...textes: TEXT_MATCHER[]) {
-  for (const text of textes) {
+function shouldGet(page: Page, ...textes: TEXT_MATCHER[]) {
+  return textes.map((text) => {
     if (Array.isArray(text)) {
       const [matcher, nth] = text;
-      await expect(page.getByText(matcher).nth(nth)).toBeVisible();
-    } else {
-      await expect(page.getByText(text)).toBeVisible();
+      return expect(page.getByText(matcher).nth(nth));
     }
-  }
+    return expect(page.getByText(text));
+  });
+}
+
+export async function shouldSee(page: Page, ...textes: TEXT_MATCHER[]) {
+  await Promise.all(
+    shouldGet(page, ...textes).map(async (matcher) => matcher.toBeVisible()),
+  );
 }
 
 export async function shouldNotSee(page: Page, ...textes: TEXT_MATCHER[]) {
-  for (const text of textes) {
-    if (Array.isArray(text)) {
-      const [matcher, nth] = text;
-      await expect(page.getByText(matcher).nth(nth)).not.toBeVisible();
-    } else {
-      await expect(page.getByText(text)).not.toBeVisible();
-    }
-  }
+  await Promise.all(
+    shouldGet(page, ...textes).map(
+      async (matcher) => await matcher.not.toBeVisible(),
+    ),
+  );
 }
 
 export async function fillLocatorWith(locator: Locator, value: string) {
