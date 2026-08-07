@@ -1,6 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { initConfig, resetConfig } from "./init-helpers.test";
-
 import { checkTestRequest, getTestConfig, testSchema } from "./test-config";
 
 describe("Test Environment Config Module", () => {
@@ -45,13 +44,13 @@ describe("Test Environment Config Module", () => {
 
   describe("getTestConfig", () => {
     it("should extract custom values from process.env when present", () => {
-      process.env.TEST_USER_ID = "usr_123";
-      process.env.TEST_USER_EMAIL = "developer@fxchecker.dev";
-      process.env.TEST_USER_NAME = "Dev Lead";
+      initConfig({
+        TEST_USER_ID: "usr_123",
+        TEST_USER_EMAIL: "developer@fxchecker.dev",
+        TEST_USER_NAME: "Dev Lead",
+      });
 
-      const config = getTestConfig();
-
-      expect(config).toEqual({
+      expect(getTestConfig()).toEqual({
         TEST_USER_ID: "usr_123",
         TEST_USER_EMAIL: "developer@fxchecker.dev",
         TEST_USER_NAME: "Dev Lead",
@@ -59,9 +58,11 @@ describe("Test Environment Config Module", () => {
     });
 
     it("should fallback to schema defaults when environment variables are empty strings", () => {
-      process.env.TEST_USER_ID = "";
-      process.env.TEST_USER_EMAIL = "";
-      process.env.TEST_USER_NAME = "";
+      initConfig({
+        TEST_USER_ID: "",
+        TEST_USER_EMAIL: "",
+        TEST_USER_NAME: "",
+      });
 
       const config = getTestConfig();
 

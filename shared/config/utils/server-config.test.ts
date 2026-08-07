@@ -1,29 +1,27 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from "vitest";
-import { config } from "./env";
 import { initConfig, resetConfig } from "./init-helpers.test";
-import { getServerConfig } from "./server-config";
 
 beforeEach(() => {
-  vi.resetModules();
   initConfig();
+  vi.resetModules();
   vi.stubGlobal("window", undefined);
 });
 afterEach(() => {
   resetConfig();
   vi.unstubAllGlobals();
 });
+
 describe("Server Enviroment check", () => {
   test("throws if FRANKFURTER_URL is missing on server side", async () => {
-    try {
-      const { config } = await import("./env");
-      console.log(config.FRANKFURTER_URL);
-    } catch (err: unknown) {
-      expect((err as Error).message).toMatch(/FRANKFURTER_URL is required/i);
-    }
+    initConfig({ FRANKFURTER_URL: null });
+    const { config } = await import("./env");
+
+    expect(() => config.FRANKFURTER_URL).toThrow(
+      /FRANKFURTER_URL is required/i,
+    );
   });
 
   test("returns valid server config when env is correct", async () => {
-    initConfig();
     const { config } = await import("./env");
 
     expect(config.FRANKFURTER_URL).toBe("http://test_frankfurter_url");
@@ -36,13 +34,32 @@ describe("Server Enviroment check", () => {
 
   test("access client environment in the server", async () => {
     initConfig({ NEXT_PUBLIC_APP_URL: "test_url" });
-
+    const { config } = await import("./env");
     expect(config.NEXT_PUBLIC_APP_URL).toBe("test_url");
   });
 });
 
 describe("Get Server Config", () => {
-  test("should get all server variables", () => {
+  test("should not access real test environment in no-test environment", async () => {
+    const testConfig = {
+      TEST_USER_EMAIL: "real@test.mail",
+      TEST_USER_NAME: "test user",
+    };
+    initConfig({
+      TEST_ENV: null,
+      CI: null,
+      NODE_ENV: "production",
+      ...testConfig,
+    });
+
+    const { getServerConfig } = await import("./server-config");
+    const config = getServerConfig();
+    expect(config.TEST_USER_EMAIL).not.toBe(testConfig.TEST_USER_EMAIL);
+    expect(config.TEST_USER_NAME).not.toBe(testConfig.TEST_USER_NAME);
+  });
+
+  test("should get all server variables in test environment", async () => {
+    const { getServerConfig } = await import("./server-config");
     const results = getServerConfig();
     expect(results).toStrictEqual({
       AI_PROVIDER_KEY: "test_ai_key",
@@ -54,7 +71,7 @@ describe("Get Server Config", () => {
       FRANKFURTER_URL: "http://test_frankfurter_url",
       GEMINI_VERSION: "test_version",
       GOOGLE_GENERATIVE_AI_API_KEY: "test_generative_key",
-      NEXT_PUBLIC_APP_URL: "test_url",
+      NEXT_PUBLIC_APP_URL: "http://localhost:3000",
       NEXT_PUBLIC_CHATBOT_STORAGE_KEY: "test_storage_key",
       NEXT_PUBLIC_FLAGCDN: "https://flagcdn.com",
       TEST_USER_EMAIL: "test@user.email",

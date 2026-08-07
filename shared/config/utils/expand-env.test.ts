@@ -1,33 +1,11 @@
 import { afterEach, beforeEach, describe, expect, it } from "vitest";
 import { expandEnv } from "./expand-env";
-
-// Store initial environment state for teardown
-const ORIGINAL_ENV = { ...process.env };
-
-function initConfig(conf: Record<string, string> = {}) {
-  process.env.TMDB_API_KEY = "test_tmdb_key";
-  process.env.AI_PROVIDER_KEY = "test_ai_key";
-  process.env.AUTH_SECRET = "test_auth_secret";
-  process.env.AUTH_GOOGLE_ID = "test_google_id";
-  process.env.AUTH_GOOGLE_SECRET = "test_google_secret";
-  process.env.NEXT_PUBLIC_APP_URL = "http://localhost:3000";
-  process.env.DATABASE_URL = "test_db_url";
-  process.env.GOOGLE_GENERATIVE_AI_API_KEY = "test_generative_key";
-
-  Object.keys(conf).forEach((key) => {
-    process.env[key] = conf[key];
-  });
-}
+import { initConfig, resetConfig } from "./init-helpers.test";
 
 describe("expandEnv", () => {
-  beforeEach(() => {
-    // Reset process.env before each test run
-    process.env = ORIGINAL_ENV;
-  });
+  beforeEach(initConfig);
 
-  afterEach(() => {
-    process.env = ORIGINAL_ENV;
-  });
+  afterEach(resetConfig);
 
   it("should expand basic variable placeholders", () => {
     initConfig({
