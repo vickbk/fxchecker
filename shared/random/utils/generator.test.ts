@@ -47,6 +47,11 @@ describe("Random Generation Helpers", () => {
       expect(result).toBeGreaterThanOrEqual(1);
       expect(result).toBeLessThan(9);
     });
+
+    it("should pick a real min if swapped min and max", () => {
+      const result = getRandomInt(10, 0);
+      expect(result).toBeLessThan(10);
+    });
   });
 
   describe("get Random Element", () => {
@@ -116,13 +121,21 @@ describe("Random Generation Helpers", () => {
       expect(results.length).toBe(parent.length);
     });
 
-    test("should keep parent length and shuffle element postion", () => {
-      const results = getRandomElements(parent, 5);
-      const shuffled = results.some(
-        (element, index) => index !== parent.indexOf(element),
-      );
-      expect(shuffled).toBe(true);
-      expect(results.length).toBe(parent.length);
+    test("should keep parent length and shuffle element postion in multiple runs", () => {
+      for (let i = 0; i < 1000; i++) {
+        const results = getRandomElements(parent, 5);
+        const shuffled = results.some(
+          (element, index) => index !== parent.indexOf(element),
+        );
+        if (!shuffled)
+          expect(() => {
+            throw new Error(
+              "Should have shuffled but some values remained in place",
+            );
+          }).toThrow(`${parent} vs ${results} index ${i}`);
+        expect(shuffled).toBe(true);
+        expect(results.length).toBe(parent.length);
+      }
     });
 
     test("should return an empty list when count is set to 0", () => {
