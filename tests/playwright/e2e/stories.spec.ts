@@ -6,8 +6,8 @@ import { shouldSeeEmptyFavoriteSection } from "@/features/favorites/__testing__"
 import { shouldSeePageTitle } from "@/features/header/__testing__";
 import { shouldSeeHistorySection } from "@/features/history/__testing__";
 import { shouldSeeEmptyLogs } from "@/features/logs/__testing__";
+import { shouldSeeNavbar } from "@/features/navbar/__testing__";
 import { shouldSeeDarkThemeSwitcher } from "@/shared/theme/__testing__";
-import { shouldSeeNavbar } from "@/shared/utils/modules/navbar/__testing__";
 import { test } from "@playwright/test";
 
 test.describe("Main Page tests", () => {

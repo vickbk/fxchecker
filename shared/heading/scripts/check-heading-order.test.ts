@@ -1,3 +1,4 @@
+import { describe, expect, test } from "vitest";
 import { checkHeadingOrder } from "./check-heading-order";
 
 describe("Check Heading Order", () => {

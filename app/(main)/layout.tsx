@@ -12,11 +12,12 @@ import {
 } from "@/features/favorites";
 import { MainHeader } from "@/features/header";
 import { ConversionLogger, getLogsCount } from "@/features/logs";
+import { Navbar } from "@/features/navbar";
 import { fetchCurrencies } from "@/infra/api/frankfurter";
 import { CurrencyProvider } from "@/shared/currencies";
 import { HeadingCtx, Main } from "@/shared/heading";
 import { ThemeSwitch } from "@/shared/theme";
-import { LoadingPlaceholder, Navbar } from "@/shared/utils";
+import { LoadingPlaceholder } from "@/shared/utils";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Suspense } from "react";
 
