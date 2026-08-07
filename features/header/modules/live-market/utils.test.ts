@@ -76,4 +76,17 @@ describe("getCurrencyPairs", () => {
 
     await expect(getCurrencyPairs()).rejects.toThrow("network down");
   });
+
+  it("throws when unable to generate a valid pair", async () => {
+    mockedFetchCurrencies.mockResolvedValue([
+      { code: "USD" },
+      { code: "USD" },
+      { code: "USD" },
+      { code: "USD" },
+    ] as Currency[]);
+
+    await expect(getCurrencyPairs()).rejects.toThrow(
+      "Failed to generate valid currency pairs.",
+    );
+  });
 });
