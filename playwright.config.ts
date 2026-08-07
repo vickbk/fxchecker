@@ -4,13 +4,24 @@ import { defineConfig, devices } from "@playwright/test";
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
-// import dotenv from 'dotenv';
+import dotenv from "dotenv";
+import path from "path";
 // import path from 'path';
-// dotenv.config({ path: path.resolve(__dirname, '.env') });
+if (!process.env.CI) {
+  dotenv.config({ path: path.resolve(import.meta.dirname, ".env") });
+  dotenv.config({ path: path.resolve(import.meta.dirname, ".env.test") });
+}
 
 /**
  * See https://playwright.dev/docs/test-configuration.
  */
+
+const targetBrowsers = [
+  { name: "chromium", device: devices["Desktop Chrome"] },
+  { name: "firefox", device: devices["Desktop Firefox"] },
+  { name: "webkit", device: devices["Desktop Safari"] },
+];
+
 export default defineConfig({
   testDir: "./tests/playwright/e2e",
   /* Run tests in files in parallel */
@@ -35,19 +46,30 @@ export default defineConfig({
   /* Configure projects for major browsers */
   projects: [
     {
-      name: "chromium",
-      use: { ...devices["Desktop Chrome"] },
+      name: "setup",
+      testMatch: /.*\.setup\.ts/,
     },
 
-    {
-      name: "firefox",
-      use: { ...devices["Desktop Firefox"] },
-    },
+    // Map authenticated projects
+    ...targetBrowsers.map((b) => ({
+      name: `auth-${b.name}`,
+      testMatch: /.*\.auth\.spec\.ts/,
+      dependencies: ["setup"],
+      use: {
+        ...b.device,
+        storageState: "tests/playwright/.auth/user.json",
+      },
+    })),
 
-    {
-      name: "webkit",
-      use: { ...devices["Desktop Safari"] },
-    },
+    // Map unauthenticated projects
+    ...targetBrowsers.map((b) => ({
+      name: `guest-${b.name}`,
+      testMatch: /.*\.spec\.ts/,
+      testIgnore: /.*\.auth\.spec\.ts/,
+      use: {
+        ...b.device,
+      },
+    })),
 
     /* Test against mobile viewports. */
     // {

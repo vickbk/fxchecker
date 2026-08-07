@@ -1,6 +1,17 @@
-import { clickBodyCorner, clickButton, shouldSee } from "@/tests/playwright";
+import {
+  clickBodyCorner,
+  clickButton,
+  shouldNotSee,
+  shouldSee,
+} from "@/tests/playwright";
 import { Page } from "@playwright/test";
-import { SIGN_IN_BUTTON, SIGN_IN_HEADER, SIGN_IN_WITH_GOOGLE } from "./utils";
+import {
+  SIGN_IN_BUTTON,
+  SIGN_IN_HEADER,
+  SIGN_IN_WITH_GOOGLE,
+  TEST_USER_ACCOUNT_PREVIEW,
+  TEST_USER_ACCOUNT_TRIGGER,
+} from "./utils";
 
 export async function shouldSeeLoginButton(page: Page) {
   await shouldSee(page, SIGN_IN_BUTTON);
@@ -16,7 +27,8 @@ export async function shouldCloseTheLoginDialogByClickingOutise(page: Page) {
   await clickBodyCorner(page);
 }
 
-// export async function shouldLoginWithGoogle(page: Page) {
-//   await shouldSeeTheHeaderOnLoginModal(page);
-//   await clickButton(page, SIGN_IN_WITH_GOOGLE);
-// }
+export async function shouldSeeSignInInformation(page: Page) {
+  await shouldNotSee(page, SIGN_IN_BUTTON, SIGN_IN_HEADER, SIGN_IN_WITH_GOOGLE);
+  await clickButton(page, TEST_USER_ACCOUNT_TRIGGER);
+  await shouldSee(page, TEST_USER_ACCOUNT_PREVIEW);
+}

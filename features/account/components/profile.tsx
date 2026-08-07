@@ -1,5 +1,5 @@
 import { LogOut } from "@/infra/core";
-import { BiIcon, LoadingSubmit } from "@/shared/utils";
+import { BiIcon, LoadingSubmit, SROnly } from "@/shared/utils";
 import { Session } from "next-auth";
 import Image from "next/image";
 
@@ -38,9 +38,15 @@ export const Profile = ({ session }: { session: Session }) => {
           )}
 
           <dl className="flex-1">
-            <dt className="text-sm text-slate-400">Signed in as</dt>
-            <dd className="text-white font-medium">{user?.name}</dd>
-            <dd className="text-xs text-slate-500 truncate">{user?.email}</dd>
+            <dt className="text-sm text-slate-400">Signed in as </dt>
+            <dd className="text-white font-medium">
+              <SROnly>Full name: </SROnly>
+              {user?.name}{" "}
+            </dd>
+            <dd className="text-xs text-slate-500 truncate">
+              <SROnly>Email address: </SROnly>
+              {user?.email}
+            </dd>
           </dl>
         </figure>
 
@@ -59,6 +65,7 @@ export const Profile = ({ session }: { session: Session }) => {
         className="inline-flex items-center gap-2 bg-lime-500 text-background hover:bg-transparent hover:outline hover:text-lime-500 focus-visible:bg-transparent focus-visible:outline focus-visible:text-lime-500 px-3 py-2 rounded-md"
         aria-label="Open account menu"
       >
+        <SROnly>Manage your account </SROnly>
         {user?.name} <BiIcon name="person" />
       </button>
     </form>

@@ -22,6 +22,10 @@ export const { handlers, auth, signIn, signOut } = NextAuth({
   },
 });
 
+/**
+ * Helper utility to enforce session authentication across actions.
+ * Throws a predictable error context if the call is anonymous.
+ */
 export async function assertAuthenticated(): Promise<string> {
   const session = await auth();
   const userId = session?.user?.id;
