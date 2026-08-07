@@ -4,10 +4,12 @@ import { shouldSeeCompareSection } from "@/features/compare/__testing__";
 import { shouldSeeTheConverterSection } from "@/features/converter/__testing__";
 import { shouldSeeEmptyFavoriteSection } from "@/features/favorites/__testing__";
 import { shouldSeePageTitle } from "@/features/header/__testing__";
-import { shouldSeeHistorySection } from "@/features/history/__testing__";
+import {
+  shouldSeeHistorySection,
+  shouldSeeNavbar,
+} from "@/features/history/__testing__";
 import { shouldSeeEmptyLogs } from "@/features/logs/__testing__";
 import { shouldSeeDarkThemeSwitcher } from "@/shared/theme/__testing__";
-import { shouldSeeNavbar } from "@/shared/utils/modules/navbar/__testing__";
 import { test } from "@playwright/test";
 
 test.describe("Main Page tests", () => {
