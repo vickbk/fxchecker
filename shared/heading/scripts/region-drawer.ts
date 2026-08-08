@@ -1,9 +1,9 @@
-import type { RegionMaping } from "../types";
+import type { RegionMapping } from "../types";
 
 const LANDMARK_SELECTOR = "main, header, section, article, header, legend";
 const HEADING_SELECTOR = "h1, h2, h3, h4, h5, h6";
 
-export function drawRegion<T extends Element>(element: T): RegionMaping {
+export function drawRegion<T extends Element>(element: T): RegionMapping {
   const regions = [...element.querySelectorAll(LANDMARK_SELECTOR)].filter(
     (region) => region.parentElement!.closest(LANDMARK_SELECTOR) === element,
   );

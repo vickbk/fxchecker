@@ -1,34 +1,52 @@
-import type { RegionMaping } from "../types";
+import { RegionMapping } from "../types";
 
 /**
- * Recursively validates that the heading levels in a region tree follow semantic HTML rules.
+ * Recursively validates that heading levels in a region tree follow semantic HTML rules.
  *
- * - Allows heading levels to increase by 1 (e.g., H2 after H1) or remain the same (for clamped H6 or
- *   when a region lacks its own heading but contains children).
- * - Clamps at H6: deeper nested headings remain at H6, as required by the HTML spec.
- * - If a region has no heading, its children do not increment the level.
- * - Returns false if heading levels exceed H6 or if a child region violates the allowed increment.
- *
- * Architectural note:
- * - Assumes each region has at most one heading relevant for the hierarchy (other tests cover multiple headings per region).
- * - Designed for flexibility: allows for sections without headings and repeated H6 at deep nesting.
- *
- * @param region - The region mapping object representing a semantic region and its headings/children.
- * @param currentLevel - The current heading level context (default: 1 for H1).
- * @returns boolean indicating whether the heading order is valid throughout the tree.
+ * - Headings can increase by at most 1 (e.g., H1 -> H2).
+ * - Headings can remain the same level (sibling sections).
+ * - Headings can decrease to any higher-level parent (e.g., H3 -> H2).
+ * - Clamps and rejects levels exceeding H6 or falling below H1.
  */
-
 export function checkHeadingOrder(
-  region: RegionMaping,
+  region: RegionMapping,
   currentLevel = 1,
 ): boolean {
-  if (currentLevel > 6) return false;
+  if (!region) return true;
 
   const { headings, children } = region;
 
-  const level = +(headings[0]?.match(/\d+/)?.[0] ?? currentLevel);
-  return (
-    [0, 1].includes(level - currentLevel) &&
-    children.every((child) => checkHeadingOrder(child, level))
-  );
+  let nextLevel = currentLevel;
+
+  if (headings && headings.length > 0) {
+    const rawHeading = headings[0];
+    // Match exact heading patterns like 'h1', 'H2', etc., to avoid parsing embedded numbers
+    const match = rawHeading.match(/^h([1-6])$/i);
+
+    if (match) {
+      nextLevel = Number(match[1]);
+    } else {
+      // Fallback: extract the first sequence of digits anywhere in the string
+      const fallbackDigits = rawHeading.match(/\d+/);
+      if (fallbackDigits) {
+        nextLevel = Number(fallbackDigits[0]);
+      }
+    }
+  }
+
+  // Enforce absolute HTML bounds (H1-H6)
+  if (nextLevel < 1 || nextLevel > 6) {
+    return false;
+  }
+
+  // Validation rules:
+  // 1. Cannot skip levels going down (nextLevel - currentLevel > 1)
+  // 2. Can go down by 1, stay same (0), or jump back up to any higher level (negative diff)
+  const diff = nextLevel - currentLevel;
+  if (diff > 1) {
+    return false;
+  }
+
+  // Recursively validate all children using the current region's resolved level as context
+  return children.every((child) => checkHeadingOrder(child, nextLevel));
 }
