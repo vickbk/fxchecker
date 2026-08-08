@@ -29,6 +29,16 @@ describe("readState", () => {
     expect(state.from).toBe("GBP");
     expect(state.to).toBe(DEFAULT_TO);
     expect(state.amount).toBe(DEFAULT_AMOUNT);
+
+    const state2 = readState(new URLSearchParams("to=USD"));
+    expect(state2.from).toBe(DEFAULT_FROM);
+    expect(state2.to).toBe("USD");
+    expect(state2.amount).toBe(DEFAULT_AMOUNT);
+
+    const state3 = readState(new URLSearchParams("amount=300"));
+    expect(state3.from).toBe(DEFAULT_FROM);
+    expect(state3.to).toBe(DEFAULT_TO);
+    expect(state3.amount).toBe(300);
   });
 
   it("normalizes lowercase or poorly spaced currency tokens", () => {
@@ -56,9 +66,23 @@ describe("readState", () => {
 
 describe("buildStateQuery", () => {
   it("serializes updates while preserving existing params", () => {
-    const params = new URLSearchParams("from=USD&to=EUR&amount=100");
-    const nextQuery = buildStateQuery({ from: "gbp", amount: 250 }, params);
+    expect(
+      buildStateQuery(
+        { from: "gbp", amount: 250 },
+        new URLSearchParams("from=USD&to=EUR&amount=100"),
+      ),
+    ).toBe("from=GBP&to=EUR&amount=250");
 
-    expect(nextQuery).toBe("from=GBP&to=EUR&amount=250");
+    expect(
+      buildStateQuery(
+        { from: "USD", amount: 250 },
+        new URLSearchParams("to=EUR"),
+      ),
+    ).toBe("to=EUR&from=USD&amount=250");
+  });
+
+  it("should build an URL if base not provided", () => {
+    expect(buildStateQuery({ from: "USD" })).toBe("from=USD");
+    expect(buildStateQuery({ to: "EUR" })).toBe("to=EUR");
   });
 });

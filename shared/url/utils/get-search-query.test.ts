@@ -156,7 +156,9 @@ describe("URL Search Query Helpers", () => {
     });
 
     it("returns an empty string when given a null/falsy URLSearchParams instance", () => {
+      // @ts-expect-error Testing untyped JS caller passing null, undefined, number,string, or array
       expect(getSearchQuery(null, ["page", 1])).toBe("");
+      // @ts-expect-error Testing untyped JS caller passing null, undefined, number,string, or array
       expect(getSearchQueryObject(null, { page: 1 })).toBe("");
     });
 

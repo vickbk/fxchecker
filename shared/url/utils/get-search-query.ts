@@ -1,14 +1,19 @@
 import type { QueryValue } from "../types";
 
 export function getSearchQuery(
-  queries: URLSearchParams | null | undefined,
+  queries: URLSearchParams | undefined,
   ...params: Array<[string, QueryValue]>
 ): string {
-  if (!queries) return "";
-
-  if (params.length === 0) return queries.toString();
+  const queriesType = typeof queries;
+  if (
+    !queries &&
+    (!(queriesType === "string" || queriesType === "undefined") || !params)
+  )
+    return "";
 
   const nextQueries = new URLSearchParams(queries);
+  if (params.length === 0) return nextQueries.toString();
+
   const len = params.length;
 
   for (let i = 0; i < len; i++) {
