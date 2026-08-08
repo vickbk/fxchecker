@@ -102,4 +102,14 @@ describe("createGlobalCache", () => {
       expect(instanceA).not.toBe(instanceB);
     });
   });
+
+  describe("Default cache setter", () => {
+    it("should initiate a cache instance for a key when the init function is not set", () => {
+      const singleton = createGlobalCache("TEST_KEY_A");
+
+      expect(singleton).toBeDefined();
+      expect(typeof singleton).toBe("function");
+      expect(singleton()).toBeInstanceOf(SWREngine);
+    });
+  });
 });

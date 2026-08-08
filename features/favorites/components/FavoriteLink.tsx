@@ -1,6 +1,6 @@
 "use client";
 import { Currency } from "@/infra/api/frankfurter";
-import { getSearchQuery } from "@/shared/utils";
+import { getSearchQuery } from "@/shared/url";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { ReactNode } from "react";

@@ -1,7 +1,7 @@
 "use client";
 import { useCurrencies } from "@/shared/currencies";
 import { Article } from "@/shared/heading";
-import { useURLState } from "@/shared/url";
+import { useURLState } from "@/shared/url/hooks";
 import { BiIcon, Flag, getCurrencyCountry, SROnly } from "@/shared/utils";
 import { useId } from "react";
 import { PickerForm } from "../modules/currency-picker";

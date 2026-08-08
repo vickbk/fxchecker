@@ -1,6 +1,6 @@
-export type RegionMaping = {
+export type RegionMapping = {
   tagName: string;
   headings: string[];
-  children: RegionMaping[];
+  children: RegionMapping[];
 };
 export type HeadingLevel = 1 | 2 | 3 | 4 | 5 | 0;

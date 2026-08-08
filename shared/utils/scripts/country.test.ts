@@ -11,4 +11,9 @@ describe("Get country initials from Currencies", () => {
     const sn = getCurrencyCountry("XOF");
     expect(sn).toBe("sn");
   });
+
+  test("should return un for non-overides starting with x", () => {
+    const country = getCurrencyCountry("XXX");
+    expect(country).toBe("un");
+  });
 });
