@@ -1,13 +1,4 @@
-export function getRandomInt(min: number = 0, max: number = 10) {
-  const realMin = Math.ceil(min < max ? min : max);
-  const realMax = Math.floor(min < max ? max : min);
-
-  return Math.floor(Math.random() * (realMax - realMin) + realMin);
-}
-
-export function getRandomElement<T>(data: T[]) {
-  return data[getRandomInt(0, data.length)];
-}
+import { getRandomInt } from "./random-int";
 
 /**
  * Selects `count` random elements from an array without replacement, guaranteeing
@@ -20,9 +11,7 @@ export function getRandomElement<T>(data: T[]) {
  *
  * @note **Identical Elements Guard:**
  * If all selected elements in the picked subset are identical (e.g., `["A", "A", "A"]`),
- * it is mathematically impossible to produce a distinct sequence of values. In this
- * scenario, the function safely returns the sequence without entering an infinite
- * loop or throwing an error.
+ * `isSameItem` flags it as un-swappable and skips post-processing in O(1) time.
  */
 export function getRandomElements<T>(data: T[], count: number): T[] {
   if (!data || data.length === 0 || count <= 0) return [];
@@ -33,8 +22,8 @@ export function getRandomElements<T>(data: T[], count: number): T[] {
   const results = new Array<T>(safeCount);
   const len = shuffled.length;
 
-  // Track order alignment inline (only necessary if safeCount > 1)
   let isSameOrder = safeCount > 1;
+  let isSameItem = isSameOrder;
 
   for (let i = 0; i < safeCount; i++) {
     const randomIndex = getRandomInt(0, len - i);
@@ -42,20 +31,20 @@ export function getRandomElements<T>(data: T[], count: number): T[] {
 
     results[i] = picked;
 
-    // Short-circuits instantly on the first mismatch
     if (isSameOrder && picked !== data[i]) {
       isSameOrder = false;
     }
 
-    // Swap picked element with the last unpicked element
+    if (isSameItem && picked !== data[0]) {
+      isSameItem = false;
+    }
+
     shuffled[randomIndex] = shuffled[len - 1 - i];
   }
 
-  // If the shuffle randomly ended up in 100% identical sequence order
-  if (isSameOrder) {
+  if (isSameOrder && !isSameItem) {
     let swapIndex = 1;
 
-    // Find the first distinct element to handle duplicate values gracefully
     for (let j = 1; j < safeCount; j++) {
       if (results[j] !== results[0]) {
         swapIndex = j;
@@ -63,7 +52,6 @@ export function getRandomElements<T>(data: T[], count: number): T[] {
       }
     }
 
-    // Perform an O(1) swap to break identical order
     const temp = results[0];
     results[0] = results[swapIndex];
     results[swapIndex] = temp;
