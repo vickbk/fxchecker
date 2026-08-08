@@ -19,7 +19,7 @@
     "db:studio": "drizzle-kit studio"
   },
   "dependencies": {
-    "@ai-sdk/google": "^4.0.28",
+    "@ai-sdk/google": "^4.0.34",
     "@ai-sdk/react": "^4.0.44",
     "@vercel/speed-insights": "^2.0.0",
     "ai": "^7.0.42",
