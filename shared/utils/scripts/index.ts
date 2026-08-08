@@ -1,4 +1,6 @@
-export * from "./country";
-export * from "./error-logger";
+export { getCurrencyCountry } from "./country";
+export { logError } from "./error-logger";
+export { getSearchQuery } from "./get-search-query";
 export { joinClasses } from "./join-classes";
-export * from "./other-helpers";
+export { keyFromSearchQuery } from "./key-from-search-query";
+export { scrollIntoView } from "./scroll-into-view";

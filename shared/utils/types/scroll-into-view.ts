@@ -1,5 +1,3 @@
-export type QueryValue = string | number | boolean | null | undefined;
-
 export type ScrollTarget =
   | Element
   | { current: Element | null }
