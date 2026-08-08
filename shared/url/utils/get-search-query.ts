@@ -1,4 +1,4 @@
-import type { QueryValue } from "../types/get-search-query";
+import type { QueryValue } from "../types";
 
 export function getSearchQuery(
   queries: URLSearchParams | null | undefined,

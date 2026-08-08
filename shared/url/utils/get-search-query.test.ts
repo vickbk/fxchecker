@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from "vitest";
-import type { QueryValue } from "../types/get-search-query";
+import { QueryValue } from "../types";
 import { getSearchQuery, setQuery } from "./get-search-query";
 import { getSearchQueryObject } from "./get-search-query-object";
 

@@ -1,4 +1,5 @@
-import { BiIcon, CurrencyCard, getSearchQuery, SROnly } from "@/shared/utils";
+import { getSearchQueryObject } from "@/shared/url";
+import { BiIcon, CurrencyCard, SROnly } from "@/shared/utils";
 import Link from "next/link";
 import { ReactNode } from "react";
 import { deleteLogItem } from "../actions";
@@ -21,12 +22,11 @@ export const LogCard = ({
   const results = (rate * amount).toFixed(2);
   const deleteAction = deleteLogItem.bind(null, id);
 
-  const searchQuery = getSearchQuery(
-    new URLSearchParams(searchParams),
-    ["from", base],
-    ["to", quote],
-    ["amount", amount + ""],
-  );
+  const searchQuery = getSearchQueryObject(new URLSearchParams(searchParams), {
+    from: base,
+    to: quote,
+    amount: amount,
+  });
   return (
     <CurrencyCard>
       <div className="sm:flex gap-4">

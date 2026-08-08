@@ -1,4 +1,4 @@
-import { useURLState } from "@/shared/url";
+import { useURLState } from "@/shared/url/hooks";
 import { startTransition, useActionState, useEffect } from "react";
 import { loadRate } from "../actions";
 

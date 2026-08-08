@@ -18,17 +18,17 @@ function shouldGet(page: Page, ...textes: TEXT_MATCHER[]) {
 }
 
 export async function shouldSee(page: Page, ...textes: TEXT_MATCHER[]) {
-  await Promise.all(
-    shouldGet(page, ...textes).map(async (matcher) => matcher.toBeVisible()),
-  );
+  const matchers = shouldGet(page, ...textes);
+  for (let i = 0; i < matchers.length; i++) {
+    await matchers[i].toBeVisible();
+  }
 }
 
 export async function shouldNotSee(page: Page, ...textes: TEXT_MATCHER[]) {
-  await Promise.all(
-    shouldGet(page, ...textes).map(
-      async (matcher) => await matcher.not.toBeVisible(),
-    ),
-  );
+  const matchers = shouldGet(page, ...textes);
+  for (let i = 0; i < matchers.length; i++) {
+    await matchers[i].not.toBeVisible();
+  }
 }
 
 export async function fillLocatorWith(locator: Locator, value: string) {

@@ -1,6 +1,6 @@
 "use client";
 import { Heading, Section } from "@/shared/heading";
-import { useURLState } from "@/shared/url";
+import { useURLState } from "@/shared/url/hooks";
 import { SROnly } from "@/shared/utils";
 import { AmountSetter } from "./AmountSetter";
 import { ConvertDisplay } from "./ConvertDisplay";

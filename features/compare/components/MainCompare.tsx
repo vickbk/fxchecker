@@ -1,8 +1,8 @@
 import { Heading, Section } from "@/shared/heading";
+import { getSearchQueryObject } from "@/shared/url";
 import {
   CurrencyCardContainer,
   FavoriteWrapper,
-  getSearchQuery,
   type SignInInterceptor,
   SROnly,
 } from "@/shared/utils";
@@ -46,7 +46,9 @@ export const MainCompare = async ({
               {...rate}
               amount={amount}
               LoginTrigger={LoginTrigger}
-              searchQuery={getSearchQuery(searchQuery, ["to", rate.quote])}
+              searchQuery={getSearchQueryObject(searchQuery, {
+                to: rate.quote,
+              })}
             >
               <FavoriteWrapper
                 base={from}

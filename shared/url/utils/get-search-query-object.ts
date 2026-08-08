@@ -1,4 +1,4 @@
-import type { QueryValue } from "../types/get-search-query";
+import type { QueryValue } from "../types";
 import { setQuery } from "./get-search-query";
 
 export function getSearchQueryObject(

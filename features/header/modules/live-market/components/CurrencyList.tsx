@@ -1,5 +1,6 @@
 "use client";
-import { BiIcon, getSearchQuery, SROnly } from "@/shared/utils";
+import { getSearchQueryObject } from "@/shared/url";
+import { BiIcon, SROnly } from "@/shared/utils";
 import Link from "next/link";
 import { useSearchParams } from "next/navigation";
 import { Fragment } from "react/jsx-runtime";
@@ -29,7 +30,7 @@ export const CurrencyList = ({
                 ref={registerItem(key)}
                 tabIndex={visible ? 0 : -1}
                 aria-hidden={!visible}
-                href={`?${getSearchQuery(searchParams, ["from", base], ["to", quote])}`}
+                href={`?${getSearchQueryObject(searchParams, { from: base, to: quote })}`}
                 className="font-medium text-foreground-secondary truncate focus-visible:outline-none focus-visible:underline hover:underline hover:text-lime-500 focus-visible:text-lime-500"
               >
                 <SROnly>From</SROnly> {base}/{quote}
