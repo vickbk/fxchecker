@@ -86,7 +86,7 @@ describe("getSavedTheme", () => {
   // ==========================================
   describe("storage exception handling", () => {
     it("falls back gracefully to system preference if localStorage throws SecurityError", () => {
-      vi.spyOn(Storage.prototype, "getItem").mockImplementation(() => {
+      vi.spyOn(localStorage, "getItem").mockImplementation(() => {
         throw new DOMException("Access is denied", "SecurityError");
       });
       mockMatchMedia(true);

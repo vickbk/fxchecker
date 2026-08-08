@@ -99,15 +99,15 @@ describe("applyTheme", () => {
   // ==========================================
   describe("storage exception handling", () => {
     it("applies DOM attributes and calls stateUpdater even if localStorage.setItem throws SecurityError", () => {
-      vi.spyOn(Storage.prototype, "setItem").mockImplementation(() => {
+      vi.spyOn(localStorage, "setItem").mockImplementation(() => {
         throw new DOMException("Access is denied", "SecurityError");
       });
 
       const stateUpdater = vi.fn();
 
       expect(() => applyTheme("dark", { stateUpdater })).not.toThrow();
+      expect(localStorage.setItem).toHaveBeenCalled();
 
-      // Ensure DOM updates and state updates succeed despite storage failure
       expect(document.documentElement.getAttribute("theme")).toBe("dark");
       expect(document.documentElement.style.colorScheme).toBe("dark");
       expect(stateUpdater).toHaveBeenCalledWith("dark");
