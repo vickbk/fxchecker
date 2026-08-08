@@ -22,7 +22,7 @@
     "@ai-sdk/google": "^4.0.28",
     "@ai-sdk/react": "^4.0.44",
     "@vercel/speed-insights": "^2.0.0",
-    "ai": "^7.0.42",
+    "ai": "^7.0.52",
     "bootstrap-icons": "^1.13.1",
     "drizzle-orm": "^0.45.2",
     "next": "^16.2.12",
