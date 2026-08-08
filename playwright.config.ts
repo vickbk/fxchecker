@@ -1,5 +1,5 @@
 import { defineConfig, devices } from "@playwright/test";
-
+import "./shared/heading/__testing__/evaluator";
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv

@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
-import { checkHeadingOrder, drawRegion } from "../scripts";
+import { checkHeadingOrder } from "../utils/check-heading-order-report";
+import { drawRegion } from "../utils/region-drawer";
 import { Article, Heading, Main, Section } from "./heading-managers";
 
 describe("Heading Level Manager", () => {

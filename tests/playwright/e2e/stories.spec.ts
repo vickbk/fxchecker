@@ -7,6 +7,7 @@ import { shouldSeePageTitle } from "@/features/header/__testing__";
 import { shouldSeeHistorySection } from "@/features/history/__testing__";
 import { shouldSeeEmptyLogs } from "@/features/logs/__testing__";
 import { shouldSeeNavbar } from "@/features/navbar/__testing__";
+import { shouldHaveCorrectLevelHeading } from "@/shared/heading/__testing__/stories";
 import { shouldSeeDarkThemeSwitcher } from "@/shared/theme/__testing__";
 import { test } from "@playwright/test";
 
@@ -29,6 +30,7 @@ test.describe("Main Page tests", () => {
     ["Should see favorites section", shouldSeeEmptyFavoriteSection],
     ["Should see logs section", shouldSeeEmptyLogs],
     ["Should see chatbot section", shouldOpenAndCloseChatbot],
+    ["Should have correct heading hierarchy", shouldHaveCorrectLevelHeading],
   ] as const;
 
   identicalTests.forEach(([name, t]) =>
