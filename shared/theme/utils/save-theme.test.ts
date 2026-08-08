@@ -6,7 +6,6 @@ describe("Theme Handler", () => {
   describe("saveTheme", () => {
     beforeEach(() => {
       localStorage.clear();
-      vi.restoreAllMocks();
 
       // Suppress console.warn during test runs while allowing assertions on it
       vi.spyOn(console, "warn").mockImplementation(() => {});
@@ -154,16 +153,12 @@ describe("Theme Handler", () => {
     // ==========================================
     describe("SSR / Node environment", () => {
       it("returns false gracefully without throwing when window is undefined", () => {
-        const originalWindow = global.window;
-
+        vi.stubGlobal("window", undefined);
         try {
-          // @ts-expect-error Simulating SSR environment where window is undefined
-          delete global.window;
-
           expect(() => saveTheme("dark")).not.toThrow();
           expect(saveTheme("dark")).toBe(false);
         } finally {
-          global.window = originalWindow;
+          vi.unstubAllGlobals();
         }
       });
     });
