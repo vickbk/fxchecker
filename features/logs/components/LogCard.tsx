@@ -1,5 +1,6 @@
+import { CurrencyCard } from "@/shared/currencies";
 import { getSearchQueryObject } from "@/shared/url";
-import { BiIcon, CurrencyCard, SROnly } from "@/shared/utils";
+import { BiIcon, SROnly } from "@/shared/utils";
 import Link from "next/link";
 import { ReactNode } from "react";
 import { deleteLogItem } from "../actions";

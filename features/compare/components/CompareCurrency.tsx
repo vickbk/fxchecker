@@ -1,5 +1,5 @@
-import { CurrencyCard, getCurrencyCountry, SROnly } from "@/shared/utils";
-import { Flag } from "@/shared/utils/components/Flag";
+import { CurrencyCard, Flag } from "@/shared/currencies";
+import { getCurrencyCountry, SROnly } from "@/shared/utils";
 import { SRHidden } from "@/shared/utils/components/SRHidden";
 import Link from "next/link";
 import { deleteCompareCurrency } from "../actions";

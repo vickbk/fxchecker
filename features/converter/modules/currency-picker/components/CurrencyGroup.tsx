@@ -1,10 +1,6 @@
 import { Currency } from "@/infra/api/frankfurter";
-import {
-  BiIcon,
-  Flag,
-  getCurrencyCountry,
-  scrollIntoView,
-} from "@/shared/utils";
+import { Flag } from "@/shared/currencies";
+import { BiIcon, getCurrencyCountry, scrollIntoView } from "@/shared/utils";
 import { SRHidden } from "@/shared/utils/components/SRHidden";
 
 export const CurrencyGroup = ({

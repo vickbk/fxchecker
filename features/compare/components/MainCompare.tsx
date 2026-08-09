@@ -1,7 +1,7 @@
+import { CurrencyCardContainer } from "@/shared/currencies";
 import { Heading, Section } from "@/shared/heading";
 import { getSearchQueryObject } from "@/shared/url";
 import {
-  CurrencyCardContainer,
   FavoriteWrapper,
   type SignInInterceptor,
   SROnly,
