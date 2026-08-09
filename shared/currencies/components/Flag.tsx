@@ -1,23 +1,10 @@
 import Image from "next/image";
 import { getCurrencyCountry } from "../utils/country";
 
-export const Flag = ({
-  src,
-  alt,
-  currency,
-  country = currency ? getCurrencyCountry(currency) : undefined,
-}: {
-  country?: string;
-  src?: string;
-  currency?: string;
-  alt: string;
-}) => {
+export const Flag = ({ alt, currency }: { currency: string; alt: string }) => {
+  const country = getCurrencyCountry(currency);
   const url =
-    country && country === "un"
-      ? "/globe.svg"
-      : country
-        ? `https://flagcdn.com/${country}.svg`
-        : src;
+    country === "un" ? "/globe.svg" : `https://flagcdn.com/${country}.svg`;
   return (
     <Image
       width={20}
