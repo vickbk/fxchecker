@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { createRef, useContext } from "react";
 import { describe, expect, it } from "vitest";
 import { HeadingCtx } from "../hooks/use-heading";
-import { Heading } from "./heading-managers";
+import { Heading } from "./heading";
 import { Section } from "./landmarks";
 import { Main } from "./main";
 

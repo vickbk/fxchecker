@@ -1,3 +1,4 @@
+"use client";
 import { createRegion } from "./create-region";
 
 export const Section = createRegion<HTMLElement>("section");

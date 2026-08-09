@@ -1,3 +1,5 @@
+"use client";
+
 import { forwardRef, HTMLAttributes, JSX } from "react";
 import { HeadingCtx, useHeading } from "../hooks/use-heading";
 

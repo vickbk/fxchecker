@@ -3,7 +3,7 @@ import { render, screen } from "@testing-library/react";
 import { createRef, useContext } from "react";
 import { describe, expect, it } from "vitest";
 import { HeadingCtx } from "../hooks/use-heading";
-import { Heading } from "./heading-managers";
+import { Heading } from "./heading";
 import { Article, Aside, Header, Legend } from "./landmarks";
 
 // Helper component to read the current HeadingCtx level directly
