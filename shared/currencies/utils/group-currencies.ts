@@ -1,4 +1,4 @@
-import { CurrencyContextType } from "./types";
+import { CurrencyContextType } from "../types";
 
 export function groupCurrencies(
   currencies: CurrencyContextType["currencies"],

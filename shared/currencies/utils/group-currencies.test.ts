@@ -1,5 +1,5 @@
 import { describe, expect, test } from "vitest";
-import { groupCurrencies } from "./utils";
+import { groupCurrencies } from "./group-currencies";
 
 const MOCK_CURRENCIES = [
   { code: "USD", name: "US Dollar", symbol: "$" },

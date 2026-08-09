@@ -1,12 +1,15 @@
 import Image from "next/image";
+import { getCurrencyCountry } from "../utils/country";
 
 export const Flag = ({
   src,
   alt,
-  country,
+  currency,
+  country = currency ? getCurrencyCountry(currency) : undefined,
 }: {
   country?: string;
   src?: string;
+  currency?: string;
   alt: string;
 }) => {
   const url =

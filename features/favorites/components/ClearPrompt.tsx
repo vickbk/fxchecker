@@ -1,7 +1,7 @@
 import { Currency } from "@/infra/api/frankfurter";
 import { Flag } from "@/shared/currencies";
 import { Heading } from "@/shared/heading";
-import { BiIcon, getCurrencyCountry, LoadingSubmit } from "@/shared/utils";
+import { BiIcon, LoadingSubmit } from "@/shared/utils";
 import { clearAllFavorites } from "../actions";
 
 export const ClearPrompt = async ({
@@ -24,9 +24,9 @@ export const ClearPrompt = async ({
         {favorites.map(({ base, quote }) => (
           <div key={"clear-" + base.code + quote.code}>
             <dt className="flex gap-2 items-center justify-center">
-              <Flag country={getCurrencyCountry(base.code)} alt="" />
+              <Flag currency={base.code} alt="" />
               {base.code} <BiIcon name="arrow-right" />{" "}
-              <Flag country={getCurrencyCountry(quote.code)} alt="" />
+              <Flag currency={quote.code} alt="" />
               {quote.code}
             </dt>
             <dd className="sr-only">{`Delete exhange pair From ${base.code} to ${quote.code}`}</dd>

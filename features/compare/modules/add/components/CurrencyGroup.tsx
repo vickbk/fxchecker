@@ -1,7 +1,7 @@
 import { Currency } from "@/infra/api/frankfurter";
 import { Flag } from "@/shared/currencies";
 import { Heading } from "@/shared/heading";
-import { BiIcon, getCurrencyCountry } from "@/shared/utils";
+import { BiIcon } from "@/shared/utils";
 import { Fragment } from "react/jsx-runtime";
 
 export const CurrencyGroup = ({
@@ -33,7 +33,7 @@ export const CurrencyGroup = ({
             className={`add-compare__option-label ${!filtered.has(code) ? "hidden" : "flex"}`}
             htmlFor={`add-currency-${code}`}
           >
-            <Flag country={getCurrencyCountry(code)} alt="" />
+            <Flag currency={code} alt="" />
             <span className="grid gap mr-auto">
               {code} ({symbol}){" "}
               <span className="text-foreground-secondary truncate max-w-50 text-sm">
