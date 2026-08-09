@@ -1,11 +1,38 @@
+/**
+ * @file headingAssertions.ts
+ * @description Custom Playwright assertion for auditing document heading hierarchy and accessibility compliance.
+ */
+
 import { expect, Locator, Page } from "@playwright/test";
 import { Window } from "happy-dom";
 import { checkHeadingOrderReport } from "../utils/check-heading-order-report";
 import { drawRegion } from "../utils/region-drawer";
 
 const w = new Window();
+const parser = new w.DOMParser();
+
 expect.extend({
-  async toBeValidHeadingHierarchy(target: Page | Locator) {
+  /**
+   * Custom Playwright matcher that audits the heading hierarchy of a Page or Locator target.
+   *
+   * It extracts the DOM tree, builds a region mapping using `drawRegion`, and verifies
+   * sequential heading rules (`H1` to `H6`) using `checkHeadingOrderReport`.
+   *
+   * @param target - The Playwright `Page` or `Locator` instance to audit.
+   * @param initialLevel - Optional starting heading level context (default: 1).
+   *                       Useful when auditing sub-components expected to fit inside a parent H2 or H3.
+   *
+   * @returns An assertion result object with pass status and formatted failure messages.
+   *
+   * @example
+   * // Audit an entire page
+   * await expect(page).toBeValidHeadingHierarchy();
+   *
+   * @example
+   * // Audit a specific landmark or container
+   * await expect(page.locator('main[role="main"]')).toBeValidHeadingHierarchy();
+   */
+  async toBeValidHeadingHierarchy(target: Page | Locator, initialLevel = 1) {
     const locator = "locator" in target ? target.locator("body") : target;
     const elementHandle = await locator.elementHandle();
 
@@ -24,12 +51,11 @@ expect.extend({
           "HTML Failed to find element to audit heading hierarchy.",
         pass: false,
       };
-    const parser = new w.DOMParser();
 
     const content = parser.parseFromString(html, "text/html");
     const regionTree = drawRegion(content.body as unknown as Element);
 
-    const report = checkHeadingOrderReport(regionTree);
+    const report = checkHeadingOrderReport(regionTree, initialLevel);
 
     if (report.isValid) {
       return {

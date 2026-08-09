@@ -118,10 +118,10 @@ export async function clickBodyCorner(page: Page) {
 }
 
 export async function runSimilarTests(tests: SimpleTest[]) {
-  tests.forEach(([testName, testFunction]) =>
+  tests.forEach(([testName, ...testFunctions]) =>
     test(testName, async ({ page }) => {
       await page.goto("/");
-      await testFunction(page);
+      for (const testFunction of testFunctions) await testFunction(page);
     }),
   );
 }

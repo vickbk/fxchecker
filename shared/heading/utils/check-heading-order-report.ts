@@ -22,24 +22,23 @@ export function checkHeadingOrderReport(
     const { rawHeading, parsedLevel, text, element } = headingInfo;
     const textLabel = text ? ` ("${text}")` : "";
 
+    const common = {
+      path,
+      tagName: region.tagName,
+      heading: rawHeading,
+      text,
+      element,
+    };
     if (parsedLevel === null) {
       errors.push({
-        path,
-        tagName: region.tagName,
-        heading: rawHeading,
-        text,
-        element,
+        ...common,
         actualLevel: -1,
         expectedMaxLevel: Math.min(currentLevel + 1, 6),
         message: `Unparseable heading "${rawHeading}"${textLabel} at ${path}. Must contain a valid heading level (1-6).`,
       });
     } else if (parsedLevel < 1 || parsedLevel > 6) {
       errors.push({
-        path,
-        tagName: region.tagName,
-        heading: rawHeading,
-        text,
-        element,
+        ...common,
         actualLevel: parsedLevel,
         expectedMaxLevel: 6,
         message: `Invalid HTML heading level H${parsedLevel}${textLabel} at ${path}. Heading level must be between H1 and H6.`,
@@ -50,11 +49,7 @@ export function checkHeadingOrderReport(
       if (diff > 1) {
         const expectedMax = Math.min(currentLevel + 1, 6);
         errors.push({
-          path,
-          tagName: region.tagName,
-          heading: rawHeading,
-          text,
-          element,
+          ...common,
           actualLevel: parsedLevel,
           expectedMaxLevel: expectedMax,
           message: `Heading level skipped at ${path}${textLabel}: context level is H${currentLevel}, expected maximum H${expectedMax}, but found H${parsedLevel}.`,

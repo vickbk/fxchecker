@@ -2,7 +2,14 @@ import { render, screen } from "@testing-library/react";
 import { describe, expect, test } from "vitest";
 import { checkHeadingOrder } from "../utils/check-heading-order-report";
 import { drawRegion } from "../utils/region-drawer";
-import { Article, Heading, Main, Section } from "./heading-managers";
+import {
+  Article,
+  Header,
+  Heading,
+  Legend,
+  Main,
+  Section,
+} from "./heading-managers";
 
 describe("Heading Level Manager", () => {
   test("should render h1 if heading rendered out of heading context", async () => {
@@ -97,14 +104,14 @@ describe("Heading Level Manager", () => {
         <Heading>Heading 1</Heading>
         <Section>
           <Heading>Heading 2</Heading>
-          <Section>
-            <Article>
+          <Article>
+            <Header>
               <Heading>Heading 4</Heading>
-            </Article>
-          </Section>
-          <Section>
+            </Header>
+          </Article>
+          <Legend>
             <Heading>Heading 3</Heading>
-          </Section>
+          </Legend>
         </Section>
       </Main>,
     );
