@@ -6,7 +6,7 @@
 import { expect, Locator, Page } from "@playwright/test";
 import { Window } from "happy-dom";
 import { checkHeadingOrderReport } from "../utils/check-heading-order-report";
-import { drawRegion } from "../utils/region-drawer";
+import { drawRegion } from "../utils/draw-region";
 
 const w = new Window();
 const parser = new w.DOMParser();

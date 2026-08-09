@@ -5,7 +5,7 @@ import { describe, expect, it, test, vi } from "vitest";
 import { HeadingCtx } from "../hooks";
 import { HeadingLevel } from "../types";
 import { checkHeadingOrder } from "../utils/check-heading-order-report";
-import { drawRegion } from "../utils/region-drawer";
+import { drawRegion } from "../utils/draw-region";
 import { Heading } from "./heading";
 import { Article, Header, Section } from "./landmarks";
 import { Main } from "./main";
