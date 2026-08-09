@@ -29,8 +29,8 @@ expect.extend({
    * await expect(page).toBeValidHeadingHierarchy();
    *
    * @example
-   * // Audit a specific landmark or container
-   * await expect(page.locator('main[role="main"]')).toBeValidHeadingHierarchy();
+   * // Audit a specific landmark or container starting with header level 2
+   * await expect(page.locator('main[role="main"]')).toBeValidHeadingHierarchy(2);
    */
   async toBeValidHeadingHierarchy(target: Page | Locator, initialLevel = 1) {
     const locator = "locator" in target ? target.locator("body") : target;
@@ -64,7 +64,6 @@ expect.extend({
       };
     }
 
-    // Format rich error output for Playwright test failure runner
     const formattedErrors = report.errors
       .map((err, i) => {
         const textSnippet = err.text ? ` ("${err.text}")` : "";

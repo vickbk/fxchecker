@@ -1,15 +1,10 @@
-import { useContext } from "react";
-import type { HeadingLevel } from "../types";
-import { HeadingCtx } from "./HeadingCtx";
+"use client";
 
-function calculateNextHeadingLevel(
-  currentLevel: HeadingLevel,
-  hasH1: boolean,
-): HeadingLevel {
-  const nextLevel: HeadingLevel =
-    currentLevel === 5 ? 5 : ((currentLevel + 1) as HeadingLevel);
-  return hasH1 ? nextLevel : currentLevel;
-}
+import { createContext, useContext } from "react";
+import type { HeadingLevel } from "../types";
+import { calculateNextHeadingLevel } from "../utils/heading-level";
+
+export const HeadingCtx = createContext<HeadingLevel>(0);
 
 export function useHeading(hasH1 = true) {
   const level = useContext(HeadingCtx);
