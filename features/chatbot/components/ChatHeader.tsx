@@ -1,5 +1,5 @@
-import { Header, Heading } from "@/shared/heading";
 import { BiIcon, SROnly } from "@/shared/utils";
+import { Header, Heading } from "react-heading-manager";
 import { FinancialBotIcon } from "../modules/icons";
 
 export const ChatHeader = () => {

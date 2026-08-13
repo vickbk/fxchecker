@@ -1,11 +1,11 @@
 import { CurrencyCardContainer } from "@/shared/currencies";
-import { Heading, Section } from "@/shared/heading";
 import { getSearchQueryObject } from "@/shared/url";
 import {
   FavoriteWrapper,
   type SignInInterceptor,
   SROnly,
 } from "@/shared/utils";
+import { Heading, Section } from "react-heading-manager";
 import { getCompareRates } from "../actions";
 import { CompareSearchParams } from "../types";
 import { Actions } from "./Actions";

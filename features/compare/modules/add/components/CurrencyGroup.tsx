@@ -1,7 +1,7 @@
 import { Currency } from "@/infra/api/frankfurter";
 import { Flag } from "@/shared/currencies";
-import { Heading } from "@/shared/heading";
 import { BiIcon } from "@/shared/utils";
+import { Heading } from "react-heading-manager";
 import { Fragment } from "react/jsx-runtime";
 
 export const CurrencyGroup = ({

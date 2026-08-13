@@ -1,7 +1,7 @@
 import { fetchCurrenciesMap } from "@/infra/api/frankfurter";
 import { CurrencyCardContainer } from "@/shared/currencies";
-import { Heading } from "@/shared/heading";
 import { SectionsWrapper, SignInInterceptor, SROnly } from "@/shared/utils";
+import { Heading } from "react-heading-manager";
 import { getFavorites } from "../actions";
 import { Actions } from "./Actions";
 import { EmptyFavorite } from "./EmptyFavorite";

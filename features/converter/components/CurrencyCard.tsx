@@ -1,9 +1,9 @@
 "use client";
 import { Flag, useCurrencies } from "@/shared/currencies";
-import { Article } from "@/shared/heading";
 import { useURLState } from "@/shared/url/hooks";
 import { BiIcon, SROnly } from "@/shared/utils";
 import { useId } from "react";
+import { Article } from "react-heading-manager";
 import { PickerForm } from "../modules/currency-picker";
 
 export const CurrencyCard = ({ isSend = false }: { isSend: boolean }) => {

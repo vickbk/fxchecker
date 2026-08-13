@@ -1,7 +1,7 @@
 "use client";
-import { Heading, Section } from "@/shared/heading";
 import { useURLState } from "@/shared/url/hooks";
 import { SROnly } from "@/shared/utils";
+import { Heading, Section } from "react-heading-manager";
 import { AmountSetter } from "./AmountSetter";
 import { ConvertDisplay } from "./ConvertDisplay";
 import { CurrencyCard } from "./CurrencyCard";

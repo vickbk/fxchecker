@@ -1,6 +1,6 @@
-import { Article, Heading } from "@/shared/heading";
 import { keyFromSearchQuery } from "@/shared/url";
 import { Suspense } from "react";
+import { Article, Heading } from "react-heading-manager";
 import { HistorySearchParams } from "../types";
 import { Graph } from "./Graph";
 import { GraphSkeleton } from "./skeletons/GraphSkeleton";

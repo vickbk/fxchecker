@@ -1,5 +1,5 @@
-import { Heading } from "@/shared/heading";
 import { LoadingPlaceholder, SectionsWrapper, SROnly } from "@/shared/utils";
+import { Heading } from "react-heading-manager";
 
 export const MainFavoriteSkeleton = () => {
   return (

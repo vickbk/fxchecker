@@ -1,6 +1,6 @@
 import { CurrencyCardContainer } from "@/shared/currencies";
-import { Heading } from "@/shared/heading";
 import { SectionsWrapper, SignInInterceptor } from "@/shared/utils";
+import { Heading } from "react-heading-manager";
 import { ExportToCSV } from "../modules/csv";
 import { getLogs } from "../utils/logs";
 import { Actions } from "./Actions";

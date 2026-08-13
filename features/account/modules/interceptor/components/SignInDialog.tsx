@@ -1,6 +1,6 @@
 "use client";
-import { Header, Heading } from "@/shared/heading";
 import { BiIcon, LoadingSubmit } from "@/shared/utils";
+import { Header, Heading } from "react-heading-manager";
 import { useSignIn } from "../hooks/useSignInterceptor";
 
 export const SignInDialog = () => {

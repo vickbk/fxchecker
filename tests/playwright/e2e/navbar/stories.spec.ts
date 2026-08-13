@@ -1,5 +1,4 @@
-import { shouldHaveCorrectLevelHeading } from "@/shared/heading/__testing__/stories";
-import { test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test.describe("Navigation bar", () => {
   ["/", "/compare", "/features", "/logs"].forEach((path) =>
@@ -7,7 +6,7 @@ test.describe("Navigation bar", () => {
       page,
     }) => {
       await page.goto(path);
-      await shouldHaveCorrectLevelHeading(page);
+      await expect(page).toHaveValidHeadingHierarchy();
     }),
   );
 });

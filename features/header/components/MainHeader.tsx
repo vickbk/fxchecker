@@ -1,6 +1,6 @@
-import { Heading } from "@/shared/heading";
 import { BiIcon, LoadingPlaceholder } from "@/shared/utils";
 import React, { Suspense } from "react";
+import { Heading } from "react-heading-manager";
 import { LiveMarket } from "../modules/live-market";
 import { CurrencyCount } from "./CurrencyCount";
 import { Logo } from "./Logo";

@@ -1,7 +1,7 @@
 import { Currency } from "@/infra/api/frankfurter";
 import { Flag } from "@/shared/currencies";
-import { Heading } from "@/shared/heading";
 import { BiIcon, LoadingSubmit } from "@/shared/utils";
+import { Heading } from "react-heading-manager";
 import { clearAllFavorites } from "../actions";
 
 export const ClearPrompt = async ({

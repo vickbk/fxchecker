@@ -1,16 +1,19 @@
 import { defineConfig, devices } from "@playwright/test";
-import "./shared/heading/__testing__/evaluator";
+
 /**
  * Read environment variables from file.
  * https://github.com/motdotla/dotenv
  */
 import dotenv from "dotenv";
 import path from "path";
+import { registerPlaywright } from "react-heading-manager/testing/playwright";
 // import path from 'path';
 if (!process.env.CI) {
   dotenv.config({ path: path.resolve(import.meta.dirname, ".env") });
   dotenv.config({ path: path.resolve(import.meta.dirname, ".env.test") });
 }
+
+registerPlaywright();
 
 /**
  * See https://playwright.dev/docs/test-configuration.

@@ -1,5 +1,5 @@
-import { Article, Heading } from "@/shared/heading";
 import { ReactNode, Suspense } from "react";
+import { Article, Heading } from "react-heading-manager";
 import { ConverterActions } from "./ConvertActions";
 import { RateCard } from "./RateCard";
 import { Swapper } from "./Swapper";
