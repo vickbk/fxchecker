@@ -20,7 +20,7 @@
   },
   "dependencies": {
     "@ai-sdk/google": "^4.0.41",
-    "@ai-sdk/react": "^4.0.44",
+    "@ai-sdk/react": "^4.0.62",
     "@vercel/speed-insights": "^2.0.0",
     "ai": "^7.0.59",
     "bootstrap-icons": "^1.13.1",
