@@ -26,7 +26,7 @@ env:
 
 jobs:
   test:
-    if: github.actor != 'dependant[bot]'
+    if: github.actor != 'dependabot[bot]'
     timeout-minutes: 20
     runs-on: ubuntu-latest
     steps:
