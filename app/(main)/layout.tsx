@@ -15,11 +15,11 @@ import { ConversionLogger, getLogsCount } from "@/features/logs";
 import { Navbar } from "@/features/navbar";
 import { fetchCurrencies } from "@/infra/api/frankfurter";
 import { CurrencyProvider } from "@/shared/currencies";
-import { HeadingCtx, Main } from "@/shared/heading";
 import { ThemeSwitch } from "@/shared/theme";
 import { LoadingPlaceholder } from "@/shared/utils";
 import { SpeedInsights } from "@vercel/speed-insights/next";
 import { Suspense } from "react";
+import { Main } from "react-heading-manager";
 
 export default async function Layout({
   children,
@@ -33,43 +33,41 @@ export default async function Layout({
           currencies={fetchCurrencies()}
           favorites={getAllFavorites()}
         >
-          <HeadingCtx value={0}>
-            <Main pageHasH1={false}>
-              <MainHeader>
-                <ThemeSwitch />
-                <Suspense>
-                  <AuthManager />
-                </Suspense>
-              </MainHeader>
-              <div className="max-w-5xl mx-auto sm:py-8">
-                <Suspense
-                  fallback={
-                    <LoadingPlaceholder
-                      className="bg-background-secondary py-40 rounded-lg"
-                      text="Loading Converter"
-                    />
-                  }
-                >
-                  <ConverterCard
-                    favoriteToggle={
-                      <MainToggleFavorite {...{ SignInInterceptor }} />
-                    }
-                    conversionLogger={
-                      <ConversionLogger {...{ SignInInterceptor }} />
-                    }
+          <Main>
+            <MainHeader>
+              <ThemeSwitch />
+              <Suspense>
+                <AuthManager />
+              </Suspense>
+            </MainHeader>
+            <div className="max-w-5xl mx-auto sm:py-8">
+              <Suspense
+                fallback={
+                  <LoadingPlaceholder
+                    className="bg-background-secondary py-40 rounded-lg"
+                    text="Loading Converter"
                   />
-                </Suspense>
-                <Navbar
-                  history={{}}
-                  compare={{}}
-                  favorites={{ badge: getFavoritesCount() }}
-                  logs={{ badge: getLogsCount() }}
+                }
+              >
+                <ConverterCard
+                  favoriteToggle={
+                    <MainToggleFavorite {...{ SignInInterceptor }} />
+                  }
+                  conversionLogger={
+                    <ConversionLogger {...{ SignInInterceptor }} />
+                  }
                 />
-                {children}
-              </div>
-              <ChatPopOver />
-            </Main>
-          </HeadingCtx>
+              </Suspense>
+              <Navbar
+                history={{}}
+                compare={{}}
+                favorites={{ badge: getFavoritesCount() }}
+                logs={{ badge: getLogsCount() }}
+              />
+              {children}
+            </div>
+            <ChatPopOver />
+          </Main>
         </CurrencyProvider>
       </SignInProvider>
       <SpeedInsights />

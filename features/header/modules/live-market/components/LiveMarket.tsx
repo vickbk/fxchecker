@@ -1,6 +1,6 @@
-import { Article, Heading } from "@/shared/heading";
 import { BiIcon, LoadingPlaceholder } from "@/shared/utils";
 import { Suspense } from "react";
+import { Article, Heading } from "react-heading-manager";
 import "../styles.css";
 import { ScrollingCurrencies } from "./ScrollingCurrencies";
 

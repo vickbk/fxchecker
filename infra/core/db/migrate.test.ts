@@ -121,6 +121,36 @@ describe("infrastructure/core/db/migrate — CLI Script Execution & process.exit
     );
     expect(exitSpy).toHaveBeenCalledTimes(1);
     expect(exitSpy).toHaveBeenCalledWith(1);
-    expect(vi.mocked(getDB().$client.end)).toHaveBeenCalledTimes(1);
+    expect(getDB().$client.end).toHaveBeenCalledTimes(1);
+  });
+
+  it("should capture errors, print diagnostics, invoke process.exit(1), and try to close the connection pool when a migration fails via CLI then catch connection failure", async () => {
+    const endSpy = vi
+      .spyOn(getDB().$client, "end")
+      .mockRejectedValue("Failed to close DB.");
+    process.argv[1] = "migrate.ts";
+    const operationalError = new Error(
+      "Database network connection pool rejected.",
+    );
+    migrateMock.mockRejectedValueOnce(operationalError);
+
+    // Act
+    const { migrationPromise } = await import("./migrate");
+    await migrationPromise;
+
+    // Assert: Verify the boundary catch statement was invoked
+    expect(consoleLogSpy).toHaveBeenCalledWith("Migration starting...");
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Migration failed. Error:",
+      operationalError,
+    );
+    expect(exitSpy).toHaveBeenCalledTimes(1);
+    expect(exitSpy).toHaveBeenCalledWith(1);
+    expect(endSpy).toHaveBeenCalledTimes(1);
+
+    expect(consoleErrorSpy).toHaveBeenCalledWith(
+      "Failed to close database connection. Error:",
+      "Failed to close DB.",
+    );
   });
 });

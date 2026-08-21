@@ -2,7 +2,7 @@ import { SignInInterceptor } from "@/features/account";
 import { CompareSearchParams, MainCompare } from "@/features/compare";
 import { MainCompareSkeleton } from "@/features/compare/components/skeletons/MainCompareSkeleton";
 import { FavoriteToggleWrapper } from "@/features/favorites";
-import { keyFromSearchQuery } from "@/shared/utils";
+import { keyFromSearchQuery } from "@/shared/url";
 import { Suspense } from "react";
 
 export default async function Compare({

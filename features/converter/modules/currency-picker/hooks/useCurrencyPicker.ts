@@ -1,5 +1,5 @@
 import { groupCurrencies, useCurrencies } from "@/shared/currencies";
-import { useURLState } from "@/shared/url";
+import { useURLState } from "@/shared/url/hooks";
 import { useState } from "react";
 import { useCurrencyFilter } from "./useCurrencyFilter";
 

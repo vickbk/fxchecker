@@ -1,9 +1,9 @@
 "use client";
-import { useCurrencies } from "@/shared/currencies";
-import { Article } from "@/shared/heading";
-import { useURLState } from "@/shared/url";
-import { BiIcon, Flag, getCurrencyCountry, SROnly } from "@/shared/utils";
+import { Flag, useCurrencies } from "@/shared/currencies";
+import { useURLState } from "@/shared/url/hooks";
+import { BiIcon, SROnly } from "@/shared/utils";
 import { useId } from "react";
+import { Article } from "react-heading-manager";
 import { PickerForm } from "../modules/currency-picker";
 
 export const CurrencyCard = ({ isSend = false }: { isSend: boolean }) => {
@@ -25,10 +25,7 @@ export const CurrencyCard = ({ isSend = false }: { isSend: boolean }) => {
         type="button"
         popoverTarget={popover}
       >
-        <Flag
-          country={getCurrencyCountry(actualCurr.code)}
-          alt={`${actualCurr.name} flag`}
-        />{" "}
+        <Flag currency={actualCurr.code} alt={`${actualCurr.name} flag`} />{" "}
         <SROnly>Change {isSend ? "send" : "receive"} currency(</SROnly>
         {actualCurr.code}
         <SROnly>)</SROnly> <BiIcon name="caret-down-fill" />

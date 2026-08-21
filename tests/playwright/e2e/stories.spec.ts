@@ -8,7 +8,7 @@ import { shouldSeeHistorySection } from "@/features/history/__testing__";
 import { shouldSeeEmptyLogs } from "@/features/logs/__testing__";
 import { shouldSeeNavbar } from "@/features/navbar/__testing__";
 import { shouldSeeDarkThemeSwitcher } from "@/shared/theme/__testing__";
-import { test } from "@playwright/test";
+import { expect, test } from "@playwright/test";
 
 test.describe("Main Page tests", () => {
   test("Header should have titles, theme switcher and login button", async ({
@@ -37,4 +37,10 @@ test.describe("Main Page tests", () => {
       await t(page);
     }),
   );
+
+  test("Main page should have correct heading hierarchy", async ({ page }) => {
+    await page.goto("/");
+
+    await expect(page).toHaveValidHeadingHierarchy();
+  });
 });

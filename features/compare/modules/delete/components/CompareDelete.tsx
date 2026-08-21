@@ -1,5 +1,5 @@
-import { Heading } from "@/shared/heading";
 import { BiIcon, LoadingSubmit } from "@/shared/utils";
+import { Heading } from "react-heading-manager";
 
 export const CompareDelete = ({
   quote,

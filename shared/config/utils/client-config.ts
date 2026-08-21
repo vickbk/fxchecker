@@ -13,3 +13,19 @@ export const getClientConfig = () =>
       process.env.NEXT_PUBLIC_CHATBOT_STORAGE_KEY,
     NEXT_PUBLIC_FLAGCDN: process.env.NEXT_PUBLIC_FLAGCDN,
   });
+
+export function checkClientRequest(prop: string | symbol) {
+  const isBrowser = typeof window !== "undefined";
+
+  if (isBrowser) {
+    if (!prop.toString().startsWith("NEXT_PUBLIC")) {
+      throw new Error(
+        `Attempted to access server-side environment variable ${String(
+          prop,
+        )} from a Client Component.`,
+      );
+    }
+    return true;
+  }
+  return false;
+}

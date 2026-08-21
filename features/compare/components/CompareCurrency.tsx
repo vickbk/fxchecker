@@ -1,5 +1,5 @@
-import { CurrencyCard, getCurrencyCountry, SROnly } from "@/shared/utils";
-import { Flag } from "@/shared/utils/components/Flag";
+import { CurrencyCard, Flag } from "@/shared/currencies";
+import { SROnly } from "@/shared/utils";
 import { SRHidden } from "@/shared/utils/components/SRHidden";
 import Link from "next/link";
 import { deleteCompareCurrency } from "../actions";
@@ -22,7 +22,7 @@ export const CompareCurrency = ({
 
   return (
     <CurrencyCard>
-      <Flag country={getCurrencyCountry(quote)} alt={""} />
+      <Flag currency={quote} alt={""} />
       <dl>
         <dt className="text-sm">{quote}</dt>
         <dd className="text-foreground-secondary truncate text-xs">

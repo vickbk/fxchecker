@@ -42,5 +42,24 @@ describe("Tests for utility functions", () => {
       const list = await resolveCompareList("eur", []);
       expect(list).toEqual([]);
     });
+
+    test("should return the given list when currencyFetchRequest is empty", async () => {
+      vi.mocked(fetchCurrencies).mockReturnValue(Promise.resolve([]));
+
+      const initialList = ["EUR", "USD", "CDF"];
+      const list = await resolveCompareList("eur", initialList);
+
+      expect(list).toEqual(initialList);
+    });
+
+    test("should resturn the given list when there is no new replacement currency", async () => {
+      const initialList = ["EUR", "USD", "CDF"];
+      vi.mocked(fetchCurrencies).mockReturnValue(
+        Promise.resolve([{ code: "EUR" }] as Currency[]),
+      );
+
+      const list = await resolveCompareList("EUR", initialList);
+      expect(list).toEqual(initialList);
+    });
   });
 });

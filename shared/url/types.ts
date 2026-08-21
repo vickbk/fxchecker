@@ -7,3 +7,5 @@ export type URLState = {
   setAmount: (value: number) => void;
   swapCurrencies: () => void;
 };
+
+export type QueryValue = string | number | boolean | null | undefined;

@@ -1,4 +1,4 @@
-import { Currency } from "@/infra/api/frankfurter";
+import { type Currency } from "@/infra/api/frankfurter";
 
 export function filteredCurrencies(currencies: Currency[], query: string) {
   const normalizedQuery = query.trim().toLowerCase();

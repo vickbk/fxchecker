@@ -1,4 +1,4 @@
-import { Article, Heading } from "@/shared/heading";
+import { Article, Heading } from "react-heading-manager";
 
 const QUICK_PROMPTS = [
   "250 EUR to JPY",

@@ -1,5 +1,5 @@
 "use client";
-import { useURLState } from "@/shared/url";
+import { useURLState } from "@/shared/url/hooks";
 import { BiIcon, SignInInterceptor, SROnly } from "@/shared/utils";
 import { useFormStatus } from "react-dom";
 

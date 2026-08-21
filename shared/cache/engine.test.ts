@@ -67,6 +67,67 @@ describe("shared/cache/SWREngine", () => {
     vi.useRealTimers();
   });
 
+  it("returns stale value when revalidation fails (SWR)", async () => {
+    vi.useFakeTimers();
+    const ttl = 240000; // 4 minutes
+    const engine = new SWREngine({ ttlMs: ttl });
+
+    const stale = { v: 1 };
+    const fresh = { v: 2 };
+
+    // Seed cache with initial value
+    await engine.execute("k", () => Promise.resolve(stale));
+
+    // Advance past TTL so the entry becomes stale
+    vi.advanceTimersByTime(ttl + 1);
+
+    const fetchFn = vi.fn(() => Promise.reject());
+
+    const res = await engine.execute("k", fetchFn);
+    expect(res).toEqual(stale);
+    expect(fetchFn).toHaveBeenCalledTimes(1);
+
+    // Allow microtasks to flush so background update completes
+    await Promise.resolve();
+
+    const after = await engine.execute("k", () => Promise.resolve(fresh));
+    expect(after).toEqual(stale);
+    await Promise.resolve();
+
+    const later = await engine.execute("k", () => Promise.resolve());
+    expect(later).toEqual(fresh);
+
+    vi.useRealTimers();
+  });
+
+  it("returns stale value when still revalidating", async () => {
+    vi.useFakeTimers();
+    const ttl = 240000; // 4 minutes
+    const engine = new SWREngine({ ttlMs: ttl });
+
+    const stale = { v: 1 };
+    const fresh = { v: 2 };
+
+    // Seed cache with initial value
+    await engine.execute("k", () => Promise.resolve(stale));
+
+    // Advance past TTL so the entry becomes stale
+    vi.advanceTimersByTime(ttl + 1);
+
+    const fetchFn = vi.fn(
+      () => new Promise((resolve) => setTimeout(() => resolve(fresh), 100)),
+    );
+
+    const freshResolve = engine.execute("k", fetchFn);
+    const skippedRefresh = engine.execute("k", () => Promise.resolve());
+
+    expect(await skippedRefresh).toEqual(stale);
+    expect(await freshResolve).toEqual(stale);
+    expect(fetchFn).toHaveBeenCalledTimes(1);
+
+    vi.useRealTimers();
+  });
+
   it("uses a request-specific TTL to trigger early revalidation", async () => {
     vi.useFakeTimers();
 

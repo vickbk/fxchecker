@@ -1,123 +1,77 @@
-import { useState } from "react";
+import { useCallback, useReducer } from "react";
 import type {
   UseCurrencyFilterOptions,
   UseCurrencyFilterReturn,
 } from "../types";
 import { filteredCurrencies, highlightedCurrencyIndex } from "../utils";
-
-const INITIAL_HIGHLIGHT = -1;
+import {
+  currencyFilterReducer,
+  initialFilterState,
+} from "./currencyFilterReducer";
 
 export function useCurrencyFilter(
   options: UseCurrencyFilterOptions,
 ): UseCurrencyFilterReturn {
   const { currencies, onSelect } = options;
-  const [isOpen, setIsOpen] = useState(false);
-  const [query, setQuery] = useState("");
-  const [highlightedIndex, setHighlightedIndex] = useState(INITIAL_HIGHLIGHT);
+  const [state, dispatch] = useReducer(
+    currencyFilterReducer,
+    initialFilterState,
+  );
 
-  const filtered = filteredCurrencies(currencies, query);
+  const filtered = filteredCurrencies(currencies, state.query);
 
-  const handleKeyDown = (event: {
-    key: string;
-    preventDefault?: () => void;
-  }) => {
-    if (!["ArrowDown", "ArrowUp", "Enter", "Escape"].includes(event.key))
-      return;
-    event.preventDefault?.();
-    if (event.key === "ArrowDown") {
-      if (!isOpen) {
-        setIsOpen(true);
+  const closeAndReset = useCallback(() => dispatch({ type: "RESET" }), []);
 
-        if (filtered.length > 0) {
-          setHighlightedIndex(0);
-        }
+  const selectHighlighted = useCallback(() => {
+    const index = state.highlightedIndex;
+    if (onSelect && index >= 0 && index < filtered.length) {
+      onSelect(filtered[index]);
+    }
+    closeAndReset();
+  }, [state.highlightedIndex, closeAndReset, filtered, onSelect]);
 
+  const handleKeyDown = useCallback(
+    (event: { key: string; preventDefault?: () => void }) => {
+      if (!["ArrowDown", "ArrowUp", "Enter", "Escape"].includes(event.key))
+        return;
+
+      event.preventDefault?.();
+
+      if (event.key === "Escape") {
+        closeAndReset();
         return;
       }
 
-      if (filtered.length === 0) {
+      if (event.key === "Enter") {
+        selectHighlighted();
         return;
       }
 
-      setHighlightedIndex((current) => {
-        if (current < 0) {
-          return 0;
-        }
-
-        return Math.min(current + 1, filtered.length - 1);
+      dispatch({
+        type: "KEY_NAVIGATE",
+        key: event.key as "ArrowDown",
+        totalLength: filtered.length,
       });
-      return;
-    }
-
-    if (event.key === "ArrowUp") {
-      if (filtered.length === 0) {
-        return;
-      }
-
-      setHighlightedIndex((current) => {
-        if (current <= 0) {
-          return 0;
-        }
-
-        return Math.max(current - 1, 0);
-      });
-      return;
-    }
-
-    if (event.key === "Escape") {
-      setIsOpen(false);
-      setQuery("");
-      setHighlightedIndex(INITIAL_HIGHLIGHT);
-      return;
-    }
-
-    if (event.key === "Enter") {
-      selectHighlighted();
-    }
-  };
-
-  const handleMouseEnter = (index: number) => {
-    setHighlightedIndex(highlightedCurrencyIndex(filtered, index));
-  };
-
-  const handleBlur = () => {
-    setIsOpen(false);
-    setQuery("");
-    setHighlightedIndex(INITIAL_HIGHLIGHT);
-  };
-
-  const selectHighlighted = () => {
-    if (highlightedIndex >= 0 && highlightedIndex < filtered.length) {
-      const selectedCurrency = filtered[highlightedIndex];
-
-      if (selectedCurrency) {
-        onSelect?.(selectedCurrency);
-      }
-    }
-
-    setIsOpen(false);
-    setQuery("");
-    setHighlightedIndex(INITIAL_HIGHLIGHT);
-  };
+    },
+    [dispatch, closeAndReset, selectHighlighted, filtered.length],
+  );
 
   return {
-    isOpen,
-    query,
-    highlightedIndex,
+    isOpen: state.isOpen,
+    query: state.query,
+    highlightedIndex: state.highlightedIndex,
     filteredCurrencies: filtered,
-    setQuery: (value: string) => {
-      setHighlightedIndex(value !== "" ? 0 : -1);
-      setQuery(value);
-    },
-    openMenu: () => setIsOpen(true),
-    closeMenu: () => {
-      setIsOpen(false);
-      setQuery("");
-      setHighlightedIndex(INITIAL_HIGHLIGHT);
-    },
+    setQuery: (value: string) =>
+      dispatch({ type: "SET_QUERY", payload: value }),
+    openMenu: () => dispatch({ type: "OPEN" }),
+    closeMenu: closeAndReset,
     handleKeyDown,
-    handleMouseEnter,
-    handleBlur,
+    handleMouseEnter: (index: number) =>
+      dispatch({
+        type: "SET_HIGHLIGHT",
+        payload: highlightedCurrencyIndex(filtered, index),
+      }),
+    handleBlur: closeAndReset,
     selectHighlighted,
   };
 }

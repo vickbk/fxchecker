@@ -2,13 +2,6 @@ import { act, renderHook } from "@testing-library/react";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { useTheme } from "./use-theme";
 
-// Mock the theme scripts
-vi.mock("../scripts", () => ({
-  applyTheme: vi.fn(),
-  getSavedTheme: vi.fn(() => "light"),
-  saveTheme: vi.fn(),
-}));
-
 describe("use Theme", () => {
   beforeEach(() => {
     localStorage.clear();
@@ -17,6 +10,7 @@ describe("use Theme", () => {
 
   afterEach(() => {
     document.documentElement.removeAttribute("theme");
+    document.documentElement.style.colorScheme = "";
   });
 
   it("should initialize with light theme", () => {

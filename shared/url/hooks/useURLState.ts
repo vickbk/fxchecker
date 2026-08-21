@@ -24,7 +24,6 @@ export function useURLState(): URLState {
     setTo: (value: string) => updateURL({ to: value }),
     setAmount: (value: number) => updateURL({ amount: value }),
 
-    // Beautifully clean atomic swap with zero double-parsing
     swapCurrencies: () =>
       updateURL({
         from: state.to,
