@@ -32,11 +32,6 @@ export type FilterAction =
   | { type: "SET_HIGHLIGHT"; payload: number }
   | { type: "KEY_NAVIGATE"; key: "ArrowDown" | "ArrowUp"; totalLength: number };
 
-export type ActionParams = {
-  state: FilterState;
-  action: FilterAction;
-};
-
 type ActionHandler<T extends FilterAction["type"]> = (
   state: FilterState,
   action: Extract<FilterAction, { type: T }>,
