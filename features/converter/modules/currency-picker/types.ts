@@ -18,3 +18,30 @@ export type UseCurrencyFilterReturn = {
   handleBlur: () => void;
   selectHighlighted: () => void;
 };
+
+export type FilterState = {
+  isOpen: boolean;
+  query: string;
+  highlightedIndex: number;
+};
+
+export type FilterAction =
+  | { type: "SET_QUERY"; payload: string }
+  | { type: "OPEN" }
+  | { type: "RESET" }
+  | { type: "SET_HIGHLIGHT"; payload: number }
+  | { type: "KEY_NAVIGATE"; key: "ArrowDown" | "ArrowUp"; totalLength: number };
+
+export type ActionParams = {
+  state: FilterState;
+  action: FilterAction;
+};
+
+type ActionHandler<T extends FilterAction["type"]> = (
+  state: FilterState,
+  action: Extract<FilterAction, { type: T }>,
+) => FilterState;
+
+export type Handlers = {
+  [K in FilterAction["type"]]: ActionHandler<K>;
+};
