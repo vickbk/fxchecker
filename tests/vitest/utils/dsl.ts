@@ -1,3 +1,4 @@
+import { patternToRegex, TEXT_PATTERN } from "@/tests/common";
 import { screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect } from "vitest";
@@ -67,3 +68,18 @@ export const shouldFail = (data: unknown, schema: ZodSchema) => {
   const parsed = schema.safeParse(data);
   expect(parsed.success).toBe(false);
 };
+
+export function isChecked(selector: TEXT_PATTERN, container?: HTMLElement) {
+  const searchArea = getSearchArea(container);
+
+  const name = patternToRegex(selector);
+  const element =
+    searchArea.getByLabelText(name) ||
+    searchArea.getByRole("radio", { name }) ||
+    searchArea.getByRole("checkbox", { name });
+  expect(element).toBeChecked();
+}
+
+function getSearchArea(container?: HTMLElement) {
+  return container ? within(container) : screen;
+}

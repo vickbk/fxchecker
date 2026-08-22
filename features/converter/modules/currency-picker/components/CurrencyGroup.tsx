@@ -1,7 +1,6 @@
 import { Currency } from "@/infra/api/frankfurter";
 import { Flag } from "@/shared/currencies";
-import { BiIcon, scrollIntoView } from "@/shared/utils";
-import { SRHidden } from "@/shared/utils/components/SRHidden";
+import { BiIcon, scrollIntoView, SRHidden } from "@/shared/utils";
 
 export const CurrencyGroup = ({
   title,

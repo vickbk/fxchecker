@@ -10,7 +10,7 @@ export const Flag = ({ alt, currency }: { currency: string; alt: string }) => {
       width={20}
       height={20}
       className="aspect-square object-cover rounded-full"
-      src={url ?? "/globe.svg"}
+      src={url}
       alt={alt}
       loading="eager"
     />
