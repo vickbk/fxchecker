@@ -7,7 +7,7 @@ import { ZodSchema } from "zod/v3";
 function shouldGet(...textes: (string | RegExp)[]) {
   return textes.map((text) => {
     const regex = typeof text === "string" ? new RegExp(text, "i") : text;
-    return expect(screen.getByText(regex));
+    return expect(screen.queryByText(regex));
   });
 }
 export const shouldSee = (...texts: (string | RegExp)[]) => {
@@ -82,4 +82,15 @@ export function isChecked(selector: TEXT_PATTERN, container?: HTMLElement) {
 
 function getSearchArea(container?: HTMLElement) {
   return container ? within(container) : screen;
+}
+
+export function resolvedPromise<T>(value: T) {
+  const promise = Promise.resolve(value);
+  return Object.assign(promise, { status: "fulfilled" as const, value });
+}
+
+export function rejectedPromise(reason: unknown) {
+  const promise = Promise.reject(reason);
+  promise.catch(() => {}); // Suppresses Vitest unhandledRejection noise
+  return Object.assign(promise, { status: "rejected" as const, reason });
 }
