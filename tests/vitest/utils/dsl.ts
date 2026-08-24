@@ -48,6 +48,7 @@ export const userTypes = async (
     searchArea.queryByPlaceholderText(regex) ||
     searchArea.getByRole("textbox", { name: regex });
 
+  await user.clear(element);
   await user.type(element, text);
 };
 

@@ -3,7 +3,7 @@ export const [
   SEND_HEADER = /Send rate/i,
   RECEIVE_HEADER = /Receive Rate/i,
   SWAPPER_TEXT = /(Swap send)(.*?)(and receive)(.*?)(currencies)/i,
-  // AMOUNT_LABEL = /Exchange amount/i,
+  EXCHANGE_AMOUNT_LABEL = /Exchange amount/i,
   CHANGE_SEND_TRIGGER = /Change send currency/i,
   CHANGE_RECEIVE_TRIGGER = /Change receive currency/i,
   CURRENT_RATE = /Current rate for/i,
