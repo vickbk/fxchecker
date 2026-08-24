@@ -1,6 +1,6 @@
 import { Currency } from "@/infra/api/frankfurter";
 import * as scrollModule from "@/shared/utils";
-import { isChecked, userClicks } from "@/tests";
+import { isChecked, shouldSee, userClicks } from "@/tests";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -41,8 +41,8 @@ describe("CurrencyGroup Component", () => {
       render(<CurrencyGroup {...defaultProps} />);
 
       expect(screen.getByRole("group")).toBeInTheDocument();
-      expect(screen.getByText("Popular Currencies")).toBeInTheDocument();
-      expect(screen.getByText("3")).toBeInTheDocument();
+
+      shouldSee(/Popular Currencies/i, "3");
     });
 
     it("renders empty group when currencies array is empty", () => {
