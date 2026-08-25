@@ -77,3 +77,9 @@ export function rejectedPromise(reason: unknown) {
   promise.catch(() => {}); // Suppresses Vitest unhandledRejection noise
   return Object.assign(promise, { status: "rejected" as const, reason });
 }
+
+// function togglePopover(id: string) {
+//   const element = document.getElementById(id);
+//   if (!element) return;
+//   fireEvent.toggle(element);
+// }

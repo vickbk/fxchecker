@@ -1,6 +1,10 @@
 import { clickButton, shouldNotSee, shouldSee } from "@/tests/playwright";
 import { Page } from "@playwright/test";
 import {
+  shouldSearchForCurrencyAndSelectIt,
+  shouldSeeSearchOptions,
+} from "../modules/currency-picker/__testing__";
+import {
   ADD_FAVORITE_BUTTON,
   CHANGE_RECEIVE_TRIGGER,
   CHANGE_SEND_TRIGGER,
@@ -60,4 +64,43 @@ export async function shouldSwapBetweenUSDandEUR(page: Page) {
     RECEIVE_USD_HEADING,
     EUR_USD_SWAP_TEXT,
   );
+}
+
+export async function shouldOpenSendSearchPopover(page: Page) {
+  await shouldHaveUSDToEuroOnStart(page);
+
+  await clickButton(page, CHANGE_SEND_TRIGGER);
+  await shouldSeeSearchOptions(page);
+}
+
+export async function shouldOpenReceiveSearchPopover(page: Page) {
+  await shouldHaveUSDToEuroOnStart(page);
+
+  await clickButton(page, CHANGE_RECEIVE_TRIGGER);
+  await shouldSeeSearchOptions(page, 1);
+}
+
+export async function shouldSearchForGBPAndSetItAsBaseCurrency(page: Page) {
+  await shouldOpenSendSearchPopover(page);
+
+  await shouldSearchForCurrencyAndSelectIt(page, {
+    search: "pound",
+    matcher: /British Pound/i,
+    isSend: true,
+  });
+
+  await shouldNotSee(page, INITIAL_SEND_USD);
+  await shouldSee(page, "Send rate (GBP)");
+}
+
+export async function shouldSearchForJPYAndSetItAsQuoteCurrency(page: Page) {
+  await shouldOpenReceiveSearchPopover(page);
+
+  await shouldSearchForCurrencyAndSelectIt(page, {
+    search: "japanese",
+    matcher: /Japanese Yen/,
+  });
+
+  await shouldNotSee(page, INITIAL_RECEIVE_EUR);
+  await shouldSee(page, "Receive rate (JPY)");
 }

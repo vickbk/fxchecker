@@ -46,13 +46,15 @@ export const PickerForm = ({
       className={`bg-btn inset-auto [position-area:bottom_span-left] [position-try:flip-block] mt-4 p-4 rounded-lg text-foreground`}
     >
       <label className="relative w-full">
-        <SROnly>Enter the currency you like</SROnly>{" "}
+        <SROnly>
+          Enter the currency you like ({isSend ? "base" : "quote"})
+        </SROnly>{" "}
         <BiIcon name="search absolute left-2 top-[.005em]" />
         <input
           type="text"
           autoFocus
           onChange={(e) => setQuery(e.target.value)}
-          placeholder="Search for currencies..."
+          placeholder={`Search for ${isSend ? "base" : "quote"} currency`}
           className="pl-8 outline outline-foreground-secondary rounded-sm p-2 w-full"
         />
       </label>

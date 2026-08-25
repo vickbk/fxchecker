@@ -1,6 +1,11 @@
 import { shouldNotSee, shouldSee, userTypes } from "@/tests";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
+import {
+  SEARCH_BASE_PLACEHOLDER,
+  SEARCH_CURRENCY_LABEL_BASE,
+  SEARCH_CURRENCY_LABEL_QUOTE,
+} from "../__testing__/utils";
 import * as useCurrencyModule from "../hooks/useCurrencyPicker";
 import * as currencyGroupModule from "./CurrencyGroup";
 import { PickerForm } from "./PickerForm";
@@ -68,6 +73,8 @@ describe("PickerForm Component", () => {
       render(<PickerForm isSend={false} popover="picker-popover" />);
 
       expect(useCurrencyPicker).toHaveBeenCalledWith({ isSend: false });
+      shouldSee(SEARCH_CURRENCY_LABEL_QUOTE);
+      shouldNotSee(SEARCH_CURRENCY_LABEL_BASE);
     });
 
     it("attaches popover ID, popover attribute, and aria-live polite to form", () => {
@@ -78,6 +85,8 @@ describe("PickerForm Component", () => {
       expect(formElement).toBeInTheDocument();
       expect(formElement).toHaveAttribute("popover", "");
       expect(formElement).toHaveAttribute("aria-live", "polite");
+      shouldNotSee(SEARCH_CURRENCY_LABEL_QUOTE);
+      shouldSee(SEARCH_CURRENCY_LABEL_BASE);
     });
   });
 
@@ -87,7 +96,7 @@ describe("PickerForm Component", () => {
         <PickerForm isSend={true} popover="test-popover" />,
       );
 
-      const input = screen.getByPlaceholderText("Search for currencies...");
+      const input = screen.getByPlaceholderText(SEARCH_BASE_PLACEHOLDER);
       expect(input).toBeInTheDocument();
       shouldSee("Enter the currency you like");
       expect(container.querySelector(".bi-search")).toBeInTheDocument();
@@ -96,7 +105,7 @@ describe("PickerForm Component", () => {
     it("triggers setQuery on user text input", async () => {
       render(<PickerForm isSend={true} popover="test-popover" />);
 
-      await userTypes("Search for currencies...", "EUR");
+      await userTypes(SEARCH_BASE_PLACEHOLDER, "EUR");
 
       expect(mockSetQuery).toHaveBeenCalled();
     });

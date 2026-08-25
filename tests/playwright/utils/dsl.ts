@@ -1,3 +1,4 @@
+import { patternToRegex } from "@/tests/common";
 import type {
   LABEL_LOCATOR,
   TEXT_MATCHER,
@@ -11,7 +12,7 @@ function shouldGet(page: Page, ...textes: TEXT_MATCHER[]) {
   return textes.map((text) => {
     if (Array.isArray(text)) {
       const [matcher, nth] = text;
-      return expect(page.getByText(matcher).nth(nth));
+      return expect(page.getByText(patternToRegex(matcher)).nth(nth));
     }
     return expect(page.getByText(text));
   });
@@ -40,7 +41,7 @@ export async function setLocatorValue(
   page: Page,
   [locator, value]: LABEL_LOCATOR,
 ) {
-  const element = page.locator("label", { hasText: locator });
+  const element = page.locator("label", { hasText: patternToRegex(locator) });
   await element.click();
   await element.fill(value);
 }
