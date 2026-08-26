@@ -1,6 +1,6 @@
 export const [
   // currency card with filter
-  FAVORITES_HEADER = /Favorites/i,
+  FAVORITES_HEADER = "Favorites 3",
   OTHER_CURRENCIES_HEADER = /Other currencies/i,
   SEARCH_CURRENCY_LABEL = /Enter the currency you like/i,
   SEARCH_CURRENCY_LABEL_BASE = "Enter the currency you like (base)",

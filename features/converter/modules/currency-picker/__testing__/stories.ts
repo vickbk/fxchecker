@@ -1,7 +1,9 @@
 import { TEXT_PATTERN } from "@/tests/common";
 import {
+  clickBodyCorner,
   clickLabelInput,
   fillLocatorWith,
+  shouldNotSee,
   shouldSee,
 } from "@/tests/playwright";
 import { Page } from "@playwright/test";
@@ -17,7 +19,7 @@ export async function shouldSeeSearchOptions(page: Page, index = 0) {
   await shouldSee(
     page,
     [SEARCH_CURRENCY_LABEL, index],
-    [FAVORITES_HEADER, 1],
+    FAVORITES_HEADER,
     OTHER_CURRENCIES_HEADER,
   );
 }
@@ -37,4 +39,7 @@ export async function shouldSearchForCurrencyAndSelectIt(
 
   await shouldSee(page, matcher);
   await clickLabelInput(page, matcher);
+  await clickBodyCorner(page);
+
+  await shouldNotSee(page, FAVORITES_HEADER, OTHER_CURRENCIES_HEADER);
 }

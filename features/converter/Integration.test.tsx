@@ -341,7 +341,7 @@ describe("CurrencyCard & PickerForm Integration (Popover & Search)", () => {
       ).not.toBeInTheDocument();
 
       shouldSee(
-        FAVORITES_HEADER,
+        "Favorites",
         OTHER_CURRENCIES_HEADER,
         // 2 Favorites (USD, EUR)
         "2",
