@@ -1,7 +1,8 @@
 import { patternToRegex, TEXT_PATTERN } from "@/tests/common";
-import { screen, within } from "@testing-library/react";
+import { fireEvent, screen, within } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
 import { expect } from "vitest";
+import { ToggleState } from "../types";
 
 function shouldGetByText(...textes: (string | RegExp)[]) {
   return textes.map((text) => {
@@ -83,3 +84,18 @@ export function rejectedPromise(reason: unknown) {
 //   if (!element) return;
 //   fireEvent.toggle(element);
 // }
+
+export function togglePopover({
+  container,
+  selector,
+  newState = "open",
+}: {
+  container?: HTMLElement;
+  selector: string;
+  newState?: ToggleState;
+}) {
+  const element = (container ?? document).querySelector(selector);
+  if (!element) return;
+  fireEvent.toggle(element, { newState });
+  return element;
+}

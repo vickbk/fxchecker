@@ -1,5 +1,11 @@
 import { FrankfurterRate, getRate } from "@/infra/api/frankfurter";
-import { shouldNotSee, shouldSee, userClicks, userTypes } from "@/tests";
+import {
+  shouldNotSee,
+  shouldSee,
+  togglePopover,
+  userClicks,
+  userTypes,
+} from "@/tests";
 import {
   act,
   fireEvent,
@@ -8,7 +14,6 @@ import {
   waitFor,
 } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
-import React from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   CHANGE_SEND_TRIGGER,
@@ -64,25 +69,6 @@ vi.mock("@/shared/currencies", async (original) => {
   };
 });
 
-// 3. Mock Shared Utils (Icons & UI placeholders)
-vi.mock("@/shared/utils", () => ({
-  BiIcon: ({ name }: { name: string }) => <i data-testid={`icon-${name}`} />,
-  SROnly: ({ children }: { children: React.ReactNode }) => (
-    <span className="sr-only">{children}</span>
-  ),
-  LoadingPlaceholder: ({ className }: { className?: string }) => (
-    <span data-testid="loading-placeholder" className={className} />
-  ),
-  scrollIntoView: vi.fn(),
-  SRHidden: ({
-    children,
-    className,
-  }: {
-    children: React.ReactNode;
-    className?: string;
-  }) => <span className={className}>{children}</span>,
-}));
-
 // 4. Reactive In-Memory URL State Store for Component-Level Integration
 const mockState = {
   from: "USD",
@@ -107,6 +93,13 @@ const mockState = {
 vi.mock("@/shared/url/hooks", () => ({
   useURLState: vi.fn(() => mockState),
 }));
+
+vi.spyOn(
+  await import("@/shared/utils"),
+  "LoadingPlaceholder",
+).mockImplementation(({ className }: { className?: string }) => (
+  <span data-testid="loading-placeholder" className={className} />
+));
 
 describe("ConverterCard Integration Suite (Unmocked Converter Sub-Tree)", () => {
   const favoriteToggleSlot = <button data-testid="fav-btn">★ Favorite</button>;
@@ -151,14 +144,10 @@ describe("ConverterCard Integration Suite (Unmocked Converter Sub-Tree)", () => 
       ).toBeInTheDocument();
 
       // Swapper Control Button
-      shouldSee(SWAPPER_TEXT);
+      shouldSee(SWAPPER_TEXT, "Favorite", "Log Rate");
       // Currency Cards with Flags
       expect(screen.getByTestId("flag-USD")).toBeInTheDocument();
       expect(screen.getByTestId("flag-EUR")).toBeInTheDocument();
-
-      // Injected Action Slots
-      expect(screen.getByTestId("fav-btn")).toBeInTheDocument();
-      expect(screen.getByTestId("log-btn")).toBeInTheDocument();
     });
 
     it("displays initial exchange input value in AmountSetter", async () => {
@@ -330,11 +319,9 @@ describe("CurrencyCard & PickerForm Integration (Popover & Search)", () => {
     });
 
     it("opens menu and renders Favorites and Other currencies groups on toggle open event", () => {
-      const { container } = render(<CurrencyCard isSend />);
+      render(<CurrencyCard isSend />);
 
-      const form = container.querySelector("form[popover]")!;
-
-      fireEvent.toggle(form, { newState: "open" });
+      togglePopover({ selector: "form[popover]" });
 
       expect(
         screen.queryByTestId("loading-placeholder"),
@@ -353,10 +340,9 @@ describe("CurrencyCard & PickerForm Integration (Popover & Search)", () => {
 
   describe("Search & Filtering Flow", () => {
     it("filters currencies dynamically when user types into search input", async () => {
-      const { container } = render(<CurrencyCard isSend />);
+      render(<CurrencyCard isSend />);
 
-      const form = container.querySelector("form[popover]")!;
-      fireEvent.toggle(form, { newState: "open" });
+      togglePopover({ selector: "form[popover]" });
 
       await userTypes(SEARCH_CURRENCY_LABEL, "pound");
 
@@ -365,10 +351,9 @@ describe("CurrencyCard & PickerForm Integration (Popover & Search)", () => {
     });
 
     it("filters currencies by currency code (case-insensitive search)", async () => {
-      const { container } = render(<CurrencyCard isSend />);
+      render(<CurrencyCard isSend />);
 
-      const form = container.querySelector("form[popover]")!;
-      fireEvent.toggle(form, { newState: "open" });
+      togglePopover({ selector: "form[popover]" });
 
       await userTypes(SEARCH_BASE_PLACEHOLDER, "jpy");
 
@@ -377,10 +362,9 @@ describe("CurrencyCard & PickerForm Integration (Popover & Search)", () => {
     });
 
     it("renders 'No results found' message when search query matches nothing", async () => {
-      const { container } = render(<CurrencyCard isSend />);
+      render(<CurrencyCard isSend />);
 
-      const form = container.querySelector("form[popover]")!;
-      fireEvent.toggle(form, { newState: "open" });
+      togglePopover({ selector: "form[popover]" });
 
       await userTypes(SEARCH_CURRENCY_LABEL, "NON_EXISTENT_CURRENCY");
       shouldSee(NO_RESULTS_FOUND);
@@ -393,10 +377,9 @@ describe("CurrencyCard & PickerForm Integration (Popover & Search)", () => {
       const user = userEvent.setup();
       const hidePopoverSpy = vi.spyOn(HTMLElement.prototype, "hidePopover");
 
-      const { container } = render(<CurrencyCard isSend />);
+      render(<CurrencyCard isSend />);
 
-      const form = container.querySelector("form[popover]")!;
-      fireEvent.toggle(form, { newState: "open" });
+      togglePopover({ selector: "form[popover]" });
 
       const gbpOption = screen.getByLabelText(/British Pound/i);
 
@@ -408,33 +391,30 @@ describe("CurrencyCard & PickerForm Integration (Popover & Search)", () => {
 
       expect(hidePopoverSpy).toHaveBeenCalled();
 
-      fireEvent.toggle(form, { newState: "closed" });
+      togglePopover({ selector: "form[popover]", newState: "closed" });
 
       expect(mockState.setFrom).toHaveBeenCalledWith("GBP");
     });
 
     it("updates receive currency ('to' state) when isSend is false", async () => {
-      const { container } = render(<CurrencyCard isSend={false} />);
+      render(<CurrencyCard isSend={false} />);
 
-      const form = container.querySelector("form[popover]")!;
-      fireEvent.toggle(form, { newState: "open" });
+      togglePopover({ selector: "form[popover]" });
 
       await userClicks(/Canadian Dollar/i);
 
-      fireEvent.toggle(form, { newState: "closed" });
+      togglePopover({ selector: "form[popover]", newState: "closed" });
 
       expect(mockState.setTo).toHaveBeenCalledWith("CAD");
     });
 
     it("closes popover via keyboard interaction (Enter key on radio option)", async () => {
       const hidePopoverSpy = vi.spyOn(HTMLElement.prototype, "hidePopover");
-      const { container } = render(<CurrencyCard isSend />);
+      render(<CurrencyCard isSend />);
 
       await userClicks(CHANGE_SEND_TRIGGER);
 
-      const form = container.querySelector("form");
-
-      fireEvent.toggle(form!, { newState: "open" });
+      togglePopover({ selector: "form" });
 
       const jpyRadio = screen.getByRole("radio", { name: /Japanese Yen/i });
       fireEvent.keyDown(jpyRadio, { key: "Enter" });

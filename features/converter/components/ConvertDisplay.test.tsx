@@ -27,13 +27,9 @@ describe("ConvertDisplay Component", () => {
     it("renders definition list element containing dt and dd tags", () => {
       const { container } = render(<ConvertDisplay />);
 
-      const dl = container.querySelector("dl");
-      const dt = container.querySelector("dt");
-      const dd = container.querySelector("dd");
-
-      expect(dl).toBeInTheDocument();
-      expect(dt).toBeInTheDocument();
-      expect(dd).toBeInTheDocument();
+      ["dt", "dl", "dd"].forEach((e) =>
+        expect(container.querySelector(e)).toBeInTheDocument(),
+      );
     });
   });
 

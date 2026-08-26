@@ -157,9 +157,7 @@ describe("ConverterActions Component", () => {
         </ConverterActions>,
       );
 
-      expect(
-        screen.getByText("Current rate for USD to EUR"),
-      ).toBeInTheDocument();
+      shouldSee("Current rate for USD to EUR");
 
       vi.mocked(useRate).mockReturnValue({
         from: "GBP",
