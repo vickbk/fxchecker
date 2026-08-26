@@ -1,3 +1,4 @@
+import { shouldHaveTestId } from "@/tests";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { SectionsWrapper } from "./SectionsWrapper";
@@ -50,7 +51,7 @@ describe("SectionsWrapper", () => {
     expect(
       screen.getByRole("button", { name: "Action Button" }),
     ).toBeInTheDocument();
-    expect(screen.getByTestId("status-indicator")).toHaveTextContent("Active");
+    expect(shouldHaveTestId("status-indicator")[0]).toHaveTextContent("Active");
   });
 
   it("handles primitive text and numerical children correctly", () => {

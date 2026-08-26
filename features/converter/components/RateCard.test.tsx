@@ -1,5 +1,5 @@
 import { useURLState } from "@/shared/url/hooks";
-import { shouldSee } from "@/tests";
+import { shouldHaveTestId, shouldNotHaveTestId, shouldSee } from "@/tests";
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { RateCard } from "./RateCard";
@@ -66,14 +66,14 @@ describe("RateCard Component", () => {
     it("renders ConvertDisplay component and omits AmountSetter", () => {
       render(<RateCard isSend={false} />);
 
-      expect(screen.getByTestId("convert-display")).toBeInTheDocument();
-      expect(screen.queryByTestId("amount-setter")).not.toBeInTheDocument();
+      shouldHaveTestId("convert-display");
+      shouldNotHaveTestId("amount-setter");
     });
 
     it("passes isSend={false} prop down to CurrencyCard", () => {
       render(<RateCard isSend={false} />);
 
-      const currencyCard = screen.getByTestId("currency-card");
+      const [currencyCard] = shouldHaveTestId("currency-card");
       expect(currencyCard).toHaveAttribute("data-issend", "false");
     });
   });
@@ -100,16 +100,15 @@ describe("RateCard Component", () => {
     it("renders AmountSetter component with URL state props and omits ConvertDisplay", () => {
       render(<RateCard isSend />);
 
-      const amountSetter = screen.getByTestId("amount-setter");
-      expect(amountSetter).toBeInTheDocument();
+      const [amountSetter] = shouldHaveTestId("amount-setter");
       expect(amountSetter).toHaveAttribute("data-amount", "250");
-      expect(screen.queryByTestId("convert-display")).not.toBeInTheDocument();
+      shouldNotHaveTestId("convert-display");
     });
 
     it("passes isSend prop down to CurrencyCard", () => {
       render(<RateCard isSend />);
 
-      const currencyCard = screen.getByTestId("currency-card");
+      const [currencyCard] = shouldHaveTestId("currency-card");
       expect(currencyCard).toHaveAttribute("data-issend", "true");
     });
   });

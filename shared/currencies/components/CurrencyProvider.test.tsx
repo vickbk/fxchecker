@@ -1,5 +1,10 @@
-import { rejectedPromise, resolvedPromise } from "@/tests";
-import { render, renderHook, screen } from "@testing-library/react";
+import {
+  rejectedPromise,
+  resolvedPromise,
+  shouldHaveTestId,
+  shouldNotHaveTestId,
+} from "@/tests";
+import { render, renderHook } from "@testing-library/react";
 import React, { Suspense } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useCurrencies } from "../hooks/CurrencyProvider";
@@ -89,8 +94,8 @@ describe("CurrencyProvider & useCurrencies", () => {
         </CurrencyProvider>,
       );
 
-      expect(screen.getByTestId("child-node")).toBeInTheDocument();
-      expect(screen.getByTestId("child-node")).toHaveTextContent("App Content");
+      const [content] = shouldHaveTestId("child-node");
+      expect(content).toHaveTextContent("App Content");
     });
 
     it("provides correct context schema defaults (isLoading: false, error: null)", () => {
@@ -118,10 +123,17 @@ describe("CurrencyProvider & useCurrencies", () => {
         </CurrencyProvider>,
       );
 
-      expect(screen.getByTestId("currency-count")).toHaveTextContent("2");
-      expect(screen.getByTestId("fav-count")).toHaveTextContent("0");
-      expect(screen.getByTestId("is-loading")).toHaveTextContent("false");
-      expect(screen.getByTestId("error-state")).toHaveTextContent("null");
+      const [currencyCount, favCount, loading, error] = shouldHaveTestId(
+        "currency-count",
+        "fav-count",
+        "is-loading",
+        "error-state",
+      );
+
+      expect(currencyCount).toHaveTextContent("2");
+      expect(favCount).toHaveTextContent("0");
+      expect(loading).toHaveTextContent("false");
+      expect(error).toHaveTextContent("null");
     });
 
     it("updates consuming components when props receive fresh resolved promises", () => {
@@ -152,8 +164,8 @@ describe("CurrencyProvider & useCurrencies", () => {
         </CurrencyProvider>,
       );
 
-      expect(screen.getByTestId("codes")).toHaveTextContent("USD");
-      expect(screen.getByTestId("favs")).toHaveTextContent("USD");
+      const tests = shouldHaveTestId("codes", "favs");
+      tests.forEach((test) => expect(test).toHaveTextContent("USD"));
 
       rerender(
         <CurrencyProvider
@@ -164,8 +176,8 @@ describe("CurrencyProvider & useCurrencies", () => {
         </CurrencyProvider>,
       );
 
-      expect(screen.getByTestId("codes")).toHaveTextContent("USD, EUR");
-      expect(screen.getByTestId("favs")).toHaveTextContent("USD, EUR");
+      const tests2 = shouldHaveTestId("codes", "favs");
+      tests2.forEach((test) => expect(test).toHaveTextContent("USD, EUR"));
     });
 
     it("triggers Suspense boundary when promises remain pending", async () => {
@@ -190,8 +202,8 @@ describe("CurrencyProvider & useCurrencies", () => {
         </Suspense>,
       );
 
-      expect(screen.getByTestId("fallback")).toBeInTheDocument();
-      expect(screen.queryByTestId("content")).not.toBeInTheDocument();
+      shouldHaveTestId("fallback");
+      shouldNotHaveTestId("content");
     });
 
     it("bubbles promise rejection to nearest Error Boundary when use() rejects", () => {
@@ -215,9 +227,8 @@ describe("CurrencyProvider & useCurrencies", () => {
         </TestErrorBoundary>,
       );
 
-      expect(screen.getByTestId("error-boundary")).toHaveTextContent(
-        "API Network Failure",
-      );
+      const [error] = shouldHaveTestId("error-boundary");
+      expect(error).toHaveTextContent("API Network Failure");
 
       consoleSpy.mockRestore();
     });

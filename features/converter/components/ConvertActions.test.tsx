@@ -1,4 +1,4 @@
-import { shouldSee } from "@/tests";
+import { shouldHaveTestId, shouldSee } from "@/tests";
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useRate } from "../hooks/useRate";
@@ -104,8 +104,8 @@ describe("ConverterActions Component", () => {
         </ConverterActions>,
       );
 
-      const button = screen.getByTestId("action-btn");
-      expect(button).toBeInTheDocument();
+      const [button] = shouldHaveTestId("action-btn");
+
       expect(button).toHaveTextContent("Convert Now");
     });
 
@@ -117,8 +117,7 @@ describe("ConverterActions Component", () => {
         </ConverterActions>,
       );
 
-      expect(screen.getByTestId("btn-1")).toBeInTheDocument();
-      expect(screen.getByTestId("btn-2")).toBeInTheDocument();
+      shouldHaveTestId("btn-1", "btn-2");
     });
 
     it("handles null or conditional children without throwing errors", () => {

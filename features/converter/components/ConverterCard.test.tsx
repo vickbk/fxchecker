@@ -1,4 +1,4 @@
-import { shouldSee } from "@/tests";
+import { shouldHaveTestId, shouldNotHaveTestId, shouldSee } from "@/tests";
 import { render, screen } from "@testing-library/react";
 import React from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -103,7 +103,7 @@ describe("ConverterCard Component (Async Server Component)", () => {
       });
       render(jsx);
 
-      expect(screen.getByTestId("swapper")).toBeInTheDocument();
+      shouldHaveTestId("swapper");
     });
 
     it("renders ConverterActions wrapper component", async () => {
@@ -113,7 +113,7 @@ describe("ConverterCard Component (Async Server Component)", () => {
       });
       render(jsx);
 
-      expect(screen.getByTestId("converter-actions")).toBeInTheDocument();
+      shouldHaveTestId("converter-actions");
     });
   });
 
@@ -125,11 +125,10 @@ describe("ConverterCard Component (Async Server Component)", () => {
       });
       render(jsx);
 
-      const favToggle = screen.getByTestId("favorite-toggle");
-      const convLogger = screen.getByTestId("conversion-logger");
-
-      expect(favToggle).toBeInTheDocument();
-      expect(convLogger).toBeInTheDocument();
+      const [favToggle, convLogger] = shouldHaveTestId(
+        "favorite-toggle",
+        "conversion-logger",
+      );
 
       const list = favToggle.closest("ul");
       expect(list).toBeInTheDocument();
@@ -154,8 +153,8 @@ describe("ConverterCard Component (Async Server Component)", () => {
       });
       render(jsx);
 
-      expect(screen.queryByTestId("favorite-toggle")).not.toBeInTheDocument();
-      expect(screen.getByTestId("custom-node")).toBeInTheDocument();
+      shouldNotHaveTestId("favorite-toggle");
+      shouldHaveTestId("custom-node");
     });
   });
 });

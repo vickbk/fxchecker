@@ -1,3 +1,4 @@
+import { shouldHaveTestId } from "@/tests";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { CurrencyCardContainer } from "./CurrencyCardContainer";
@@ -44,8 +45,7 @@ describe("CurrencyCardContainer Component", () => {
         </CurrencyCardContainer>,
       );
 
-      const card = screen.getByTestId("currency-card");
-      expect(card).toBeInTheDocument();
+      const [card] = shouldHaveTestId("currency-card");
       expect(card).toHaveTextContent("USD Currency Card");
     });
 

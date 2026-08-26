@@ -1,7 +1,7 @@
 import { Currency } from "@/infra/api/frankfurter";
 import { useCurrencies } from "@/shared/currencies";
 import { useURLState } from "@/shared/url/hooks";
-import { shouldSee } from "@/tests";
+import { shouldHaveTestId, shouldSee } from "@/tests";
 import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CurrencyCard } from "./CurrencyCard";
@@ -67,18 +67,13 @@ describe("CurrencyCard Component", () => {
       const flag = screen.getByAltText("US Dollar flag");
       expect(flag).toBeInTheDocument();
 
-      expect(
-        screen.getByText((content) =>
-          content.includes("Change send currency("),
-        ),
-      ).toBeInTheDocument();
-      expect(screen.getByText("USD")).toBeInTheDocument();
+      shouldSee("Change send currency(", "USD");
     });
 
     it("passes isSend={true} to PickerForm", () => {
       render(<CurrencyCard isSend={true} />);
 
-      const pickerForm = screen.getByTestId("picker-form");
+      const [pickerForm] = shouldHaveTestId("picker-form");
       expect(pickerForm).toHaveAttribute("data-issend", "true");
     });
   });
@@ -104,7 +99,7 @@ describe("CurrencyCard Component", () => {
     it("passes isSend={false} to PickerForm", () => {
       render(<CurrencyCard isSend={false} />);
 
-      const pickerForm = screen.getByTestId("picker-form");
+      const [pickerForm] = shouldHaveTestId("picker-form");
       expect(pickerForm).toHaveAttribute("data-issend", "false");
     });
   });
@@ -166,7 +161,7 @@ describe("CurrencyCard Component", () => {
       render(<CurrencyCard isSend={true} />);
 
       const button = screen.getByRole("button");
-      const pickerForm = screen.getByTestId("picker-form");
+      const [pickerForm] = shouldHaveTestId("picker-form");
 
       expect(button).toHaveAttribute("popovertarget");
       expect(pickerForm).toHaveAttribute("data-popover");
@@ -176,7 +171,7 @@ describe("CurrencyCard Component", () => {
       render(<CurrencyCard isSend={true} />);
 
       const button = screen.getByRole("button");
-      const pickerForm = screen.getByTestId("picker-form");
+      const [pickerForm] = shouldHaveTestId("picker-form");
       const popoverId = pickerForm.getAttribute("data-popover");
 
       expect(button.className).toContain(`[anchor-name:--${popoverId}]`);

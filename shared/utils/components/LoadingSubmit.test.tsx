@@ -1,3 +1,4 @@
+import { shouldHaveTestId } from "@/tests";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { useFormStatus } from "react-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -183,7 +184,7 @@ describe("LoadingSubmit Component", () => {
         </LoadingSubmit>,
       );
 
-      const button = screen.getByTestId("fx-submit-btn");
+      const [button] = shouldHaveTestId("fx-submit-btn");
       expect(button).toHaveAttribute("id", "submit-fx-form");
       expect(button).toHaveAttribute(
         "aria-label",

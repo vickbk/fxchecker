@@ -1,3 +1,4 @@
+import { shouldHaveTestId } from "@/tests";
 import { render, screen } from "@testing-library/react";
 import { describe, expect, it } from "vitest";
 import { CurrencyCard } from "./CurrencyCard";
@@ -57,8 +58,7 @@ describe("CurrencyCard Component", () => {
         </ul>,
       );
 
-      const child = screen.getByTestId("card-child");
-      expect(child).toBeInTheDocument();
+      const [child] = shouldHaveTestId("card-child");
       expect(child).toHaveTextContent("USD - United States Dollar");
     });
 
@@ -75,9 +75,12 @@ describe("CurrencyCard Component", () => {
 
       const listItem = screen.getByRole("listitem");
       expect(listItem.children).toHaveLength(3);
-      expect(screen.getByTestId("flag")).toHaveTextContent("🇺🇸");
-      expect(screen.getByTestId("code")).toHaveTextContent("USD");
-      expect(screen.getByTestId("rate")).toHaveTextContent("1.00");
+
+      const [flag, code, rate] = shouldHaveTestId("flag", "code", "rate");
+
+      expect(flag).toHaveTextContent("🇺🇸");
+      expect(code).toHaveTextContent("USD");
+      expect(rate).toHaveTextContent("1.00");
     });
 
     it("renders raw text nodes as children", () => {

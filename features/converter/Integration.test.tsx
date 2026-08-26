@@ -1,5 +1,6 @@
 import { FrankfurterRate, getRate } from "@/infra/api/frankfurter";
 import {
+  shouldHaveTestId,
   shouldNotSee,
   shouldSee,
   togglePopover,
@@ -146,8 +147,7 @@ describe("ConverterCard Integration Suite (Unmocked Converter Sub-Tree)", () => 
       // Swapper Control Button
       shouldSee(SWAPPER_TEXT, "Favorite", "Log Rate");
       // Currency Cards with Flags
-      expect(screen.getByTestId("flag-USD")).toBeInTheDocument();
-      expect(screen.getByTestId("flag-EUR")).toBeInTheDocument();
+      shouldHaveTestId("flag-USD", "flag-EUR");
     });
 
     it("displays initial exchange input value in AmountSetter", async () => {
@@ -314,7 +314,7 @@ describe("CurrencyCard & PickerForm Integration (Popover & Search)", () => {
       expect(form).toBeInTheDocument();
 
       // Menu is closed by default, rendering loading placeholder
-      expect(screen.getByTestId("loading-placeholder")).toBeInTheDocument();
+      shouldHaveTestId("loading-placeholder");
       shouldNotSee(FAVORITES_HEADER, OTHER_CURRENCIES_HEADER);
     });
 

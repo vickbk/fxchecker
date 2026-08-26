@@ -99,3 +99,17 @@ export function togglePopover({
   fireEvent.toggle(element, { newState });
   return element;
 }
+
+export function shouldHaveTestId(...ids: string[]) {
+  const testElements = ids.map((id) => screen.getByTestId(id));
+
+  testElements.forEach((element) => expect(element).toBeInTheDocument());
+  return testElements;
+}
+
+export function shouldNotHaveTestId(...ids: string[]) {
+  const testElements = ids.map((id) => screen.queryByTestId(id));
+
+  testElements.forEach((element) => expect(element).not.toBeInTheDocument());
+  return testElements;
+}
