@@ -88,12 +88,7 @@ describe("CurrencyCard Component", () => {
       const flag = screen.getByAltText("Euro flag");
       expect(flag).toBeInTheDocument();
 
-      expect(
-        screen.getByText((content) =>
-          content.includes("Change receive currency("),
-        ),
-      ).toBeInTheDocument();
-      expect(screen.getByText("EUR")).toBeInTheDocument();
+      shouldSee("Change receive currency(", "EUR");
     });
 
     it("passes isSend={false} to PickerForm", () => {
@@ -114,7 +109,7 @@ describe("CurrencyCard Component", () => {
       render(<CurrencyCard isSend={true} />);
 
       expect(screen.getByAltText("US Dollar flag")).toBeInTheDocument();
-      expect(screen.getByText("USD")).toBeInTheDocument();
+      shouldSee("USD");
     });
 
     it("falls back to EUR when active 'to' currency is not found in currencies list", () => {
@@ -126,7 +121,7 @@ describe("CurrencyCard Component", () => {
       render(<CurrencyCard isSend={false} />);
 
       expect(screen.getByAltText("Euro flag")).toBeInTheDocument();
-      expect(screen.getByText("EUR")).toBeInTheDocument();
+      shouldSee("EUR");
     });
   });
 

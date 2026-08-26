@@ -4,6 +4,8 @@ import userEvent from "@testing-library/user-event";
 import { expect } from "vitest";
 import { ToggleState } from "../types";
 
+const user = userEvent.setup();
+
 function shouldGetByText(...textes: (string | RegExp)[]) {
   return textes.map((text) => {
     const regex = patternToRegex(text);
@@ -24,16 +26,27 @@ export const userClicks = async (
   target: string | RegExp,
   container?: HTMLElement,
 ) => {
-  const user = userEvent.setup();
   const regex = patternToRegex(target);
 
-  const searchArea = container ? within(container) : screen;
+  const searchArea = getSearchArea(container);
   const element =
     searchArea.queryByRole("button", { name: regex }) ||
     searchArea.getByText(regex);
 
   await user.click(element);
 };
+
+export async function clickLabelInput(
+  label: TEXT_PATTERN,
+  container?: HTMLElement,
+) {
+  const regex = patternToRegex(label);
+
+  const searchArea = getSearchArea(container);
+  const element =
+    searchArea.getByLabelText(regex) || searchArea.getByPlaceholderText(label);
+  await user.click(element);
+}
 
 export const userTypes = async (
   target: string | RegExp,
@@ -53,7 +66,10 @@ export const userTypes = async (
   await user.type(element, text);
 };
 
-export function isChecked(selector: TEXT_PATTERN, container?: HTMLElement) {
+function getRadioOrCheckboxAssertion(
+  selector: TEXT_PATTERN,
+  container?: HTMLElement,
+) {
   const searchArea = getSearchArea(container);
 
   const name = patternToRegex(selector);
@@ -61,7 +77,14 @@ export function isChecked(selector: TEXT_PATTERN, container?: HTMLElement) {
     searchArea.getByLabelText(name) ||
     searchArea.getByRole("radio", { name }) ||
     searchArea.getByRole("checkbox", { name });
-  expect(element).toBeChecked();
+  return expect(element);
+}
+export function isChecked(selector: TEXT_PATTERN, container?: HTMLElement) {
+  getRadioOrCheckboxAssertion(selector, container).toBeChecked();
+}
+
+export function isNotChecked(selector: TEXT_PATTERN, container?: HTMLElement) {
+  getRadioOrCheckboxAssertion(selector, container).not.toBeChecked();
 }
 
 function getSearchArea(container?: HTMLElement) {
@@ -78,12 +101,6 @@ export function rejectedPromise(reason: unknown) {
   promise.catch(() => {}); // Suppresses Vitest unhandledRejection noise
   return Object.assign(promise, { status: "rejected" as const, reason });
 }
-
-// function togglePopover(id: string) {
-//   const element = document.getElementById(id);
-//   if (!element) return;
-//   fireEvent.toggle(element);
-// }
 
 export function togglePopover({
   container,

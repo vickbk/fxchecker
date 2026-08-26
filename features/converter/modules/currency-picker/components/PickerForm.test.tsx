@@ -1,5 +1,5 @@
-import { shouldNotSee, shouldSee, userTypes } from "@/tests";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { shouldNotSee, shouldSee, togglePopover, userTypes } from "@/tests";
+import { render, screen } from "@testing-library/react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   SEARCH_BASE_PLACEHOLDER,
@@ -115,12 +115,7 @@ describe("PickerForm Component", () => {
     it("invokes openMenu when popover toggle state changes to 'open'", () => {
       render(<PickerForm isSend={true} popover="test-popover" />);
 
-      const formElement = document.getElementById("test-popover")!;
-      const toggleEvent = Object.assign(new Event("toggle"), {
-        newState: "open",
-      });
-
-      fireEvent(formElement, toggleEvent);
+      togglePopover({ selector: "[popover]" });
 
       expect(mockOpenMenu).toHaveBeenCalledTimes(1);
       expect(mockCloseMenu).not.toHaveBeenCalled();
@@ -129,12 +124,7 @@ describe("PickerForm Component", () => {
     it("invokes setCurrencyQuery and closeMenu when popover toggle state changes to 'closed'", () => {
       render(<PickerForm isSend={true} popover="test-popover" />);
 
-      const formElement = document.getElementById("test-popover")!;
-      const toggleEvent = Object.assign(new Event("toggle"), {
-        newState: "closed",
-      });
-
-      fireEvent(formElement, toggleEvent);
+      togglePopover({ selector: "[popover]", newState: "closed" });
 
       expect(mockSetCurrencyQuery).toHaveBeenCalledWith("USD");
       expect(mockCloseMenu).toHaveBeenCalledTimes(1);

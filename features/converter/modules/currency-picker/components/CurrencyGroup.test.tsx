@@ -1,6 +1,12 @@
 import { Currency } from "@/infra/api/frankfurter";
 import * as scrollModule from "@/shared/utils";
-import { isChecked, shouldSee, userClicks } from "@/tests";
+import {
+  clickLabelInput,
+  isChecked,
+  isNotChecked,
+  shouldSee,
+  userClicks,
+} from "@/tests";
 import { fireEvent, render, screen } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
 import { beforeEach, describe, expect, it, vi } from "vitest";
@@ -48,7 +54,7 @@ describe("CurrencyGroup Component", () => {
     it("renders empty group when currencies array is empty", () => {
       render(<CurrencyGroup {...defaultProps} currencies={[]} />);
 
-      expect(screen.getByText("0")).toBeInTheDocument();
+      shouldSee("0");
       expect(screen.queryAllByRole("radio")).toHaveLength(0);
     });
 
@@ -57,6 +63,7 @@ describe("CurrencyGroup Component", () => {
 
       mockCurrencies.forEach(({ code, name }, index) => {
         expect(screen.getAllByAltText(``)[index]).toBeInTheDocument();
+
         expect(screen.getByText(code)).toBeInTheDocument();
         expect(screen.getByText(name)).toBeInTheDocument();
       });
@@ -77,19 +84,17 @@ describe("CurrencyGroup Component", () => {
         />,
       );
 
-      const radios = screen.getAllByRole("radio") as HTMLInputElement[];
+      isChecked("USD");
+      isChecked("EUR");
 
-      expect(radios[0].defaultChecked).toBe(true); // USD (actualCurr)
-      expect(radios[1].defaultChecked).toBe(true); // EUR (choice)
-      expect(radios[2].defaultChecked).toBe(false); // GBP
+      isNotChecked("GBP");
     });
 
     it("invokes setChoice with currency code when selected", async () => {
       const setChoiceMock = vi.fn();
       render(<CurrencyGroup {...defaultProps} setChoice={setChoiceMock} />);
 
-      const eurRadio = screen.getAllByRole("radio")[1]; // EUR
-      fireEvent.click(eurRadio);
+      await clickLabelInput("EUR");
 
       expect(setChoiceMock).toHaveBeenCalledWith("EUR");
     });
