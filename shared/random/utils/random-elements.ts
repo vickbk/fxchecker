@@ -42,20 +42,33 @@ export function getRandomElements<T>(data: T[], count: number): T[] {
     shuffled[randomIndex] = shuffled[len - 1 - i];
   }
 
-  if (isSameOrder && !isSameItem) {
-    let swapIndex = 1;
-
-    for (let j = 1; j < safeCount; j++) {
-      if (results[j] !== results[0]) {
-        swapIndex = j;
-        break;
-      }
-    }
-
-    const temp = results[0];
-    results[0] = results[swapIndex];
-    results[swapIndex] = temp;
-  }
+  swapIfNeeded({ isSameItem, isSameOrder, results, safeCount });
 
   return results;
+}
+
+function swapIfNeeded<T>({
+  isSameItem,
+  isSameOrder,
+  results,
+  safeCount,
+}: {
+  results: T[];
+  isSameOrder: boolean;
+  isSameItem: boolean;
+  safeCount: number;
+}) {
+  if (!isSameOrder || isSameItem) return;
+  let swapIndex = 1;
+
+  for (let j = 1; j < safeCount; j++) {
+    if (results[j] !== results[0]) {
+      swapIndex = j;
+      break;
+    }
+  }
+
+  const temp = results[0];
+  results[0] = results[swapIndex];
+  results[swapIndex] = temp;
 }

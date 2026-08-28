@@ -11,6 +11,7 @@ import {
   act,
   fireEvent,
   render,
+  RenderResult,
   screen,
   waitFor,
 } from "@testing-library/react";
@@ -106,6 +107,21 @@ describe("ConverterCard Integration Suite (Unmocked Converter Sub-Tree)", () => 
   const favoriteToggleSlot = <button data-testid="fav-btn">★ Favorite</button>;
   const conversionLoggerSlot = <button data-testid="log-btn">Log Rate</button>;
 
+  async function renderConvertJSX() {
+    let results: RenderResult | null = null;
+    await act(async () => {
+      const jsx = await ConverterCard({
+        favoriteToggle: favoriteToggleSlot,
+        conversionLogger: conversionLoggerSlot,
+      });
+      results = render(jsx);
+    });
+
+    if (!results) return null;
+
+    return results as RenderResult;
+  }
+
   beforeEach(() => {
     vi.clearAllMocks();
 
@@ -125,12 +141,7 @@ describe("ConverterCard Integration Suite (Unmocked Converter Sub-Tree)", () => 
 
   describe("Initial Rendering & Unmocked Hierarchy", () => {
     it("renders the entire converter tree with RateCards, Swapper, and ConverterActions", async () => {
-      const jsx = await ConverterCard({
-        favoriteToggle: favoriteToggleSlot,
-        conversionLogger: conversionLoggerSlot,
-      });
-
-      act(() => render(jsx));
+      await renderConvertJSX();
 
       shouldSee(CONVERTER_TITLE);
 
@@ -151,11 +162,7 @@ describe("ConverterCard Integration Suite (Unmocked Converter Sub-Tree)", () => 
     });
 
     it("displays initial exchange input value in AmountSetter", async () => {
-      const jsx = await ConverterCard({
-        favoriteToggle: favoriteToggleSlot,
-        conversionLogger: conversionLoggerSlot,
-      });
-      render(jsx);
+      await renderConvertJSX();
 
       const amountInput = screen.getByLabelText(
         EXCHANGE_AMOUNT_LABEL,
@@ -167,11 +174,7 @@ describe("ConverterCard Integration Suite (Unmocked Converter Sub-Tree)", () => 
 
   describe("Server Action Data Flow & Asynchronous Auto-Dispatch", () => {
     it("auto-dispatches loadRate server action on mount and displays resolved rate", async () => {
-      const jsx = await ConverterCard({
-        favoriteToggle: favoriteToggleSlot,
-        conversionLogger: conversionLoggerSlot,
-      });
-      render(jsx);
+      await renderConvertJSX();
 
       // Verify server action was called via useAutoDispatch
       expect(getRate).toHaveBeenCalledWith("USD", "EUR");
@@ -190,11 +193,7 @@ describe("ConverterCard Integration Suite (Unmocked Converter Sub-Tree)", () => 
 
       vi.mocked(getRate).mockReturnValue(pendingPromise);
 
-      const jsx = await ConverterCard({
-        favoriteToggle: favoriteToggleSlot,
-        conversionLogger: conversionLoggerSlot,
-      });
-      render(jsx);
+      await renderConvertJSX();
 
       expect(
         screen.getAllByTestId("loading-placeholder").length,
@@ -211,11 +210,7 @@ describe("ConverterCard Integration Suite (Unmocked Converter Sub-Tree)", () => 
 
   describe("User Interactions & End-to-End Integration", () => {
     it("updates amount state when typing into exchange amount input", async () => {
-      const jsx = await ConverterCard({
-        favoriteToggle: favoriteToggleSlot,
-        conversionLogger: conversionLoggerSlot,
-      });
-      render(jsx);
+      await renderConvertJSX();
 
       await userTypes(EXCHANGE_AMOUNT_LABEL, "500");
 
@@ -223,12 +218,10 @@ describe("ConverterCard Integration Suite (Unmocked Converter Sub-Tree)", () => 
     });
 
     it("swaps currencies when clicking Swapper button and re-fetches exchange rate", async () => {
-      const jsx = await ConverterCard({
-        favoriteToggle: favoriteToggleSlot,
-        conversionLogger: conversionLoggerSlot,
-      });
+      const results = await renderConvertJSX();
+      expect(results).not.toBeNull();
 
-      const { rerender } = render(jsx);
+      const { rerender } = results!;
 
       // Initial Rate Resolution
       await waitFor(() => {
@@ -258,13 +251,10 @@ describe("ConverterCard Integration Suite (Unmocked Converter Sub-Tree)", () => 
 
   describe("Accessibility & Screen Reader Linkage", () => {
     it("links RateCard sections with respective headers via aria-describedby", async () => {
-      const jsx = await ConverterCard({
-        favoriteToggle: favoriteToggleSlot,
-        conversionLogger: conversionLoggerSlot,
-      });
-      const { container } = render(jsx);
+      const results = await renderConvertJSX();
+      expect(results).not.toBeNull();
 
-      const sections = container.querySelectorAll("section");
+      const sections = results!.container.querySelectorAll("section");
       expect(sections).toHaveLength(2);
 
       expect(sections[0]).toHaveAttribute(
@@ -278,11 +268,7 @@ describe("ConverterCard Integration Suite (Unmocked Converter Sub-Tree)", () => 
     });
 
     it("renders definition list accessibility structure for exchange rate announcement", async () => {
-      const jsx = await ConverterCard({
-        favoriteToggle: favoriteToggleSlot,
-        conversionLogger: conversionLoggerSlot,
-      });
-      render(jsx);
+      await renderConvertJSX();
 
       const rateDescriptionTerm = screen.getByText(
         /Current rate for USD to EUR/i,
