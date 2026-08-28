@@ -5,10 +5,11 @@ import {
   normalizeAmount,
   normalizeCurrency,
 } from "./formatting";
+import { getSearchQueryObject } from "./get-search-query-object";
 
 export function readState(
   searchParams: URLSearchParams | null | undefined,
-): URLState {
+): Pick<URLState, "amount" | "from" | "to"> {
   const from = normalizeCurrency(searchParams?.get("from"), DEFAULT_FROM);
   const to = normalizeCurrency(searchParams?.get("to"), DEFAULT_TO);
   const amount = normalizeAmount(searchParams?.get("amount"));
@@ -17,29 +18,30 @@ export function readState(
     from,
     to,
     amount,
-    setFrom: () => undefined,
-    setTo: () => undefined,
-    setAmount: () => undefined,
-    swapCurrencies: () => undefined,
   };
 }
 
 export function buildStateQuery(
-  updates: {
+  {
+    from,
+    to,
+    amount,
+  }: {
     from?: string;
     to?: string;
     amount?: number;
   },
-  searchParams: URLSearchParams,
+  searchParams?: URLSearchParams,
 ): string {
-  const params = new URLSearchParams(searchParams?.toString() ?? "");
+  const params = {
+    from: from && normalizeCurrency(from, DEFAULT_FROM),
+    to: to && normalizeCurrency(to, DEFAULT_TO),
+    amount: amount && normalizeAmount(amount + ""),
+  };
 
-  if (updates.from !== undefined)
-    params.set("from", normalizeCurrency(updates.from, DEFAULT_FROM));
-  if (updates.to !== undefined)
-    params.set("to", normalizeCurrency(updates.to, DEFAULT_TO));
-  if (updates.amount !== undefined)
-    params.set("amount", normalizeAmount(String(updates.amount)).toString());
+  if (!from) delete params.from;
+  if (!to) delete params.to;
+  if (!amount) delete params.amount;
 
-  return params.toString();
+  return getSearchQueryObject(searchParams, params);
 }

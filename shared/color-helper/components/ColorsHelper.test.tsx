@@ -37,7 +37,7 @@ Neutral 800: hsl(0, 0%, 15%)`;
     await user.type(textarea, mockStyleGuideInput);
 
     await shouldSee(
-      /neutral-900:0 0% 7%/,
+      "neutral-900:0 0% 7%",
       /neutral-800:0 0% 15%/,
       /blue-600:214 100% 55%/,
     );
@@ -214,7 +214,7 @@ Neutral 800: hsl(0, 0%, 15%)`;
   it("should not render output sections when input is empty", async () => {
     render(<ColorsHelper />);
 
-    await shouldNotSee(/SASS Variables/, /Tailwind CSS v4/);
+    await shouldNotSee(/SASS Variables/, "Tailwind CSS v4");
   });
 
   it("should display color preview with visual swatches", async () => {

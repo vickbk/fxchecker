@@ -21,7 +21,7 @@ export const getFrankfurterCache = createGlobalCache(
 
 const BASE_URL = config.FRANKFURTER_URL;
 
-async function request<T>(
+export async function request<T>(
   path: string,
   queryParams?: Record<string, string | string[] | undefined>,
 ): Promise<T> {
@@ -156,8 +156,8 @@ export async function getRate(
       const query = `/rate/${fromCode}/${toCode}`;
 
       const [payload, aWeekback] = await Promise.all([
-        await request<FrankfurterRate>(query),
-        await request<FrankfurterRate>(`${query}?date=${getLookbackDate(7)}`),
+        request<FrankfurterRate>(query),
+        request<FrankfurterRate>(`${query}?date=${getLookbackDate(7)}`),
       ]);
       return {
         date: payload.date || "",

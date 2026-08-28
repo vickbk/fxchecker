@@ -8,6 +8,6 @@ export function useCurrencies() {
   const ctx = useContext(CurrencyContext);
 
   if (!ctx)
-    throw new Error("useCurrency must be used within a CurrencyProvider");
+    throw new Error("useCurrencies must be used within a CurrencyProvider");
   return ctx;
 }

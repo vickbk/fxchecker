@@ -1,6 +1,7 @@
 import "@testing-library/jest-dom";
 import { setupServer } from "msw/node";
 import { afterAll, afterEach, beforeAll } from "vitest";
+import "./environment/toggle-event";
 
 export const server = setupServer();
 

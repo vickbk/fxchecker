@@ -1,4 +1,5 @@
-import { getSearchQuery, SROnly } from "@/shared/utils";
+import { getSearchQueryObject } from "@/shared/url";
+import { SROnly } from "@/shared/utils";
 import Link from "next/link";
 import { HistorySearchParams } from "../types";
 
@@ -23,7 +24,7 @@ export const Menue = ({
       {timePeriods.map(([key, text]) => (
         <li key={key}>
           <Link
-            href={`?${getSearchQuery(searchParams, ["period", key])}`}
+            href={`?${getSearchQueryObject(searchParams, { period: key })}`}
             className={`p-4 hover:bg-card rounded-lg block${key === period ? " bg-card" : ""}`}
           >
             <SROnly>{text}</SROnly>

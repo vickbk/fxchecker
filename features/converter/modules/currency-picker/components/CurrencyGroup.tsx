@@ -1,11 +1,6 @@
 import { Currency } from "@/infra/api/frankfurter";
-import {
-  BiIcon,
-  Flag,
-  getCurrencyCountry,
-  scrollIntoView,
-} from "@/shared/utils";
-import { SRHidden } from "@/shared/utils/components/SRHidden";
+import { Flag } from "@/shared/currencies";
+import { BiIcon, scrollIntoView, SRHidden } from "@/shared/utils";
 
 export const CurrencyGroup = ({
   title,
@@ -56,7 +51,7 @@ export const CurrencyGroup = ({
                       document.getElementById(popover)?.hidePopover();
                   }}
                 />
-                <Flag alt="" country={getCurrencyCountry(code)} />{" "}
+                <Flag alt="" currency={code} />{" "}
                 <SRHidden className="text-lg text-foreground">{code}</SRHidden>{" "}
                 <span className="truncate max-w-48">{name}</span>
                 <BiIcon name="check text-lg ml-auto peer-not-checked:hidden" />

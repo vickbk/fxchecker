@@ -1,5 +1,6 @@
 import { Currency } from "@/infra/api/frankfurter";
-import { CurrencyCard, SignInInterceptor } from "@/shared/utils";
+import { CurrencyCard } from "@/shared/currencies";
+import { SignInInterceptor } from "@/shared/utils";
 import { Suspense } from "react";
 import { FavoriteData } from "./FavoriteData";
 import { FavoriteLink } from "./FavoriteLink";

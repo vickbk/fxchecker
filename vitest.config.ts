@@ -1,3 +1,4 @@
+import "@oddbird/popover-polyfill";
 import react from "@vitejs/plugin-react";
 import path from "path";
 import { defineConfig } from "vitest/config";
@@ -9,7 +10,7 @@ export default defineConfig({
     setupFiles: ["./tests/vitest/setup.ts"],
     globals: true,
     alias: {
-      "@": path.resolve(__dirname, "./"),
+      "@": path.resolve(import.meta.dirname, "./"),
     },
     exclude: [
       "**/node_modules/**",

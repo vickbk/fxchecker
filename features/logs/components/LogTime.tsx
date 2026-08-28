@@ -1,6 +1,5 @@
 "use client";
-import { SROnly } from "@/shared/utils";
-import { SRHidden } from "@/shared/utils/components/SRHidden";
+import { SRHidden, SROnly } from "@/shared/utils";
 import { useTime } from "../hooks";
 
 export const LogTime = ({ time }: { time: string }) => {

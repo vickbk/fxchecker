@@ -1,11 +1,11 @@
-import { Heading, Section } from "@/shared/heading";
+import { CurrencyCardContainer } from "@/shared/currencies";
+import { getSearchQueryObject } from "@/shared/url";
 import {
-  CurrencyCardContainer,
   FavoriteWrapper,
-  getSearchQuery,
   type SignInInterceptor,
   SROnly,
 } from "@/shared/utils";
+import { Heading, Section } from "react-heading-manager";
 import { getCompareRates } from "../actions";
 import { CompareSearchParams } from "../types";
 import { Actions } from "./Actions";
@@ -46,7 +46,9 @@ export const MainCompare = async ({
               {...rate}
               amount={amount}
               LoginTrigger={LoginTrigger}
-              searchQuery={getSearchQuery(searchQuery, ["to", rate.quote])}
+              searchQuery={getSearchQueryObject(searchQuery, {
+                to: rate.quote,
+              })}
             >
               <FavoriteWrapper
                 base={from}

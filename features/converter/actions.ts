@@ -6,5 +6,5 @@ export async function loadRate(
   _: unknown,
   { from, to }: { from: string; to: string },
 ) {
-  return getRate(from, to);
+  return await getRate(from, to);
 }

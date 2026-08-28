@@ -1,4 +1,4 @@
-import { Heading } from "@/shared/heading";
+import { Heading } from "react-heading-manager";
 import { loadHistoricalRates } from "../api";
 import { MainChart } from "../modules/chart";
 import { HistorySearchParams } from "../types";

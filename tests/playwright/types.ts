@@ -1,3 +1,4 @@
 import { Page } from "@playwright/test";
 
-export type SimpleTest = [string, (page: Page) => void];
+type TestRunner = (page: Page) => void;
+export type SimpleTest = [string, ...TestRunner[]];

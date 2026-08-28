@@ -1,5 +1,5 @@
-import { Heading } from "@/shared/heading";
 import { LoadingPlaceholder, SROnly } from "@/shared/utils";
+import { Heading } from "react-heading-manager";
 
 export const HeaderSkeleton = () => {
   return (

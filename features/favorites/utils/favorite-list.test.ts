@@ -27,5 +27,10 @@ describe("Favorite Utility tests", () => {
     test("should return a two list currency when only two currencies show in the list", () => {
       expect(getFavoritesList(["USD-EUR", "EUR-USD"]).length).toBe(2);
     });
+
+    test("should return default list when the provided list does not have dashes", () => {
+      // @ts-expect-error Testing runtime non dash values
+      expect(getFavoritesList(["USD", "EUR"])).toEqual(["USD", "EUR", "GBP"]);
+    });
   });
 });
