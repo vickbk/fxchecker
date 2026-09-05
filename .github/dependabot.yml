@@ -10,7 +10,7 @@ updates:
     schedule:
       interval: "weekly"
       day: "friday"
-      time:"04:00"
+      time: "04:00"
     groups:
       all-updates:
         patterns:
