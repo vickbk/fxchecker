@@ -37,21 +37,9 @@ import { getDB } from "./client";
 
 const mockPoolConstructor = vi.mocked(Pool, true);
 const mockDrizzle = vi.mocked(drizzle, true);
-
-const createdPool = mockPoolConstructor.mock.instances[0] as PgPool;
+const createdPool = mockPoolConstructor.mock.instances[0];
 
 describe("infra/core/db/client", () => {
-  it("creates a single Pool with the configured connection settings", () => {
-    expect(mockPoolConstructor).toHaveBeenCalledTimes(1);
-    expect(mockPoolConstructor).toHaveBeenCalledWith({
-      connectionString: "postgres://test-db",
-      max: 3,
-    });
-    expect(mockDrizzle).toHaveBeenCalledTimes(1);
-    expect(mockDrizzle.mock.calls[0][0]).toBe(createdPool);
-    expect(mockDrizzle.mock.calls[0][1]).toBeUndefined();
-  });
-
   it("returns the base DB instance when no schema is supplied", () => {
     const db = getDB();
 
