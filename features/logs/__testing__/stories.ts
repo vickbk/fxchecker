@@ -1,5 +1,5 @@
-import { clickButton, getButton, shouldSee } from "@/tests/playwright";
 import { Page } from "@playwright/test";
+import { clickButton, getButton, shouldSee } from "@vickbk/tests/playwright";
 import {
   EMPTY_LOGS_HEADING,
   EMPTY_LOGS_TEXT,

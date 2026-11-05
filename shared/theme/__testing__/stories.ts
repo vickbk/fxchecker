@@ -1,5 +1,5 @@
 import { Page } from "@playwright/test";
-import { clickButton, shouldSee } from "./#inner";
+import { clickButton, shouldSee } from "@vickbk/tests/playwright";
 import { SWITCH_TO_DARK, SWITCH_TO_LIGHT } from "./utils";
 
 export async function shouldSeeDarkThemeSwitcher(page: Page) {

@@ -1,5 +1,5 @@
-import { shouldSee } from "@/tests/playwright";
 import { Page } from "@playwright/test";
+import { shouldSee } from "@vickbk/tests/playwright";
 import { EXCHANGE_ELEMENT_TEXT, LIVE_TITLE } from "./utils";
 
 export async function shouldSeeLiveMarket(page: Page) {

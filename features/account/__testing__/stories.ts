@@ -1,10 +1,10 @@
+import { Page } from "@playwright/test";
 import {
   clickBodyCorner,
   clickButton,
   shouldNotSee,
   shouldSee,
-} from "@/tests/playwright";
-import { Page } from "@playwright/test";
+} from "@vickbk/tests/playwright";
 import {
   SIGN_IN_BUTTON,
   SIGN_IN_HEADER,

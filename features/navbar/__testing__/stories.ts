@@ -1,5 +1,5 @@
-import { shouldSee } from "@/tests/playwright";
 import { Page } from "@playwright/test";
+import { shouldSee } from "@vickbk/tests/playwright";
 import { COMPARE_TAB, FAVORITE_TAB, HISTORY_TAB, LOG_TAB } from "./utils";
 
 export async function shouldSeeNavbar(page: Page) {

@@ -1,5 +1,5 @@
-import { clickLink, shouldNotSee, shouldSee } from "@/tests/playwright";
 import { Page } from "@playwright/test";
+import { clickLink, shouldNotSee, shouldSee } from "@vickbk/tests/playwright";
 import {
   CHANGE_PERCENTAGE,
   CLOSE_CARD,

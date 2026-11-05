@@ -1,5 +1,5 @@
-import { shouldSee } from "@/tests/playwright";
 import { Page } from "@playwright/test";
+import { shouldSee } from "@vickbk/tests/playwright";
 import { ADD_COMPARE_BTN, COMPARE_HEADING } from "./utils";
 
 export async function shouldSeeCompareSection(page: Page) {
