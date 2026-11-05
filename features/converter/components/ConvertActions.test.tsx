@@ -1,5 +1,5 @@
-import { shouldHaveTestId, shouldSee } from "@/tests";
 import { render, screen } from "@testing-library/react";
+import { shouldHaveTestId, shouldSee } from "@vickbk/tests/vitest";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useRate } from "../hooks/useRate";
 import { ConverterActions } from "./ConvertActions";

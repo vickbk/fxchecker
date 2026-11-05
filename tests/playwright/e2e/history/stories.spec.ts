@@ -1,19 +1,10 @@
 import { shouldNavigateBetweenDiffentChartPeriods } from "@/features/history/__testing__";
 import test from "@playwright/test";
-import { SimpleTest } from "../../types";
+import { runSimilarTests } from "@vickbk/tests/playwright";
 
 test.describe("Basic History Tests", () => {
-  (
-    [
-      [
-        "should navigate between different chart periods",
-        shouldNavigateBetweenDiffentChartPeriods,
-      ],
-    ] as SimpleTest[]
-  ).forEach(([title, func]) =>
-    test(title, async ({ page }) => {
-      await page.goto("/");
-      await func(page);
-    }),
-  );
+  runSimilarTests([
+    "should navigate between different chart periods",
+    shouldNavigateBetweenDiffentChartPeriods,
+  ]);
 });

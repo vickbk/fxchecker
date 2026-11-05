@@ -1,12 +1,12 @@
-import { TEXT_PATTERN } from "@/tests/common";
+import { Page } from "@playwright/test";
+import { TEXT_PATTERN } from "@vickbk/tests";
 import {
   clickBodyCorner,
   clickLabelInput,
   fillLocatorWith,
   shouldNotSee,
   shouldSee,
-} from "@/tests/playwright";
-import { Page } from "@playwright/test";
+} from "@vickbk/tests/playwright";
 import {
   FAVORITES_HEADER,
   OTHER_CURRENCIES_HEADER,

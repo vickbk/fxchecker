@@ -1,5 +1,10 @@
-import { shouldNotSee, shouldSee, togglePopover, userTypes } from "@/tests";
 import { render, screen } from "@testing-library/react";
+import {
+  shouldNotSee,
+  shouldSee,
+  togglePopover,
+  userTypes,
+} from "@vickbk/tests/vitest";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   SEARCH_BASE_PLACEHOLDER,

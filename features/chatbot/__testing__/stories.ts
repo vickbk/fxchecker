@@ -1,5 +1,5 @@
-import { clickButton, shouldSee } from "@/tests/playwright";
 import { Page } from "@playwright/test";
+import { clickButton, shouldSee } from "@vickbk/tests/playwright";
 import { CHAT_TRIGGER, CLOSE_CHAT_TRIGGER, FIN_BOT_AI_HEADER } from "./utils";
 
 export async function shouldOpenAndCloseChatbot(page: Page) {

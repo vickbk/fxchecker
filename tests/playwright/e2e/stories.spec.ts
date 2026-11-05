@@ -9,6 +9,7 @@ import { shouldSeeEmptyLogs } from "@/features/logs/__testing__";
 import { shouldSeeNavbar } from "@/features/navbar/__testing__";
 import { shouldSeeDarkThemeSwitcher } from "@/shared/theme/__testing__";
 import { expect, test } from "@playwright/test";
+import { runSimilarTests } from "@vickbk/tests/playwright";
 
 test.describe("Main Page tests", () => {
   test("Header should have titles, theme switcher and login button", async ({
@@ -21,7 +22,7 @@ test.describe("Main Page tests", () => {
     await shouldSeeLoginButton(page);
   });
 
-  const identicalTests = [
+  runSimilarTests(
     ["should have the converter section", shouldSeeTheConverterSection],
     ["should see navigation section", shouldSeeNavbar],
     ["should see history section", shouldSeeHistorySection],
@@ -29,13 +30,6 @@ test.describe("Main Page tests", () => {
     ["Should see favorites section", shouldSeeEmptyFavoriteSection],
     ["Should see logs section", shouldSeeEmptyLogs],
     ["Should see chatbot section", shouldOpenAndCloseChatbot],
-  ] as const;
-
-  identicalTests.forEach(([name, t]) =>
-    test(name, async ({ page }) => {
-      await page.goto("/");
-      await t(page);
-    }),
   );
 
   test("Main page should have correct heading hierarchy", async ({ page }) => {

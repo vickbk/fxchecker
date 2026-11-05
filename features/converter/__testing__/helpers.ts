@@ -1,5 +1,5 @@
-import { clickButton, shouldNotSee, shouldSee } from "@/tests/playwright";
 import { Page } from "@playwright/test";
+import { clickButton, shouldNotSee, shouldSee } from "@vickbk/tests/playwright";
 import {
   shouldSearchForCurrencyAndSelectIt,
   shouldSeeSearchOptions,

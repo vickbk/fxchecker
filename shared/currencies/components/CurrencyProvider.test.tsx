@@ -1,10 +1,10 @@
+import { render, renderHook } from "@testing-library/react";
 import {
   rejectedPromise,
   resolvedPromise,
   shouldHaveTestId,
   shouldNotHaveTestId,
-} from "@/tests";
-import { render, renderHook } from "@testing-library/react";
+} from "@vickbk/tests/vitest";
 import React, { Suspense } from "react";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useCurrencies } from "../hooks/CurrencyProvider";
