@@ -7,9 +7,10 @@ import {
   shouldSwapBetweenUSDandEUR,
 } from "@/features/converter/__testing__";
 import test from "@playwright/test";
+import { runSimilarTests } from "@vickbk/tests/playwright";
 
 test.describe("Initial Convert Tests", () => {
-  const tests = [
+  runSimilarTests(
     [
       "should load with USD to EUR as initial currencies",
       shouldHaveUSDToEuroOnStart,
@@ -25,11 +26,5 @@ test.describe("Initial Convert Tests", () => {
       "should search for JPY and set it as quote currency",
       shouldSearchForJPYAndSetItAsQuoteCurrency,
     ],
-  ] as const;
-  tests.forEach(([title, func]) =>
-    test(title, async ({ page }) => {
-      await page.goto("/");
-      await func(page);
-    }),
   );
 });
