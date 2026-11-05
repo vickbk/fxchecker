@@ -1,5 +1,5 @@
-import { TEXT_PATTERN } from "@/tests/common";
 import { Page } from "@playwright/test";
+import { TEXT_PATTERN } from "@vickbk/tests";
 import {
   clickBodyCorner,
   clickLabelInput,
