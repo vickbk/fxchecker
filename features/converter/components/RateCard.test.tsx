@@ -1,6 +1,10 @@
 import { useURLState } from "@/shared/url/hooks";
-import { shouldHaveTestId, shouldNotHaveTestId, shouldSee } from "@/tests";
 import { render, screen } from "@testing-library/react";
+import {
+  shouldHaveTestId,
+  shouldNotHaveTestId,
+  shouldSee,
+} from "@vickbk/tests/vitest";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { RateCard } from "./RateCard";
 

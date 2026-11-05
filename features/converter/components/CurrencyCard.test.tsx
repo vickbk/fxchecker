@@ -1,8 +1,8 @@
 import { Currency } from "@/infra/api/frankfurter";
 import { useCurrencies } from "@/shared/currencies";
 import { useURLState } from "@/shared/url/hooks";
-import { shouldHaveTestId, shouldSee } from "@/tests";
 import { render, screen } from "@testing-library/react";
+import { shouldHaveTestId, shouldSee } from "@vickbk/tests/vitest";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { CurrencyCard } from "./CurrencyCard";
 

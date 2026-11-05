@@ -1,13 +1,5 @@
 import { FrankfurterRate, getRate } from "@/infra/api/frankfurter";
 import {
-  shouldHaveTestId,
-  shouldNotSee,
-  shouldSee,
-  togglePopover,
-  userClicks,
-  userTypes,
-} from "@/tests";
-import {
   act,
   fireEvent,
   render,
@@ -16,6 +8,14 @@ import {
   waitFor,
 } from "@testing-library/react";
 import { userEvent } from "@testing-library/user-event";
+import {
+  shouldHaveTestId,
+  shouldNotSee,
+  shouldSee,
+  togglePopover,
+  userClicks,
+  userTypes,
+} from "@vickbk/tests/vitest";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import {
   CHANGE_SEND_TRIGGER,

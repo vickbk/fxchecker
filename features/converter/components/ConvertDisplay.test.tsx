@@ -1,5 +1,5 @@
-import { shouldNotSee, shouldSee } from "@/tests";
 import { render } from "@testing-library/react";
+import { shouldNotSee, shouldSee } from "@vickbk/tests/vitest";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { useRate } from "../hooks/useRate";
 import { ConvertDisplay } from "./ConvertDisplay";

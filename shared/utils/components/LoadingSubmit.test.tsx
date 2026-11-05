@@ -1,5 +1,5 @@
-import { shouldHaveTestId } from "@/tests";
 import { fireEvent, render, screen } from "@testing-library/react";
+import { shouldHaveTestId } from "@vickbk/tests/vitest";
 import { useFormStatus } from "react-dom";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { LoadingSubmit } from "./LoadingSubmit";

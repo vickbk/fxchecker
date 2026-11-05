@@ -1,7 +1,7 @@
 import { useURLState } from "@/shared/url/hooks";
-import { shouldSee, userClicks } from "@/tests";
 import { render, screen } from "@testing-library/react";
 import userEvent from "@testing-library/user-event";
+import { shouldSee, userClicks } from "@vickbk/tests/vitest";
 import { beforeEach, describe, expect, it, vi } from "vitest";
 import { Swapper } from "./Swapper";
 
