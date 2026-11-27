@@ -23,10 +23,10 @@
     "readme-comment": "tsx ./bin/documentation/post-readme-comment.ts"
   },
   "dependencies": {
-    "@ai-sdk/google": "^4.0.121",
-    "@ai-sdk/react": "^4.0.177",
+    "@ai-sdk/google": "^4.0.125",
+    "@ai-sdk/react": "^4.0.186",
     "@vercel/speed-insights": "^2.1.0",
-    "ai": "^7.0.173",
+    "ai": "^7.0.181",
     "bootstrap-icons": "^1.13.2",
     "drizzle-orm": "^0.45.4",
     "next": "^16.4.6",
@@ -36,7 +36,7 @@
     "react-dom": "^19.3.1",
     "react-heading-manager": "^0.3.0",
     "react-markdown": "^10.1.0",
-    "recharts": "^3.10.1",
+    "recharts": "^3.11.1",
     "tailwindcss": "^4.3.5",
     "zod": "^4.6.7"
   },
@@ -45,9 +45,9 @@
     "@playwright/test": "^1.65.1",
     "@tailwindcss/postcss": "^4.3.5",
     "@testing-library/dom": "^10.4.2",
-    "@testing-library/jest-dom": "^7.0.1",
+    "@testing-library/jest-dom": "^8.0.0",
     "@testing-library/react": "^16.3.3",
-    "@testing-library/user-event": "^14.6.12",
+    "@testing-library/user-event": "^14.6.13",
     "@types/node": "^26.6.6",
     "@types/pg": "^8.23.0",
     "@types/react": "^19",
@@ -55,7 +55,7 @@
     "@vickbk/ci-tools": "^0.2.1",
     "@vickbk/tests": "^0.2.4",
     "@vitejs/plugin-react": "^6.3.0",
-    "@vitest/coverage-v8": "^5.1.0",
+    "@vitest/coverage-v8": "^5.1.1",
     "dotenv": "^18.0.10",
     "dotenv-cli": "^11.1.0",
     "drizzle-kit": "^0.31.11",
@@ -64,10 +64,10 @@
     "eslint-import-resolver-typescript": "^4.4.5",
     "eslint-plugin-boundaries": "^7.4.4",
     "happy-dom": "^21.0.4",
-    "msw": "^3.0.6",
+    "msw": "^3.0.7",
     "tsx": "^4.23.15",
     "typescript": "^6",
-    "typescript-eslint": "^8.73.0",
-    "vitest": "^5.1.0"
+    "typescript-eslint": "^8.74.0",
+    "vitest": "^5.1.1"
   }
 }
